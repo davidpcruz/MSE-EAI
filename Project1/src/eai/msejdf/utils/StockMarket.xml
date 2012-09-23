@@ -1,19 +1,92 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="StockMarket.xsl"?>
 <stocks>
-	<stock company="Am">
-		<value>3.3</value>
-		<progress>1.8</subida>
-		<maximum>3.45</maximum>
-		<minimum>3</minimum>
-		<quantity>43442</quantity>
-		<lastday>3.1</lastday>
-	</stock>
-	<stocks company="Sl">
-		<value>4.25</value>
-		<progress>-0.3</progress>
-		<maximum>4.45</maximum>
-		<minimum>4.25</minimum>
-		<quantity>1044</quantity>
-		<lastday>4.47</lastday>
-	</stock>
+    <stock> 
+
+        <company>
+
+		    <name>MSE</name>
+		    <address>DEI</address>
+		    <website>http://dei.uc.pt</website>
+
+        </company>
+
+        <cotation>
+
+		    <rate>3.3</rate>
+		    <change>1.8</change>
+		    <maximum>3.45</maximum>
+		    <minimum>3</minimum>
+		    <quantity>43442</quantity>
+		    <prevclose>3.1</prevclose>
+
+        </cotation>
+
+    </stock>
+    <stock> 
+
+        <company>
+
+		    <name>Am</name>
+		    <address>sdfs</address>
+		    <website>http://dei.uc.pt</website>
+
+        </company>
+
+        <cotation>
+
+		    <rate>3.33</rate>
+		    <change>1.8</change>
+		    <maximum>3.45</maximum>
+		    <minimum>3</minimum>
+		    <quantity>43442</quantity>
+		    <prevclose>3.1</prevclose>
+
+        </cotation>
+
+    </stock>
+    <stock> 
+
+        <company>
+
+		    <name>NovaBase</name>
+		    <address>sdfs</address>
+		    <website>http://dei.uc.pt</website>
+
+        </company>
+
+        <cotation>
+
+		    <rate>3.33</rate>
+		    <change>1.8</change>
+		    <maximum>3.45</maximum>
+		    <minimum>3</minimum>
+		    <quantity>43442</quantity>
+		    <prevclose>3.1</prevclose>
+
+        </cotation>
+
+    </stock>
+    <stock> 
+
+        <company>
+
+		    <name>NokiaSiemens</name>
+		    <address>sdfs</address>
+		    <website>http://dei.uc.pt</website>
+
+        </company>
+
+        <cotation>
+
+		    <rate>3.33</rate>
+		    <change>1.8</change>
+		    <maximum>3.45</maximum>
+		    <minimum>3</minimum>
+		    <quantity>43442</quantity>
+		    <prevclose>3.1</prevclose>
+
+        </cotation>
+
+    </stock>
 </stocks>
