@@ -61,5 +61,6 @@ public class ParseStocksPlugin implements Parser
 				System.out.println("    VAL = " + el2.text());
 			}			
 		}
+		
 	}	
 }
