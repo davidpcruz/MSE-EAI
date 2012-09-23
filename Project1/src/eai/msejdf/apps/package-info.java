@@ -2,7 +2,7 @@
  * 
  */
 /**
- * @author dcruz
+ * @author dcruz, jribeiro
  *
  */
 package eai.msejdf.apps;
