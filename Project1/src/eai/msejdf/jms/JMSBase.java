@@ -87,5 +87,11 @@ abstract class JMSBase {
 	 */
 	public abstract void createTopic(String topicName) throws JMSException;
 	
+	/**
+	 * Closes the connection .
+	 *
+	 * @throws JMSException the jMS exception
+	 */
+	public abstract void closeConn() throws JMSException;
 
 }

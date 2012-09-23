@@ -84,6 +84,7 @@ public class JMSReceiver extends JMSBase
 	 *
 	 * @throws JMSException the jMS exception
 	 */
+	@Override
 	public void closeConn() throws JMSException
 	{
 		if (logger.isDebugEnabled())

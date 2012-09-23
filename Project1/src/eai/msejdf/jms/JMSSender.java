@@ -64,6 +64,7 @@ public class JMSSender extends JMSBase
 	 *
 	 * @throws JMSException the jMS exception
 	 */
+	@Override
 	public void closeConn() throws JMSException
 	{
 		if(this.conn != null)
