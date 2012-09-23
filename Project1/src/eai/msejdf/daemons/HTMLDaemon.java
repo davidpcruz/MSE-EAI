@@ -34,18 +34,15 @@ public class HTMLDaemon extends Thread implements MessageListener
 	 */
 	public HTMLDaemon() throws JMSException
 	{
-		receiver = new JMSReceiver(DAEMON_CLIENTID);
-		receiver.createTopic(Configuration.getJmsTopicName());
+		receiver = new JMSReceiver(Configuration.getJmsTopicName(), DAEMON_CLIENTID);
 		receiver.setMessageListener(this);
 	}
 
 	public void run()
 	{
-		System.out.println("Entering run method");
-
 		try
 		{
-			receiver.connStart();
+			receiver.start();
 
 			while (true)
 			{
@@ -65,7 +62,7 @@ public class HTMLDaemon extends Thread implements MessageListener
 		{
 			try
 			{
-				receiver.closeConn();
+				receiver.close();
 			} 
 			catch (JMSException ex)
 			{
@@ -101,13 +98,13 @@ public class HTMLDaemon extends Thread implements MessageListener
 			} while (!lineIn.startsWith("q"));
 
 			daemon.interrupt();
+			daemon.join();
 		} catch (InterruptedException | IOException | JMSException ex)
 		{
 			daemon.interrupt();
 			logger.error("main", ex); //$NON-NLS-1$			
 		}
 
-		System.out.println("Leaving main method");
 	}
 
 	@Override

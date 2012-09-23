@@ -7,9 +7,7 @@ import javax.jms.JMSException;
 import javax.jms.MessageProducer;
 import javax.jms.TextMessage;
 
-import org.hornetq.api.jms.HornetQJMSClient;
-
-import eai.msejdf.utils.StringUtils;
+import org.apache.log4j.Logger;
 
 /**
  * @author dcruz
@@ -17,6 +15,10 @@ import eai.msejdf.utils.StringUtils;
  */
 public class JMSSender extends JMSBase
 {
+	/**
+	 * Logger for this class
+	 */
+	private static final Logger logger = Logger.getLogger(JMSSender.class);
 
 	/** The message producer. */
 	protected MessageProducer messProducer;
@@ -26,25 +28,11 @@ public class JMSSender extends JMSBase
 	 *
 	 * @throws JMSException the jMS exception
 	 */
-	public JMSSender() throws JMSException
+	public JMSSender(String topicName) throws JMSException
 	{
-		super(null);
-	}
-
-	/* (non-Javadoc)
-	 * @see eai.msejdf.jms.JMSBase#createTopic(java.lang.String)
-	 */
-	@Override
-	public void createTopic(String topicName) throws JMSException
-	{
-		// basic validations
-		if (StringUtils.isNullOrEmpty(topicName))
-		{
-			throw new IllegalArgumentException("topicName");
-		}
-		
-		this.dest = HornetQJMSClient.createTopic(topicName);
-		this.messProducer = this.session.createProducer(this.dest);		
+		super(topicName, null);
+		// set the message Producer
+		this.messProducer = this.session.createProducer(this.dest);				
 	}
 	
 	/**
@@ -55,23 +43,57 @@ public class JMSSender extends JMSBase
 	 */
 	public void sendMessage(String msg) throws JMSException 
 	{
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("sendMessage(String) - start"); //$NON-NLS-1$
+		}
+
 		TextMessage tm = this.session.createTextMessage(msg);
 		this.messProducer.send(tm);
-	}
 
-	/**
-	 * Close.
-	 *
-	 * @throws JMSException the jMS exception
-	 */
-	@Override
-	public void closeConn() throws JMSException
-	{
-		if(this.conn != null)
+		if (logger.isDebugEnabled())
 		{
-			this.conn.stop();
-			this.conn.close();
+			logger.debug("sendMessage(String) - end"); //$NON-NLS-1$
 		}
 	}
+
+
+	/* (non-Javadoc)
+	 * @see eai.msejdf.jms.JMSBase#close()
+	 */
+	@Override
+	public void close() throws JMSException
+	{
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("close() - start"); //$NON-NLS-1$
+		}
+
+		this.connClose();
+
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("close() - end"); //$NON-NLS-1$
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see eai.msejdf.jms.JMSBase#start()
+	 */
+	@Override
+    public void start() throws JMSException
+    {
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("start() - start"); //$NON-NLS-1$
+		}
+
+		this.connStart();	    
+
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("start() - end"); //$NON-NLS-1$
+		}
+    }
 
 }
