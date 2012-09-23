@@ -11,14 +11,15 @@ public final class Configuration
 {
 		
 	/** The Constant JMSCONN_USER. defining the JMS username for the connection. */
-	private static final String JMSCONN_USER = "joao";
+	private static final String JMSCONN_USER = "eaiuser";
 
 	/** The Constant JMSCONN_PASS defining the JMS password for the connection. */
-	private static final String JMSCONN_PASS = "pedro";
+	private static final String JMSCONN_PASS = "1";
 
-	/** The Constant JMSCONN_CONNID defining the JMS connection ID for the connection. */
-	private static final String JMSCONN_CONNID = "MyClientId";
+	/** The Constant JMSTOPIC_NAME. */
+	private static final String JMSTOPIC_NAME = "EAIProject1";
 
+	
 	/**
 	 * Gets the jms conn user.
 	 *
@@ -40,12 +41,12 @@ public final class Configuration
 	}
 
 	/**
-	 * Gets the jmsconn id.
+	 * Gets the jms topic name.
 	 *
-	 * @return the jmsconn id
+	 * @return the jmstopicName
 	 */
-	public static String getJmsConnId()
+	public static String getJmsTopicName()
 	{
-		return JMSCONN_CONNID;
+		return JMSTOPIC_NAME;
 	}
 }

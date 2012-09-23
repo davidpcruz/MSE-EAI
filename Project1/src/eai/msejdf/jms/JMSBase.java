@@ -13,6 +13,7 @@ import org.hornetq.api.jms.JMSFactoryType;
 import org.hornetq.core.remoting.impl.netty.NettyConnectorFactory;
 
 import eai.msejdf.config.Configuration;
+import eai.msejdf.utils.StringUtils;
 
 /**
  * The Class JMSHandler.
@@ -34,7 +35,7 @@ abstract class JMSBase {
 	 * Instantiates a new jMS handler.
 	 * @throws JMSException 
 	 */	
-	protected JMSBase() throws JMSException
+	protected JMSBase(String clientID) throws JMSException
 	{
 		if (logger.isDebugEnabled())
 		{
@@ -44,6 +45,11 @@ abstract class JMSBase {
 		TransportConfiguration transportConfiguration = new TransportConfiguration(NettyConnectorFactory.class.getName());  
 		this.connFactory = (ConnectionFactory) HornetQJMSClient.createConnectionFactoryWithoutHA(JMSFactoryType.TOPIC_CF,transportConfiguration);
 		this.conn = connFactory.createConnection(Configuration.getJmsConnUser(), Configuration.getJmsConnPass());
+		if (!StringUtils.IsNullOrWhiteSpace(clientID))
+		{
+			logger.debug("JMSBase() - setting clientID " + clientID); 
+			this.conn.setClientID(clientID);
+		}
 		
 		this.session = this.conn.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
@@ -81,5 +87,11 @@ abstract class JMSBase {
 	 */
 	public abstract void createTopic(String topicName) throws JMSException;
 	
+	/**
+	 * Closes the connection .
+	 *
+	 * @throws JMSException the jMS exception
+	 */
+	public abstract void closeConn() throws JMSException;
 
 }

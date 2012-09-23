@@ -9,6 +9,8 @@ import javax.jms.TextMessage;
 
 import org.hornetq.api.jms.HornetQJMSClient;
 
+import eai.msejdf.utils.StringUtils;
+
 /**
  * @author dcruz
  *
@@ -16,6 +18,7 @@ import org.hornetq.api.jms.HornetQJMSClient;
 public class JMSSender extends JMSBase
 {
 
+	/** The message producer. */
 	protected MessageProducer messProducer;
 
 	/**
@@ -25,8 +28,7 @@ public class JMSSender extends JMSBase
 	 */
 	public JMSSender() throws JMSException
 	{
-		super();
-		// TODO Auto-generated constructor stub
+		super(null);
 	}
 
 	/* (non-Javadoc)
@@ -35,6 +37,12 @@ public class JMSSender extends JMSBase
 	@Override
 	public void createTopic(String topicName) throws JMSException
 	{
+		// basic validations
+		if (StringUtils.isNullOrEmpty(topicName))
+		{
+			throw new IllegalArgumentException("topicName");
+		}
+		
 		this.dest = HornetQJMSClient.createTopic(topicName);
 		this.messProducer = this.session.createProducer(this.dest);		
 	}
@@ -49,6 +57,21 @@ public class JMSSender extends JMSBase
 	{
 		TextMessage tm = this.session.createTextMessage(msg);
 		this.messProducer.send(tm);
+	}
+
+	/**
+	 * Close.
+	 *
+	 * @throws JMSException the jMS exception
+	 */
+	@Override
+	public void closeConn() throws JMSException
+	{
+		if(this.conn != null)
+		{
+			this.conn.stop();
+			this.conn.close();
+		}
 	}
 
 }
