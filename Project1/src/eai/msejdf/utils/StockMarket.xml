@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<stocks>
+	<stock company="Am">
+		<value>3.3</value>
+		<progress>1.8</subida>
+		<maximum>3.45</maximum>
+		<minimum>3</minimum>
+		<quantity>43442</quantity>
+		<lastday>3.1</lastday>
+	</stock>
+	<stocks company="Sl">
+		<value>4.25</value>
+		<progress>-0.3</progress>
+		<maximum>4.45</maximum>
+		<minimum>4.25</minimum>
+		<quantity>1044</quantity>
+		<lastday>4.47</lastday>
+	</stock>
+</stocks>
