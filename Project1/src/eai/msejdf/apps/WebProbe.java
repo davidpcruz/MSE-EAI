@@ -11,6 +11,9 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Date;
 
+import javax.jms.JMSException;
+import eai.msejdf.jms.JMSSender;
+import eai.msejdf.utils.XmlObjConv;
 import eai.msejdf.web.ParseStocksPlugin;
 import eai.msejdf.web.Parser;
 
@@ -24,11 +27,10 @@ import eai.msejdf.web.Parser;
 public class WebProbe
 {
 	private final static int PROGRAM_ARG_INDEX__URL = 0;
-	private final static int PROGRAM_ARG_INDEX__PARSER = 1;
 	private final static String DIRECTORY__PENDING_MESSAGES = "./pending/";
+	private final static String DATA_RECEIVER_NAME = "testTopic";
 	
 	private String webUrl = null;
-	private String parserPlugin = null;
 	
 	/**
 	 * Main application entry point
@@ -39,7 +41,7 @@ public class WebProbe
 	{
 		validateArgs(args);
 
-		WebProbe probe = new WebProbe(args[WebProbe.PROGRAM_ARG_INDEX__URL], args[WebProbe.PROGRAM_ARG_INDEX__PARSER]);
+		WebProbe probe = new WebProbe(args[WebProbe.PROGRAM_ARG_INDEX__URL]);
 		
 		probe.run();
 	}
@@ -51,9 +53,9 @@ public class WebProbe
 	 */
 	public static void validateArgs(String[] args)
 	{
-		// Expected call syntax: "java WebProbe <web url> <parser plugin>"
+		// Expected call syntax: "java WebProbe <web url>"
 		
-		if (2 > args.length)
+		if (1 > args.length)
 		{
 			printHelp();			
 			System.exit(-1);			
@@ -74,12 +76,10 @@ public class WebProbe
 	/**
 	 * Constructs an instance of this class
 	 * @param url Web site url to process
-	 * @param parser Parser class that supports the parsing of the web page for the supplied url
 	 */
-	public WebProbe(String url, String parser)
+	public WebProbe(String url)
 	{
 		this.webUrl = url;
-		this.parserPlugin = parser;
 	}
 	
 	/**
@@ -90,18 +90,21 @@ public class WebProbe
 	 */
 	public void run() throws Exception
 	{	
+		String message = null;
+		
 		// Create an instance of the plugin
 		//
-		// Note: This is currently harcoded. The idea is to dynamically load this plugin based on a provided reference
+		// Note: This is currently hardcoded. The idea is to dynamically load this plugin based on a provided reference
 		//		 which will allow the reuse of this application with different parser plugins
-		Parser webParser = new ParseStocksPlugin(this.webUrl); 
-		
-		webParser.parse(); //TODO: this has a return type. Handle it
-		
-		String message = this.createMessage(); //TODO: Implement this function with marshaling 
+		Parser webParser = new ParseStocksPlugin(this.webUrl);		
+		Object parsedDataObject = webParser.parse(); 
 		
 		try
 		{
+			// Convert the object into a string with an XML representation of it 
+			XmlObjConv converter = new XmlObjConv(WebProbe.class.getName());			
+			message = converter.Convert(parsedDataObject);  
+			
 			// As we may have messages that were previously not delivered, we''l try to send them first to 
 			// keep the same order
 			this.writePendingMessages();
@@ -112,8 +115,12 @@ public class WebProbe
 		catch(Exception exception)
 		{
 			// As the dispatching of the message (or pending messages) failed, we'll save a local backup 
-			// and retry on the next run
-			this.saveMessageAsPending(message);
+			// and retry on the next run (if we have a message to be processed)
+			//TODO: Inform user about error
+			if (null != message)
+			{
+				this.saveMessageAsPending(message);
+			}
 		}		
 	}
 	
@@ -121,20 +128,29 @@ public class WebProbe
 	 * Dispatches the message through the JMS for clients to further process it
 	 *   
 	 * @param message Message to be dispatched
+	 * @throws JMSException 
 	 */
-	private void writeMessage(String message)
+	private void writeMessage(String message) throws JMSException
 	{
-		// TODO: call JMS write engine
+		if (null == message)
+		{
+			throw new NullPointerException("Message is empty");
+		}
 		
-		System.out.println("Message: " + message); //TODO: Remove
+		JMSSender dataSender = new JMSSender(WebProbe.DATA_RECEIVER_NAME);
+		
+		dataSender.start();
+		dataSender.sendMessage(message);
+		dataSender.close();
 	}
 	
 	/**
 	 * Writes messages through the JMS that failed to be dispatched in previous calls
 	 *   
 	 * @throws IOException
+	 * @throws JMSException 
 	 */
-	private void writePendingMessages() throws IOException
+	private void writePendingMessages() throws IOException, JMSException
 	{
 		// Pending messages to write are each in a file in a dedicated directory. Retrieve pending file list
 		File[] fileList = this.getPendingMessagesFileList();
@@ -211,9 +227,4 @@ public class WebProbe
 		
 		return fileList;
 	}	
-	
-	private String createMessage() //TODO: This will have a parameter with the object with the data
-	{
-		return "test message"; //TODO: Replace this!!!
-	}
 }

@@ -5,6 +5,7 @@ import eai.msejdf.data.*;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.net.URL;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
@@ -48,6 +49,7 @@ public class ParseStocksPlugin extends Parser
 	private static int STOCK_ROW_INDEX__SELL = 8;
 	private static int STOCK_ROW__ELEMENT_COUNT = 9;	// NOTE: Update if number of elements changes	
 	private static Locale STOCK_NUMBER_FORMAT_LOCALE = Locale.US;
+	private static int CONNECTION_TIMEOUT = 10000; // In ms
 
 	private String webUrl = null;
 	
@@ -68,10 +70,10 @@ public class ParseStocksPlugin extends Parser
 	/* (non-Javadoc)
 	 * @see eai.msejdf.web.Parser#parse()
 	 */
-	public Stocks parse() throws IOException 
+	public Object parse() throws IOException 
 	{
 		// Create a DOM representation of a web page
-		Document webPageDoc = Jsoup.connect(this.webUrl).get();
+		Document webPageDoc = Jsoup.parse(new URL(this.webUrl), ParseStocksPlugin.CONNECTION_TIMEOUT); 
 		
 		// Extract all rows of the tables that have cotation information
 		Elements cotationInfoRows = webPageDoc.select("tr:has(td[class^=tituloforumbar]):gt(0) ~ tr");
@@ -79,15 +81,6 @@ public class ParseStocksPlugin extends Parser
 		if (null == cotationInfoRows)
 		{
 			// There isn't much we can't do, except alerting the user somehow.
-			// TODO: Write error to log and alert user			
-			return null;			
-		}
-		
-		if (ParseStocksPlugin.STOCK_ROW__ELEMENT_COUNT != cotationInfoRows.size())
-		{
-			// The parsed data is not as we are expecting, which means that we can't make assumptions
-			// about the correctness of the fields. The safest thing to do is to not return anything and 
-			// alert the user somehow.
 			// TODO: Write error to log and alert user			
 			return null;			
 		}
@@ -105,6 +98,16 @@ public class ParseStocksPlugin extends Parser
 				// this class information doc)
 				Elements cotationFields = cotationInfo.select("table td:eq(0), >td:gt(0)");
 
+				if (ParseStocksPlugin.STOCK_ROW__ELEMENT_COUNT != cotationFields.size())
+				{
+					// The parsed data is not as we are expecting, which means that we can't make assumptions
+					// about the correctness of the fields. The safest thing to do is to not return anything and 
+					// alert the user somehow.
+					// TODO: Write error to log and alert user			
+					stocks = null;
+					return null;			
+				}
+				
 				// Fill the sock object with the information retrieved from the page 
 				parseFields(cotationFields, stockInfo);
 				
@@ -127,6 +130,9 @@ public class ParseStocksPlugin extends Parser
 	{		
 		String field = null;
 		NumberFormat formatter = NumberFormat.getInstance(ParseStocksPlugin.STOCK_NUMBER_FORMAT_LOCALE);
+		
+		stockInfo.setCompany(new Company());
+		stockInfo.setCotation(new Cotation());
 		
 		Company company = stockInfo.getCompany();
 		Cotation cotation = stockInfo.getCotation();
