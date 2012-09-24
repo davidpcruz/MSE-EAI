@@ -5,6 +5,8 @@ package eai.msejdf.utils;
 
 import org.apache.log4j.Logger;
 
+import eai.msejdf.config.Configuration;
+
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.StringWriter;
@@ -44,7 +46,7 @@ public class Transform
 	 * 
 	 * @return String output: the HTML file content
 	 */
-	public static String xmlTransformation(String xmlFile, String xsltFile) throws TransformerException,
+	public static String xmlTransformation(final String xmlFile, final String xsltFile) throws TransformerException,
 	        UnsupportedEncodingException
 	{
 		if (logger.isDebugEnabled())
@@ -84,31 +86,31 @@ public class Transform
 	 * @throws TransformerException
 	 * @throws UnsupportedEncodingException
 	 */
-	public static void main(String[] args) throws NamingException, TransformerException, UnsupportedEncodingException
-	{
-		if (logger.isDebugEnabled())
-		{
-			logger.debug("main(String[]) - start"); //$NON-NLS-1$
-		}
-
-		String xsltFile = "C:\\Users\\joaofcr\\workspace\\Sender\\src\\StockMarket.xsl";
-
-		String xmlMsg = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-		        + "<?xml-stylesheet type=\"text/xsl\" href=\"StockMarket.xsl\"?>\n"
-		        + "<stocks timestamp=\"1308046204003\">\n" + "<stock>\n" + "<company>\n" + "<name>MSE</name>\n"
-		        + "<address>DEI</address>\n" + "<website>http://dei.uc.pt</website>\n" + "</company>\n"
-		        + "<cotation>\n" + "<rate>3.3</rate>\n" + "<change>1.8</change>\n" + "<maximum>3.45</maximum>\n"
-		        + "<minimum>3</minimum>\n" + "<quantity>43442</quantity>\n" + "<prevclose>3.1</prevclose>\n"
-		        + "</cotation>\n" + "</stock>\n" + "</stocks>";
-
-		String resultFile = xmlTransformation(xmlMsg, xsltFile);
-
-		System.out.println(resultFile);
-
-		if (logger.isDebugEnabled())
-		{
-			logger.debug("main(String[]) - end"); //$NON-NLS-1$
-		}
-	}
+//	public static void main(String[] args) throws NamingException, TransformerException, UnsupportedEncodingException
+//	{
+//		if (logger.isDebugEnabled())
+//		{
+//			logger.debug("main(String[]) - start"); //$NON-NLS-1$
+//		}
+//
+//		String xsltFile = Configuration.getXsltFile();
+//
+//		String xmlMsg = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+//		        + "<?xml-stylesheet type=\"text/xsl\" href=\"StockMarket.xsl\"?>\n"
+//		        + "<stocks timestamp=\"1308046204003\">\n" + "<stock>\n" + "<company>\n" + "<name>MSE</name>\n"
+//		        + "<address>DEI</address>\n" + "<website>http://dei.uc.pt</website>\n" + "</company>\n"
+//		        + "<cotation>\n" + "<rate>3.3</rate>\n" + "<change>1.8</change>\n" + "<maximum>3.45</maximum>\n"
+//		        + "<minimum>3</minimum>\n" + "<quantity>43442</quantity>\n" + "<prevclose>3.1</prevclose>\n"
+//		        + "</cotation>\n" + "</stock>\n" + "</stocks>";
+//
+//		String resultFile = xmlTransformation(xmlMsg, xsltFile);
+//
+//		System.out.println(resultFile);
+//
+//		if (logger.isDebugEnabled())
+//		{
+//			logger.debug("main(String[]) - end"); //$NON-NLS-1$
+//		}
+//	}
 
 }
