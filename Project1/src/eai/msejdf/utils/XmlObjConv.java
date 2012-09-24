@@ -8,6 +8,8 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import eai.msejdf.data.Stock;
+
 
 /**
  * Support class to marshall/unmarshall between an object and a string containing the XML
@@ -43,7 +45,7 @@ public class XmlObjConv
 	public String Convert(Object data) throws JAXBException
 	{
 		StringWriter stringWriter = new StringWriter();
-        JAXBContext jaxbContext = JAXBContext.newInstance(this.className);
+        JAXBContext jaxbContext = JAXBContext.newInstance(Stock.class.getPackage().getName());
         Marshaller marshaller = jaxbContext.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);		
         marshaller.marshal(data, stringWriter);
@@ -58,11 +60,11 @@ public class XmlObjConv
 	 * @return Object representing the XML
 	 * @throws JAXBException
 	 */
-	public Object Convert(String xml) throws JAXBException
+	public Stock Convert(String xml) throws JAXBException
 	{
-        JAXBContext jaxbContext = JAXBContext.newInstance(this.className);
+        JAXBContext jaxbContext = JAXBContext.newInstance(Stock.class.getPackage().getName());
         Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
-        return unmarshaller.unmarshal(new StringReader(xml));		
+        return (Stock)unmarshaller.unmarshal(new StringReader(xml));		
 	}
 }
