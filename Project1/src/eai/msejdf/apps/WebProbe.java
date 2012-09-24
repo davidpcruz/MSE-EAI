@@ -1,3 +1,13 @@
+
+
+
+
+
+
+
+
+
+
 package eai.msejdf.apps;
 
 import org.apache.log4j.Logger;
@@ -46,11 +56,15 @@ public class WebProbe
 	 */
 	public static void main(String[] args) throws Exception
 	{
+		logger.info("WebProbe: Running..."); //$NON-NLS-1$
+		
 		validateArgs(args);
 
 		WebProbe probe = new WebProbe(args[WebProbe.PROGRAM_ARG_INDEX__URL]);
 		
 		probe.run();
+
+		logger.info("WebProbe: Running...COMPLETE"); //$NON-NLS-1$
 	}
 
 	/**
@@ -77,7 +91,7 @@ public class WebProbe
 	public static void printHelp()
 	{
 		System.out.println("Call usage:");
-		System.out.println("java WebProbe <web url> <parser plugin>");
+		System.out.println("java WebProbe <web url>");
 	}
 	
 	/**

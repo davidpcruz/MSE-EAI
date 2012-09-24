@@ -79,6 +79,11 @@ public class ParseStocksPlugin extends Parser
 	 */
 	public Object parse() throws IOException 
 	{
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("parse() - start"); //$NON-NLS-1$
+		}
+
 		Document webPageDoc = null;
 		Elements cotationInfoRows = null;
 		
@@ -117,6 +122,11 @@ public class ParseStocksPlugin extends Parser
 					// alert the user somehow.
 					logger.error("parse(): ERROR - Web Page syntax from " + this.webUrl + " is not supported"); //$NON-NLS-1$			
 					stocks = null;
+
+					if (logger.isDebugEnabled())
+					{
+						logger.debug("parse() - end"); //$NON-NLS-1$
+					}
 					return null;			
 				}
 				
@@ -133,7 +143,17 @@ public class ParseStocksPlugin extends Parser
 			// alert the user somehow.
 			logger.error("parse()", exception); //$NON-NLS-1$
 			stocks = null;
+
+			if (logger.isDebugEnabled())
+			{
+				logger.debug("parse() - end"); //$NON-NLS-1$
+			}
 			return null;
+		}
+
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("parse() - end"); //$NON-NLS-1$
 		}
 		return stocks;
 	}
