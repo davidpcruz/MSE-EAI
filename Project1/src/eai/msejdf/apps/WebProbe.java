@@ -141,6 +141,7 @@ public class WebProbe
 		
 		dataSender.start();
 		dataSender.sendMessage(message);
+		dataSender.close();
 	}
 	
 	/**
