@@ -5,7 +5,7 @@ package eai.msejdf.utils;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 
 
@@ -19,8 +19,10 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.Source;
-import javax.xml.transform.Result;
+
 import javax.xml.transform.OutputKeys;
+
+
 
 /**
  * @author joaofcr
@@ -30,9 +32,9 @@ public class Transform
 {
 
 
-	public static void xmlTransformation (String xmlFile, String xsltFile) throws TransformerException, UnsupportedEncodingException{
+	public static String xmlTransformation (String xmlFile, String xsltFile) throws TransformerException, UnsupportedEncodingException{
        
-    	OutputStream resultFile = null;
+	
  
     	InputStream xmlStream = new ByteArrayInputStream(xmlFile.getBytes("UTF8"));
     	StreamSource source = new StreamSource(xmlStream);
@@ -40,15 +42,18 @@ public class Transform
     	 // Source source = (Source) new ByteArrayInputStream(xmlFile.getBytes("UTF8")); 
 
     	  Source xsl = new StreamSource(xsltFile);
-		  Result result = new StreamResult(resultFile);
+		  //Result result = new SAXResult(resultFile);
 
 		  TransformerFactory factory = TransformerFactory.newInstance();
 		  Transformer transformer = factory.newTransformer(xsl);
 		  transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-		  transformer.transform(source, result);
+		  StringWriter writer = new StringWriter();
+
+		  transformer.transform(source, new StreamResult(writer));
+		  String output = writer.getBuffer().toString().replaceAll("\n|\r", "");
 		  
-		  String s = resultFile.toString(); 
-		  System.out.println(resultFile.toString());
+		  
+		  return output;
     }
 	/**
 	* @param args
@@ -86,8 +91,9 @@ public class Transform
 				//System.out.println("XML:\n \n" + xmlMsg);
 		//System.out.println("XSLT:\n \n" + xsltFile);
 		//System.out.println(xmlMsg);
-	    xmlTransformation(xmlMsg,xsltFile);
-        
+		String resultFile = xmlTransformation(xmlMsg,xsltFile);
+		
+		System.out.println(resultFile);
 
 
 	}
