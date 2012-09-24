@@ -3,13 +3,9 @@ package eai.msejdf.apps;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Constructor;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -94,25 +90,12 @@ public class WebProbe
 	 */
 	public void run() throws Exception
 	{	
-		Parser webParser = null;
+		// Create an instance of the plugin
+		//
+		// Note: This is currently harcoded. The idea is to dynamically load this plugin based on a provided reference
+		//		 which will allow the reuse of this application with different parser plugins
+		Parser webParser = new ParseStocksPlugin(this.webUrl); 
 		
-		if (true) //TODO: Code in this section is still under develop to dynamically load the plugin
-		{
-			// Load dynamically the parser plugin
-			URL parserUrl = new File(this.parserPlugin).toURI().toURL();
-			URLClassLoader classLoader = new URLClassLoader(new URL[]{parserUrl});
-			@SuppressWarnings("unchecked")
-	        Class<Parser> loadedClass = (Class<Parser>)classLoader.loadClass("ParseStocksPlugin");   //TODO: remove hardcoded class reference		
-			Constructor<Parser> parserClassConstructor = loadedClass.getConstructor(new Class[]{String.class});		
-			webParser = (Parser)parserClassConstructor.newInstance(this.webUrl);
-			
-			// Release class loader resources, as they are not needed anymore
-			classLoader.close();
-		}
-		else
-		{
-			webParser = new ParseStocksPlugin(this.webUrl); //TODO: Use plugin mechanism
-		}
 		webParser.parse(); //TODO: this has a return type. Handle it
 		
 		String message = this.createMessage(); //TODO: Implement this function with marshaling 
@@ -185,15 +168,13 @@ public class WebProbe
 	 */
 	private void saveMessageAsPending(String message) throws IOException
 	{
-		SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd - HH-mm-ss-SSS");
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss-SSS");
 		File outputFile = null; 
 		
-		// Create a unique file  based on the current time/date
+		// Create a unique file based on the current time/date
 		do
 		{
-			//TODO: commented tmp for debug outputFile = new File(this.DIRECTORY__PENDING_MESSAGES + "/" + (new Date()).toString() + ".xml");
-			String dateString = dateFormatter.format(new Date());
-			outputFile = new File(this.DIRECTORY__PENDING_MESSAGES + "/" + dateString + ".xml");			//TODO: tmp for debug 
+			outputFile = new File(WebProbe.DIRECTORY__PENDING_MESSAGES + "/" + dateFormatter.format(new Date()) + ".xml"); 
 		}
 		while (false == outputFile.createNewFile());
 
@@ -210,7 +191,7 @@ public class WebProbe
 	 */
 	private File[] getPendingMessagesFileList()
 	{
-		File directory = new File(this.DIRECTORY__PENDING_MESSAGES);
+		File directory = new File(WebProbe.DIRECTORY__PENDING_MESSAGES);
 		File[] fileList = directory.listFiles();
 		
 		if (null == fileList)
