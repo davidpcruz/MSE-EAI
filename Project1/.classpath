@@ -8,6 +8,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/log4j-1.2.17.jar"/>
-	<classpathentry kind="lib" path="D:/Installation/Software/Development/eclipse-jee-juno-win32-x86_64/eclipse/plugins/org.jsoup_1.6.1.v201201201356.jar"/>
+	<classpathentry kind="lib" path="lib/org.jsoup_1.6.1.v201201201356.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

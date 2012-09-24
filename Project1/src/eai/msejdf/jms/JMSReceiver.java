@@ -6,9 +6,6 @@ import javax.jms.MessageListener;
 import javax.jms.Topic;
 
 import org.apache.log4j.Logger;
-import org.hornetq.api.jms.HornetQJMSClient;
-
-import eai.msejdf.utils.StringUtils;
 
 public class JMSReceiver extends JMSBase 
 {
@@ -27,35 +24,11 @@ public class JMSReceiver extends JMSBase
 	 *
 	 * @throws JMSException the jMS exception
 	 */
-	public JMSReceiver(String connectionID) throws JMSException
+	public JMSReceiver(String topicName, String connectionID) throws JMSException
 	{
-		super(connectionID);
-	}
-
-	/* (non-Javadoc)
-	 * @see eai.msejdf.jms.JMSBase#createTopic(java.lang.String)
-	 */
-	@Override
-	public void createTopic(String topicName) throws JMSException
-	{
-		if (logger.isDebugEnabled())
-		{
-			logger.debug("createTopic(String) - start"); //$NON-NLS-1$
-		}
-
-		// basic validations
-		if (StringUtils.isNullOrEmpty(topicName))
-		{
-			throw new IllegalArgumentException("topicName");
-		}
-		
-		this.dest = HornetQJMSClient.createTopic(topicName); 
-		this.messConsumer = session.createDurableSubscriber((Topic) dest, SUBCRIBER_NAME, null, false);		
-
-		if (logger.isDebugEnabled())
-		{
-			logger.debug("createTopic(String) - end"); //$NON-NLS-1$
-		}
+		super(topicName, connectionID);
+		// set the message consumer
+		this.messConsumer = session.createDurableSubscriber((Topic) dest, SUBCRIBER_NAME, null, false);
 	}
 
 	/**
@@ -79,37 +52,54 @@ public class JMSReceiver extends JMSBase
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see eai.msejdf.jms.JMSBase#start()
+	 */
+	@Override
+    public void start() throws JMSException
+    {
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("start() - start"); //$NON-NLS-1$
+		}
+
+		this.connStart();
+		
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("start() - end"); //$NON-NLS-1$
+		}	    
+    }
+
 	/**
 	 * Close.
 	 *
 	 * @throws JMSException the jMS exception
 	 */
 	@Override
-	public void closeConn() throws JMSException
+	public void close() throws JMSException
 	{
 		if (logger.isDebugEnabled())
 		{
-			logger.debug("closeConn() - start"); //$NON-NLS-1$
+			logger.debug("close() - start"); //$NON-NLS-1$
 		}
 
-		if(this.conn != null)
+		try
 		{
-			this.conn.stop();
-			try
-			{
-				this.session.unsubscribe(SUBCRIBER_NAME);
-			} 
-			catch (Exception e)
-			{
-				logger.error("closeConn()", e); //$NON-NLS-1$
-			}
-			this.conn.close();
+			this.session.unsubscribe(SUBCRIBER_NAME);
+		} 
+		catch (Throwable e)
+		{
+			logger.error("close()", e); //$NON-NLS-1$
 		}
 
+		this.connClose();
+		
 		if (logger.isDebugEnabled())
 		{
-			logger.debug("closeConn() - end"); //$NON-NLS-1$
+			logger.debug("close() - end"); //$NON-NLS-1$
 		}
 	}
+
 	
 }
