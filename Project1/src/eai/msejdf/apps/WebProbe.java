@@ -3,10 +3,10 @@ package eai.msejdf.apps;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Date;
@@ -14,12 +14,21 @@ import java.util.Date;
 import eai.msejdf.web.ParseStocksPlugin;
 import eai.msejdf.web.Parser;
 
+/**
+ * Application class that connects to a web site and parses the page content to retrieve specific data, which is 
+ * transformed and dispatched through the JMS for further processing by other clients
+ * 
+ * @author NB12588
+ *
+ */
 public class WebProbe
 {
 	private final static int PROGRAM_ARG_INDEX__URL = 0;
+	private final static int PROGRAM_ARG_INDEX__PARSER = 1;
 	private final static String DIRECTORY__PENDING_MESSAGES = "./pending/";
 	
 	private String webUrl = null;
+	private String parserPlugin = null;
 	
 	/**
 	 * Main application entry point
@@ -30,7 +39,7 @@ public class WebProbe
 	{
 		validateArgs(args);
 
-		WebProbe probe = new WebProbe(args[PROGRAM_ARG_INDEX__URL]);
+		WebProbe probe = new WebProbe(args[WebProbe.PROGRAM_ARG_INDEX__URL], args[WebProbe.PROGRAM_ARG_INDEX__PARSER]);
 		
 		probe.run();
 	}
@@ -42,9 +51,9 @@ public class WebProbe
 	 */
 	public static void validateArgs(String[] args)
 	{
-		// Expected call syntax: "java WebProbe <web url>"
+		// Expected call syntax: "java WebProbe <web url> <parser plugin>"
 		
-		if (0 == args.length)
+		if (2 > args.length)
 		{
 			printHelp();			
 			System.exit(-1);			
@@ -59,18 +68,34 @@ public class WebProbe
 	public static void printHelp()
 	{
 		System.out.println("Call usage:");
-		System.out.println("java WebProbe <web url>");
+		System.out.println("java WebProbe <web url> <parser plugin>");
 	}
 	
-	public WebProbe(String url)
+	/**
+	 * Constructs an instance of this class
+	 * @param url Web site url to process
+	 * @param parser Parser class that supports the parsing of the web page for the supplied url
+	 */
+	public WebProbe(String url, String parser)
 	{
 		this.webUrl = url;
+		this.parserPlugin = parser;
 	}
 	
+	/**
+	 * Main processing function. It parses a web page to extract specific content, sending a transformed 
+	 * representation to remote clients for further processing
+	 *  
+	 * @throws Exception
+	 */
 	public void run() throws Exception
-	{
+	{	
+		// Create an instance of the plugin
+		//
+		// Note: This is currently harcoded. The idea is to dynamically load this plugin based on a provided reference
+		//		 which will allow the reuse of this application with different parser plugins
 		Parser webParser = new ParseStocksPlugin(this.webUrl); 
-
+		
 		webParser.parse(); //TODO: this has a return type. Handle it
 		
 		String message = this.createMessage(); //TODO: Implement this function with marshaling 
@@ -82,7 +107,7 @@ public class WebProbe
 			this.writePendingMessages();
 
 			// Now, dispatch our message
-			this.writeMessage(message); //TODO:Replace this by JMS API
+			this.writeMessage(message); 
 		}
 		catch(Exception exception)
 		{
@@ -92,18 +117,34 @@ public class WebProbe
 		}		
 	}
 	
+	/**
+	 * Dispatches the message through the JMS for clients to further process it
+	 *   
+	 * @param message Message to be dispatched
+	 */
 	private void writeMessage(String message)
 	{
-		// TODO: This is a dummy function
+		// TODO: call JMS write engine
 		
-		System.out.println("Message: " + message);
+		System.out.println("Message: " + message); //TODO: Remove
 	}
 	
+	/**
+	 * Writes messages through the JMS that failed to be dispatched in previous calls
+	 *   
+	 * @throws IOException
+	 */
 	private void writePendingMessages() throws IOException
 	{
 		// Pending messages to write are each in a file in a dedicated directory. Retrieve pending file list
-		File[] fileList = this.getFileList(this.DIRECTORY__PENDING_MESSAGES);
+		File[] fileList = this.getPendingMessagesFileList();
 	
+		if (null == fileList)
+		{
+			// No pending messages to process
+			return;
+		}
+		
 		for (File messageFile : fileList)
 		{
 			// Retrieve the message saved in the file
@@ -119,14 +160,21 @@ public class WebProbe
 		}
 	}
 	
+	/**
+	 * Stores locally a copy of the message to go through a send-retry process on the next call to this application
+	 * 
+	 * @param message Message to be saved
+	 * @throws IOException
+	 */
 	private void saveMessageAsPending(String message) throws IOException
 	{
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss-SSS");
 		File outputFile = null; 
 		
-		// Create a unique file  based on the current time/date
+		// Create a unique file based on the current time/date
 		do
 		{
-			outputFile = new File(this.DIRECTORY__PENDING_MESSAGES + "/" + (new Date()).toString() + ".xml");
+			outputFile = new File(WebProbe.DIRECTORY__PENDING_MESSAGES + "/" + dateFormatter.format(new Date()) + ".xml"); 
 		}
 		while (false == outputFile.createNewFile());
 
@@ -136,10 +184,20 @@ public class WebProbe
 		fileWriter.close();
 	}
 	
-	private File[] getFileList(String directoryPath)
+	/**
+	 * Retrieves a list of files in which each contains a messages that is pending to be dispatched
+	 * 
+	 * @return Pending message file list 
+	 */
+	private File[] getPendingMessagesFileList()
 	{
-		File directory = new File(directoryPath);
+		File directory = new File(WebProbe.DIRECTORY__PENDING_MESSAGES);
 		File[] fileList = directory.listFiles();
+		
+		if (null == fileList)
+		{
+			return null;
+		}
 
 		// Ensure returned file list is ordered chronologically, so it is processed in the correct order
 		Arrays.sort(fileList, new Comparator<File>() 

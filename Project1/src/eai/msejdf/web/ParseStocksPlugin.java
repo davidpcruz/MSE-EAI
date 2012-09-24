@@ -13,7 +13,7 @@ import org.jsoup.select.Elements;
  * Plugin to parse stock data from a web site and return an object that represents that data
  * 
  */
-public class ParseStocksPlugin implements Parser
+public class ParseStocksPlugin extends Parser
 {
 	private String webUrl = null;
 	
