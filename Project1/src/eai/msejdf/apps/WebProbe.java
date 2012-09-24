@@ -7,6 +7,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -29,6 +32,7 @@ public class WebProbe
 	private final static String DIRECTORY__PENDING_MESSAGES = "./pending/";
 	
 	private String webUrl = null;
+	private String parserPlugin = null;
 	
 	/**
 	 * Main application entry point
@@ -39,7 +43,7 @@ public class WebProbe
 	{
 		validateArgs(args);
 
-		WebProbe probe = new WebProbe(args[PROGRAM_ARG_INDEX__URL]);
+		WebProbe probe = new WebProbe(args[WebProbe.PROGRAM_ARG_INDEX__URL], args[WebProbe.PROGRAM_ARG_INDEX__PARSER]);
 		
 		probe.run();
 	}
@@ -74,10 +78,12 @@ public class WebProbe
 	/**
 	 * Constructs an instance of this class
 	 * @param url Web site url to process
+	 * @param parser Parser class that supports the parsing of the web page for the supplied url
 	 */
-	public WebProbe(String url)
+	public WebProbe(String url, String parser)
 	{
 		this.webUrl = url;
+		this.parserPlugin = parser;
 	}
 	
 	/**
@@ -88,8 +94,25 @@ public class WebProbe
 	 */
 	public void run() throws Exception
 	{	
-		Parser webParser = new ParseStocksPlugin(this.webUrl); //TODO: Use plugin mechanism 
-
+		Parser webParser = null;
+		
+		if (true) //TODO: Code in this section is still under develop to dynamically load the plugin
+		{
+			// Load dynamically the parser plugin
+			URL parserUrl = new File(this.parserPlugin).toURI().toURL();
+			URLClassLoader classLoader = new URLClassLoader(new URL[]{parserUrl});
+			@SuppressWarnings("unchecked")
+	        Class<Parser> loadedClass = (Class<Parser>)classLoader.loadClass("ParseStocksPlugin");   //TODO: remove hardcoded class reference		
+			Constructor<Parser> parserClassConstructor = loadedClass.getConstructor(new Class[]{String.class});		
+			webParser = (Parser)parserClassConstructor.newInstance(this.webUrl);
+			
+			// Release class loader resources, as they are not needed anymore
+			classLoader.close();
+		}
+		else
+		{
+			webParser = new ParseStocksPlugin(this.webUrl); //TODO: Use plugin mechanism
+		}
 		webParser.parse(); //TODO: this has a return type. Handle it
 		
 		String message = this.createMessage(); //TODO: Implement this function with marshaling 
