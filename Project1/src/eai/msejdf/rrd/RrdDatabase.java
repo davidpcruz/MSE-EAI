@@ -3,6 +3,8 @@
  */
 package eai.msejdf.rrd;
 
+import org.apache.log4j.Logger;
+
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -23,10 +25,18 @@ import eai.msejdf.utils.StringUtils;
  */
 public class RrdDatabase
 {
+	/**
+	 * Logger for this class
+	 */
+	private static final Logger logger = Logger.getLogger(RrdDatabase.class);
+
+	/** The Constant HEARTBEAT_VALUE, that defines the heartbeat of rrd database. */
 	private static final int HEARTBEAT_VALUE = 3600;
 
+	/** The rrd database name. */
 	private String dbName;
 	
+	/** The data source name. */
 	private String dataSourceName;
 		
 	/**
@@ -36,6 +46,11 @@ public class RrdDatabase
 	 */
 	public RrdDatabase(String fileName, String dataSource) throws IOException
 	{
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("RrdDatabase(String, String) - start"); //$NON-NLS-1$
+		}
+
 		// basic validations
 		if (StringUtils.isNullOrEmpty(fileName))
 		{
@@ -70,6 +85,10 @@ public class RrdDatabase
 		RrdDb rrdDb = new RrdDb(rrdDef);
 		rrdDb.close();
 		
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("RrdDatabase(String, String) - end"); //$NON-NLS-1$
+		}
 	}
 	
 	/**
@@ -79,11 +98,21 @@ public class RrdDatabase
 	 */
 	public void updateData (long timestamp, float value) throws IOException 
 	{
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("updateData(long, float) - start"); //$NON-NLS-1$
+		}
+
 		// No basic validations				
 		RrdDb rrdDb = new RrdDb(this.dbName);
 		Sample sample = rrdDb.createSample();
 		sample.setAndUpdate(timestamp+":"+value);
 		rrdDb.close();
+
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("updateData(long, float) - end"); //$NON-NLS-1$
+		}
 	}
 	
 	/**
@@ -92,6 +121,10 @@ public class RrdDatabase
 	 * @throws IOException
 	 */
 	public void createRRDGraph (String imageName, long timeOffset) throws IOException {
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("createRRDGraph(String, long) - start"); //$NON-NLS-1$
+		}
 
 		long ts = System.currentTimeMillis() / 1000;
 
@@ -105,6 +138,11 @@ public class RrdDatabase
 		RrdGraph graph = new RrdGraph(graphDef);
 		BufferedImage bi = new BufferedImage(100,100,BufferedImage.TYPE_INT_RGB);
 		graph.render(bi.getGraphics()); 
+
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("createRRDGraph(String, long) - end"); //$NON-NLS-1$
+		}
 	}
 	
 }
