@@ -1,5 +1,7 @@
 package eai.msejdf.web;
 
+import org.apache.log4j.Logger;
+
 import eai.msejdf.data.*;
 
 import java.io.IOException;
@@ -38,18 +40,23 @@ import org.jsoup.select.Elements;
  */
 public class ParseStocksPlugin extends Parser
 {
-	private static int STOCK_ROW_INDEX__COMPANY = 0;
-	private static int STOCK_ROW_INDEX__LAST_COTATION = 1;
-	private static int STOCK_ROW_INDEX__COTATION_TIME = 2;
-	private static int STOCK_ROW_INDEX__VARIATION = 3;
-	private static int STOCK_ROW_INDEX__QUANTITY = 4;
-	private static int STOCK_ROW_INDEX__MAXIMUM = 5;
-	private static int STOCK_ROW_INDEX__MINIMUM = 6;
-	private static int STOCK_ROW_INDEX__BUY = 7;
-	private static int STOCK_ROW_INDEX__SELL = 8;
-	private static int STOCK_ROW__ELEMENT_COUNT = 9;	// NOTE: Update if number of elements changes	
-	private static Locale STOCK_NUMBER_FORMAT_LOCALE = Locale.US;
-	private static int CONNECTION_TIMEOUT = 10000; // In ms
+	/**
+	 * Logger for this class
+	 */
+	private static final Logger logger = Logger.getLogger(ParseStocksPlugin.class);
+
+	private static final int STOCK_ROW_INDEX__COMPANY = 0;
+	private static final int STOCK_ROW_INDEX__LAST_COTATION = 1;
+	private static final int STOCK_ROW_INDEX__COTATION_TIME = 2;
+	private static final int STOCK_ROW_INDEX__VARIATION = 3;
+	private static final int STOCK_ROW_INDEX__QUANTITY = 4;
+	private static final int STOCK_ROW_INDEX__MAXIMUM = 5;
+	private static final int STOCK_ROW_INDEX__MINIMUM = 6;
+	private static final int STOCK_ROW_INDEX__BUY = 7;
+	private static final int STOCK_ROW_INDEX__SELL = 8;
+	private static final int STOCK_ROW__ELEMENT_COUNT = 9;	// NOTE: Update if number of elements changes	
+	private static final Locale STOCK_NUMBER_FORMAT_LOCALE = Locale.US;
+	private static final int CONNECTION_TIMEOUT = 10000; // In mili seconds
 
 	private String webUrl = null;
 	
@@ -72,16 +79,20 @@ public class ParseStocksPlugin extends Parser
 	 */
 	public Object parse() throws IOException 
 	{
+		Document webPageDoc = null;
+		Elements cotationInfoRows = null;
+		
 		// Create a DOM representation of a web page
-		Document webPageDoc = Jsoup.parse(new URL(this.webUrl), ParseStocksPlugin.CONNECTION_TIMEOUT); 
-		
+		webPageDoc = Jsoup.parse(new URL(this.webUrl), ParseStocksPlugin.CONNECTION_TIMEOUT); 
+
 		// Extract all rows of the tables that have cotation information
-		Elements cotationInfoRows = webPageDoc.select("tr:has(td[class^=tituloforumbar]):gt(0) ~ tr");
-		
-		if (null == cotationInfoRows)
+		cotationInfoRows = webPageDoc.select("tr:has(td[class^=tituloforumbar]):gt(0) ~ tr");		
+		if (0 == cotationInfoRows.size())
 		{
-			// There isn't much we can't do, except alerting the user somehow.
-			// TODO: Write error to log and alert user			
+			// The parsed data is not as we are expecting, which means that we can't make assumptions
+			// about the correctness of the fields. The safest thing to do is to not return anything and 
+			// alert the user somehow.
+			logger.error("parse(): ERROR - Web Page syntax from " + this.webUrl + " is not supported"); //$NON-NLS-1$			
 			return null;			
 		}
 		
@@ -89,6 +100,7 @@ public class ParseStocksPlugin extends Parser
 		
 		try
 		{
+			// Fill out our stock information object for each individual stock information client
 			for (Element cotationInfo : cotationInfoRows)
 			{
 				Stock stockInfo = new Stock();
@@ -103,7 +115,7 @@ public class ParseStocksPlugin extends Parser
 					// The parsed data is not as we are expecting, which means that we can't make assumptions
 					// about the correctness of the fields. The safest thing to do is to not return anything and 
 					// alert the user somehow.
-					// TODO: Write error to log and alert user			
+					logger.error("parse(): ERROR - Web Page syntax from " + this.webUrl + " is not supported"); //$NON-NLS-1$			
 					stocks = null;
 					return null;			
 				}
@@ -119,7 +131,7 @@ public class ParseStocksPlugin extends Parser
 			// The parsed data is not as we are expecting, which means that we can't make assumptions
 			// about the correctness of the fields. The safest thing to do is to not return anything and 
 			// alert the user somehow.
-			// TODO: Write error to log and alert user
+			logger.error("parse()", exception); //$NON-NLS-1$
 			stocks = null;
 			return null;
 		}

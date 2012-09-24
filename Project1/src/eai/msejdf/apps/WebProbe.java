@@ -1,5 +1,7 @@
 package eai.msejdf.apps;
 
+import org.apache.log4j.Logger;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -26,6 +28,11 @@ import eai.msejdf.web.Parser;
  */
 public class WebProbe
 {
+	/**
+	 * Logger for this class
+	 */
+	private static final Logger logger = Logger.getLogger(WebProbe.class);
+
 	private final static int PROGRAM_ARG_INDEX__URL = 0;
 	private final static String DIRECTORY__PENDING_MESSAGES = "./pending/";
 	private final static String DATA_RECEIVER_NAME = "testTopic";
@@ -59,7 +66,7 @@ public class WebProbe
 		{
 			printHelp();			
 			System.exit(-1);			
-			//Does not reach this point
+			//We never reach this point
 		}
 		// Parameters are assumed ok (no url validation is performed)
 	}
@@ -92,15 +99,21 @@ public class WebProbe
 	{	
 		String message = null;
 		
-		// Create an instance of the plugin
-		//
-		// Note: This is currently hardcoded. The idea is to dynamically load this plugin based on a provided reference
-		//		 which will allow the reuse of this application with different parser plugins
-		Parser webParser = new ParseStocksPlugin(this.webUrl);		
-		Object parsedDataObject = webParser.parse(); 
-		
 		try
 		{
+			// Create an instance of the plugin
+			//
+			// Note: This is currently hardcoded. The idea is to dynamically load this plugin based on a provided reference
+			//		 which will allow the reuse of this application with different parser plugins
+			Parser webParser = new ParseStocksPlugin(this.webUrl);		
+			Object parsedDataObject = webParser.parse(); 
+			if (null == parsedDataObject)
+			{
+				// There isn't much we can't do, except alerting the user somehow.
+				logger.error("parse(): ERROR - Web Page syntax from " + this.webUrl + " is not supported"); //$NON-NLS-1$
+				return;
+			}
+			
 			// Convert the object into a string with an XML representation of it 
 			XmlObjConv converter = new XmlObjConv(WebProbe.class.getName());			
 			message = converter.Convert(parsedDataObject);  
@@ -116,7 +129,7 @@ public class WebProbe
 		{
 			// As the dispatching of the message (or pending messages) failed, we'll save a local backup 
 			// and retry on the next run (if we have a message to be processed)
-			//TODO: Inform user about error
+			logger.error("run()", exception); //$NON-NLS-1$
 			if (null != message)
 			{
 				this.saveMessageAsPending(message);
