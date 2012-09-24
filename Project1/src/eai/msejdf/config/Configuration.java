@@ -26,7 +26,12 @@ public final class Configuration
 	/** The Constant JMSTOPIC_NAME. */
 	private static final String JMSTOPIC_NAME = "app.jms.topicbasename";
 	
-    
+	/** The Constant containing the address to XLST file */
+	private static final String XSLT_FILE = "app.jms.xsltfile"; //"C:\\Users\\joaofcr\\workspace\\Sender\\src\\StockMarket.xsl";
+	
+	/** The Constant containing the directory for the HTML files */
+	private static final String HTML_FILE_DIRECTORY = "app.jms.htmlfiledirectory";  // "C:\\";
+	
     private static Properties props;
 
     /**
@@ -74,5 +79,24 @@ public final class Configuration
 	public static String getJmsTopicName()
 	{
 		return getProperties().getProperty(JMSTOPIC_NAME);
+	}
+	
+	/**
+	 * Gets the XSLT filer.
+	 *
+	 * @return the XSLT_FILE
+	 */
+	public static String getXsltFile()
+	{
+		return getProperties().getProperty(XSLT_FILE);
+	}
+	/**
+	 * Gets the HTML directory.
+	 *
+	 * @return the HTML_FILE_DIRECTORY
+	 */
+	public static String getHtmlDirectory()
+	{
+		return getProperties().getProperty(HTML_FILE_DIRECTORY);
 	}
 }
