@@ -120,8 +120,7 @@ public class WebProbe
 			}
 			
 			// Convert the object into a string with an XML representation of it 
-			XmlObjConv converter = new XmlObjConv(WebProbe.class.getName());			
-			message = converter.Convert(parsedDataObject);  
+			message = XmlObjConv.convertToXML(parsedDataObject);  
 			
 			// As we may have messages that were previously not delivered, we''l try to send them first to 
 			// keep the same order

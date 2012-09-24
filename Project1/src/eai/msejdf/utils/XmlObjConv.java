@@ -8,8 +8,6 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-import eai.msejdf.data.Stock;
-
 
 /**
  * Support class to marshall/unmarshall between an object and a string containing the XML
@@ -17,23 +15,8 @@ import eai.msejdf.data.Stock;
  * @author NB12588
  *
  */
-public class XmlObjConv
+public final class XmlObjConv
 {
-	private String className = null;
-	
-	/**
-	 * Creates an instance of this class
-	 * 
-	 * @param className Name of the class used in the conversion
-	 */
-	public XmlObjConv(String className)
-	{
-		if (null == className)
-		{
-			throw new IllegalArgumentException();			
-		}
-		this.className = className;
-	}
 	
 	/**
 	 * Converts an object into an XML string
@@ -42,10 +25,10 @@ public class XmlObjConv
 	 * @return String containing converted XML
 	 * @throws JAXBException
 	 */
-	public String Convert(Object data) throws JAXBException
+	public static String convertToXML(Object data) throws JAXBException
 	{
 		StringWriter stringWriter = new StringWriter();
-        JAXBContext jaxbContext = JAXBContext.newInstance(Stock.class.getPackage().getName());
+        JAXBContext jaxbContext = JAXBContext.newInstance(data.getClass());
         Marshaller marshaller = jaxbContext.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);		
         marshaller.marshal(data, stringWriter);
@@ -60,11 +43,11 @@ public class XmlObjConv
 	 * @return Object representing the XML
 	 * @throws JAXBException
 	 */
-	public Stock Convert(String xml) throws JAXBException
+	public static Object convertToObject(String xml, Class<?> classType) throws JAXBException
 	{
-        JAXBContext jaxbContext = JAXBContext.newInstance(Stock.class.getPackage().getName());
+        JAXBContext jaxbContext = JAXBContext.newInstance(classType);
         Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
-        return (Stock)unmarshaller.unmarshal(new StringReader(xml));		
+        return unmarshaller.unmarshal(new StringReader(xml));		
 	}
 }
