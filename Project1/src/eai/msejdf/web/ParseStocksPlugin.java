@@ -1,20 +1,54 @@
 package eai.msejdf.web;
 
+import eai.msejdf.data.*;
+
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.Locale;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+
+
 /**
  * @author NB12588
  *
  * Plugin to parse stock data from a web site and return an object that represents that data
+ * It currently supports the following site:
+ * 		http://www.nextbolsa.com/cotacoes.php?action=euronext
  * 
+ * Data syntax for this site:
+ * 
+ * Título 		Últ. Cotação 	Hora 	Variação 	Quantidade 	Máximo 	Mínimo 	Compra 	Venda
+ * BPI Hist.    	0.83       16:35 	  1.34%    	  991,176    0.84    0.82    0.00    0.00    
+ * ZON MULTI. Hist. 2.38       16:35 	  9.16%      2,621,838   2.40    2.19    0.00    0.00  
+ * 
+ * Note: The "Hist" string under the title is a link in the page that is not required and shall 
+ * therefore be filtered out 
+ * 
+ * Important: If the above syntax or number of elements changes, STOCK_ROW__ELEMENT_COUNT and
+ * STOCK_ROW_INDEX__* must be update accordingly, as well as the parsing
  */
 public class ParseStocksPlugin extends Parser
 {
+	private static int STOCK_ROW_INDEX__COMPANY = 0;
+	private static int STOCK_ROW_INDEX__LAST_COTATION = 1;
+	private static int STOCK_ROW_INDEX__COTATION_TIME = 2;
+	private static int STOCK_ROW_INDEX__VARIATION = 3;
+	private static int STOCK_ROW_INDEX__QUANTITY = 4;
+	private static int STOCK_ROW_INDEX__MAXIMUM = 5;
+	private static int STOCK_ROW_INDEX__MINIMUM = 6;
+	private static int STOCK_ROW_INDEX__BUY = 7;
+	private static int STOCK_ROW_INDEX__SELL = 8;
+	private static int STOCK_ROW__ELEMENT_COUNT = 9;	// NOTE: Update if number of elements changes	
+	private static Locale STOCK_NUMBER_FORMAT_LOCALE = Locale.US;
+
 	private String webUrl = null;
 	
 	/**
@@ -34,7 +68,7 @@ public class ParseStocksPlugin extends Parser
 	/* (non-Javadoc)
 	 * @see eai.msejdf.web.Parser#parse()
 	 */
-	public void parse() throws IOException 
+	public Stocks parse() throws IOException 
 	{
 		// Create a DOM representation of a web page
 		Document webPageDoc = Jsoup.connect(this.webUrl).get();
@@ -42,25 +76,86 @@ public class ParseStocksPlugin extends Parser
 		// Extract all rows of the tables that have cotation information
 		Elements cotationInfoRows = webPageDoc.select("tr:has(td[class^=tituloforumbar]):gt(0) ~ tr");
 		
-		// Example: http://www.nextbolsa.com/cotacoes.php?action=euronext
-		// 
-		// Título 		Últ. Cotação 	Hora 	Variação 	Quantidade 	Máximo 	Mínimo 	Compra 	Venda
-		// BPI Hist.    	0.83       16:35 	  1.34%    	  991,176    0.84    0.82    0.00    0.00    
-		// ZON MULTI. Hist. 2.38       16:35 	  9.16%      2,621,838   2.40    2.19    0.00    0.00  
-		
-		for (Element cotationInfo : cotationInfoRows)
+		if (null == cotationInfoRows)
 		{
-			System.out.println("TEXT = " + cotationInfo.text());
-			
-			// Separates the different cotation information fields into a list of fields, excluding data
-			// in the first field that is irrelevant ("Hist." for the example above)
-			Elements cotationFields = cotationInfo.select("table td:eq(0), >td:gt(0)");
-			
-			for (Element el2 : cotationFields)
-			{
-				System.out.println("    VAL = " + el2.text());
-			}			
+			// There isn't much we can't do, except alerting the user somehow.
+			// TODO: Write error to log and alert user			
+			return null;			
 		}
 		
-	}	
+		if (ParseStocksPlugin.STOCK_ROW__ELEMENT_COUNT != cotationInfoRows.size())
+		{
+			// The parsed data is not as we are expecting, which means that we can't make assumptions
+			// about the correctness of the fields. The safest thing to do is to not return anything and 
+			// alert the user somehow.
+			// TODO: Write error to log and alert user			
+			return null;			
+		}
+		
+		Stocks stocks = new Stocks();
+		
+		try
+		{
+			for (Element cotationInfo : cotationInfoRows)
+			{
+				Stock stockInfo = new Stock();
+
+				// Separates the different cotation information fields into a list of fields, excluding data
+				// in the first field that is irrelevant ("Hist." as described in the example presented in 
+				// this class information doc)
+				Elements cotationFields = cotationInfo.select("table td:eq(0), >td:gt(0)");
+
+				// Fill the sock object with the information retrieved from the page 
+				parseFields(cotationFields, stockInfo);
+				
+				stocks.getStock().add(stockInfo);
+			}
+		}
+		catch(ParseException exception)
+		{
+			// The parsed data is not as we are expecting, which means that we can't make assumptions
+			// about the correctness of the fields. The safest thing to do is to not return anything and 
+			// alert the user somehow.
+			// TODO: Write error to log and alert user
+			stocks = null;
+			return null;
+		}
+		return stocks;
+	}
+	
+	private void parseFields(Elements cotationFields, Stock stockInfo) throws ParseException
+	{		
+		String field = null;
+		NumberFormat formatter = NumberFormat.getInstance(ParseStocksPlugin.STOCK_NUMBER_FORMAT_LOCALE);
+		
+		Company company = stockInfo.getCompany();
+		Cotation cotation = stockInfo.getCotation();
+		
+		field = cotationFields.get(ParseStocksPlugin.STOCK_ROW_INDEX__COMPANY).text();
+		company.setName(field);
+
+		field = cotationFields.get(ParseStocksPlugin.STOCK_ROW_INDEX__LAST_COTATION).text();
+		cotation.setLastCotation(BigDecimal.valueOf(formatter.parse(field).doubleValue()));
+
+		field = cotationFields.get(ParseStocksPlugin.STOCK_ROW_INDEX__COTATION_TIME).text();
+		cotation.setTime(BigDecimal.valueOf(formatter.parse(field).doubleValue()));
+
+		field = cotationFields.get(ParseStocksPlugin.STOCK_ROW_INDEX__VARIATION).text();
+		cotation.setVariation(BigDecimal.valueOf(formatter.parse(field).doubleValue()));
+
+		field = cotationFields.get(ParseStocksPlugin.STOCK_ROW_INDEX__QUANTITY).text();
+		cotation.setQuantity(BigInteger.valueOf(formatter.parse(field).longValue()));
+		
+		field = cotationFields.get(ParseStocksPlugin.STOCK_ROW_INDEX__MAXIMUM).text();
+		cotation.setMaximum(BigDecimal.valueOf(formatter.parse(field).doubleValue()));
+
+		field = cotationFields.get(ParseStocksPlugin.STOCK_ROW_INDEX__MINIMUM).text();
+		cotation.setMinimum(BigDecimal.valueOf(formatter.parse(field).doubleValue()));
+
+		field = cotationFields.get(ParseStocksPlugin.STOCK_ROW_INDEX__BUY).text();
+		cotation.setPurchase(BigDecimal.valueOf(formatter.parse(field).doubleValue()));
+
+		field = cotationFields.get(ParseStocksPlugin.STOCK_ROW_INDEX__SELL).text();
+		cotation.setSell(BigDecimal.valueOf(formatter.parse(field).doubleValue()));
+	}
 }

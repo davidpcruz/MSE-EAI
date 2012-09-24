@@ -1,11 +1,13 @@
 package eai.msejdf.web;
 
+import eai.msejdf.data.Stocks;
+
 public abstract class Parser
 {	
 	/**
 	 * Executes the parser's implementation, returning an object representing the parsed data
 	 * 
-	 * @return TODO
+	 * @return An object representing the stock information
 	 */
-	public abstract void parse() throws Exception; //TODO: This must return a type
+	public abstract Stocks parse() throws Exception; 
 }
