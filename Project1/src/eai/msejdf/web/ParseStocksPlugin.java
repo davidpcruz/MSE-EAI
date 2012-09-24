@@ -5,6 +5,7 @@ import eai.msejdf.data.*;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.net.URL;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
@@ -48,6 +49,7 @@ public class ParseStocksPlugin extends Parser
 	private static int STOCK_ROW_INDEX__SELL = 8;
 	private static int STOCK_ROW__ELEMENT_COUNT = 9;	// NOTE: Update if number of elements changes	
 	private static Locale STOCK_NUMBER_FORMAT_LOCALE = Locale.US;
+	private static int CONNECTION_TIMEOUT = 10000; // In ms
 
 	private String webUrl = null;
 	
@@ -71,7 +73,7 @@ public class ParseStocksPlugin extends Parser
 	public Object parse() throws IOException 
 	{
 		// Create a DOM representation of a web page
-		Document webPageDoc = Jsoup.connect(this.webUrl).get();
+		Document webPageDoc = Jsoup.parse(new URL(this.webUrl), ParseStocksPlugin.CONNECTION_TIMEOUT); 
 		
 		// Extract all rows of the tables that have cotation information
 		Elements cotationInfoRows = webPageDoc.select("tr:has(td[class^=tituloforumbar]):gt(0) ~ tr");
