@@ -1,13 +1,3 @@
-
-
-
-
-
-
-
-
-
-
 package eai.msejdf.apps;
 
 import org.apache.log4j.Logger;
@@ -90,8 +80,9 @@ public class WebProbe
 	 */
 	public static void printHelp()
 	{
-		System.out.println("Call usage:");
-		System.out.println("java WebProbe <web url>");
+		System.out.println("Error, invalid call parameters.");
+		System.out.println("Use: java WebProbe <web url>");
+		System.out.println("");
 	}
 	
 	/**

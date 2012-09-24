@@ -10,6 +10,7 @@ import java.math.BigInteger;
 import java.net.URL;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Locale;
 
 import org.jsoup.Jsoup;
@@ -103,6 +104,8 @@ public class ParseStocksPlugin extends Parser
 		
 		Stocks stocks = new Stocks();
 		
+		stocks.setTimestamp(BigInteger.valueOf(Calendar.getInstance().getTimeInMillis()));
+
 		try
 		{
 			// Fill out our stock information object for each individual stock information client
@@ -113,7 +116,7 @@ public class ParseStocksPlugin extends Parser
 				// Separates the different cotation information fields into a list of fields, excluding data
 				// in the first field that is irrelevant ("Hist." as described in the example presented in 
 				// this class information doc)
-				Elements cotationFields = cotationInfo.select("table td:eq(0), >td:gt(0)");
+				Elements cotationFields = cotationInfo.select("table td:eq(0) a, >td:gt(0)");
 
 				if (ParseStocksPlugin.STOCK_ROW__ELEMENT_COUNT != cotationFields.size())
 				{
