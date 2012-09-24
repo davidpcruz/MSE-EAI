@@ -1,7 +1,5 @@
 package eai.msejdf.web;
 
-import eai.msejdf.data.Stocks;
-
 public abstract class Parser
 {	
 	/**
@@ -9,5 +7,5 @@ public abstract class Parser
 	 * 
 	 * @return An object representing the stock information
 	 */
-	public abstract Stocks parse() throws Exception; 
+	public abstract Object parse() throws Exception; 
 }

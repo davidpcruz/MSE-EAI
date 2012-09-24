@@ -68,7 +68,7 @@ public class ParseStocksPlugin extends Parser
 	/* (non-Javadoc)
 	 * @see eai.msejdf.web.Parser#parse()
 	 */
-	public Stocks parse() throws IOException 
+	public Object parse() throws IOException 
 	{
 		// Create a DOM representation of a web page
 		Document webPageDoc = Jsoup.connect(this.webUrl).get();
