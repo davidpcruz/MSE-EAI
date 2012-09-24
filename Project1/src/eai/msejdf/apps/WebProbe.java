@@ -6,16 +6,14 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Date;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-
+import javax.jms.JMSException;
+import eai.msejdf.jms.JMSSender;
+import eai.msejdf.utils.XmlObjConv;
 import eai.msejdf.web.ParseStocksPlugin;
 import eai.msejdf.web.Parser;
 
@@ -30,6 +28,7 @@ public class WebProbe
 {
 	private final static int PROGRAM_ARG_INDEX__URL = 0;
 	private final static String DIRECTORY__PENDING_MESSAGES = "./pending/";
+	private final static String DATA_RECEIVER_NAME = "testTopic";
 	
 	private String webUrl = null;
 	
@@ -95,14 +94,16 @@ public class WebProbe
 		
 		// Create an instance of the plugin
 		//
-		// Note: This is currently harcoded. The idea is to dynamically load this plugin based on a provided reference
+		// Note: This is currently hardcoded. The idea is to dynamically load this plugin based on a provided reference
 		//		 which will allow the reuse of this application with different parser plugins
 		Parser webParser = new ParseStocksPlugin(this.webUrl);		
 		Object parsedDataObject = webParser.parse(); 
 		
 		try
 		{
-			message = this.createMessage(parsedDataObject);  
+			// Convert the object into a string with an XML representation of it 
+			XmlObjConv converter = new XmlObjConv(WebProbe.class.getName());			
+			message = converter.Convert(parsedDataObject);  
 			
 			// As we may have messages that were previously not delivered, we''l try to send them first to 
 			// keep the same order
@@ -114,51 +115,41 @@ public class WebProbe
 		catch(Exception exception)
 		{
 			// As the dispatching of the message (or pending messages) failed, we'll save a local backup 
-			// and retry on the next run (if we hava a message to be processed)
+			// and retry on the next run (if we have a message to be processed)
+			//TODO: Inform user about error
 			if (null != message)
 			{
 				this.saveMessageAsPending(message);
 			}
 		}		
 	}
-
-	/**
-	 * Creates a message string from a data object
-	 *  
-	 * @param data object containing the data to be used to create a message
-	 * @return String message representing the data object
-	 * @throws JAXBException 
-	 */
-	private String createMessage(Object data) throws JAXBException
-	{
-		// Convert the object data into an XML
-		StringWriter stringWriter = new StringWriter();
-        JAXBContext jaxbContext = JAXBContext.newInstance( WebProbe.class.getPackage().getName());
-        Marshaller marshaller = jaxbContext.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);		
-        marshaller.marshal(data, stringWriter);
-
-        return stringWriter.toString();		
-	}
 	
 	/**
 	 * Dispatches the message through the JMS for clients to further process it
 	 *   
 	 * @param message Message to be dispatched
+	 * @throws JMSException 
 	 */
-	private void writeMessage(String message)
+	private void writeMessage(String message) throws JMSException
 	{
-		// TODO: call JMS write engine
+		if (null == message)
+		{
+			throw new NullPointerException("Message is empty");
+		}
 		
-		System.out.println("Message: " + message); //TODO: Remove
+		JMSSender dataSender = new JMSSender(WebProbe.DATA_RECEIVER_NAME);
+		
+		dataSender.start();
+		dataSender.sendMessage(message);
 	}
 	
 	/**
 	 * Writes messages through the JMS that failed to be dispatched in previous calls
 	 *   
 	 * @throws IOException
+	 * @throws JMSException 
 	 */
-	private void writePendingMessages() throws IOException
+	private void writePendingMessages() throws IOException, JMSException
 	{
 		// Pending messages to write are each in a file in a dedicated directory. Retrieve pending file list
 		File[] fileList = this.getPendingMessagesFileList();

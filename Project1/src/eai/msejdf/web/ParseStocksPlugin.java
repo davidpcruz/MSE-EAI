@@ -83,15 +83,6 @@ public class ParseStocksPlugin extends Parser
 			return null;			
 		}
 		
-		if (ParseStocksPlugin.STOCK_ROW__ELEMENT_COUNT != cotationInfoRows.size())
-		{
-			// The parsed data is not as we are expecting, which means that we can't make assumptions
-			// about the correctness of the fields. The safest thing to do is to not return anything and 
-			// alert the user somehow.
-			// TODO: Write error to log and alert user			
-			return null;			
-		}
-		
 		Stocks stocks = new Stocks();
 		
 		try
@@ -105,6 +96,16 @@ public class ParseStocksPlugin extends Parser
 				// this class information doc)
 				Elements cotationFields = cotationInfo.select("table td:eq(0), >td:gt(0)");
 
+				if (ParseStocksPlugin.STOCK_ROW__ELEMENT_COUNT != cotationFields.size())
+				{
+					// The parsed data is not as we are expecting, which means that we can't make assumptions
+					// about the correctness of the fields. The safest thing to do is to not return anything and 
+					// alert the user somehow.
+					// TODO: Write error to log and alert user			
+					stocks = null;
+					return null;			
+				}
+				
 				// Fill the sock object with the information retrieved from the page 
 				parseFields(cotationFields, stockInfo);
 				
@@ -127,6 +128,9 @@ public class ParseStocksPlugin extends Parser
 	{		
 		String field = null;
 		NumberFormat formatter = NumberFormat.getInstance(ParseStocksPlugin.STOCK_NUMBER_FORMAT_LOCALE);
+		
+		stockInfo.setCompany(new Company());
+		stockInfo.setCotation(new Cotation());
 		
 		Company company = stockInfo.getCompany();
 		Cotation cotation = stockInfo.getCotation();
