@@ -31,19 +31,23 @@
   <xs:element name="cotation">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="rate"/>
-        <xs:element ref="change"/>
+        <xs:element ref="lastCotation"/>
+        <xs:element ref="time"/>
+        <xs:element ref="variation"/>
+        <xs:element ref="quantity"/>
         <xs:element ref="maximum"/>
         <xs:element ref="minimum"/>
-        <xs:element ref="quantity"/>
-        <xs:element ref="prevclose"/>
+        <xs:element ref="purchase"/>
+        <xs:element ref="sell"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="rate" type="xs:decimal"/>
-  <xs:element name="change" type="xs:decimal"/>
+  <xs:element name="lastCotation" type="xs:decimal"/>
+  <xs:element name="time" type="xs:decimal"/>
+  <xs:element name="variation" type="xs:decimal"/>
+  <xs:element name="quantity" type="xs:unsignedLong"/>
   <xs:element name="maximum" type="xs:decimal"/>
-  <xs:element name="minimum" type="xs:integer"/>
-  <xs:element name="quantity" type="xs:integer"/>
-  <xs:element name="prevclose" type="xs:decimal"/>
+  <xs:element name="minimum" type="xs:decimal"/>
+  <xs:element name="purchase" type="xs:decimal"/>
+  <xs:element name="sell" type="xs:decimal"/>
 </xs:schema>
