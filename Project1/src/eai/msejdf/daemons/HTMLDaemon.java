@@ -65,19 +65,16 @@ public class HTMLDaemon implements MessageListener
 				lineIn = stdin.readLine();
 
 			} while (!lineIn.startsWith("q"));
-			
-		} 
-		catch (JMSException | IOException  ex)
+
+		} catch (JMSException | IOException ex)
 		{
 			logger.error("run", ex); //$NON-NLS-1$
-		} 
-		finally
+		} finally
 		{
 			try
 			{
 				receiver.close();
-			} 
-			catch (JMSException ex)
+			} catch (JMSException ex)
 			{
 				logger.error("run", ex); //$NON-NLS-1$
 			}
@@ -88,6 +85,7 @@ public class HTMLDaemon implements MessageListener
 			logger.debug("run() - end"); //$NON-NLS-1$
 		}
 	}
+
 	/**
 	 * @param args
 	 */
@@ -101,16 +99,14 @@ public class HTMLDaemon implements MessageListener
 		HTMLDaemon daemon = null;
 
 		try
-        {
-	        daemon = new HTMLDaemon();
+		{
+			daemon = new HTMLDaemon();
 			daemon.run();
-        } 
-		catch (JMSException ex)
-        {
+		} catch (JMSException ex)
+		{
 			logger.error("main", ex); //$NON-NLS-1$			
-        }		
+		}
 	}
-	
 
 	private void saveHtmlFile(String message) throws IOException
 	{
@@ -165,8 +161,6 @@ public class HTMLDaemon implements MessageListener
 		} catch (JMSException e2)
 		{
 			logger.error("onMessage(Message)", e2); //$NON-NLS-1$
-
-			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
 
@@ -177,8 +171,6 @@ public class HTMLDaemon implements MessageListener
 		} catch (TransformerException | IOException e1)
 		{
 			logger.error("onMessage(Message)", e1); //$NON-NLS-1$
-
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
