@@ -19,7 +19,7 @@ import eai.msejdf.config.Configuration;
 import eai.msejdf.jms.JMSReceiver;
 import eai.msejdf.utils.Transform;
 
-public class HTMLDaemon implements MessageListener
+public class HTMLDaemon extends DaemonBase implements MessageListener
 {
 
 	/** The Constant DAEMON_CLIENTID. */
@@ -43,47 +43,6 @@ public class HTMLDaemon implements MessageListener
 	{
 		receiver = new JMSReceiver(Configuration.getJmsTopicName(), DAEMON_CLIENTID);
 		receiver.setMessageListener(this);
-	}
-
-	public void run()
-	{
-		if (logger.isDebugEnabled())
-		{
-			logger.debug("run() - start"); //$NON-NLS-1$
-		}
-
-		try
-		{
-			receiver.start();
-
-			java.io.BufferedReader stdin = new java.io.BufferedReader(new java.io.InputStreamReader(System.in));
-			String lineIn = "";
-
-			do
-			{
-				System.out.println("Press (q) to exit daemon");
-				lineIn = stdin.readLine();
-
-			} while (!lineIn.startsWith("q"));
-
-		} catch (JMSException | IOException ex)
-		{
-			logger.error("run", ex); //$NON-NLS-1$
-		} finally
-		{
-			try
-			{
-				receiver.close();
-			} catch (JMSException ex)
-			{
-				logger.error("run", ex); //$NON-NLS-1$
-			}
-		}
-
-		if (logger.isDebugEnabled())
-		{
-			logger.debug("run() - end"); //$NON-NLS-1$
-		}
 	}
 
 	/**
@@ -190,5 +149,18 @@ public class HTMLDaemon implements MessageListener
 			logger.debug("onMessage(Message) - end"); //$NON-NLS-1$
 		}
 	}
+
+	@Override
+    public void startDaemon() throws JMSException
+    {
+	    receiver.start();
+	    
+    }
+
+	@Override
+    public void stopDaemon() throws JMSException
+    {
+	    receiver.close();	    
+    }
 
 }
