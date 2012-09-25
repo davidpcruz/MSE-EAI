@@ -35,7 +35,7 @@ public class WebProbe
 
 	private final static int PROGRAM_ARG_INDEX__URL = 0;
 	private final static String DIRECTORY__PENDING_MESSAGES = "./pending/";
-	private final static String DATA_RECEIVER_NAME = "testTopic";
+	private final static String DATA_RECEIVER_NAME = "EAIProject1";
 	
 	private String webUrl = null;
 	
