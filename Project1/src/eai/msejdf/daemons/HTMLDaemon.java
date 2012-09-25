@@ -21,7 +21,7 @@ import eai.msejdf.config.Configuration;
 import eai.msejdf.jms.JMSReceiver;
 import eai.msejdf.utils.Transform;
 
-public class HTMLDaemon extends Thread implements MessageListener
+public class HTMLDaemon implements MessageListener
 {
 
 	/** The Constant DAEMON_CLIENTID. */
@@ -53,29 +53,33 @@ public class HTMLDaemon extends Thread implements MessageListener
 		{
 			receiver.start();
 
-			while (true)
-			{
-				Thread.sleep(500);
-			}
+			java.io.BufferedReader stdin = new java.io.BufferedReader(new java.io.InputStreamReader(System.in));
+			String lineIn = "";
 
-		} catch (InterruptedException ex)
-		{
-			// exiting the Thread
-		} catch (JMSException ex)
+			do
+			{
+				System.out.println("Press (q) to exit daemon");
+				lineIn = stdin.readLine();
+
+			} while (!lineIn.startsWith("q"));
+			
+		} 
+		catch (JMSException | IOException  ex)
 		{
 			logger.error("run", ex); //$NON-NLS-1$
-		} finally
+		} 
+		finally
 		{
 			try
 			{
 				receiver.close();
-			} catch (JMSException ex)
+			} 
+			catch (JMSException ex)
 			{
 				logger.error("run", ex); //$NON-NLS-1$
 			}
 		}
 	}
-
 	/**
 	 * @param args
 	 */
@@ -84,31 +88,16 @@ public class HTMLDaemon extends Thread implements MessageListener
 		HTMLDaemon daemon = null;
 
 		try
-		{
-			daemon = new HTMLDaemon();
-			daemon.setDaemon(true);
-			daemon.start();
-
-			java.io.BufferedReader stdin = new java.io.BufferedReader(new java.io.InputStreamReader(System.in));
-			String lineIn = "";
-
-			do
-			{
-				Thread.sleep(500);
-				System.out.println("Press (q) to exit daemon");
-				lineIn = stdin.readLine();
-
-			} while (!lineIn.startsWith("q"));
-
-			daemon.interrupt();
-			daemon.join();
-		} catch (InterruptedException | IOException | JMSException ex)
-		{
-			daemon.interrupt();
+        {
+	        daemon = new HTMLDaemon();
+			daemon.run();
+        } 
+		catch (JMSException ex)
+        {
 			logger.error("main", ex); //$NON-NLS-1$			
-		}
-
+        }		
 	}
+	
 	private void saveHtmlFile(String message) throws IOException
 	{
 		SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss-SSS");
