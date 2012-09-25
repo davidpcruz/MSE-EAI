@@ -4,7 +4,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -15,7 +14,6 @@ import javax.jms.TextMessage;
 import javax.xml.transform.TransformerException;
 
 import org.apache.log4j.Logger;
-
 
 import eai.msejdf.config.Configuration;
 import eai.msejdf.jms.JMSReceiver;
@@ -49,6 +47,11 @@ public class HTMLDaemon implements MessageListener
 
 	public void run()
 	{
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("run() - start"); //$NON-NLS-1$
+		}
+
 		try
 		{
 			receiver.start();
@@ -79,12 +82,22 @@ public class HTMLDaemon implements MessageListener
 				logger.error("run", ex); //$NON-NLS-1$
 			}
 		}
+
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("run() - end"); //$NON-NLS-1$
+		}
 	}
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args)
 	{
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("main(String[]) - start"); //$NON-NLS-1$
+		}
+
 		HTMLDaemon daemon = null;
 
 		try
@@ -98,61 +111,77 @@ public class HTMLDaemon implements MessageListener
         }		
 	}
 	
+
 	private void saveHtmlFile(String message) throws IOException
 	{
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("saveHtmlFile(String) - start"); //$NON-NLS-1$
+		}
+
 		SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss-SSS");
-		String htmlDirectory = Configuration.getHtmlDirectory();
-		File outputFile = null; 
-		
+
+		File outputFile = null;
+		File directory = new File(".");
+
 		// Create a unique file based on the current time/date
 		do
 		{
-			outputFile = new File(htmlDirectory + "/" + dateFormatter.format(new Date()) + ".html"); 
-		}
-		while (false == outputFile.createNewFile());
+			outputFile = new File(directory.getAbsolutePath() + "/bin/" + dateFormatter.format(new Date()) + ".html");
+		} while (false == outputFile.createNewFile());
 
 		// Save the message to the file
 		BufferedWriter fileWriter = new BufferedWriter(new FileWriter(outputFile));
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("Writing HTML file: " + directory.getAbsolutePath() + "/bin/" + dateFormatter.format(new Date()) + ".html"); //$NON-NLS-1$
+		}
 		fileWriter.write(message);
 		fileWriter.close();
+
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("saveHtmlFile(String) - end"); //$NON-NLS-1$
+		}
 	}
+
 	@Override
 	public void onMessage(Message msg)
 	{
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("onMessage(Message) - start"); //$NON-NLS-1$
+		}
+
 		TextMessage tm = (TextMessage) msg;
 		String xsltFile = Configuration.getXsltFile();
 
 		String resultFile = null;
 		String xmlFile = null;
-		
+
 		try
-        {
-	        xmlFile=tm.getText();
-        } catch (JMSException e2)
-        {
-	        // TODO Auto-generated catch block
-	        e2.printStackTrace();
-        }
-		
+		{
+			xmlFile = tm.getText();
+		} catch (JMSException e2)
+		{
+			logger.error("onMessage(Message)", e2); //$NON-NLS-1$
+
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+
 		try
-        {
-	        resultFile = Transform.xmlTransformation(xmlFile, xsltFile);
-        } catch (UnsupportedEncodingException | TransformerException  e1)
-        {
-	        // TODO Auto-generated catch block
-	        e1.printStackTrace();
-        }
-		
-		//save the html file
-		try
-        {
-	        saveHtmlFile(resultFile); 
-        } catch (IOException e1)
-        {
-        	logger.error("impossible to write html file ",   e1); //$NON-NLS-1$
-	        e1.printStackTrace();
-        }
-		
+		{
+			resultFile = Transform.xmlTransformation(xmlFile, xsltFile);
+			saveHtmlFile(resultFile); // save HTML file
+		} catch (TransformerException | IOException e1)
+		{
+			logger.error("onMessage(Message)", e1); //$NON-NLS-1$
+
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
 		try
 		{
 			if (logger.isInfoEnabled())
@@ -164,6 +193,10 @@ public class HTMLDaemon implements MessageListener
 			logger.error("onMessage(Message)", e); //$NON-NLS-1$
 		}
 
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("onMessage(Message) - end"); //$NON-NLS-1$
+		}
 	}
 
 }
