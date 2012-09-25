@@ -20,14 +20,14 @@ import org.rrd4j.graph.RrdGraphDef;
 import eai.msejdf.utils.StringUtils;
 
 /**
- * @author dcruz
+ * The Class RrdDatabase.
  *
+ * @author dcruz
  */
 public class RrdDatabase
 {
-	/**
-	 * Logger for this class
-	 */
+	
+	/** Logger for this class. */
 	private static final Logger logger = Logger.getLogger(RrdDatabase.class);
 
 	/** The Constant HEARTBEAT_VALUE, that defines the heartbeat of rrd database. */
@@ -40,9 +40,11 @@ public class RrdDatabase
 	private String dataSourceName;
 		
 	/**
-	 * @param fileName
-	 * @param dataSource
-	 * @throws IOException
+	 * Instantiates a new rrd database.
+	 *
+	 * @param fileName the file name
+	 * @param dataSource the data source
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public RrdDatabase(String fileName, String dataSource) throws IOException
 	{
@@ -92,9 +94,11 @@ public class RrdDatabase
 	}
 	
 	/**
-	 * @param timestamp
-	 * @param value
-	 * @throws IOException
+	 * Update data.
+	 *
+	 * @param timestamp the timestamp
+	 * @param value the value
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public void updateData (long timestamp, float value) throws IOException 
 	{
@@ -116,9 +120,11 @@ public class RrdDatabase
 	}
 	
 	/**
-	 * @param imageName
-	 * @param timeOffset
-	 * @throws IOException
+	 * Creates the rrd graph.
+	 *
+	 * @param imageName the image name
+	 * @param timeOffset the time offset
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public void createRRDGraph (String imageName, long timeOffset) throws IOException {
 		if (logger.isDebugEnabled())

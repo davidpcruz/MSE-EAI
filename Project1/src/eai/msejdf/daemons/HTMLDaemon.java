@@ -54,14 +54,13 @@ public class HTMLDaemon extends DaemonBase implements MessageListener
 		{
 			logger.debug("main(String[]) - start"); //$NON-NLS-1$
 		}
-
-		HTMLDaemon daemon = null;
-
+		
 		try
 		{
-			daemon = new HTMLDaemon();
+			HTMLDaemon daemon = new HTMLDaemon();
 			daemon.run();
-		} catch (JMSException ex)
+		} 
+		catch (JMSException ex)
 		{
 			logger.error("main", ex); //$NON-NLS-1$			
 		}

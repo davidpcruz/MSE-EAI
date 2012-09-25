@@ -7,21 +7,28 @@ import javax.jms.Topic;
 
 import org.apache.log4j.Logger;
 
+/**
+ * The Class JMSReceiver.
+ */
 public class JMSReceiver extends JMSBase 
 {
-	/**
-	 * Logger for this class
-	 */
+	
+	/** Logger for this class. */
 	private static final Logger logger = Logger.getLogger(JMSReceiver.class);
 
 	/** The Constant SUBCRIBER_NAME. */
 	private static final String SUBCRIBER_NAME = "Subcriber";	
 	/** The message consumer. */
 	protected MessageConsumer messConsumer;
+	
+	/** Unsubsribe the topic on exit (default false). */
+	protected boolean unsubsribeTopic = false;
 
 	/**
 	 * Instantiates a new jMS receiver.
 	 *
+	 * @param topicName the topic name
+	 * @param connectionID the connection id
 	 * @throws JMSException the jMS exception
 	 */
 	public JMSReceiver(String topicName, String connectionID) throws JMSException
@@ -31,6 +38,20 @@ public class JMSReceiver extends JMSBase
 		this.messConsumer = session.createDurableSubscriber((Topic) dest, SUBCRIBER_NAME, null, false);
 	}
 
+	/**
+	 * Instantiates a new jMS receiver.
+	 *
+	 * @param topicName the topic name
+	 * @param connectionID the connection id
+	 * @param unsubsribeOnExit  unsubsribe on exit
+	 * @throws JMSException the jMS exception
+	 */
+	public JMSReceiver(String topicName, String connectionID, boolean unsubsribeOnExit) throws JMSException
+	{
+		this(topicName, connectionID);
+		this.unsubsribeTopic = unsubsribeOnExit;
+	}
+	
 	/**
 	 * Sets the message listener.
 	 *
@@ -86,7 +107,12 @@ public class JMSReceiver extends JMSBase
 
 		try
 		{
-			this.session.unsubscribe(SUBCRIBER_NAME);
+			this.messConsumer.close();
+			// usnubscribe the topic if required
+			if (unsubsribeTopic) 
+			{
+				this.session.unsubscribe(SUBCRIBER_NAME);	
+			}
 		} 
 		catch (Throwable e)
 		{

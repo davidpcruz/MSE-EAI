@@ -10,14 +10,14 @@ import javax.jms.TextMessage;
 import org.apache.log4j.Logger;
 
 /**
- * @author dcruz
+ * The Class JMSSender.
  *
+ * @author dcruz
  */
 public class JMSSender extends JMSBase
 {
-	/**
-	 * Logger for this class
-	 */
+	
+	/** Logger for this class. */
 	private static final Logger logger = Logger.getLogger(JMSSender.class);
 
 	/** The message producer. */
@@ -26,6 +26,7 @@ public class JMSSender extends JMSBase
 	/**
 	 * Instantiates a new jMS sender.
 	 *
+	 * @param topicName the topic name
 	 * @throws JMSException the jMS exception
 	 */
 	public JMSSender(String topicName) throws JMSException
@@ -69,6 +70,7 @@ public class JMSSender extends JMSBase
 			logger.debug("close() - start"); //$NON-NLS-1$
 		}
 
+		this.messProducer.close();
 		this.connClose();
 
 		if (logger.isDebugEnabled())

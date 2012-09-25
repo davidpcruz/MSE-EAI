@@ -15,26 +15,34 @@ import org.hornetq.core.remoting.impl.netty.NettyConnectorFactory;
 import eai.msejdf.config.Configuration;
 import eai.msejdf.utils.StringUtils;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class JMSHandler. Simplifies and handles all the JMS communication
  */
 abstract class JMSBase
 {
 
-	/**
-	 * Logger for this class
-	 */
+	/** Logger for this class. */
 	private static final Logger logger = Logger.getLogger(JMSBase.class);
 
+	/** The conn factory. */
 	protected ConnectionFactory connFactory;
+	
+	/** The conn. */
 	protected Connection conn;
+	
+	/** The dest. */
 	protected Destination dest;
+	
+	/** The session. */
 	protected Session session;
 
 	/**
 	 * Instantiates a new jMS handler.
-	 * 
-	 * @throws JMSException
+	 *
+	 * @param topicName the topic name
+	 * @param clientID the client id
+	 * @throws JMSException the jMS exception
 	 */
 	protected JMSBase(String topicName, String clientID) throws JMSException
 	{
@@ -70,10 +78,9 @@ abstract class JMSBase
 	}
 
 	/**
-	 * Starts the Connection with the JMS server
-	 * 
-	 * @throws JMSException
-	 *             the jMS exception
+	 * Starts the Connection with the JMS server.
+	 *
+	 * @throws JMSException the jMS exception
 	 */
 	protected void connStart() throws JMSException
 	{
@@ -91,10 +98,9 @@ abstract class JMSBase
 	}
 
 	/**
-	 * Closes the Connection with the JMS server
-	 * 
-	 * @throws JMSException
-	 *             the jMS exception
+	 * Closes the Connection with the JMS server.
+	 *
+	 * @throws JMSException the jMS exception
 	 */
 	protected void connClose() throws JMSException
 	{
@@ -116,12 +122,9 @@ abstract class JMSBase
 	}
 
 	/**
-	 * Opens the connection
-	 * 
-	 * @param topicName
-	 *            the topic name
-	 * @throws JMSException
-	 *             the jMS exception
+	 * Opens the connection.
+	 *
+	 * @throws JMSException the jMS exception
 	 */
 	// public abstract void createTopic(String topicName) throws JMSException;
 	public abstract void start() throws JMSException;

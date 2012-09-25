@@ -2,14 +2,19 @@ package eai.msejdf.daemons;
 
 import org.apache.log4j.Logger;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DaemonBase.
+ */
 abstract class DaemonBase
 {
 
-	/**
-	 * Logger for this class
-	 */
+	/** Logger for this class. */
 	private static final Logger logger = Logger.getLogger(DaemonBase.class);
 
+	/**
+	 * Run.
+	 */
 	public void run()
 	{
 		if (logger.isDebugEnabled())
@@ -52,7 +57,17 @@ abstract class DaemonBase
 		}
 	}
 	
+	/**
+	 * Start the daemon.
+	 *
+	 * @throws Exception the exception
+	 */
 	public abstract void startDaemon() throws Exception;
 	
+	/**
+	 * Stop the daemon.
+	 *
+	 * @throws Exception the exception
+	 */
 	public abstract void stopDaemon() throws Exception;
 }

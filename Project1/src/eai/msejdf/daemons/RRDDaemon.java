@@ -1,13 +1,12 @@
 package eai.msejdf.daemons;
 
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.Random;
 
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
+import javax.xml.bind.JAXBException;
 
 import org.apache.log4j.Logger;
 
@@ -15,18 +14,22 @@ import eai.msejdf.config.Configuration;
 import eai.msejdf.data.Company;
 import eai.msejdf.data.Cotation;
 import eai.msejdf.data.Stock;
+import eai.msejdf.data.Stocks;
 import eai.msejdf.jms.JMSReceiver;
 import eai.msejdf.rrd.RrdDatabase;
+import eai.msejdf.utils.XmlObjConv;
 
-public class RRDDaemon extends Thread implements MessageListener
+// TODO: Auto-generated Javadoc
+/**
+ * The Class RRDDaemon.
+ */
+public class RRDDaemon extends DaemonBase implements MessageListener
 {
 
 	/** The Constant DAEMON_CLIENTID. */
 	private static final String DAEMON_CLIENTID = "RRDDaemon";
 
-	/**
-	 * Logger for this class
-	 */
+	/** Logger for this class. */
 	private static final Logger logger = Logger.getLogger(RRDDaemon.class);
 
 	/** The jms receiver. */
@@ -44,86 +47,32 @@ public class RRDDaemon extends Thread implements MessageListener
 		receiver.setMessageListener(this);
 	}
 
-	public void run()
-	{
-
-		try
-		{
-			receiver.start();
-
-			/// TESTING
-			Random generator = new Random();
-			Stock stock = new Stock();
-			
-			Company company = new Company();
-			company.setName("RRDDaemon");
-			
-			Cotation quote = new Cotation();			
-			
-			stock.setCompany(company);
-			stock.setCotation(quote);
-			/// TESTING
-			while (true)
-			{
-				Thread.sleep(1000);
-				quote.setLastCotation(new BigDecimal(generator.nextInt(100)));
-				addStockToRRD(System.currentTimeMillis(), stock);
-				
-				logger.debug("done"); //$NON-NLS-1$
-			}
-
-		} catch (InterruptedException ex)
-		{
-			// exiting the Thread
-		} catch (JMSException | IOException ex)
-		{
-			logger.error("run", ex); //$NON-NLS-1$
-        } finally
-		{
-			try
-			{
-				receiver.close();
-			} catch (JMSException ex)
-			{
-				logger.error("run", ex); //$NON-NLS-1$
-			}
-		}
-	}
-
 	/**
-	 * @param args
-	 */
+ * The main method.
+ *
+ * @param args the arguments
+ */
 	public static void main(String[] args)
 	{
-		RRDDaemon daemon = null;
-
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("main(String[]) - start"); //$NON-NLS-1$
+		}
+		
 		try
 		{
-			daemon = new RRDDaemon();
-			daemon.setDaemon(true);
-			daemon.start();
-
-			java.io.BufferedReader stdin = new java.io.BufferedReader(new java.io.InputStreamReader(System.in));
-			String lineIn = "";
-
-			do
-			{
-				Thread.sleep(500);
-				System.out.println("Press (q) to exit daemon");
-				lineIn = stdin.readLine();
-
-			} while (!lineIn.startsWith("q"));
-
-			daemon.interrupt();
-			daemon.join();
-		} catch (InterruptedException | JMSException | IOException ex)
+			RRDDaemon daemon = new RRDDaemon();
+			daemon.run();
+		} 
+		catch (JMSException ex)
 		{
 			logger.error("main", ex); //$NON-NLS-1$			
-			daemon.interrupt();
 		}
+	}		
 
-	}
-
+	/* (non-Javadoc)
+	 * @see javax.jms.MessageListener#onMessage(javax.jms.Message)
+	 */
 	@Override
 	public void onMessage(Message msg)
 	{
@@ -131,11 +80,21 @@ public class RRDDaemon extends Thread implements MessageListener
 
 		try
 		{
+			String msgSent = tm.getText();
 			if (logger.isInfoEnabled())
 			{
-				logger.info("onMessage(Message) - onMessage, recv text=" + tm.getText()); //$NON-NLS-1$
+				logger.info("onMessage(Message) - onMessage, recv text=" + msgSent); //$NON-NLS-1$
 			}
-		} catch (JMSException e)
+			
+			// try to get the object
+			Stocks objMsg = XmlObjConv.convertToObject(msgSent, Stocks.class);
+			
+			for (Stock quote : objMsg.getStock())
+			{
+				addStockToRRD(objMsg.getTimestamp().longValue(), quote);
+			}
+			
+		} catch (JMSException | JAXBException | IOException e)
 		{
 			logger.error("onMessage(Message)", e); //$NON-NLS-1$
 		}
@@ -144,12 +103,10 @@ public class RRDDaemon extends Thread implements MessageListener
 
 	/**
 	 * Adds the stock to rrd database.
-	 * 
-	 * @param timestamp
-	 *            the timestamp
-	 * @param stockValue
-	 *            the stock value
-	 * @throws IOException
+	 *
+	 * @param timestamp the timestamp
+	 * @param stockValue the stock value
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	private void addStockToRRD(long timestamp, Stock stockValue) throws IOException
 	{
@@ -182,4 +139,23 @@ public class RRDDaemon extends Thread implements MessageListener
 		// dbase.createRRDGraph("test_month.gif", 30l * 24l * 60l * 60l);
 
 	}
+	
+	/* (non-Javadoc)
+	 * @see eai.msejdf.daemons.DaemonBase#startDaemon()
+	 */
+	@Override
+    public void startDaemon() throws JMSException
+    {
+	    receiver.start();
+	    
+    }
+
+	/* (non-Javadoc)
+	 * @see eai.msejdf.daemons.DaemonBase#stopDaemon()
+	 */
+	@Override
+    public void stopDaemon() throws JMSException
+    {
+	    receiver.close();	    
+    }	
 }

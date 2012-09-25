@@ -2,6 +2,7 @@ package eai.msejdf.utils;
 
 import org.apache.log4j.Logger;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -15,6 +16,7 @@ import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
 
 import org.xml.sax.SAXException;
 
@@ -53,15 +55,15 @@ public final class XmlObjConv
 		{
 			throw new IllegalArgumentException("data");
 		}
-		
+
 		StringWriter stringWriter = new StringWriter();
 
 		// Schema validation (try to get the schema)
 		Schema schema = getClassXSDSchema(data.getClass());
-		
+
 		JAXBContext jaxbContext = JAXBContext.newInstance(data.getClass());
 		Marshaller marshaller = jaxbContext.createMarshaller();
-		
+
 		// add the schema validation (if found)
 		if (schema != null)
 		{
@@ -86,8 +88,8 @@ public final class XmlObjConv
 	 * @return Object representing the XML
 	 * @throws JAXBException
 	 */
-	@SuppressWarnings("unchecked")
 	// Suppress the warning on the task (is there other way)
+	@SuppressWarnings("unchecked")
 	public static <T extends Object> T convertToObject(String xml, Class<T> classType) throws JAXBException
 	{
 		if (logger.isDebugEnabled())
@@ -106,7 +108,6 @@ public final class XmlObjConv
 			throw new IllegalArgumentException("classType");
 		}
 
-		
 		// Schema validation (try to get the schema)
 		Schema schema = getClassXSDSchema(classType);
 
@@ -127,9 +128,48 @@ public final class XmlObjConv
 	}
 
 	/**
-	 * Gets the class xsd schema.
+	 * Validate xml against a defined classType (through it's xsd).
 	 *
+	 * @param xml the xml
 	 * @param classType the class type
+	 * @return true, if successful
+	 */
+	public static boolean validateXML(String xml, Class<?> classType)
+	{
+		boolean valid = false;
+		
+		// Schema validation (try to get the schema)
+		Schema schema = getClassXSDSchema(classType);
+		
+		if (schema != null)
+		{
+			Validator validator = schema.newValidator();
+			try
+			{
+				validator.validate(new StreamSource(xml));
+				valid = true;
+			} catch (SAXException | IOException e)
+			{
+				logger.error("validateXML(String xml, Class<?> classType) - exception ", e); //$NON-NLS-1$
+				valid = false;
+			}
+
+		} else {
+			if (logger.isDebugEnabled())
+			{
+				logger.warn("validateXML(String xml, Class<?> classType) . unable to load schema"); //$NON-NLS-1$
+			}			
+		}
+		
+		return valid;
+
+	}
+
+	/**
+	 * Gets the class xsd schema.
+	 * 
+	 * @param classType
+	 *            the class type
 	 * @return the class xsd schema
 	 */
 	private static Schema getClassXSDSchema(Class<?> classType)
@@ -153,10 +193,9 @@ public final class XmlObjConv
 				Source schemaFile = new StreamSource(inputStr);
 				SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 				schema = schemaFactory.newSchema(schemaFile);
-			} 
-			else
+			} else
 			{
-				logger.warn(String.format("getClassXSDSchema(Class<?>) unable to load the %s",xsdSchemaName)); 
+				logger.warn(String.format("getClassXSDSchema(Class<?>) unable to load the %s", xsdSchemaName));
 			}
 
 		} catch (SAXException e)

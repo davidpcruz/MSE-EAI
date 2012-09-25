@@ -32,6 +32,17 @@ public final class Configuration
 	/** The Constant containing the directory for the HTML files */
 	private static final String HTML_FILE_DIRECTORY = "app.jms.htmlfiledirectory"; // "C:\\";
 
+	/** The Constant containing the directory for the pending messages directory */
+	private static final String DIRECTORY__PENDING_MESSAGES = "app.jms.directorypendingmessages"; // "C:\\";
+
+	/** The Constant containing the  data receiver name */
+	private static final String DATA_RECEIVER_NAME = "app.jms.datareceivername"; // "C:\\";
+
+	/** The Constant containing the  connection timeout time */
+	private static final String CONNECTION_TIMEOUT = "app.jms.connectiontimeout"; // "C:\\";
+
+	
+	
 	private static Properties props;
 
 	/**
@@ -96,5 +107,35 @@ public final class Configuration
 	public static String getHtmlDirectory()
 	{
 		return getProperties().getProperty(HTML_FILE_DIRECTORY);
+	}
+	
+	/**
+	 * Gets the data receiver name.
+	 * 
+	 * @return the DATA_RECEIVER_NAME
+	 */
+	public static String getDataReceiverName()
+	{
+		return getProperties().getProperty(DATA_RECEIVER_NAME);
+	}
+	
+	/**
+	 * Gets the directoy for pending messages.
+	 * 
+	 * @return the DATA_RECEIVER_NAME
+	 */
+	public static String getPendingMessagesDirectory()
+	{
+		return getProperties().getProperty(DIRECTORY__PENDING_MESSAGES);
+	}
+	
+	/**
+	 * Gets the directoy for pending messages.
+	 * 
+	 * @return the DATA_RECEIVER_NAME
+	 */
+	public static int getConnectionTimeOut()
+	{
+		return  Integer.parseInt(getProperties().getProperty(CONNECTION_TIMEOUT));
 	}
 }

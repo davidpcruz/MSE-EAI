@@ -14,6 +14,8 @@ import java.util.Comparator;
 import java.util.Date;
 
 import javax.jms.JMSException;
+
+import eai.msejdf.config.Configuration;
 import eai.msejdf.jms.JMSSender;
 import eai.msejdf.utils.XmlObjConv;
 import eai.msejdf.web.ParseStocksPlugin;
@@ -34,8 +36,9 @@ public class WebProbe
 	private static final Logger logger = Logger.getLogger(WebProbe.class);
 
 	private final static int PROGRAM_ARG_INDEX__URL = 0;
-	private final static String DIRECTORY__PENDING_MESSAGES = "./pending/";
-	private final static String DATA_RECEIVER_NAME = "EAIProject1";
+	private final static String DIRECTORY__PENDING_MESSAGES =  Configuration.getPendingMessagesDirectory(); 
+	private final static String DATA_RECEIVER_NAME = Configuration.getDataReceiverName();
+			
 	
 	private String webUrl = null;
 	
