@@ -49,6 +49,11 @@ public class HTMLDaemon extends Thread implements MessageListener
 
 	public void run()
 	{
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("run() - start"); //$NON-NLS-1$
+		}
+
 		try
 		{
 			receiver.start();
@@ -60,6 +65,8 @@ public class HTMLDaemon extends Thread implements MessageListener
 
 		} catch (InterruptedException ex)
 		{
+			logger.warn("run() - exception ignored", ex); //$NON-NLS-1$
+
 			// exiting the Thread
 		} catch (JMSException ex)
 		{
@@ -74,6 +81,11 @@ public class HTMLDaemon extends Thread implements MessageListener
 				logger.error("run", ex); //$NON-NLS-1$
 			}
 		}
+
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("run() - end"); //$NON-NLS-1$
+		}
 	}
 
 	/**
@@ -81,6 +93,11 @@ public class HTMLDaemon extends Thread implements MessageListener
 	 */
 	public static void main(String[] args)
 	{
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("main(String[]) - start"); //$NON-NLS-1$
+		}
+
 		HTMLDaemon daemon = null;
 
 		try
@@ -108,9 +125,18 @@ public class HTMLDaemon extends Thread implements MessageListener
 			logger.error("main", ex); //$NON-NLS-1$			
 		}
 
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("main(String[]) - end"); //$NON-NLS-1$
+		}
 	}
 	private void saveHtmlFile(String message) throws IOException
 	{
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("saveHtmlFile(String) - start"); //$NON-NLS-1$
+		}
+
 		SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss-SSS");
 		
 		File outputFile = null; 
@@ -127,13 +153,23 @@ public class HTMLDaemon extends Thread implements MessageListener
 		BufferedWriter fileWriter = new BufferedWriter(new FileWriter(outputFile));
 		fileWriter.write(message);
 		fileWriter.close();
+
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("saveHtmlFile(String) - end"); //$NON-NLS-1$
+		}
 	}
 	@Override
 	public void onMessage(Message msg)
 	{
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("onMessage(Message) - start"); //$NON-NLS-1$
+		}
+
 		TextMessage tm = (TextMessage) msg;
 		String xsltFile = Configuration.getXsltFile();
-
+		
 		String resultFile = null;
 		String xmlFile = null;
 		
@@ -142,6 +178,8 @@ public class HTMLDaemon extends Thread implements MessageListener
 	        xmlFile=tm.getText();
         } catch (JMSException e2)
         {
+			logger.error("onMessage(Message)", e2); //$NON-NLS-1$
+
 	        // TODO Auto-generated catch block
 	        e2.printStackTrace();
         }
@@ -151,6 +189,8 @@ public class HTMLDaemon extends Thread implements MessageListener
 	        resultFile = Transform.xmlTransformation(xmlFile, xsltFile);
         } catch (UnsupportedEncodingException | TransformerException  e1)
         {
+			logger.error("onMessage(Message)", e1); //$NON-NLS-1$
+
 	        // TODO Auto-generated catch block
 	        e1.printStackTrace();
         }
@@ -176,6 +216,10 @@ public class HTMLDaemon extends Thread implements MessageListener
 			logger.error("onMessage(Message)", e); //$NON-NLS-1$
 		}
 
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("onMessage(Message) - end"); //$NON-NLS-1$
+		}
 	}
 
 }
