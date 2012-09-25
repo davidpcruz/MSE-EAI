@@ -144,11 +144,15 @@ public class HTMLDaemon extends Thread implements MessageListener
 		// Create a unique file based on the current time/date
 		do
 		{
-			outputFile = new File(directory.getAbsolutePath() + "/" + dateFormatter.format(new Date()) + ".html");
+			outputFile = new File(directory.getAbsolutePath() + "/bin/" + dateFormatter.format(new Date()) + ".html");
 		} while (false == outputFile.createNewFile());
 
 		// Save the message to the file
 		BufferedWriter fileWriter = new BufferedWriter(new FileWriter(outputFile));
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("Writing HTML file: " + directory.getAbsolutePath() + "/bin/" + dateFormatter.format(new Date()) + ".html"); //$NON-NLS-1$
+		}
 		fileWriter.write(message);
 		fileWriter.close();
 
