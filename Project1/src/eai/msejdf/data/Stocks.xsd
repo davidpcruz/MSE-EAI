@@ -43,7 +43,7 @@
     </xs:complexType>
   </xs:element>
   <xs:element name="lastCotation" type="xs:decimal"/>
-  <xs:element name="time" type="xs:decimal"/>
+  <xs:element name="time" type="xs:string" />
   <xs:element name="variation" type="xs:decimal"/>
   <xs:element name="quantity" type="xs:unsignedLong"/>
   <xs:element name="maximum" type="xs:decimal"/>

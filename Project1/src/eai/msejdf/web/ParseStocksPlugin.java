@@ -20,7 +20,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 
-
 /**
  * @author NB12588
  *
@@ -116,7 +115,7 @@ public class ParseStocksPlugin extends Parser
 
 				// Separates the different cotation information fields into a list of fields, excluding data
 				// in the first field that is irrelevant ("Hist." as described in the example presented in 
-				// this class information doc)
+				// this class doc header)
 				Elements cotationFields = cotationInfo.select("table td:eq(0) a, >td:gt(0)");
 
 				if (ParseStocksPlugin.STOCK_ROW__ELEMENT_COUNT != cotationFields.size())
@@ -180,7 +179,7 @@ public class ParseStocksPlugin extends Parser
 		cotation.setLastCotation(BigDecimal.valueOf(formatter.parse(field).doubleValue()));
 
 		field = cotationFields.get(ParseStocksPlugin.STOCK_ROW_INDEX__COTATION_TIME).text();
-		cotation.setTime(BigDecimal.valueOf(formatter.parse(field).doubleValue()));
+		cotation.setTime(field);
 
 		field = cotationFields.get(ParseStocksPlugin.STOCK_ROW_INDEX__VARIATION).text();
 		cotation.setVariation(BigDecimal.valueOf(formatter.parse(field).doubleValue()));
