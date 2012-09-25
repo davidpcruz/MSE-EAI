@@ -10,7 +10,7 @@
 					<tr bgcolor="#9acd32">
 						<th>Company</th>
 						<th>Purchase Rate</th>
-<!-- 						<th>% Change</th> -->
+ 						<th>% Variation</th> 
 						<th>Maximum</th>
 						<th>Minimum</th>
 						<th>Quantity</th>
@@ -30,9 +30,9 @@
 			<td>
 				<xsl:value-of select="cotation/purchase" />
 			</td>
-<!-- 			<td> -->
-<!-- 				<xsl:value-of select="cotation/change" /> -->
-<!-- 			</td> -->
+ 			<td> 
+ 				<xsl:value-of select="cotation/variation" /> 
+ 			</td> 
 			<td>
 				<xsl:value-of select="cotation/maximum" />
 			</td>

@@ -4,7 +4,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -15,7 +14,6 @@ import javax.jms.TextMessage;
 import javax.xml.transform.TransformerException;
 
 import org.apache.log4j.Logger;
-
 
 import eai.msejdf.config.Configuration;
 import eai.msejdf.jms.JMSReceiver;
@@ -130,6 +128,7 @@ public class HTMLDaemon extends Thread implements MessageListener
 			logger.debug("main(String[]) - end"); //$NON-NLS-1$
 		}
 	}
+
 	private void saveHtmlFile(String message) throws IOException
 	{
 		if (logger.isDebugEnabled())
@@ -138,16 +137,15 @@ public class HTMLDaemon extends Thread implements MessageListener
 		}
 
 		SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss-SSS");
-		
-		File outputFile = null; 
-		File directory = new File (".");
-		
+
+		File outputFile = null;
+		File directory = new File(".");
+
 		// Create a unique file based on the current time/date
 		do
 		{
-			outputFile = new File(directory.getAbsolutePath() + "/" + dateFormatter.format(new Date()) + ".html"); 
-		}
-		while (false == outputFile.createNewFile());
+			outputFile = new File(directory.getAbsolutePath() + "/" + dateFormatter.format(new Date()) + ".html");
+		} while (false == outputFile.createNewFile());
 
 		// Save the message to the file
 		BufferedWriter fileWriter = new BufferedWriter(new FileWriter(outputFile));
@@ -159,6 +157,7 @@ public class HTMLDaemon extends Thread implements MessageListener
 			logger.debug("saveHtmlFile(String) - end"); //$NON-NLS-1$
 		}
 	}
+
 	@Override
 	public void onMessage(Message msg)
 	{
@@ -169,42 +168,33 @@ public class HTMLDaemon extends Thread implements MessageListener
 
 		TextMessage tm = (TextMessage) msg;
 		String xsltFile = Configuration.getXsltFile();
-		
+
 		String resultFile = null;
 		String xmlFile = null;
-		
+
 		try
-        {
-	        xmlFile=tm.getText();
-        } catch (JMSException e2)
-        {
+		{
+			xmlFile = tm.getText();
+		} catch (JMSException e2)
+		{
 			logger.error("onMessage(Message)", e2); //$NON-NLS-1$
 
-	        // TODO Auto-generated catch block
-	        e2.printStackTrace();
-        }
-		
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+
 		try
-        {
-	        resultFile = Transform.xmlTransformation(xmlFile, xsltFile);
-        } catch (UnsupportedEncodingException | TransformerException  e1)
-        {
+		{
+			resultFile = Transform.xmlTransformation(xmlFile, xsltFile);
+			saveHtmlFile(resultFile); // save HTML file
+		} catch (TransformerException | IOException e1)
+		{
 			logger.error("onMessage(Message)", e1); //$NON-NLS-1$
 
-	        // TODO Auto-generated catch block
-	        e1.printStackTrace();
-        }
-		
-		//save the html file
-		try
-        {
-	        saveHtmlFile(resultFile); 
-        } catch (IOException e1)
-        {
-        	logger.error("impossible to write html file ",   e1); //$NON-NLS-1$
-	        e1.printStackTrace();
-        }
-		
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
 		try
 		{
 			if (logger.isInfoEnabled())
