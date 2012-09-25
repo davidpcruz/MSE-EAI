@@ -57,7 +57,7 @@ public class ParseStocksPlugin extends Parser
 	private static final int STOCK_ROW_INDEX__SELL = 8;
 	private static final int STOCK_ROW__ELEMENT_COUNT = 9;	// NOTE: Update if number of elements changes	
 	private static final Locale STOCK_NUMBER_FORMAT_LOCALE = Locale.US;
-	private static final int CONNECTION_TIMEOUT = 10000; // In mili seconds
+	private static final int CONNECTION_TIMEOUT = 20000; // In mili seconds
 
 	private String webUrl = null;
 	
