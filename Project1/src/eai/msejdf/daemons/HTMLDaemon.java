@@ -112,13 +112,14 @@ public class HTMLDaemon extends Thread implements MessageListener
 	private void saveHtmlFile(String message) throws IOException
 	{
 		SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss-SSS");
-		String htmlDirectory = Configuration.getHtmlDirectory();
+		
 		File outputFile = null; 
+		File directory = new File (".");
 		
 		// Create a unique file based on the current time/date
 		do
 		{
-			outputFile = new File(htmlDirectory + "/" + dateFormatter.format(new Date()) + ".html"); 
+			outputFile = new File(directory.getAbsolutePath() + "/" + dateFormatter.format(new Date()) + ".html"); 
 		}
 		while (false == outputFile.createNewFile());
 
