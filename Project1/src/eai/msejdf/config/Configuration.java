@@ -3,6 +3,8 @@
  */
 package eai.msejdf.config;
 
+import java.io.File;
+import java.net.URL;
 import java.util.Properties;
 
 import eai.msejdf.utils.PropertyLoader;
@@ -15,7 +17,7 @@ public final class Configuration
 {
 
 	/** The Constant PROPSFILE. defining the name of the configuration file */
-	public final static String PROPSFILE = "config.properties";
+	private static final String PROPSFILE = "config.properties";
 
 	/** The Constant JMSCONN_USER. defining the JMS username for the connection. */
 	private static final String JMSCONN_USER = "app.jms.applicationuser";
@@ -27,19 +29,25 @@ public final class Configuration
 	private static final String JMSTOPIC_NAME = "app.jms.topicbasename";
 
 	/** The Constant containing the address to XLST file */
-	private static final String XSLT_FILE = "app.jms.xsltfile";
+	private static final String XSLT_FILE = "app.xml.xsltfile";
 
 	/** The Constant containing the directory for the HTML files */
-	private static final String HTML_FILE_DIRECTORY = "app.jms.htmlfiledirectory"; // "C:\\";
+	private static final String HTML_FILE_DIRECTORY = "app.xml.htmlfiledirectory"; // "C:\\";
+
+	/** The Constant containing the default output dir */
+	private static final String DIRECTORY_BASE_OUTPUT = "app.base.outputdir";  
+
+	/** The Constant containing the directory for the rrd outputs */
+	private static final String DIRECTORY_RRD_OUTPUT = "app.rrd.outputdir"; // "C:\\";
 
 	/** The Constant containing the directory for the pending messages directory */
-	private static final String DIRECTORY__PENDING_MESSAGES = "app.jms.directorypendingmessages"; // "C:\\";
+	private static final String DIRECTORY__PENDING_MESSAGES = "app.xml.directorypendingmessages"; // "C:\\";
 
 	/** The Constant containing the  data receiver name */
 	private static final String DATA_RECEIVER_NAME = "app.jms.datareceivername"; // "C:\\";
 
 	/** The Constant containing the  connection timeout time */
-	private static final String CONNECTION_TIMEOUT = "app.jms.connectiontimeout"; // "C:\\";
+	private static final String CONNECTION_TIMEOUT = "app.web.connectiontimeout"; // "C:\\";
 
 	
 	
@@ -137,5 +145,35 @@ public final class Configuration
 	public static int getConnectionTimeOut()
 	{
 		return  Integer.parseInt(getProperties().getProperty(CONNECTION_TIMEOUT));
+	}
+	
+
+	/**
+	 * Gets the directory for the RRD databases.
+	 *
+	 * @return the DIRECTORY_RRD_OUTPUT
+	 */
+	public static String getRrdDirectory()
+	{
+		return getProperties().getProperty(DIRECTORY_RRD_OUTPUT);
+	}
+	
+	/**
+	 * Gets the default output dir.
+	 *
+	 * @return the default output dir
+	 */
+	public static File getDefaultOutputDir()
+	{
+		URL url = Thread.currentThread().getContextClassLoader().getResource(".");
+		
+		File directory = new File(url.getPath() + getProperties().getProperty(DIRECTORY_BASE_OUTPUT));
+		if (!directory.exists())
+		{
+			directory.mkdir();
+		}
+		
+		return directory;
+
 	}
 }

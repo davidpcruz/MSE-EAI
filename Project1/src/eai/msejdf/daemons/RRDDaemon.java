@@ -1,5 +1,6 @@
 package eai.msejdf.daemons;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.jms.JMSException;
@@ -48,29 +49,31 @@ public class RRDDaemon extends DaemonBase implements MessageListener
 	}
 
 	/**
- * The main method.
- *
- * @param args the arguments
- */
+	 * The main method.
+	 * 
+	 * @param args
+	 *            the arguments
+	 */
 	public static void main(String[] args)
 	{
 		if (logger.isDebugEnabled())
 		{
 			logger.debug("main(String[]) - start"); //$NON-NLS-1$
 		}
-		
+
 		try
 		{
 			RRDDaemon daemon = new RRDDaemon();
 			daemon.run();
-		} 
-		catch (JMSException ex)
+		} catch (JMSException ex)
 		{
 			logger.error("main", ex); //$NON-NLS-1$			
 		}
-	}		
+	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see javax.jms.MessageListener#onMessage(javax.jms.Message)
 	 */
 	@Override
@@ -85,15 +88,15 @@ public class RRDDaemon extends DaemonBase implements MessageListener
 			{
 				logger.info("onMessage(Message) - onMessage, recv text=" + msgSent); //$NON-NLS-1$
 			}
-			
+
 			// try to get the object
 			Stocks objMsg = XmlObjConv.convertToObject(msgSent, Stocks.class);
-			
+
 			for (Stock quote : objMsg.getStock())
 			{
 				addStockToRRD(objMsg.getTimestamp().longValue(), quote);
 			}
-			
+
 		} catch (JMSException | JAXBException | IOException e)
 		{
 			logger.error("onMessage(Message)", e); //$NON-NLS-1$
@@ -103,10 +106,13 @@ public class RRDDaemon extends DaemonBase implements MessageListener
 
 	/**
 	 * Adds the stock to rrd database.
-	 *
-	 * @param timestamp the timestamp
-	 * @param stockValue the stock value
-	 * @throws IOException Signals that an I/O exception has occurred.
+	 * 
+	 * @param timestamp
+	 *            the timestamp
+	 * @param stockValue
+	 *            the stock value
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	private void addStockToRRD(long timestamp, Stock stockValue) throws IOException
 	{
@@ -126,36 +132,61 @@ public class RRDDaemon extends DaemonBase implements MessageListener
 
 		Company comp = stockValue.getCompany();
 		Cotation quote = stockValue.getCotation();
-		String dbfilename = String.format("%s.rrd", comp.getName());
+		String outdir = createOutputDir();
+		String dbfilename = String.format("%s/%s.rrd", outdir, comp.getName());
 
 		RrdDatabase dbase = new RrdDatabase(dbfilename, "euros");
 
 		dbase.updateData(timestamp, quote.getLastCotation().floatValue());
-
-		// TODO
-		// dbase.createRRDGraph("test_hour.gif", 60l * 60l);
-		// dbase.createRRDGraph("test_day.gif", 24l * 60l * 60l);
-		// dbase.createRRDGraph("test_week.gif", 7l * 24l * 60l * 60l);
-		// dbase.createRRDGraph("test_month.gif", 30l * 24l * 60l * 60l);
+		
+		// graph creation
+		dbase.createRRDGraph(String.format("%s/%s_hour.gif", outdir, comp.getName()), 60l * 60l);
+		dbase.createRRDGraph(String.format("%s/%s_day.gif", outdir, comp.getName()), 24l * 60l * 60l);
+		dbase.createRRDGraph(String.format("%s/%s_week.gif", outdir, comp.getName()), 7l * 24l * 60l * 60l);
+		dbase.createRRDGraph(String.format("%s/%s_month.gif", outdir, comp.getName()), 30l * 24l * 60l * 60l);
 
 	}
-	
-	/* (non-Javadoc)
+
+	/**
+	 * Creates and returns the output dir for the rrd databases.
+	 * 
+	 * @return the file
+	 */
+	private String createOutputDir()
+	{
+		File baseOut = Configuration.getDefaultOutputDir();
+		String rrdDir = Configuration.getRrdDirectory();
+
+		File directory = new File(baseOut.getPath() + rrdDir);
+
+		if (!directory.exists())
+		{
+			directory.mkdir();
+		}
+
+		return directory.getAbsolutePath();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see eai.msejdf.daemons.DaemonBase#startDaemon()
 	 */
 	@Override
-    public void startDaemon() throws JMSException
-    {
-	    receiver.start();
-	    
-    }
+	public void startDaemon() throws JMSException
+	{
+		receiver.start();
+	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see eai.msejdf.daemons.DaemonBase#stopDaemon()
 	 */
 	@Override
-    public void stopDaemon() throws JMSException
-    {
-	    receiver.close();	    
-    }	
+	public void stopDaemon() throws JMSException
+	{
+		receiver.close();
+	}
+
 }
