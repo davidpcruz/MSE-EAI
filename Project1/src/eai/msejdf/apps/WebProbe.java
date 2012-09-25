@@ -36,7 +36,7 @@ public class WebProbe
 	private static final Logger logger = Logger.getLogger(WebProbe.class);
 
 	private final static int PROGRAM_ARG_INDEX__URL = 0;
-	private final static String DIRECTORY__PENDING_MESSAGES =  Configuration.getPendingMessagesDirectory(); //"./pending/";
+	private final static String DIRECTORY__PENDING_MESSAGES =  Configuration.getPendingMessagesDirectory(); 
 	private final static String DATA_RECEIVER_NAME = Configuration.getDataReceiverName();
 			
 	
