@@ -48,6 +48,12 @@ public final class XmlObjConv
 			logger.debug("convertToXML(Object) - start"); //$NON-NLS-1$
 		}
 
+		// basic validations
+		if (data == null)
+		{
+			throw new IllegalArgumentException("data");
+		}
+		
 		StringWriter stringWriter = new StringWriter();
 
 		// Schema validation (try to get the schema)
@@ -89,6 +95,18 @@ public final class XmlObjConv
 			logger.debug("convertToObject(String, Class<T>) - start"); //$NON-NLS-1$
 		}
 
+		// basic validations
+		if (StringUtils.isNullOrEmpty(xml))
+		{
+			throw new IllegalArgumentException("xml");
+		}
+
+		if (classType == null)
+		{
+			throw new IllegalArgumentException("classType");
+		}
+
+		
 		// Schema validation (try to get the schema)
 		Schema schema = getClassXSDSchema(classType);
 
