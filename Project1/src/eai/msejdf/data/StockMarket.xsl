@@ -9,13 +9,14 @@
 				<table border="1">
 					<tr bgcolor="#9acd32">
 						<th>Company</th>
-						<th>Purchase Rate</th>
- 						<th>% Variation</th> 
+						<th>Prev Close</th>
+						<th>% Variation</th>
 						<th>Maximum</th>
 						<th>Minimum</th>
 						<th>Quantity</th>
-						<th>Prev Close</th>
 						<th>Time</th>
+						<th>Purchase Rate</th>
+						<th>Sell Rate</th>
 					</tr>
 					<xsl:apply-templates select="stock" />
 				</table>
@@ -28,11 +29,11 @@
 				<xsl:value-of select="company/name" />
 			</td>
 			<td>
-				<xsl:value-of select="cotation/purchase" />
+				<xsl:value-of select="cotation/lastCotation" />
 			</td>
- 			<td> 
- 				<xsl:value-of select="cotation/variation" /> 
- 			</td> 
+			<td>
+				<xsl:value-of select="cotation/variation" />
+			</td>
 			<td>
 				<xsl:value-of select="cotation/maximum" />
 			</td>
@@ -43,10 +44,13 @@
 				<xsl:value-of select="cotation/quantity" />
 			</td>
 			<td>
-				<xsl:value-of select="cotation/lastCotation" />
+				<xsl:value-of select="cotation/time" />
 			</td>
 			<td>
-				<xsl:value-of select="cotation/time" />
+				<xsl:value-of select="cotation/purchase" />
+			</td>
+			<td>
+				<xsl:value-of select="cotation/sell" />
 			</td>
 		</tr>
 	</xsl:template>
