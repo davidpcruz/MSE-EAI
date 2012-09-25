@@ -27,19 +27,19 @@ public final class Configuration
 	private static final String JMSTOPIC_NAME = "app.jms.topicbasename";
 
 	/** The Constant containing the address to XLST file */
-	private static final String XSLT_FILE = "app.jms.xsltfile";
+	private static final String XSLT_FILE = "app.xml.xsltfile";
 
 	/** The Constant containing the directory for the HTML files */
-	private static final String HTML_FILE_DIRECTORY = "app.jms.htmlfiledirectory"; // "C:\\";
+	private static final String HTML_FILE_DIRECTORY = "app.xml.htmlfiledirectory"; // "C:\\";
 
 	/** The Constant containing the directory for the pending messages directory */
-	private static final String DIRECTORY__PENDING_MESSAGES = "app.jms.directorypendingmessages"; // "C:\\";
+	private static final String DIRECTORY__PENDING_MESSAGES = "app.xml.directorypendingmessages"; // "C:\\";
 
 	/** The Constant containing the  data receiver name */
 	private static final String DATA_RECEIVER_NAME = "app.jms.datareceivername"; // "C:\\";
 
 	/** The Constant containing the  connection timeout time */
-	private static final String CONNECTION_TIMEOUT = "app.jms.connectiontimeout"; // "C:\\";
+	private static final String CONNECTION_TIMEOUT = "app.web.connectiontimeout"; // "C:\\";
 
 	
 	
