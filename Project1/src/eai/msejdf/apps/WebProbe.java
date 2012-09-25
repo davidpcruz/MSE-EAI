@@ -1,13 +1,12 @@
 package eai.msejdf.apps;
 
-import org.apache.log4j.Logger;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -15,10 +14,11 @@ import java.util.Date;
 
 import javax.jms.JMSException;
 
+import org.apache.log4j.Logger;
+
 import eai.msejdf.config.Configuration;
 import eai.msejdf.jms.JMSSender;
 import eai.msejdf.utils.XmlObjConv;
-import eai.msejdf.web.ParseStocksPlugin;
 import eai.msejdf.web.Parser;
 
 /**
@@ -35,12 +35,25 @@ public class WebProbe
 	 */
 	private static final Logger logger = Logger.getLogger(WebProbe.class);
 
+	/**
+	 * Position of site URL in program argument list 
+	 */
 	private final static int PROGRAM_ARG_INDEX__URL = 0;
-	private final static String DIRECTORY__PENDING_MESSAGES =  Configuration.getPendingMessagesDirectory(); 
-	private final static String DATA_RECEIVER_NAME = Configuration.getDataReceiverName();
-			
+
+	/**
+	 * Position of parser class in program argument list 
+	 */
+	private final static int PROGRAM_ARG_INDEX__PARSER_PLUGIN = 1;
 	
+	/**
+	 * URL of the site that will be processed 
+	 */
 	private String webUrl = null;
+	
+	/**
+	 * Name of the class that will be used to parse the web site 
+	 */
+	private String parserPlugin = null;
 	
 	/**
 	 * Main application entry point
@@ -53,7 +66,7 @@ public class WebProbe
 		
 		validateArgs(args);
 
-		WebProbe probe = new WebProbe(args[WebProbe.PROGRAM_ARG_INDEX__URL]);
+		WebProbe probe = new WebProbe(args[WebProbe.PROGRAM_ARG_INDEX__URL], args[WebProbe.PROGRAM_ARG_INDEX__PARSER_PLUGIN]);
 		
 		probe.run();
 
@@ -67,9 +80,8 @@ public class WebProbe
 	 */
 	public static void validateArgs(String[] args)
 	{
-		// Expected call syntax: "java WebProbe <web url>"
-		
-		if (1 > args.length)
+		// Expected call syntax: "java WebProbe <web url> <parser plugin>"		
+		if (2 > args.length)
 		{
 			printHelp();			
 			System.exit(-1);			
@@ -84,17 +96,19 @@ public class WebProbe
 	public static void printHelp()
 	{
 		System.out.println("Error, invalid call parameters.");
-		System.out.println("Use: java WebProbe <web url>");
+		System.out.println("Use: java WebProbe <web url> <parser plugin class>");
 		System.out.println("");
 	}
 	
 	/**
 	 * Constructs an instance of this class
 	 * @param url Web site url to process
+	 * @param parserPlugin Name of class that will parse the supplied url
 	 */
-	public WebProbe(String url)
+	public WebProbe(String url, String parserPlugin)
 	{
 		this.webUrl = url;
+		this.parserPlugin = parserPlugin;
 	}
 	
 	/**
@@ -109,11 +123,14 @@ public class WebProbe
 		
 		try
 		{
-			// Create an instance of the plugin
-			//
-			// Note: This is currently hardcoded. The idea is to dynamically load this plugin based on a provided reference
-			//		 which will allow the reuse of this application with different parser plugins
-			Parser webParser = new ParseStocksPlugin(this.webUrl);		
+			// Create an instance of the parser class plugin (dynamic load)
+			ClassLoader classLoader = WebProbe.class.getClassLoader();
+			@SuppressWarnings("unchecked")
+			Class<Parser> loadedClass = (Class<Parser>)classLoader.loadClass(this.parserPlugin); 		
+			Constructor<Parser> parserClassConstructor = loadedClass.getConstructor(new Class[]{String.class});		
+			Parser webParser = (Parser)parserClassConstructor.newInstance(this.webUrl);			
+			
+			// Get an object representing the page content (parse web page)
 			Object parsedDataObject = webParser.parse(); 
 			if (null == parsedDataObject)
 			{
@@ -125,7 +142,7 @@ public class WebProbe
 			// Convert the object into a string with an XML representation of it 
 			message = XmlObjConv.convertToXML(parsedDataObject);  
 			
-			// As we may have messages that were previously not delivered, we''l try to send them first to 
+			// As we may have messages that were previously not delivered, we'll try to send them first to 
 			// keep the same order
 			this.writePendingMessages();
 
@@ -134,9 +151,10 @@ public class WebProbe
 		}
 		catch(Exception exception)
 		{
+			logger.error("run()", exception); //$NON-NLS-1$
+
 			// As the dispatching of the message (or pending messages) failed, we'll save a local backup 
 			// and retry on the next run (if we have a message to be processed)
-			logger.error("run()", exception); //$NON-NLS-1$
 			if (null != message)
 			{
 				this.saveMessageAsPending(message);
@@ -152,16 +170,26 @@ public class WebProbe
 	 */
 	private void writeMessage(String message) throws JMSException
 	{
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("writeMessage(String) - start"); //$NON-NLS-1$
+		}
+
 		if (null == message)
 		{
 			throw new NullPointerException("Message is empty");
 		}
 		
-		JMSSender dataSender = new JMSSender(WebProbe.DATA_RECEIVER_NAME);
+		JMSSender dataSender = new JMSSender(Configuration.getDataReceiverName());
 		
 		dataSender.start();
 		dataSender.sendMessage(message);
 		dataSender.close();
+
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("writeMessage(String) - end"); //$NON-NLS-1$
+		}
 	}
 	
 	/**
@@ -210,7 +238,7 @@ public class WebProbe
 		// Create a unique file based on the current time/date
 		do
 		{
-			outputFile = new File(WebProbe.DIRECTORY__PENDING_MESSAGES + "/" + dateFormatter.format(new Date()) + ".xml"); 
+			outputFile = new File(Configuration.getPendingMessagesDirectory() + "/" + dateFormatter.format(new Date()) + ".xml"); 
 		}
 		while (false == outputFile.createNewFile());
 
@@ -227,11 +255,12 @@ public class WebProbe
 	 */
 	private File[] getPendingMessagesFileList()
 	{
-		File directory = new File(WebProbe.DIRECTORY__PENDING_MESSAGES);
+		File directory = new File(Configuration.getPendingMessagesDirectory());
 		File[] fileList = directory.listFiles();
 		
 		if (null == fileList)
 		{
+			// No messages pending to be sent
 			return null;
 		}
 
