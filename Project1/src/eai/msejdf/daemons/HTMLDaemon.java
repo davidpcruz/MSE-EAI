@@ -120,11 +120,11 @@ public class HTMLDaemon extends DaemonBase implements MessageListener
 			xmlFile = tm.getText();
 			// validates it
 			
-//			if (!XmlObjConv.validateXML(xmlFile, Stocks.class))
-//			{
-//				logger.info("XML message in not valid according XSD");
-//				return;
-//			}
+			if (!XmlObjConv.validateXML(xmlFile, Stocks.class))
+			{
+				logger.info("XML message in not valid according XSD");
+				return;
+			}
 
 			// xml should be valid so process it
 			resultFile = Transform.xmlTransformation(xmlFile, xsltFile);

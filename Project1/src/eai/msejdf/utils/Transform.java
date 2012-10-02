@@ -30,18 +30,13 @@ public class Transform
 	private static final Logger logger = Logger.getLogger(Transform.class);
 
 	/**
-	 * File Encoding
-	 */
-	private final static String FILE_ENCODING = "UTF-8";
-
-	/**
 	 * Transforms a XML in HTML using a XSLT
 	 * 
 	 * @throws JTransformerException
 	 *             , UnsupportedEncodingException
 	 * @param String
-	 *            xmlFile: String with the XML file content String xsltFile:
-	 *            String with the XSLT file address
+	 *            xmlFile: String with the XML file content String 
+	 *            xsltFile: String with the XSLT file address
 	 * 
 	 * @return String output: the HTML file content
 	 */
@@ -53,7 +48,7 @@ public class Transform
 			logger.debug("xmlTransformation(String, String) - start"); //$NON-NLS-1$
 		}
 
-		InputStream xmlStream = new ByteArrayInputStream(xmlFile.getBytes(FILE_ENCODING));
+		InputStream xmlStream = new ByteArrayInputStream(xmlFile.getBytes(XMLConstants.FILE_ENCODING));
 		StreamSource source = new StreamSource(xmlStream);
 		Source xsl = new StreamSource(xsltFile);
 		StringWriter writer = new StringWriter();
