@@ -42,10 +42,7 @@ public final class Configuration
 	
 
 	/** The Constant containing the directory for the pending messages directory */
-	private static final String DIRECTORY_PENDING_MESSAGES = "app.xml.directorypendingmessages"; 
-
-	/** The Constant containing the  data receiver name */
-	private static final String DATA_RECEIVER_NAME = "app.jms.datareceivername"; 
+	private static final String DIRECTORY_PENDING_MESSAGES = "app.xml.pendingmessagesdirectory"; 
 
 	/** The Constant containing the  connection timeout time */
 	private static final String CONNECTION_TIMEOUT = "app.web.connectiontimeout"; 
@@ -122,16 +119,6 @@ public final class Configuration
 	public static String getHtmlDirectory()
 	{
 		return getProperties().getProperty(HTML_FILE_DIRECTORY);
-	}
-	
-	/**
-	 * Gets the data receiver name.
-	 * 
-	 * @return the DATA_RECEIVER_NAME
-	 */
-	public static String getDataReceiverName()
-	{
-		return getProperties().getProperty(DATA_RECEIVER_NAME);
 	}
 	
 	/**
