@@ -67,7 +67,6 @@ public class HTMLDaemon extends DaemonBase implements MessageListener
 		}
 	}
 
-	
 	/**
 	 * Creates and returns the output dir for the HTML files.
 	 * 
@@ -87,7 +86,7 @@ public class HTMLDaemon extends DaemonBase implements MessageListener
 
 		return directory.getAbsolutePath();
 	}
-	
+
 	private void saveHtmlFile(String message) throws IOException
 	{
 		if (logger.isDebugEnabled())
@@ -98,10 +97,9 @@ public class HTMLDaemon extends DaemonBase implements MessageListener
 		SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss-SSS");
 
 		File outputFile = null;
-		//File directory = new File(".");
+		// File directory = new File(".");
 		String directory = createOutputDir();
 		String htmlfilename = directory + "/" + dateFormatter.format(new Date()) + ".html";
-		
 
 		// Create a unique file based on the current time/date
 		do
@@ -143,7 +141,7 @@ public class HTMLDaemon extends DaemonBase implements MessageListener
 			// Gets the xml
 			xmlFile = tm.getText();
 			// validates it
-			
+
 			if (!XmlObjConv.validateXML(xmlFile, Stocks.class))
 			{
 				logger.info("XML message in not valid according XSD");
@@ -154,19 +152,13 @@ public class HTMLDaemon extends DaemonBase implements MessageListener
 			resultFile = Transform.xmlTransformation(xmlFile, xsltFile);
 			saveHtmlFile(resultFile); // save HTML file
 
-		} catch (JMSException e2)
-		{
-			logger.error("onMessage(Message)", e2); //$NON-NLS-1$
-			// e2.printStackTrace();
-		} catch (IOException e1)
+		} catch (JMSException | IOException e1)
 		{
 			logger.error("onMessage(Message)", e1); //$NON-NLS-1$
-			// e1.printStackTrace();
 		} catch (TransformerException e1)
 		{
 			logger.error("onMessage(Message)", e1); //$NON-NLS-1$
 			System.out.println("Error when converting XML to HTML using XSLT");
-			// e1.printStackTrace();
 		}
 
 		if (logger.isDebugEnabled())

@@ -4,6 +4,7 @@
 package eai.msejdf.utils;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
@@ -48,9 +49,27 @@ public class Transform
 			logger.debug("xmlTransformation(String, String) - start"); //$NON-NLS-1$
 		}
 
+		// basic validations
+		if (StringUtils.isNullOrEmpty(xmlFile))
+		{
+			throw new IllegalArgumentException("xmlFile");
+		}
+		
+		if (StringUtils.isNullOrEmpty(xsltFile))
+		{
+			throw new IllegalArgumentException("xsltFile");
+		}
+		
+		File xsltFS = new File(xsltFile);
+						
+		if (!xsltFS.exists())
+		{
+			throw new IllegalArgumentException("file doesn't exist");
+		}
+		
 		InputStream xmlStream = new ByteArrayInputStream(xmlFile.getBytes(XMLConstants.FILE_ENCODING));
 		StreamSource source = new StreamSource(xmlStream);
-		Source xsl = new StreamSource(xsltFile);
+		Source xsl = new StreamSource(xsltFS);
 		StringWriter writer = new StringWriter();
 
 		// Transformer configuration
