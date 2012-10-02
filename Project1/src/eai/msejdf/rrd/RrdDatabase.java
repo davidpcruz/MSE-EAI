@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
 import org.rrd4j.ConsolFun;
@@ -67,26 +68,28 @@ public class RrdDatabase
 		this.dbName = fileName;
 		this.dataSourceName = dataSource;
 		
-		// create the database
+		// create the database (if it does not exist yet)
 		// Changing the step will make the the number of data points on the first archive to change also
 		// need to change the number of data points in the first archive (being HEARTBEAT_VALUE (ex:3600) / step + 1) 
 		// check the las statement
 
-		RrdDef rrdDef = new RrdDef(this.dbName, 60);
-		// to check
-		rrdDef.setStartTime((System.currentTimeMillis() / 1000l - 18144000l));
-		rrdDef.addDatasource(this.dataSourceName, DsType.GAUGE, HEARTBEAT_VALUE, 0, Double.NaN);
-		// Creates archives of the data we need
-		// 
-		rrdDef.addArchive(ConsolFun.AVERAGE, 0.99, 1, 61);			// Hour 60
-		rrdDef.addArchive(ConsolFun.AVERAGE, 0.99, 24, 244);		// Day  24
-		rrdDef.addArchive(ConsolFun.AVERAGE, 0.99, 168, 244);		// Week	24*7=168
-		rrdDef.addArchive(ConsolFun.AVERAGE, 0.99, 672, 244);		// Month 168*4=672
-		rrdDef.addArchive(ConsolFun.AVERAGE, 0.99, 5760, 374);		// ??
-
-		RrdDb rrdDb = new RrdDb(rrdDef);
-		rrdDb.close();
-		
+		if (false == new File(this.dbName).exists())
+		{
+			RrdDef rrdDef = new RrdDef(this.dbName, 60);
+			// to check
+			rrdDef.setStartTime((System.currentTimeMillis() / 1000l - 18144000l));
+			rrdDef.addDatasource(this.dataSourceName, DsType.GAUGE, HEARTBEAT_VALUE, 0, Double.NaN);
+			// Creates archives of the data we need
+			// 
+			rrdDef.addArchive(ConsolFun.AVERAGE, 0.99, 1, 61);			// Hour 60
+			rrdDef.addArchive(ConsolFun.AVERAGE, 0.99, 24, 244);		// Day  24
+			rrdDef.addArchive(ConsolFun.AVERAGE, 0.99, 168, 244);		// Week	24*7=168
+			rrdDef.addArchive(ConsolFun.AVERAGE, 0.99, 672, 244);		// Month 168*4=672
+			rrdDef.addArchive(ConsolFun.AVERAGE, 0.99, 5760, 374);		// ??
+	
+			RrdDb rrdDb = new RrdDb(rrdDef);
+			rrdDb.close();
+		}
 		if (logger.isDebugEnabled())
 		{
 			logger.debug("RrdDatabase(String, String) - end"); //$NON-NLS-1$
