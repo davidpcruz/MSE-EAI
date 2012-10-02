@@ -164,9 +164,7 @@ public final class Configuration
 	{
 		return getProperties().getProperty(DIRECTORY_RRD_OUTPUT);
 	}
-	
-	
-	
+		
 	
 	/**
 	 * Gets the default output dir.
