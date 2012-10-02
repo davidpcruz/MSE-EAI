@@ -28,7 +28,7 @@ import eai.msejdf.web.Parser;
  * @author NB12588
  *
  */
-public class WebProbe
+public class WebProbe 
 {
 	/**
 	 * Logger for this class
@@ -180,7 +180,7 @@ public class WebProbe
 			throw new NullPointerException("Message is empty");
 		}
 		
-		JMSSender dataSender = new JMSSender(Configuration.getDataReceiverName());
+		JMSSender dataSender = new JMSSender(Configuration.getJmsTopicName());
 		
 		dataSender.start();
 		dataSender.sendMessage(message);
@@ -211,9 +211,17 @@ public class WebProbe
 		
 		for (File messageFile : fileList)
 		{
+			String message = "";
+			String line;
+			
 			// Retrieve the message saved in the file
 			BufferedReader fileReader= new BufferedReader(new FileReader(messageFile));
-			String message = fileReader.readLine();
+			
+			for (line = fileReader.readLine(); null != line; line = fileReader.readLine()) 
+			{
+			    message = message.concat(line);
+			}
+
 			fileReader.close();
 
 			// Dispatch the message
@@ -234,11 +242,12 @@ public class WebProbe
 	{
 		SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss-SSS");
 		File outputFile = null; 
+		String messageDir = createPendingMessagesDirectory();
 		
 		// Create a unique file based on the current time/date
 		do
 		{
-			outputFile = new File(Configuration.getPendingMessagesDirectory() + "/" + dateFormatter.format(new Date()) + ".xml"); 
+			outputFile = new File(messageDir + "/" + dateFormatter.format(new Date()) + ".xml");
 		}
 		while (false == outputFile.createNewFile());
 
@@ -255,7 +264,7 @@ public class WebProbe
 	 */
 	private File[] getPendingMessagesFileList()
 	{
-		File directory = new File(Configuration.getPendingMessagesDirectory());
+		File directory = new File(Configuration.getDefaultOutputDir() + Configuration.getPendingMessagesDirectory());
 		File[] fileList = directory.listFiles();
 		
 		if (null == fileList)
@@ -276,4 +285,25 @@ public class WebProbe
 		
 		return fileList;
 	}	
+	
+	/**
+	 * Creates and returns the directory to hold pending messages
+	 * 
+	 * @return Path to directory
+	 */
+	private String createPendingMessagesDirectory()
+	{
+		File baseOutputDir = Configuration.getDefaultOutputDir();
+		String pendingMessagesDir = Configuration.getPendingMessagesDirectory();
+
+		File directory = new File(baseOutputDir.getPath() + pendingMessagesDir);
+
+		if (!directory.exists())
+		{
+			directory.mkdir();
+		}
+
+		return directory.getAbsolutePath();
+	}
+	
 }
