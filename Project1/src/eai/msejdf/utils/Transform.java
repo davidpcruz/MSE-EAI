@@ -30,6 +30,11 @@ public class Transform
 	private static final Logger logger = Logger.getLogger(Transform.class);
 
 	/**
+	 * File Encoding
+	 */
+	private final static String FILE_ENCODING = "UTF-8";
+
+	/**
 	 * Transforms a XML in HTML using a XSLT
 	 * 
 	 * @throws JTransformerException
@@ -48,21 +53,16 @@ public class Transform
 			logger.debug("xmlTransformation(String, String) - start"); //$NON-NLS-1$
 		}
 
-		InputStream xmlStream = new ByteArrayInputStream(xmlFile.getBytes("UTF8"));
+		InputStream xmlStream = new ByteArrayInputStream(xmlFile.getBytes(FILE_ENCODING));
 		StreamSource source = new StreamSource(xmlStream);
 		Source xsl = new StreamSource(xsltFile);
 		StringWriter writer = new StringWriter();
-		try
-		{
-			// Transformer configuration
-			TransformerFactory factory = TransformerFactory.newInstance();
-			Transformer transformer = factory.newTransformer(xsl);
-			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-			transformer.transform(source, new StreamResult(writer));
-		} catch (TransformerException ex)
-		{
-			logger.error("run", ex); //$NON-NLS-1$
-		}
+
+		// Transformer configuration
+		TransformerFactory factory = TransformerFactory.newInstance();
+		Transformer transformer = factory.newTransformer(xsl);
+		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+		transformer.transform(source, new StreamResult(writer));
 
 		String output = writer.getBuffer().toString();
 

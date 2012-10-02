@@ -16,8 +16,10 @@ import javax.xml.transform.TransformerException;
 import org.apache.log4j.Logger;
 
 import eai.msejdf.config.Configuration;
+import eai.msejdf.data.Stocks;
 import eai.msejdf.jms.JMSReceiver;
 import eai.msejdf.utils.Transform;
+import eai.msejdf.utils.XmlObjConv;
 
 public class HTMLDaemon extends DaemonBase implements MessageListener
 {
@@ -54,13 +56,12 @@ public class HTMLDaemon extends DaemonBase implements MessageListener
 		{
 			logger.debug("main(String[]) - start"); //$NON-NLS-1$
 		}
-		
+
 		try
 		{
 			HTMLDaemon daemon = new HTMLDaemon();
 			daemon.run();
-		} 
-		catch (JMSException ex)
+		} catch (JMSException ex)
 		{
 			logger.error("main", ex); //$NON-NLS-1$			
 		}
@@ -115,32 +116,33 @@ public class HTMLDaemon extends DaemonBase implements MessageListener
 
 		try
 		{
+			// Gets the xml
 			xmlFile = tm.getText();
+			// validates it
+			
+//			if (!XmlObjConv.validateXML(xmlFile, Stocks.class))
+//			{
+//				logger.info("XML message in not valid according XSD");
+//				return;
+//			}
+
+			// xml should be valid so process it
+			resultFile = Transform.xmlTransformation(xmlFile, xsltFile);
+			saveHtmlFile(resultFile); // save HTML file
+
 		} catch (JMSException e2)
 		{
 			logger.error("onMessage(Message)", e2); //$NON-NLS-1$
-			e2.printStackTrace();
-		}
-
-		try
-		{
-			resultFile = Transform.xmlTransformation(xmlFile, xsltFile);
-			saveHtmlFile(resultFile); // save HTML file
-		} catch (TransformerException | IOException e1)
+			// e2.printStackTrace();
+		} catch (IOException e1)
 		{
 			logger.error("onMessage(Message)", e1); //$NON-NLS-1$
-			e1.printStackTrace();
-		}
-
-		try
+			// e1.printStackTrace();
+		} catch (TransformerException e1)
 		{
-			if (logger.isInfoEnabled())
-			{
-				logger.info("onMessage(Message) - onMessage, recv text=" + tm.getText()); //$NON-NLS-1$
-			}
-		} catch (JMSException e)
-		{
-			logger.error("onMessage(Message)", e); //$NON-NLS-1$
+			logger.error("onMessage(Message)", e1); //$NON-NLS-1$
+			System.out.println("Error when converting XML to HTML using XSLT");
+			// e1.printStackTrace();
 		}
 
 		if (logger.isDebugEnabled())
@@ -150,16 +152,16 @@ public class HTMLDaemon extends DaemonBase implements MessageListener
 	}
 
 	@Override
-    public void startDaemon() throws JMSException
-    {
-	    receiver.start();
-	    
-    }
+	public void startDaemon() throws JMSException
+	{
+		receiver.start();
+
+	}
 
 	@Override
-    public void stopDaemon() throws JMSException
-    {
-	    receiver.close();	    
-    }
+	public void stopDaemon() throws JMSException
+	{
+		receiver.close();
+	}
 
 }
