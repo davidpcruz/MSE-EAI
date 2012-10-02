@@ -39,6 +39,7 @@ public final class Configuration
 
 	/** The Constant containing the directory for the rrd outputs */
 	private static final String DIRECTORY_RRD_OUTPUT = "app.rrd.outputdir"; 
+	
 
 	/** The Constant containing the directory for the pending messages directory */
 	private static final String DIRECTORY_PENDING_MESSAGES = "app.xml.directorypendingmessages"; 
@@ -163,6 +164,9 @@ public final class Configuration
 	{
 		return getProperties().getProperty(DIRECTORY_RRD_OUTPUT);
 	}
+	
+	
+	
 	
 	/**
 	 * Gets the default output dir.
