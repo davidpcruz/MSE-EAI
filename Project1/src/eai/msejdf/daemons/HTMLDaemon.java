@@ -67,6 +67,27 @@ public class HTMLDaemon extends DaemonBase implements MessageListener
 		}
 	}
 
+	
+	/**
+	 * Creates and returns the output dir for the HTML files.
+	 * 
+	 * @return the file
+	 */
+	private String createOutputDir()
+	{
+		File baseOut = Configuration.getDefaultOutputDir();
+		String htmlDir = Configuration.getHtmlDirectory();
+
+		File directory = new File(baseOut.getPath() + htmlDir);
+
+		if (!directory.exists())
+		{
+			directory.mkdir();
+		}
+
+		return directory.getAbsolutePath();
+	}
+	
 	private void saveHtmlFile(String message) throws IOException
 	{
 		if (logger.isDebugEnabled())
@@ -77,19 +98,22 @@ public class HTMLDaemon extends DaemonBase implements MessageListener
 		SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss-SSS");
 
 		File outputFile = null;
-		File directory = new File(".");
+		//File directory = new File(".");
+		String directory = createOutputDir();
+		String htmlfilename = directory + "/"+ dateFormatter.format(new Date()) + ".html";
+		
 
 		// Create a unique file based on the current time/date
 		do
 		{
-			outputFile = new File(directory.getAbsolutePath() + "/bin/" + dateFormatter.format(new Date()) + ".html");
+			outputFile = new File(htmlfilename);
 		} while (false == outputFile.createNewFile());
 
 		// Save the message to the file
 		BufferedWriter fileWriter = new BufferedWriter(new FileWriter(outputFile));
 		if (logger.isDebugEnabled())
 		{
-			logger.debug("Writing HTML file: " + directory.getAbsolutePath() + "/bin/" + dateFormatter.format(new Date()) + ".html"); //$NON-NLS-1$
+			logger.debug("Writing HTML file: " + htmlfilename); //$NON-NLS-1$
 		}
 		fileWriter.write(message);
 		fileWriter.close();
