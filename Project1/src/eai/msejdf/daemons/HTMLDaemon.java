@@ -100,7 +100,7 @@ public class HTMLDaemon extends DaemonBase implements MessageListener
 		File outputFile = null;
 		//File directory = new File(".");
 		String directory = createOutputDir();
-		String htmlfilename = directory + "/"+ dateFormatter.format(new Date()) + ".html";
+		String htmlfilename = directory + "/" + dateFormatter.format(new Date()) + ".html";
 		
 
 		// Create a unique file based on the current time/date
@@ -144,11 +144,11 @@ public class HTMLDaemon extends DaemonBase implements MessageListener
 			xmlFile = tm.getText();
 			// validates it
 			
-//			if (!XmlObjConv.validateXML(xmlFile, Stocks.class))
-//			{
-//				logger.info("XML message in not valid according XSD");
-//				return;
-//			}
+			if (!XmlObjConv.validateXML(xmlFile, Stocks.class))
+			{
+				logger.info("XML message in not valid according XSD");
+				return;
+			}
 
 			// xml should be valid so process it
 			resultFile = Transform.xmlTransformation(xmlFile, xsltFile);
