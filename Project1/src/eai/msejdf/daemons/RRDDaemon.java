@@ -27,6 +27,9 @@ import eai.msejdf.utils.XmlObjConv;
 public class RRDDaemon extends DaemonBase implements MessageListener
 {
 
+	/** The Constant RRD_TITLE theat defines the title of the x values of the RRD sample. */
+	private static final String RRD_TITLE = "euros";
+
 	/** The Constant DAEMON_CLIENTID. */
 	private static final String DAEMON_CLIENTID = "RRDDaemon";
 
@@ -135,7 +138,7 @@ public class RRDDaemon extends DaemonBase implements MessageListener
 		String outdir = createOutputDir();
 		String dbfilename = String.format("%s/%s.rrd", outdir, comp.getName());
 
-		RrdDatabase dbase = new RrdDatabase(dbfilename, "euros");
+		RrdDatabase dbase = new RrdDatabase(dbfilename, RRD_TITLE);
 
 		dbase.updateData(timestamp, quote.getLastCotation().floatValue());
 		

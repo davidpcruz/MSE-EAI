@@ -32,22 +32,22 @@ public final class Configuration
 	private static final String XSLT_FILE = "app.xml.xsltfile";
 
 	/** The Constant containing the directory for the HTML files */
-	private static final String HTML_FILE_DIRECTORY = "app.xml.htmlfiledirectory"; // "C:\\";
+	private static final String HTML_FILE_DIRECTORY = "app.xml.htmlfiledirectory"; 
 
 	/** The Constant containing the default output dir */
 	private static final String DIRECTORY_BASE_OUTPUT = "app.base.outputdir";  
 
 	/** The Constant containing the directory for the rrd outputs */
-	private static final String DIRECTORY_RRD_OUTPUT = "app.rrd.outputdir"; // "C:\\";
+	private static final String DIRECTORY_RRD_OUTPUT = "app.rrd.outputdir"; 
 
 	/** The Constant containing the directory for the pending messages directory */
-	private static final String DIRECTORY__PENDING_MESSAGES = "app.xml.directorypendingmessages"; // "C:\\";
+	private static final String DIRECTORY_PENDING_MESSAGES = "app.xml.directorypendingmessages"; 
 
 	/** The Constant containing the  data receiver name */
-	private static final String DATA_RECEIVER_NAME = "app.jms.datareceivername"; // "C:\\";
+	private static final String DATA_RECEIVER_NAME = "app.jms.datareceivername"; 
 
 	/** The Constant containing the  connection timeout time */
-	private static final String CONNECTION_TIMEOUT = "app.web.connectiontimeout"; // "C:\\";
+	private static final String CONNECTION_TIMEOUT = "app.web.connectiontimeout"; 
 
 	
 	
@@ -98,13 +98,19 @@ public final class Configuration
 	}
 
 	/**
-	 * Gets the XSLT filer.
+	 * Gets the XSLT file
+	 * related to the bin directory
 	 * 
 	 * @return the XSLT_FILE
 	 */
 	public static String getXsltFile()
 	{
-		return getProperties().getProperty(XSLT_FILE);
+		URL url = Thread.currentThread().getContextClassLoader().getResource(".");
+		String xsltSetting = getProperties().getProperty(XSLT_FILE);
+
+		File xsltFile = new File(url.getPath() + xsltSetting);
+
+		return xsltFile.getPath();
 	}
 
 	/**
@@ -134,7 +140,7 @@ public final class Configuration
 	 */
 	public static String getPendingMessagesDirectory()
 	{
-		return getProperties().getProperty(DIRECTORY__PENDING_MESSAGES);
+		return getProperties().getProperty(DIRECTORY_PENDING_MESSAGES);
 	}
 	
 	/**
