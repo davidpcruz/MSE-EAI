@@ -1,7 +1,6 @@
 package eai.msejdf.utils;
 
-import org.apache.log4j.Logger;
-
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
@@ -18,6 +17,7 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
+import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
 /**
@@ -138,6 +138,11 @@ public final class XmlObjConv
 	{
 		boolean valid = false;
 		
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("validateXML(String, Class<T>) - start"); //$NON-NLS-1$
+		}
+		
 		// Schema validation (try to get the schema)
 		Schema schema = getClassXSDSchema(classType);
 		
@@ -146,7 +151,8 @@ public final class XmlObjConv
 			Validator validator = schema.newValidator();
 			try
 			{
-				validator.validate(new StreamSource(xml));
+				InputStream xmlStream = new ByteArrayInputStream(xml.getBytes(eai.msejdf.utils.XMLConstants.FILE_ENCODING));
+				validator. validate( new StreamSource(xmlStream));
 				valid = true;
 			} catch (SAXException | IOException e)
 			{
@@ -159,6 +165,11 @@ public final class XmlObjConv
 			{
 				logger.warn("validateXML(String xml, Class<?> classType) . unable to load schema"); //$NON-NLS-1$
 			}			
+		}
+		
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("validateXML(String, Class<T>) - end"); //$NON-NLS-1$
 		}
 		
 		return valid;
