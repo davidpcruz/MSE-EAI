@@ -34,28 +34,28 @@
 				<xsl:value-of select="mse:company/mse:name" />
 			</td>
 			<td>
-				<xsl:value-of select="mse:cotation/mse:lastCotation" />
+				<xsl:value-of select="mse:quotation/mse:lastQuotation" />
 			</td>
 			<td>
-				<xsl:value-of select="mse:cotation/mse:variation" />
+				<xsl:value-of select="mse:quotation/mse:variation" />
 			</td>
 			<td>
-				<xsl:value-of select="mse:cotation/mse:maximum" />
+				<xsl:value-of select="mse:quotation/mse:maximum" />
 			</td>
 			<td>
-				<xsl:value-of select="mse:cotation/mse:minimum" />
+				<xsl:value-of select="mse:quotation/mse:minimum" />
 			</td>
 			<td>
-				<xsl:value-of select="mse:cotation/mse:quantity" />
+				<xsl:value-of select="mse:quotation/mse:quantity" />
 			</td>
 			<td>
-				<xsl:value-of select="mse:cotation/mse:time" />
+				<xsl:value-of select="mse:quotation/mse:time" />
 			</td>
 			<td>
-				<xsl:value-of select="mse:cotation/mse:purchase" />
+				<xsl:value-of select="mse:quotation/mse:purchase" />
 			</td>
 			<td>
-				<xsl:value-of select="mse:cotation/mse:sell" />
+				<xsl:value-of select="mse:quotation/mse:sell" />
 			</td>
 		</tr>
 	</xsl:template>
