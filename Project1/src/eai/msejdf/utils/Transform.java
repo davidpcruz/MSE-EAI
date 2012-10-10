@@ -48,7 +48,7 @@ public class Transform
 		{
 			logger.debug("xmlTransformation(String, String) - start"); //$NON-NLS-1$
 		}
-
+		
 		// basic validations
 		if (StringUtils.isNullOrEmpty(xmlFile))
 		{

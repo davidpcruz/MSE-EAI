@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <xsl:stylesheet version="1.0"
-	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	xmlns:mse="msejdf">
-	<xsl:output method="html" indent="no"/>
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:mse="msejdf">
+	<xsl:output method="html" indent="no" />
 	<xsl:template match="mse:stocks">
 		<html>
 			<body>
 				<h2>Stock Market</h2>
+				<h4>
+					Time:
+					<xsl:value-of select="./@timestamp" />
+				</h4>
 				<table border="1">
 					<tr bgcolor="#9acd32">
 						<th>Company</th>
