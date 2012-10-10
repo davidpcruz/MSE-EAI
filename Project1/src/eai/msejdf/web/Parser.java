@@ -1,6 +1,6 @@
 package eai.msejdf.web;
 
-public abstract class Parser
+public interface Parser
 {	
 	/**
 	 * Executes the parser's implementation, returning an object representing the parsed data

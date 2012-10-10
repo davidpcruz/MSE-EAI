@@ -12,7 +12,10 @@ import java.net.URL;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Calendar;
+import java.util.InputMismatchException;
 import java.util.Locale;
+
+import javax.xml.datatype.DatatypeConfigurationException;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -39,7 +42,7 @@ import org.jsoup.select.Elements;
  * Important: If the above syntax or number of elements changes, STOCK_ROW__ELEMENT_COUNT and
  * STOCK_ROW_INDEX__* must be update accordingly, as well as the parsing
  */
-public class ParseStocksPlugin extends Parser
+public class ParseStocksPlugin implements Parser
 {
 	/**
 	 * Logger for this class
@@ -139,7 +142,7 @@ public class ParseStocksPlugin extends Parser
 				stocks.getStock().add(stockInfo);
 			}
 		}
-		catch(ParseException exception)
+		catch(ParseException | DatatypeConfigurationException exception)
 		{
 			// The parsed data is not as we are expecting, which means that we can't make assumptions
 			// about the correctness of the fields. The safest thing to do is to not return anything and 
@@ -161,7 +164,7 @@ public class ParseStocksPlugin extends Parser
 		return stocks;
 	}
 	
-	private void parseFields(Elements cotationFields, Stock stockInfo) throws ParseException
+	private void parseFields(Elements cotationFields, Stock stockInfo) throws ParseException, DatatypeConfigurationException
 	{		
 		String field = null;
 		NumberFormat formatter = NumberFormat.getInstance(ParseStocksPlugin.STOCK_NUMBER_FORMAT_LOCALE);
@@ -179,6 +182,11 @@ public class ParseStocksPlugin extends Parser
 		cotation.setLastCotation(BigDecimal.valueOf(formatter.parse(field).doubleValue()));
 
 		field = cotationFields.get(ParseStocksPlugin.STOCK_ROW_INDEX__COTATION_TIME).text();
+		// Check that field matches the HH:mm time pattern
+		if (false == field.matches("([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]"))
+		{
+			throw new InputMismatchException();
+		}		
 		cotation.setTime(field);
 
 		field = cotationFields.get(ParseStocksPlugin.STOCK_ROW_INDEX__VARIATION).text();
