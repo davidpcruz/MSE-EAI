@@ -109,10 +109,10 @@ public class ParseStocksPlugin implements Parser
 		
 		stocks.setTimestamp(BigInteger.valueOf(Calendar.getInstance().getTimeInMillis()));
 
-		try
+		// Fill out our stock information object for each individual stock information client
+		for (Element quotationInfo : quotationInfoRows)
 		{
-			// Fill out our stock information object for each individual stock information client
-			for (Element quotationInfo : quotationInfoRows)
+			try
 			{
 				Stock stockInfo = new Stock();
 
@@ -123,38 +123,29 @@ public class ParseStocksPlugin implements Parser
 
 				if (ParseStocksPlugin.STOCK_ROW__ELEMENT_COUNT != quotationFields.size())
 				{
-					// The parsed data is not as we are expecting, which means that we can't make assumptions
-					// about the correctness of the fields. The safest thing to do is to not return anything and 
-					// alert the user somehow.
-					logger.error("parse(): ERROR - Web Page syntax from " + this.webUrl + " is not supported"); //$NON-NLS-1$			
-					stocks = null;
+					logger.error("parse() ERROR - Web Page syntax from " + this.webUrl + " contains stock values with wrong syntax. Ignore them"); //$NON-NLS-1$
 
-					if (logger.isDebugEnabled())
-					{
-						logger.debug("parse() - end"); //$NON-NLS-1$
-					}
-					return null;			
+					// The parsed data is not as we are expecting, which means that we can't make assumptions
+					// about the correctness of the fields. However, since the page may contain stock values that 
+					// are incomplete for one company, but not for the others, we'll continue trying to parse 
+					// other fields. 
+
+					continue;
 				}
-				
+			
 				// Fill the sock object with the information retrieved from the page 
 				parseFields(quotationFields, stockInfo);
 				
 				stocks.getStock().add(stockInfo);
 			}
-		}
-		catch(ParseException | DatatypeConfigurationException exception)
-		{
-			// The parsed data is not as we are expecting, which means that we can't make assumptions
-			// about the correctness of the fields. The safest thing to do is to not return anything and 
-			// alert the user somehow.
-			logger.error("parse()", exception); //$NON-NLS-1$
-			stocks = null;
-
-			if (logger.isDebugEnabled())
+			catch(ParseException | DatatypeConfigurationException exception)
 			{
-				logger.debug("parse() - end"); //$NON-NLS-1$
+				logger.error("parse() ERROR - Web Page syntax from " + this.webUrl + " contains stock values with wrong syntax. Ignore them"); //$NON-NLS-1$
+				// The parsed data is not as we are expecting, which means that we can't make assumptions
+				// about the correctness of the fields. However, since the page may contain stock values that 
+				// are incomplete for one company, but not for the others, we'll continue trying to parse 
+				// other fields. 
 			}
-			return null;
 		}
 
 		if (logger.isDebugEnabled())
