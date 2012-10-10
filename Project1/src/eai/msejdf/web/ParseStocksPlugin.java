@@ -42,7 +42,7 @@ import org.jsoup.select.Elements;
  * Important: If the above syntax or number of elements changes, STOCK_ROW__ELEMENT_COUNT and
  * STOCK_ROW_INDEX__* must be update accordingly, as well as the parsing
  */
-public class ParseStocksPlugin extends Parser
+public class ParseStocksPlugin implements Parser
 {
 	/**
 	 * Logger for this class
