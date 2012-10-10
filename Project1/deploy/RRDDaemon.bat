@@ -1,6 +1,6 @@
 @echo off
 :: ---------------------------------------------------------------
-:: Windows startup batch file for HTMLDaemon!
+:: Windows startup batch file for RDDDaemon!
 :: Version 0.1
 :: Created by the eepMW-Team09
 ::
@@ -13,7 +13,7 @@
 
 
 ::java WebProve <Site URL> <Analysis Plugin>
-echo java  -cp EAI-Proj1_v5.jar;lib/*;. eai.msejdf.daemons.HTMLDaemon
-java  -cp EAI-Proj1_v5.jar;lib/*;. eai.msejdf.daemons.HTMLDaemon
+echo java -cp EAI-Proj1_v5.jar;lib/*;. eai.msejdf.daemons.RRDDaemon
+java  -cp EAI-Proj1_v5.jar;lib/*;. eai.msejdf.daemons.RRDDaemon
 
 pause

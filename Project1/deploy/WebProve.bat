@@ -19,6 +19,7 @@ set parserPlugin= eai.msejdf.web.ParseStocksPlugin
 
 
 ::java WebProve <Site URL> <Analysis Plugin>
-echo java  -jar  WebProve_v01.jar  %siteUrl% %parserPlugin% 
-java  -jar  WebProve_v01.jar  %siteUrl% %parserPlugin% 
+echo java  -cp  EAI-Proj1_v5.jar;lib/*  eai.msejdf.apps.WebProbe %siteUrl% %parserPlugin% 
+java  -cp EAI-Proj1_v5.jar;lib/*;. eai.msejdf.apps.WebProbe %siteUrl% %parserPlugin% 
 
+pause
