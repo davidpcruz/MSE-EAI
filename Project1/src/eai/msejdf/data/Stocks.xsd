@@ -17,7 +17,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element ref="company"/>
-        <xs:element ref="cotation"/>
+        <xs:element ref="quotation"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -38,10 +38,10 @@
   
   <xs:element name="website" type="xs:string"/>
   
-  <xs:element name="cotation">
+  <xs:element name="quotation">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="lastCotation"/>
+        <xs:element ref="lastQuotation"/>
         <xs:element ref="time"/>
         <xs:element ref="variation"/>
         <xs:element ref="quantity"/>
@@ -53,7 +53,7 @@
     </xs:complexType>
   </xs:element>
 
-  <xs:element name="lastCotation">
+  <xs:element name="lastQuotation">
     <xs:simpleType>
       <xs:restriction base="xs:decimal">
         <xs:minInclusive value="0"/>

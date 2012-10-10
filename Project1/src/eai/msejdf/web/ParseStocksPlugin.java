@@ -50,8 +50,8 @@ public class ParseStocksPlugin implements Parser
 	private static final Logger logger = Logger.getLogger(ParseStocksPlugin.class);
 
 	private static final int STOCK_ROW_INDEX__COMPANY = 0;
-	private static final int STOCK_ROW_INDEX__LAST_COTATION = 1;
-	private static final int STOCK_ROW_INDEX__COTATION_TIME = 2;
+	private static final int STOCK_ROW_INDEX__LAST_QUOTATION = 1;
+	private static final int STOCK_ROW_INDEX__QUOTATION_TIME = 2;
 	private static final int STOCK_ROW_INDEX__VARIATION = 3;
 	private static final int STOCK_ROW_INDEX__QUANTITY = 4;
 	private static final int STOCK_ROW_INDEX__MAXIMUM = 5;
@@ -89,14 +89,14 @@ public class ParseStocksPlugin implements Parser
 		}
 
 		Document webPageDoc = null;
-		Elements cotationInfoRows = null;
+		Elements quotationInfoRows = null;
 		
 		// Create a DOM representation of a web page
 		webPageDoc = Jsoup.parse(new URL(this.webUrl), ParseStocksPlugin.CONNECTION_TIMEOUT); 
 
-		// Extract all rows of the tables that have cotation information
-		cotationInfoRows = webPageDoc.select("tr:has(td[class^=tituloforumbar]):gt(0) ~ tr");		
-		if (0 == cotationInfoRows.size())
+		// Extract all rows of the tables that have quotation information
+		quotationInfoRows = webPageDoc.select("tr:has(td[class^=tituloforumbar]):gt(0) ~ tr");		
+		if (0 == quotationInfoRows.size())
 		{
 			// The parsed data is not as we are expecting, which means that we can't make assumptions
 			// about the correctness of the fields. The safest thing to do is to not return anything and 
@@ -112,16 +112,16 @@ public class ParseStocksPlugin implements Parser
 		try
 		{
 			// Fill out our stock information object for each individual stock information client
-			for (Element cotationInfo : cotationInfoRows)
+			for (Element quotationInfo : quotationInfoRows)
 			{
 				Stock stockInfo = new Stock();
 
-				// Separates the different cotation information fields into a list of fields, excluding data
+				// Separates the different quotation information fields into a list of fields, excluding data
 				// in the first field that is irrelevant ("Hist." as described in the example presented in 
 				// this class doc header)
-				Elements cotationFields = cotationInfo.select("table td:eq(0) a, >td:gt(0)");
+				Elements quotationFields = quotationInfo.select("table td:eq(0) a, >td:gt(0)");
 
-				if (ParseStocksPlugin.STOCK_ROW__ELEMENT_COUNT != cotationFields.size())
+				if (ParseStocksPlugin.STOCK_ROW__ELEMENT_COUNT != quotationFields.size())
 				{
 					// The parsed data is not as we are expecting, which means that we can't make assumptions
 					// about the correctness of the fields. The safest thing to do is to not return anything and 
@@ -137,7 +137,7 @@ public class ParseStocksPlugin implements Parser
 				}
 				
 				// Fill the sock object with the information retrieved from the page 
-				parseFields(cotationFields, stockInfo);
+				parseFields(quotationFields, stockInfo);
 				
 				stocks.getStock().add(stockInfo);
 			}
@@ -164,47 +164,47 @@ public class ParseStocksPlugin implements Parser
 		return stocks;
 	}
 	
-	private void parseFields(Elements cotationFields, Stock stockInfo) throws ParseException, DatatypeConfigurationException
+	private void parseFields(Elements quotationFields, Stock stockInfo) throws ParseException, DatatypeConfigurationException
 	{		
 		String field = null;
 		NumberFormat formatter = NumberFormat.getInstance(ParseStocksPlugin.STOCK_NUMBER_FORMAT_LOCALE);
 		
 		stockInfo.setCompany(new Company());
-		stockInfo.setCotation(new Cotation());
+		stockInfo.setQuotation(new Quotation());
 		
 		Company company = stockInfo.getCompany();
-		Cotation cotation = stockInfo.getCotation();
+		Quotation quotation = stockInfo.getQuotation();
 		
-		field = cotationFields.get(ParseStocksPlugin.STOCK_ROW_INDEX__COMPANY).text();
+		field = quotationFields.get(ParseStocksPlugin.STOCK_ROW_INDEX__COMPANY).text();
 		company.setName(field);
 
-		field = cotationFields.get(ParseStocksPlugin.STOCK_ROW_INDEX__LAST_COTATION).text();
-		cotation.setLastCotation(BigDecimal.valueOf(formatter.parse(field).doubleValue()));
+		field = quotationFields.get(ParseStocksPlugin.STOCK_ROW_INDEX__LAST_QUOTATION).text();
+		quotation.setLastQuotation(BigDecimal.valueOf(formatter.parse(field).doubleValue()));
 
-		field = cotationFields.get(ParseStocksPlugin.STOCK_ROW_INDEX__COTATION_TIME).text();
+		field = quotationFields.get(ParseStocksPlugin.STOCK_ROW_INDEX__QUOTATION_TIME).text();
 		// Check that field matches the HH:mm time pattern
 		if (false == field.matches("([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]"))
 		{
 			throw new InputMismatchException();
 		}		
-		cotation.setTime(field);
+		quotation.setTime(field);
 
-		field = cotationFields.get(ParseStocksPlugin.STOCK_ROW_INDEX__VARIATION).text();
-		cotation.setVariation(BigDecimal.valueOf(formatter.parse(field).doubleValue()));
+		field = quotationFields.get(ParseStocksPlugin.STOCK_ROW_INDEX__VARIATION).text();
+		quotation.setVariation(BigDecimal.valueOf(formatter.parse(field).doubleValue()));
 
-		field = cotationFields.get(ParseStocksPlugin.STOCK_ROW_INDEX__QUANTITY).text();
-		cotation.setQuantity(BigInteger.valueOf(formatter.parse(field).longValue()));
+		field = quotationFields.get(ParseStocksPlugin.STOCK_ROW_INDEX__QUANTITY).text();
+		quotation.setQuantity(BigInteger.valueOf(formatter.parse(field).longValue()));
 		
-		field = cotationFields.get(ParseStocksPlugin.STOCK_ROW_INDEX__MAXIMUM).text();
-		cotation.setMaximum(BigDecimal.valueOf(formatter.parse(field).doubleValue()));
+		field = quotationFields.get(ParseStocksPlugin.STOCK_ROW_INDEX__MAXIMUM).text();
+		quotation.setMaximum(BigDecimal.valueOf(formatter.parse(field).doubleValue()));
 
-		field = cotationFields.get(ParseStocksPlugin.STOCK_ROW_INDEX__MINIMUM).text();
-		cotation.setMinimum(BigDecimal.valueOf(formatter.parse(field).doubleValue()));
+		field = quotationFields.get(ParseStocksPlugin.STOCK_ROW_INDEX__MINIMUM).text();
+		quotation.setMinimum(BigDecimal.valueOf(formatter.parse(field).doubleValue()));
 
-		field = cotationFields.get(ParseStocksPlugin.STOCK_ROW_INDEX__BUY).text();
-		cotation.setPurchase(BigDecimal.valueOf(formatter.parse(field).doubleValue()));
+		field = quotationFields.get(ParseStocksPlugin.STOCK_ROW_INDEX__BUY).text();
+		quotation.setPurchase(BigDecimal.valueOf(formatter.parse(field).doubleValue()));
 
-		field = cotationFields.get(ParseStocksPlugin.STOCK_ROW_INDEX__SELL).text();
-		cotation.setSell(BigDecimal.valueOf(formatter.parse(field).doubleValue()));
+		field = quotationFields.get(ParseStocksPlugin.STOCK_ROW_INDEX__SELL).text();
+		quotation.setSell(BigDecimal.valueOf(formatter.parse(field).doubleValue()));
 	}
 }

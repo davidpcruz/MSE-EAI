@@ -134,7 +134,7 @@ public class WebProbe
 			Object parsedDataObject = webParser.parse(); 
 			if (null == parsedDataObject)
 			{
-				// There isn't much we can't do, except alerting the user somehow.
+				// There isn't much we can do, except alerting the user somehow.
 				logger.error("parse(): ERROR - Web Page syntax from " + this.webUrl + " is not supported"); //$NON-NLS-1$
 				return;
 			}

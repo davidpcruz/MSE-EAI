@@ -13,7 +13,7 @@ import org.apache.log4j.Logger;
 
 import eai.msejdf.config.Configuration;
 import eai.msejdf.data.Company;
-import eai.msejdf.data.Cotation;
+import eai.msejdf.data.Quotation;
 import eai.msejdf.data.Stock;
 import eai.msejdf.data.Stocks;
 import eai.msejdf.jms.JMSReceiver;
@@ -128,19 +128,19 @@ public class RRDDaemon extends DaemonBase implements MessageListener
 		{
 			throw new IllegalArgumentException("stockValue.getCompany()");
 		}
-		if (stockValue.getCotation() == null)
+		if (stockValue.getQuotation() == null)
 		{
-			throw new IllegalArgumentException("stockValue.getCotation()");
+			throw new IllegalArgumentException("stockValue.getQuotation()");
 		}
 
 		Company comp = stockValue.getCompany();
-		Cotation quote = stockValue.getCotation();
+		Quotation quote = stockValue.getQuotation();
 		String outdir = createOutputDir();
 		String dbfilename = String.format("%s/%s.rrd", outdir, comp.getName());
 
 		RrdDatabase dbase = new RrdDatabase(dbfilename, RRD_TITLE);
 
-		dbase.updateData(timestamp, quote.getLastCotation().floatValue());
+		dbase.updateData(timestamp, quote.getLastQuotation().floatValue());
 		
 		// graph creation
 		dbase.createRRDGraph(String.format("%s/%s_hour.gif", outdir, comp.getName()), 60l * 60l);
