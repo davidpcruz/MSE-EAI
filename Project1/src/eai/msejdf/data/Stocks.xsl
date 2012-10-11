@@ -7,10 +7,6 @@
 		<html>
 			<body>
 				<h2>Stock Market</h2>
-				<h4>
-					Time:
-					<xsl:value-of select="./@timestamp" />
-				</h4>
 				<table border="1">
 					<tr bgcolor="#9acd32">
 						<th>Company</th>
