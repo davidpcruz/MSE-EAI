@@ -6,18 +6,16 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Hibernate">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
-			<attribute name="owner.project.facets" value="jpt.jpa"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JBoss-Client">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
-			<attribute name="owner.project.facets" value="jpt.jpa"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="lib/hibernate/jpa/hibernate-entitymanager-4.1.8.Final.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate/required/antlr-2.7.7.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate/required/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate/required/hibernate-commons-annotations-4.0.1.Final.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate/required/hibernate-core-4.1.8.Final.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate/required/hibernate-jpa-2.0-api-1.0.1.Final.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate/required/javassist-3.15.0-GA.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate/required/jboss-logging-3.1.0.GA.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate/required/jboss-transaction-api_1.1_spec-1.0.0.Final.jar"/>
+	<classpathentry kind="lib" path="lib/jboss/jboss-client.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
