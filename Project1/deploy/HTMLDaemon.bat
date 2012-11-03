@@ -13,7 +13,5 @@
 
 
 ::java WebProve <Site URL> <Analysis Plugin>
-echo java  -cp EAI-Proj1_v5.jar;lib/*;. eai.msejdf.daemons.HTMLDaemon
-java  -cp EAI-Proj1_v5.jar;lib/*;. eai.msejdf.daemons.HTMLDaemon
-
-pause
+echo java -cp EAI-Proj1_v5.jar;lib/*;. eai.msejdf.daemons.HTMLDaemon
+START "HTMLDaemon" /NORMAL java -cp EAI-Proj1_v5.jar;lib/*;. eai.msejdf.daemons.HTMLDaemon

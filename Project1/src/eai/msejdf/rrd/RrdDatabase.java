@@ -31,8 +31,8 @@ public class RrdDatabase
 	/** Logger for this class. */
 	private static final Logger logger = Logger.getLogger(RrdDatabase.class);
 
-	/** The Constant HEARTBEAT_VALUE, that defines the heartbeat of rrd database. */
-	private static final int HEARTBEAT_VALUE = 3600;
+	/** Logger for this class. */
+	private static final boolean PRINT_RRD_DUMP = false;
 
 	/** The rrd database name. */
 	private String dbName;
@@ -75,17 +75,23 @@ public class RrdDatabase
 
 		if (false == new File(this.dbName).exists())
 		{
-			RrdDef rrdDef = new RrdDef(this.dbName, 60);
+			RrdDef rrdDef = new RrdDef(this.dbName, 60); // Step seconds the number of seconds to store for each 
 			// to check
-			rrdDef.setStartTime((System.currentTimeMillis() / 1000l - 18144000l));
-			rrdDef.addDatasource(this.dataSourceName, DsType.GAUGE, HEARTBEAT_VALUE, 0, Double.NaN);
+			rrdDef.setStartTime((System.currentTimeMillis() / 1000l - 86400l)); // start 1 day before for now 86400
+			
+			// heartbeat 
+			// Defines the amount of seconds the rrd database will store a NaN when not receiving data.
+			rrdDef.addDatasource(this.dataSourceName, DsType.GAUGE, 3600, 0, Double.NaN);
 			// Creates archives of the data we need
-			// 
-			rrdDef.addArchive(ConsolFun.AVERAGE, 0.99, 1, 61);			// Hour 60
-			rrdDef.addArchive(ConsolFun.AVERAGE, 0.99, 24, 244);		// Day  24
-			rrdDef.addArchive(ConsolFun.AVERAGE, 0.99, 168, 244);		// Week	24*7=168
-			rrdDef.addArchive(ConsolFun.AVERAGE, 0.99, 672, 244);		// Month 168*4=672
-			rrdDef.addArchive(ConsolFun.AVERAGE, 0.99, 5760, 374);		// ??
+			// Archives logic
+			// steps 
+			// 	defines how many of these primary data points are used to build a consolidated data point which then goes into the archive.
+			// rows 
+			//	defines how many generations of data values are kept in an RRA. Obviously, this has to be greater than zero.			
+			rrdDef.addArchive(ConsolFun.AVERAGE, 0.99, 1, 60);			// Minutes 
+			rrdDef.addArchive(ConsolFun.AVERAGE, 0.99, 60, 24);			// Day  
+			rrdDef.addArchive(ConsolFun.AVERAGE, 0.99, 24*60, 7);		// Week	
+			rrdDef.addArchive(ConsolFun.AVERAGE, 0.99, 24*60*30, 30);	// Month
 	
 			RrdDb rrdDb = new RrdDb(rrdDef);
 			rrdDb.close();
@@ -114,6 +120,12 @@ public class RrdDatabase
 		RrdDb rrdDb = new RrdDb(this.dbName);
 		Sample sample = rrdDb.createSample();
 		sample.setAndUpdate(timestamp+":"+value);
+
+		if (PRINT_RRD_DUMP) 
+		{
+			logger.info("DUMP " + rrdDb.dump()); //$NON-NLS-1$
+		}
+
 		rrdDb.close();
 
 		if (logger.isDebugEnabled())

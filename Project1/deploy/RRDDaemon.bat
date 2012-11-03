@@ -14,6 +14,4 @@
 
 ::java WebProve <Site URL> <Analysis Plugin>
 echo java -cp EAI-Proj1_v5.jar;lib/*;. eai.msejdf.daemons.RRDDaemon
-java  -cp EAI-Proj1_v5.jar;lib/*;. eai.msejdf.daemons.RRDDaemon
-
-pause
+START "RRDDaemon" /NORMAL java -cp EAI-Proj1_v5.jar;lib/*;. eai.msejdf.daemons.RRDDaemon

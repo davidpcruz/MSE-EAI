@@ -97,7 +97,7 @@ public class RRDDaemon extends DaemonBase implements MessageListener
 
 			for (Stock quote : objMsg.getStock())
 			{
-				addStockToRRD(objMsg.getTimestamp().longValue(), quote);
+				addStockToRRD(objMsg.getTimestamp().longValue() / 1000, quote);
 			}
 
 		} catch (JMSException | JAXBException | IOException e)
@@ -110,14 +110,14 @@ public class RRDDaemon extends DaemonBase implements MessageListener
 	/**
 	 * Adds the stock to rrd database.
 	 * 
-	 * @param timestamp
+	 * @param timestampInSeconds
 	 *            the timestamp
 	 * @param stockValue
 	 *            the stock value
 	 * @throws IOException
 	 *             Signals that an I/O exception has occurred.
 	 */
-	private void addStockToRRD(long timestamp, Stock stockValue) throws IOException
+	private void addStockToRRD(long timestampInSeconds, Stock stockValue) throws IOException
 	{
 		// basic validations
 		if (stockValue == null)
@@ -140,7 +140,7 @@ public class RRDDaemon extends DaemonBase implements MessageListener
 
 		RrdDatabase dbase = new RrdDatabase(dbfilename, RRD_TITLE);
 
-		dbase.updateData(timestamp, quote.getLastQuotation().floatValue());
+		dbase.updateData(timestampInSeconds, quote.getLastQuotation().floatValue());
 		
 		// graph creation
 		dbase.createRRDGraph(String.format("%s/%s_hour.gif", outdir, comp.getName()), 60l * 60l);
