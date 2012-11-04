@@ -1,5 +1,7 @@
 package app.security;
 
+import helper.Resource;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -21,7 +23,7 @@ public class TestRegister {
 	public static void main(String[] args) throws NamingException, IOException, SecurityException {
 		
 		InitialContext ctx = new InitialContext();
-		ISecurity bean = (ISecurity) ctx.lookup("");
+		ISecurity bean = (ISecurity) ctx.lookup(Resource.JNDI_SECURIY_BEAN);
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
@@ -32,6 +34,8 @@ public class TestRegister {
 		String pass = br.readLine();
 		
 		bean.RegisterUser(user, pass);
+		
+		System.out.println("User registered");
 	}
 
 }
