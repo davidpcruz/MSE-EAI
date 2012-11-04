@@ -1,7 +1,5 @@
 package eai.msejdf.exception;
 
-//TODO-fjn: This has some implementation. Shouldn't be here?!
-
 /**
  * Implementation for security specific exceptions
  */
