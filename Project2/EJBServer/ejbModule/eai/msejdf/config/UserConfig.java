@@ -22,7 +22,7 @@ public class UserConfig implements IUserConfig{
 	private static final String EXCEPTION_USER_NOT_SET = "The user was not set for this session."; 
 	private static final String EXCEPTION_USER_NOT_FOUND = "The user was not found."; 
 	
-	@PersistenceContext(unitName = "UserPersistence")  //TODO: Check if it can be placed in a config file and update name
+	@PersistenceContext(unitName = "JPAEAI")  //TODO: Check if it can be placed in a config file and update name
 	private EntityManager entityManager;
 
 	private String username = null;
@@ -74,7 +74,7 @@ public class UserConfig implements IUserConfig{
 		this.userInfo.setUsername(this.username);
 	}
 
-	public void commitconfig() 
+	public void saveConfig() 
 	{
 		if (null != this.userInfo)
 		{

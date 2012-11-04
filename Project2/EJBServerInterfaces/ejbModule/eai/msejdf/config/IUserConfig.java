@@ -31,5 +31,5 @@ public interface IUserConfig {
 	/**
 	 * Saves information currently associated with the user
 	 */
-	public void commitconfig();
+	public void saveConfig();
 }
