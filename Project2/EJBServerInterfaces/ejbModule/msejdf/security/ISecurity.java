@@ -1,10 +1,13 @@
 package msejdf.security;
 
 import msejdf.exception.SecurityException;
+import javax.ejb.Remote;
 
 /**
  * Interface class for security related operations
  */
+
+@Remote
 public interface ISecurity {
 	
 	/** Registers a user in the system
