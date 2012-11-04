@@ -17,7 +17,7 @@
 		</properties>
 	</persistence-unit>
 <!-- 
-	<persistence-unit name="JPASoccerJTA"
+	<persistence-unit name="JPAEAI"
 		transaction-type="JTA">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<jta-data-source>java:/mydb</jta-data-source>
