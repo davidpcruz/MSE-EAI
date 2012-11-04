@@ -4,10 +4,11 @@
 	<comment></comment>
 	<projects>
 		<project>EJBServer</project>
-		<project>EJBServerInterfaces</project>
-		<project>JPAData</project>
+		<project>EAICommon</project>
 		<project>WebFrontOffice</project>
+		<project>EJBServerInterfaces</project>
 		<project>WebBackOffice</project>
+		<project>JPAData</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
