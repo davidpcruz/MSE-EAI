@@ -1,4 +1,4 @@
-package msejdf.admin;
+package eai.msejdf.admin;
 
 import javax.ejb.Remote;
 

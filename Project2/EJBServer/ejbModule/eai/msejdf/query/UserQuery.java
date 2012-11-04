@@ -1,7 +1,10 @@
-package msejdf.query;
+package eai.msejdf.query;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+
+import eai.msejdf.query.IUserQuery;
+
 
 /**
  * Bean implementing interface for user information related queries 

@@ -1,7 +1,8 @@
-package msejdf.security;
+package eai.msejdf.security;
 
-import msejdf.exception.SecurityException;
 import javax.ejb.Remote;
+
+import eai.msejdf.exception.SecurityException;
 
 /**
  * Interface class for security related operations

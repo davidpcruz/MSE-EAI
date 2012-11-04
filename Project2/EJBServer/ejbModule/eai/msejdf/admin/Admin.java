@@ -1,7 +1,10 @@
-package msejdf.admin;
+package eai.msejdf.admin;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
+
+import eai.msejdf.admin.IAdmin;
+
 
 //TODO-fjn: Check whenever we'll keep this or have it distributed in other beans with method level security permissions
 /**

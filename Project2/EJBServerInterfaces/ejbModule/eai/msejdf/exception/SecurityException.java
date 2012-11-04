@@ -1,4 +1,4 @@
-package msejdf.exception;
+package eai.msejdf.exception;
 
 //TODO-fjn: This has some implementation. Shouldn't be here?!
 

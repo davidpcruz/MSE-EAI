@@ -1,4 +1,4 @@
-package msejdf.query;
+package eai.msejdf.query;
 
 import java.util.List;
 

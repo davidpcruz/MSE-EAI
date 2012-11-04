@@ -1,9 +1,10 @@
-package msejdf.security;
+package eai.msejdf.security;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
-import msejdf.security.ISecurity;
+import eai.msejdf.security.ISecurity;
+
 
 /**
  * Bean implementing interface for security related calls, such as login, registration, etc.

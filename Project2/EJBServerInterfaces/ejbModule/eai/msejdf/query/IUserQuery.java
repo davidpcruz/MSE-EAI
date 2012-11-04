@@ -1,6 +1,4 @@
-package msejdf.query;
-
-import java.util.List;
+package eai.msejdf.query;
 
 import javax.ejb.Remote;
 
