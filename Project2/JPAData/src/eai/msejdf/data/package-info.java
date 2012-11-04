@@ -5,4 +5,4 @@
  * @author dcruz
  *
  */
-package eai.msejdf.entities;
+package eai.msejdf.data;

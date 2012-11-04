@@ -1,8 +1,9 @@
-User de BD
+DB Name - EAIProj2
 
+User DB
 User - DBuser
 Pass - DBpass
 
-User de JBoss
+User JBoss
 User - JBOSSuser
 Pass - JBOSSpass
