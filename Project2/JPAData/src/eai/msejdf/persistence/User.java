@@ -1,10 +1,11 @@
 /**
  * 
  */
-package eai.msejdf.data;
+package eai.msejdf.persistence;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author dcruz
@@ -15,11 +16,13 @@ public class User implements Serializable
 	private Integer id; 
 	private String username; 
 	private String password;
+	private String name;
 	private Address address;
 	private String phone;
 	private String email;
 	private Date birthDate; 
-
+	private BankTeller bankTeller;
+	private List<Company> subscribedCompanies;
 
 	private static final long serialVersionUID = 1L;	
 	
@@ -113,6 +116,54 @@ public class User implements Serializable
 	public void setBirthDate(Date birthDate)
 	{
 		this.birthDate = birthDate;
+	}
+
+	/**
+	 * @return the bankTeller
+	 */
+	public BankTeller getBankTeller()
+	{
+		return bankTeller;
+	}
+
+	/**
+	 * @param bankTeller the bankTeller to set
+	 */
+	public void setBankTeller(BankTeller bankTeller)
+	{
+		this.bankTeller = bankTeller;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName()
+	{
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+
+	/**
+	 * @return the companies
+	 */
+	public List<Company> getSubscribedCompanies()
+	{
+		return subscribedCompanies;
+	}
+
+	/**
+	 * @param companies the companies to set
+	 */
+	public void setSubscribedCompanies(List<Company> companies)
+	{
+		this.subscribedCompanies = companies;
 	}
 	
 }

@@ -4,16 +4,35 @@
    		<!--  Override annotations -->
         <xml-mapping-metadata-complete/>
     </persistence-unit-metadata>
-
-    <package>eai.msejdf.data</package>
+<!-- 
+	<mapped-superclass class="eai.msejdf.data.Company">
+	    <attributes>
+	        <id name="id"/>
+	    </attributes>	
+	<mapped-superclass/>
+ -->
+    <package>eai.msejdf.persistence</package>
     <entity class="User">
 		<attributes>
 		     <id name="id">
 		         <column name="id"/>
 		         <generated-value strategy="IDENTITY"/>
-		     </id>        	
+		     </id>   
+		     <basic name="username">
+            	<column name="username" unique="true" nullable="false"/>
+        	</basic>		     
+		     <basic name="password">
+            	<column name="password" nullable="false"/>
+        	</basic>		     		          	
+		     <basic name="name">
+            	<column name="name" nullable="false"/>
+        	</basic>		     		          	
+		   	<many-to-one name="bankTeller" fetch="LAZY" target-entity="BankTeller">
+        	</many-to-one>	        
 	        <one-to-one name="address" fetch="LAZY" target-entity="Address">
 	        </one-to-one>
+	        <many-to-many name="subscribedCompanies" fetch="LAZY" target-entity="Company">
+	        </many-to-many>
 		</attributes>        
     </entity>
     <entity class="Address" access="PROPERTY" metadata-complete="true">
@@ -24,7 +43,7 @@
 		     </id>        	
 		</attributes>
     </entity>
-    <entity class="BankTeller">
+    <entity class="BankTeller" access="PROPERTY" metadata-complete="true">
 		<attributes>
 		     <id name="id">
 		         <column name="id"/>
@@ -40,6 +59,24 @@
 		         <column name="id"/>
 		         <generated-value strategy="IDENTITY"/>
 		     </id>        	
+		     <basic name="username">
+            	<column name="username" unique="true" nullable="false"/>
+        	</basic>		     
+		     <basic name="password">
+            	<column name="password" nullable="false"/>
+        	</basic>		     
+		</attributes>
+	</entity>
+	<entity class="Company" access="FIELD">
+		<attributes>
+			<id name="id">
+		         <column name="id"/>
+		         <generated-value strategy="IDENTITY"/>
+			</id>
+	        <one-to-one name="addressNew" fetch="LAZY" target-entity="Address">
+	        </one-to-one>	
+	        <many-to-many name="subscribedUsers" fetch="LAZY" target-entity="User">
+	        </many-to-many>        	
 		</attributes>
 	</entity>
 	

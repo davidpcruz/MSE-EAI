@@ -1,7 +1,7 @@
 /**
  * 
  */
-package eai.msejdf.data;
+package eai.msejdf.persistence;
 
 import java.io.Serializable;
 

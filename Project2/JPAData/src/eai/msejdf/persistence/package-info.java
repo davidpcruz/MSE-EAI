@@ -5,4 +5,4 @@
  * @author dcruz
  *
  */
-package eai.msejdf.data;
+package eai.msejdf.persistence;

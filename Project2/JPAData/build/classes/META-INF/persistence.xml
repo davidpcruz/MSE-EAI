@@ -8,12 +8,12 @@
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />
-			<property name="hibernate.show_sql" value = "true" />
+<!-- 			<property name="hibernate.show_sql" value="true" />  -->
 
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/SoccerDB" />
-			<property name="javax.persistence.jdbc.user" value="EAI" />
-			<property name="javax.persistence.jdbc.password" value="EAI" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/EAIProj2" />
+			<property name="javax.persistence.jdbc.user" value="DBuser" />
+			<property name="javax.persistence.jdbc.password" value="DBpass" />
 		</properties>
 	</persistence-unit>
 <!-- 
@@ -27,9 +27,9 @@
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/SoccerDB" />
-			<property name="javax.persistence.jdbc.user" value="EAI" />
-			<property name="javax.persistence.jdbc.password" value="EAI" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/EAIProj2" />
+			<property name="javax.persistence.jdbc.user" value="DBuser" />
+			<property name="javax.persistence.jdbc.password" value="DBpass" />
 		</properties>
 	</persistence-unit>
  -->
