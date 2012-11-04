@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import eai.msejdf.data.User;
+import eai.msejdf.persistence.User;
 import eai.msejdf.security.ISecurity;
 
 
