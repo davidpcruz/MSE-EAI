@@ -4,14 +4,20 @@
    		<!--  Override annotations -->
         <xml-mapping-metadata-complete/>
     </persistence-unit-metadata>
-<!-- 
+	
+    <package>eai.msejdf.persistence</package>
+    
 	<mapped-superclass class="eai.msejdf.data.Company">
 	    <attributes>
-	        <id name="id"/>
+		    <basic name="name" optional="false">
+	        </basic>
+		    <basic name="address">
+	        </basic>
+		    <basic name="website">
+	        </basic>
 	    </attributes>	
-	<mapped-superclass/>
- -->
-    <package>eai.msejdf.persistence</package>
+	</mapped-superclass>	
+    
     <entity class="User">
 		<attributes>
 		     <id name="id">
