@@ -3,6 +3,7 @@
 	<name>EJBServer</name>
 	<comment></comment>
 	<projects>
+		<project>EJBServerInterfaces</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
