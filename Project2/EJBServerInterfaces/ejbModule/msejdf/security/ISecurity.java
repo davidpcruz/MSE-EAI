@@ -6,7 +6,6 @@ import javax.ejb.Remote;
 /**
  * Interface class for security related operations
  */
-
 @Remote
 public interface ISecurity {
 	
