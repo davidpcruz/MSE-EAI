@@ -10,4 +10,9 @@ import javax.ejb.Stateless;
 @LocalBean
 public class UserQuery implements IUserQuery{
 
+	public Object getUserInfo(String userName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

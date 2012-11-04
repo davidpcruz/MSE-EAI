@@ -1,5 +1,7 @@
 package msejdf.query;
 
+import java.util.List;
+
 import javax.ejb.Remote;
 
 /**
@@ -7,5 +9,11 @@ import javax.ejb.Remote;
  */
 @Remote
 public interface IUserQuery {
-
+	/**
+	 * Returns information related with a given information
+	 * @param userName The user identifier
+	 * @return An object with the requested user information
+	 */
+	Object getUserInfo(String userName); //TODO: Set correct return object type
+	
 }
