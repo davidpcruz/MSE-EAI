@@ -33,10 +33,10 @@ public class Company extends eai.msejdf.data.Company implements Serializable {
 
 	public Company(eai.msejdf.data.Company company) {
 		
-		this.setName(company.getAddress());
+		this.setName(company.getName());
 		this.setWebsite(company.getWebsite());
-		this.addressNew = new Address();
-		this.addressNew.setAddress(company.getAddress());
+//		this.addressNew = new Address();
+//		this.addressNew.setAddress(company.getAddress());
 	} 
 
 	
