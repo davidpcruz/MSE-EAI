@@ -13,6 +13,7 @@ import javax.jms.TextMessage;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import eai.msejdf.persistence.Address;
 
 import org.apache.log4j.Logger;
 
@@ -96,11 +97,39 @@ public class JMSBeanReceiver implements MessageListener {
 						persistenceCompany = new eai.msejdf.persistence.Company();
 
 					}
+					
+					// set Company Address
+					Address addressNew = new Address();
+					addressNew.setAddress(company.getAddress());
+					//first we need to persist the company address and then we can persist the company
+					entityManager.persist(addressNew);
+					persistenceCompany.setAddress(addressNew);
+					// set Company Name
 					persistenceCompany.setName(company.getName());
-					//persistenceCompany.setLastQuotation(quote.ge);
+					// set Last  Quotation
+					persistenceCompany.setLastQuotation(quote.getQuotation().getLastQuotation());
+					// set Company Website
 					persistenceCompany.setWebsite(company.getWebsite());
+					// set Time
+					persistenceCompany.setTime(quote.getQuotation().getTime());
+					// set Variation
+					persistenceCompany.setVariation(quote.getQuotation().getVariation());
+					// set Quantity
+					persistenceCompany.setQuantity(quote.getQuotation().getQuantity());
+					// set Maximum
+					persistenceCompany.setMaximum(quote.getQuotation().getMaximum());
+					// set Minimum
+					persistenceCompany.setMinimum(quote.getQuotation().getMinimum());
+					// set Purchase
+					persistenceCompany.setPurchase(quote.getQuotation().getPurchase());
+					// set Sell
+					persistenceCompany.setSell(quote.getQuotation().getSell());
+					
+					
 					logger.info("Persist company: " + company );
 					logger.info("Persist PEr company: " + persistenceCompany.getName() );
+					
+					// persist the company information to DB
 					entityManager.persist(persistenceCompany);
 					
 				}
