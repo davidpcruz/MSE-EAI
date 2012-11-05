@@ -21,7 +21,7 @@ public class Security implements ISecurity{
 	private static final String EXCEPTION_USER_ALREADY_EXISTS = "The user already exists."; 
 	private static final String EXCEPTION_INVALID_USER_OR_PASS = "The user or password are not correct."; 
 	
-	@PersistenceContext(unitName = "UserPersistence")  //TODO: Check if it can be placed in a config file and update name
+	@PersistenceContext(unitName = "JPAEAI")  //TODO: Check if it can be placed in a config file and update name
 	private EntityManager entityManager;
 	
 	// TODO: Check transaction use (bean level, method level)
@@ -41,6 +41,7 @@ public class Security implements ISecurity{
         
         newUser.setUsername(username);
         newUser.setPassword(password);
+        newUser.setName(""); // TODO: Should we receive the name of the user as a parameter?
         
         entityManager.persist(newUser);
 	}

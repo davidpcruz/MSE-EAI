@@ -3,6 +3,7 @@
 	<name>EJBServerInterfaces</name>
 	<comment></comment>
 	<projects>
+		<project>JPAData</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
