@@ -1,5 +1,7 @@
 package eai.msejdf.jms;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.ejb.MessageDriven;
 import javax.ejb.MessageDrivenContext;
@@ -8,46 +10,79 @@ import javax.jms.Message;
 import javax.ejb.ActivationConfigProperty;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import eai.msejdf.persistence.Address;
+
 import org.apache.log4j.Logger;
 
+import eai.msejdf.data.Company;
+//import eai.msejdf.persistence.Company;
+import eai.msejdf.data.Quotation;
 import eai.msejdf.data.Stock;
 import eai.msejdf.data.Stocks;
+
 import eai.msejdf.utils.XmlObjConv;
 
 //import eai.msejdf.config.Configuration;
 
-
-
-@MessageDriven(activationConfig = { 
+@MessageDriven(activationConfig = {
 		@ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge"),
 		@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic"),
-		@ActivationConfigProperty(propertyName = "destination", propertyValue = "topic/EAIProject1") 
-		// TODO get Topic from configuration file
+		@ActivationConfigProperty(propertyName = "destination", propertyValue = "topic/EAIProject1")
+// TODO get Topic from configuration file
 })
-
-public class JMSBeanReceiver implements MessageListener{
-	@Resource private MessageDrivenContext mdc;
-	
+public class JMSBeanReceiver implements MessageListener {
+	@Resource
+	private MessageDrivenContext mdc;
+	@PersistenceContext(unitName = "JPAEAI")
+	// TODO: Check if it can be placed in a config file and update name
+	private EntityManager entityManager;
 
 	/**
 	 * Logger for this class
 	 */
-	private static final Logger logger = Logger.getLogger(JMSBeanReceiver.class);
+	private static final Logger logger = Logger
+			.getLogger(JMSBeanReceiver.class);
+
+	public eai.msejdf.persistence.Company getCompany(String company) {
+
+		Query query = entityManager
+				.createQuery("SELECT Company FROM Company company WHERE company.name=:name");
+		query.setParameter("name", company);
+
+		@SuppressWarnings("unchecked")
+		List<eai.msejdf.persistence.Company> companyList = query
+				.getResultList();
+
+		if (true == companyList.isEmpty()) {
+			// The company doesn't seem to exist
+			logger.info("The company doesn not seem to exist in DB: " + company);
+			return null;
+
+		} else {
+			logger.info("The company exists in DB: " + company);
+			return companyList.get(0);
+		}
+	}
+
 	@Override
 	public void onMessage(Message inMessage) {
-		
 		TextMessage msg = null;
+
 		try {
 			if (inMessage instanceof TextMessage) {
 				msg = (TextMessage) inMessage;
 				logger.debug("MESSAGE BEAN: Message received: " + msg.getText());
-				
-				Stocks objMsg = XmlObjConv.convertToObject(msg.getText(), Stocks.class);  
-				for (Stock quote : objMsg.getStock())
-				{
-					System.out.println(quote);
+
+				Stocks objMsg = XmlObjConv.convertToObject(msg.getText(),
+						Stocks.class);
+				for (Stock quote : objMsg.getStock()) {
+					// Update/Create Company data
+					setCompany(quote);
 				}
-				
+
 			} else {
 				logger.warn("Message of wrong type: "
 						+ inMessage.getClass().getName());
@@ -59,4 +94,57 @@ public class JMSBeanReceiver implements MessageListener{
 			te.printStackTrace();
 		}
 	}
+
+	private void setCompany(Stock quote) {
+
+		Company company = null;
+		//Quotation quotation = null;
+		eai.msejdf.persistence.Company persistenceCompany = null;
+		company = quote.getCompany();
+		//quotation = quote.getQuotation();
+		persistenceCompany = getCompany(company.getName());
+		if (null == persistenceCompany) {
+			// add company
+			logger.info("Adding company to DB: " + company);
+			persistenceCompany = new eai.msejdf.persistence.Company();
+
+		}
+
+		// set Company Address
+		Address addressNew = new Address();
+		addressNew.setAddress(company.getAddress());
+		// first we need to persist the company address and then we can persist
+		// the company
+		entityManager.persist(addressNew);
+		persistenceCompany.setAddress(addressNew);
+		// set Company Name
+		persistenceCompany.setName(company.getName());
+		// set Last Quotation
+		persistenceCompany.setLastQuotation(quote.getQuotation()
+				.getLastQuotation());
+		// set Company Website
+		persistenceCompany.setWebsite(company.getWebsite());
+		// set Time
+		persistenceCompany.setTime(quote.getQuotation().getTime());
+		// set Variation
+		persistenceCompany.setVariation(quote.getQuotation().getVariation());
+		// set Quantity
+		persistenceCompany.setQuantity(quote.getQuotation().getQuantity());
+		// set Maximum
+		persistenceCompany.setMaximum(quote.getQuotation().getMaximum());
+		// set Minimum
+		persistenceCompany.setMinimum(quote.getQuotation().getMinimum());
+		// set Purchase
+		persistenceCompany.setPurchase(quote.getQuotation().getPurchase());
+		// set Sell
+		persistenceCompany.setSell(quote.getQuotation().getSell());
+
+		logger.info("Persist company: " + company);
+		logger.info("Persist PEr company: " + persistenceCompany.getName());
+
+		// persist the company information to DB
+		entityManager.persist(persistenceCompany);
+
+	}
+
 }
