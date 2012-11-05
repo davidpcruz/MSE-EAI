@@ -9,11 +9,13 @@ import java.util.List;
  * Entity implementation class for Entity: Company
  *
  */
-public class Company extends eai.msejdf.data.Company implements Serializable {
+public class Company implements Serializable {
 
 	 
 	private Integer id;
-	private Address addressNew;
+    protected String name;
+	private Address address;
+    protected String website;
 	private List<User> subscribedUsers;
 
 	// quotation fields
@@ -30,15 +32,6 @@ public class Company extends eai.msejdf.data.Company implements Serializable {
 	public Company() {
 		super();
 	} 
-
-	public Company(eai.msejdf.data.Company company) {
-		
-		this.setName(company.getAddress());
-		this.setWebsite(company.getWebsite());
-		this.addressNew = new Address();
-		this.addressNew.setAddress(company.getAddress());
-	} 
-
 	
 	public Integer getId() {
  		return this.id;
@@ -64,14 +57,14 @@ public class Company extends eai.msejdf.data.Company implements Serializable {
 		this.subscribedUsers = subscribedUsers;
 	}
 
-	public Address getAddressNew()
+	public Address getAddress()
 	{
-		return this.addressNew;
+		return this.address;
 	}
 
 	public void setAddress(Address address)
 	{
-		this.addressNew = address;
+		this.address = address;
 	}
 
 	public BigDecimal getLastQuotation()
@@ -152,6 +145,26 @@ public class Company extends eai.msejdf.data.Company implements Serializable {
 	public void setSell(BigDecimal sell)
 	{
 		this.sell = sell;
+	}
+
+	public String getName()
+	{
+		return name;
+	}
+
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+
+	public String getWebsite()
+	{
+		return website;
+	}
+
+	public void setWebsite(String website)
+	{
+		this.website = website;
 	}
 	
    
