@@ -47,7 +47,8 @@ public final class Configuration
 	/** The Constant containing the  connection timeout time */
 	private static final String CONNECTION_TIMEOUT = "app.web.connectiontimeout"; 
 
-	
+	/** The Constant containing the  connection timeout time */
+	private static final String SMTP_HOST = "mail.smtp.host"; 	
 	
 	private static Properties props;
 
@@ -171,4 +172,15 @@ public final class Configuration
 		return directory;
 
 	}
+	
+	/**
+	 * Gets the smtp host.
+	 *
+	 * @return the smtp host
+	 */
+	public static String getSmtpHost()
+	{
+		return getProperties().getProperty(SMTP_HOST);
+	}
+
 }
