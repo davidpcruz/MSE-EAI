@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.ejb.MessageDriven;
+
 import javax.ejb.MessageDrivenContext;
 import javax.jms.JMSException;
 import javax.jms.Message;
@@ -13,10 +14,11 @@ import javax.jms.TextMessage;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.xml.bind.JAXBException;
+
 import eai.msejdf.persistence.Address;
 
 import org.apache.log4j.Logger;
-
 import eai.msejdf.data.Company;
 import eai.msejdf.data.Stock;
 import eai.msejdf.data.Stocks;
@@ -31,9 +33,11 @@ import eai.msejdf.utils.XmlObjConv;
 @MessageDriven(activationConfig = {
 		@ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge"),
 		@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic"),
-		@ActivationConfigProperty(propertyName = "destination", propertyValue = "topic/EAIProject1")
+		@ActivationConfigProperty(propertyName = "destination", propertyValue = "topic/EAIProject1"),
+		@ActivationConfigProperty(propertyName = "maxSession", propertyValue = "1")
 // TODO get Topic from configuration file
 })
+//@Pool(value=PoolDefaults.POOL_IMPLEMENTATION_STRICTMAX,maxSize=50,timeout=1800000)
 public class JMSBeanReceiver implements MessageListener {
 	@Resource
 	private MessageDrivenContext mdc;
@@ -51,6 +55,9 @@ public class JMSBeanReceiver implements MessageListener {
 	 * Get Company information If the company does not exist then returns null
 	 */
 	public eai.msejdf.persistence.Company getCompany(String company) {
+		if (logger.isDebugEnabled()) {
+			logger.debug("getCompany(String) - start"); //$NON-NLS-1$
+		}
 
 		Query query = entityManager
 				.createQuery("SELECT Company FROM Company company WHERE company.name=:name");
@@ -79,6 +86,10 @@ public class JMSBeanReceiver implements MessageListener {
 	 */
 	@Override
 	public void onMessage(Message inMessage) {
+		if (logger.isDebugEnabled()) {
+			logger.debug("onMessage(Message) - start"); //$NON-NLS-1$
+		}
+
 		TextMessage msg = null;
 
 		try {
@@ -99,10 +110,17 @@ public class JMSBeanReceiver implements MessageListener {
 						+ inMessage.getClass().getName());
 			}
 		} catch (JMSException e) {
-			e.printStackTrace();
+			logger.error("onMessage(Message)", e); //$NON-NLS-1$
 			mdc.setRollbackOnly();
-		} catch (Throwable te) {
-			te.printStackTrace();
+		}
+		// catch (Throwable te) {
+		// te.printStackTrace();
+		// }
+		catch (JAXBException e) {
+			logger.error("onMessage(Message)", e); //$NON-NLS-1$
+		}
+		if (logger.isDebugEnabled()) {
+			logger.debug("onMessage(Message) - end"); //$NON-NLS-1$
 		}
 	}
 
@@ -111,6 +129,9 @@ public class JMSBeanReceiver implements MessageListener {
 	 * exist it will be created
 	 */
 	private void updateCompany(Stock quote) {
+		if (logger.isDebugEnabled()) {
+			logger.debug("updateCompany(Stock) - start"); //$NON-NLS-1$
+		}
 
 		Company company = null;
 		eai.msejdf.persistence.Company persistenceCompany = null;
@@ -122,7 +143,6 @@ public class JMSBeanReceiver implements MessageListener {
 			// add company
 			logger.info("Adding company to DB: " + company.getName());
 			persistenceCompany = new eai.msejdf.persistence.Company();
-
 		}
 
 		// set Company Address
@@ -161,6 +181,9 @@ public class JMSBeanReceiver implements MessageListener {
 		// persist the company information to DB
 		entityManager.persist(persistenceCompany);
 
+		if (logger.isDebugEnabled()) {
+			logger.debug("updateCompany(Stock) - end"); //$NON-NLS-1$
+		}
 	}
 
 }

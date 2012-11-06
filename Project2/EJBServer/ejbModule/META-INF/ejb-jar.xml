@@ -1,5 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ejb-jar xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:ejb="http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd" version="3.1">
-  <display-name>EJBServer </display-name>
-  <ejb-client-jar>EJBServerInterfaces.jar</ejb-client-jar>
+<ejb-jar xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:ejb="http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd"
+	version="3.1">
+<!-- 	<display-name>EJBServer</display-name>
+	<ejb-client-jar>EJBServerInterfaces.jar</ejb-client-jar>
+	<enterprise-beans>
+		<message-driven>
+			<ejb-name>JMSBeanReceiver</ejb-name>
+			<ejb-class>eai.msejdf.jms.JMSBeanReceiver</ejb-class>
+			<message-destination-link>topic/EAIProject1</message-destination-link>
+			<maxSession>1</maxSession>
+			<acknowledge-mode>Auto-acknowledge</acknowledge-mode>
+
+			<transaction-type>Bean</transaction-type>
+			<message-driven-destination>
+
+				<message-destination-type>javax.jms.Topic</message-destination-type>
+
+			</message-driven-destination>
+
+
+		</message-driven> 
+	</enterprise-beans>-->
 </ejb-jar>
