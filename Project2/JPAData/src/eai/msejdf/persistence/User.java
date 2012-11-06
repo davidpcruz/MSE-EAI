@@ -166,4 +166,19 @@ public class User implements Serializable
 		this.subscribedCompanies = companies;
 	}
 	
+	@Override
+	public String toString() {
+	    String newLine = System.getProperty("line.separator");
+	    
+	    return  "id: " + this.id + newLine +
+	    		"username: " + this.username + newLine + 
+	    		"password: " + this.password + newLine + 
+	    		"name: " + this.name + newLine + 
+	    		((null != this.address) ? this.address.toString() : "") + 
+	    		"phone: " + this.phone + newLine + 
+	    		"email: " + this.email + newLine + 
+	    		"birthDate: " + this.birthDate + newLine + 
+	    		((null != this.bankTeller) ? this.bankTeller.toString() : ""); 
+ 	} 
+	
 }

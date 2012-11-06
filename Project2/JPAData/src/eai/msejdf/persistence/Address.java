@@ -84,6 +84,15 @@ public class Address implements Serializable
 	public void setCity(String city)
 	{
 		this.city = city;
-	} 
+	}
 
+	@Override
+	public String toString() {
+	    String newLine = System.getProperty("line.separator");
+	    
+	    return  "id: " + this.id + newLine +
+	    		"address: " + this.address + newLine + 
+	    		"zipCode: " + this.zipCode + newLine + 
+	    		"city: " + this.city + newLine;
+ 	} 
 }
