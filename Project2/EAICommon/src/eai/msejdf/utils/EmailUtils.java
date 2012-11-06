@@ -9,46 +9,48 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.apache.log4j.Logger;
+
+import eai.msejdf.config.Configuration;
+
 public class EmailUtils
 {
-	public static boolean sendEmail(String from, String to, String subject, String message ) {
-		
-	      // Assuming you are sending email from localhost
-	      String host = "localhost";
+	private static final String MAIL_SMTP_HOST = "mail.smtp.host";
+	/**
+	 * Logger for this class
+	 */
+	private static final Logger logger = Logger.getLogger(EmailUtils.class);
 
-	      // Get system properties
-	      Properties properties = System.getProperties();
+	public static boolean sendEmail(String from, String to, String subject,
+			String message)
+	{
+		// Get system properties
+		Properties properties = System.getProperties();
 
-	      // Setup mail server
-	      properties.setProperty("mail.smtp.host", host);
+		// Setup mail server
+		properties.setProperty(MAIL_SMTP_HOST, Configuration.getSmtpHost());
 
-	      // Get the default Session object.
-	      Session session = Session.getDefaultInstance(properties);
+		// Get the default Session object.
+		Session session = Session.getDefaultInstance(properties);
 
-	      try{
-	         // Create a default MimeMessage object.
-	         MimeMessage mime = new MimeMessage(session);
+		try
+		{
+			MimeMessage mime = new MimeMessage(session);
+			mime.setFrom(new InternetAddress(from));
+			mime.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
-	         // Set From: header field of the header.
-	         mime.setFrom(new InternetAddress(from));
+			mime.setSubject(subject);
+			mime.setText(message);
 
-	         // Set To: header field of the header.
-	         mime.addRecipient(Message.RecipientType.TO,
-	                                  new InternetAddress(to));
+			// Send it
+			Transport.send(mime);
 
-	         // Set Subject: header field
-	         mime.setSubject(subject);
+			return true;
 
-	         // Now set the actual message
-	         mime.setText(message);
-
-	         // Send message
-	         Transport.send(mime);
-
-	         return true;
-	      }catch (MessagingException mex) {
-	         mex.printStackTrace();
-	         return false;
-	      }
+		} catch (MessagingException mex)
+		{
+			logger.error("sendEmail(String, String, String, String) - exception ", mex); 
+			return false;
+		}
 	}
 }

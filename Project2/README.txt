@@ -27,3 +27,21 @@ standalone*.xml:
 		<password>DBpass</password>
 	</security>
 
+Final datasource below
+
+	<datasource jta="true" jndi-name="java:/mydb" pool-name="my_pool" enabled="true" use-java-context="true" use-ccm="true">
+		<connection-url>jdbc:mysql://localhost:3306/EAIProj2</connection-url>
+		<driver>mysql</driver>
+		<security>
+			<user-name>DBuser</user-name>
+			<password>DBpass</password>
+		</security>
+		<statement>
+			<prepared-statement-cache-size>100</prepared-statement-cache-size>
+			<share-prepared-statements>true</share-prepared-statements>
+		</statement>
+	</datasource>
+
+
+
+

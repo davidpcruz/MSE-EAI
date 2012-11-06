@@ -10,27 +10,14 @@
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />
-<<<<<<< HEAD
 		</properties>		
 	</persistence-unit>
 <!--
-=======
-<!--  
-			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/EAIProj2" />
-			<property name="javax.persistence.jdbc.user" value="DBuser" />
-			<property name="javax.persistence.jdbc.password" value="DBpass" />
-			-->
-		</properties>		
-	</persistence-unit>
-	<!-- 
->>>>>>> branch 'master' of https://github.com/davidpcruz/MSE-EAI.git
 	<persistence-unit name="JPAEAI" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<mapping-file>META-INF/orm.xml</mapping-file>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
-<<<<<<< HEAD
 			<property name="hibernate.hbm2ddl.auto" value="create" />
  			<property name="hibernate.show_sql" value="true" />  
 
@@ -41,17 +28,4 @@
 		</properties>
 	</persistence-unit>
 -->		
-=======
-			<property name="hibernate.hbm2ddl.auto" value="update" />
-
-			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/EAIProj2" />
-			<property name="javax.persistence.jdbc.user" value="DBuser" />
-			<property name="javax.persistence.jdbc.password" value="DBpass" />
-		</properties>
-	</persistence-unit>
-	-->
-<!-- 			<property name="hibernate.show_sql" value="true" />  -->
-		
->>>>>>> branch 'master' of https://github.com/davidpcruz/MSE-EAI.git
 </persistence>
