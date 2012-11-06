@@ -1,4 +1,4 @@
-package app.config;
+package app.user;
 
 import helper.Resource;
 
@@ -9,10 +9,12 @@ import java.io.InputStreamReader;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import eai.msejdf.config.IUserConfig;
 import eai.msejdf.exception.ConfigurationException;
 import eai.msejdf.exception.SecurityException;
+import eai.msejdf.persistence.Address;
+import eai.msejdf.persistence.BankTeller;
 import eai.msejdf.persistence.User;
+import eai.msejdf.user.IUserBean;
 
 public class TestSetUserInfo {
 
@@ -23,27 +25,35 @@ public class TestSetUserInfo {
 	public static void main(String[] args) throws NamingException, IOException, SecurityException, ConfigurationException {
 		
 		InitialContext ctx = new InitialContext();
-		IUserConfig bean = (IUserConfig) ctx.lookup(Resource.JNDI_USER_CONFIG_BEAN);
+		IUserBean bean = (IUserBean) ctx.lookup(Resource.JNDI_USER_BEAN);
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		
-		User userInfo = new User();
-		
+
 		System.out.println("Username: ");
-		String user = br.readLine();
+		String username = br.readLine();
 		
+		User userInfo = bean.getUser(username);
+		
+		Address address = new Address();
+		BankTeller bankTeller = new BankTeller();
+				
 		System.out.println("Name: ");
 		userInfo.setName(br.readLine());
 		
 		System.out.println("Address: ");
-		userInfo.getAddress().setAddress(br.readLine());
+		address.setAddress(br.readLine());
 
 		System.out.println("Zip: ");
-		userInfo.getAddress().setZipCode(br.readLine());
+		address.setZipCode(br.readLine());
 		
-		bean.configureUser(user);
-		bean.setUserInfo(userInfo);
-		bean.saveConfig();
+		userInfo.setAddress(address);
+
+		bankTeller.setName("BankTeller Name");
+		bankTeller.setAddress(address);
+		
+		userInfo.setBankTeller(bankTeller);
+				
+		bean.updateUser(userInfo);
 		
 		System.out.println("User info set");
 	}

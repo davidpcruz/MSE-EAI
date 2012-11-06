@@ -1,4 +1,4 @@
-package app.config;
+package app.user;
 
 import helper.Resource;
 
@@ -9,10 +9,10 @@ import java.io.InputStreamReader;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import eai.msejdf.config.IUserConfig;
 import eai.msejdf.exception.ConfigurationException;
 import eai.msejdf.exception.SecurityException;
 import eai.msejdf.persistence.User;
+import eai.msejdf.user.IUserBean;
 
 public class TestGetUserInfo {
 
@@ -22,19 +22,16 @@ public class TestGetUserInfo {
 	public static void main(String[] args) throws NamingException, IOException, SecurityException, ConfigurationException {
 		
 		InitialContext ctx = new InitialContext();
-		IUserConfig bean = (IUserConfig) ctx.lookup(Resource.JNDI_USER_CONFIG_BEAN);
+		IUserBean bean = (IUserBean) ctx.lookup(Resource.JNDI_USER_BEAN);
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
-		User userInfo = new User();
-		
 		System.out.println("Username: ");
-		String user = br.readLine();
+		String username = br.readLine();
 		
-		bean.configureUser(user);
-		userInfo = bean.getUserInfo();
+		User user = bean.getUser(username);
 		
 		System.out.println("User info:");
-		System.out.println(userInfo.toString());
+		System.out.println(user.toString());
 	}
 }
