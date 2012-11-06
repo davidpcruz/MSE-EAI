@@ -79,4 +79,14 @@ public class BankTeller implements Serializable
 		this.address = address;
 	}
 
+	@Override
+	public String toString() {
+	    String newLine = System.getProperty("line.separator");
+	    
+	    return  "id: " + this.id + newLine +
+	    		"name: " + this.name + newLine + 
+	    		"password: " + this.password + newLine + 
+	    		"address: " + this.address + newLine;
+ 	} 
+	
 }

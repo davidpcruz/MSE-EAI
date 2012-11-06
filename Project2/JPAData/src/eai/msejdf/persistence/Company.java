@@ -28,7 +28,8 @@ public class Company implements Serializable {
     private BigDecimal purchase;
     private BigDecimal sell;	
     
-	private static final long serialVersionUID = 1L;	
+	private static final long serialVersionUID = 1L;
+	
 	public Company() {
 		super();
 	} 
@@ -167,5 +168,22 @@ public class Company implements Serializable {
 		this.website = website;
 	}
 	
+	@Override
+	public String toString() {
+	    String newLine = System.getProperty("line.separator");
+	    
+	    return  "id: " + this.id + newLine +
+	    		"name: " + this.name + newLine + 
+	    		((null != this.address) ? this.address.toString() : "") + 
+	    		"website: " + this.website + newLine + 
+	    		"lastQuotation: " + this.lastQuotation + newLine + 
+	    		"time: " + this.time + newLine + 
+	    		"variation: " + this.variation + newLine + 
+	    		"quantity: " + this.quantity + newLine +
+	    		"maximum: " + this.maximum + newLine +
+	    		"minimum: " + this.minimum + newLine +
+	    		"purchase: " + this.purchase + newLine +
+	    		"sell: " + this.sell + newLine;
+ 	} 
    
 }
