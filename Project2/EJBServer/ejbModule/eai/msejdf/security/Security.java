@@ -27,7 +27,7 @@ public class Security implements ISecurity{
 	// TODO: Check transaction use (bean level, method level)
 	public void RegisterUser(String username, String password) {
 		// Try to register the new user. If it already exists, raise an exception		
-		Query query = entityManager.createQuery("SELECT User FROM User user WHERE user.name=:name");
+		Query query = entityManager.createQuery("SELECT User FROM User user WHERE user.username=:name");
 		query.setParameter("name", username);
 		
         @SuppressWarnings("unchecked")
@@ -48,7 +48,7 @@ public class Security implements ISecurity{
 
 	public void Login(String username, String password) {
 		// Try to find a user that matches the user name and password. Raise an exception if not found
-		Query query = entityManager.createQuery("SELECT User FROM User user WHERE user.name=:name AND user.pass=:pass");
+		Query query = entityManager.createQuery("SELECT User FROM User user WHERE user.username=:name AND user.password=:pass");
 		query.setParameter("name", username);
 		query.setParameter("pass", password);
 		

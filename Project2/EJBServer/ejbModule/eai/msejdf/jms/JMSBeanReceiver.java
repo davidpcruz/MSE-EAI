@@ -18,14 +18,15 @@ import eai.msejdf.persistence.Address;
 import org.apache.log4j.Logger;
 
 import eai.msejdf.data.Company;
-//import eai.msejdf.persistence.Company;
-import eai.msejdf.data.Quotation;
 import eai.msejdf.data.Stock;
 import eai.msejdf.data.Stocks;
 
 import eai.msejdf.utils.XmlObjConv;
 
-//import eai.msejdf.config.Configuration;
+/**
+ * Bean that reads JMS topic with companies information and updates DB with that
+ * information
+ */
 
 @MessageDriven(activationConfig = {
 		@ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge"),
@@ -46,6 +47,9 @@ public class JMSBeanReceiver implements MessageListener {
 	private static final Logger logger = Logger
 			.getLogger(JMSBeanReceiver.class);
 
+	/*
+	 * Get Company information If the company does not exist then returns null
+	 */
 	public eai.msejdf.persistence.Company getCompany(String company) {
 
 		Query query = entityManager
@@ -58,15 +62,21 @@ public class JMSBeanReceiver implements MessageListener {
 
 		if (true == companyList.isEmpty()) {
 			// The company doesn't seem to exist
-			logger.info("The company doesn not seem to exist in DB: " + company);
+			logger.debug("The company doesn not seem to exist in DB: "
+					+ company);
 			return null;
 
 		} else {
-			logger.info("The company exists in DB: " + company);
+			logger.debug("The company exists in DB: " + company);
 			return companyList.get(0);
 		}
 	}
 
+	/*
+	 * Method to read JMS TOPIC (non-Javadoc)
+	 * 
+	 * @see javax.jms.MessageListener#onMessage(javax.jms.Message)
+	 */
 	@Override
 	public void onMessage(Message inMessage) {
 		TextMessage msg = null;
@@ -75,12 +85,13 @@ public class JMSBeanReceiver implements MessageListener {
 			if (inMessage instanceof TextMessage) {
 				msg = (TextMessage) inMessage;
 				logger.debug("MESSAGE BEAN: Message received: " + msg.getText());
-
+				// MArshall XML to a Stocks object
 				Stocks objMsg = XmlObjConv.convertToObject(msg.getText(),
 						Stocks.class);
 				for (Stock quote : objMsg.getStock()) {
-					// Update/Create Company data
-					setCompany(quote);
+					// Update Company data
+					// If the company does not exist it will be created
+					updateCompany(quote);
 				}
 
 			} else {
@@ -95,17 +106,21 @@ public class JMSBeanReceiver implements MessageListener {
 		}
 	}
 
-	private void setCompany(Stock quote) {
+	/*
+	 * Updates company information Update Company data If the company does not
+	 * exist it will be created
+	 */
+	private void updateCompany(Stock quote) {
 
 		Company company = null;
-		//Quotation quotation = null;
 		eai.msejdf.persistence.Company persistenceCompany = null;
 		company = quote.getCompany();
-		//quotation = quote.getQuotation();
+
+		// Get Company object
 		persistenceCompany = getCompany(company.getName());
 		if (null == persistenceCompany) {
 			// add company
-			logger.info("Adding company to DB: " + company);
+			logger.info("Adding company to DB: " + company.getName());
 			persistenceCompany = new eai.msejdf.persistence.Company();
 
 		}
@@ -139,8 +154,9 @@ public class JMSBeanReceiver implements MessageListener {
 		// set Sell
 		persistenceCompany.setSell(quote.getQuotation().getSell());
 
-		logger.info("Persist company: " + company);
-		logger.info("Persist PEr company: " + persistenceCompany.getName());
+		logger.info("Persist company: " + company.getName());
+		logger.debug("Persist persistence company: "
+				+ persistenceCompany.getName());
 
 		// persist the company information to DB
 		entityManager.persist(persistenceCompany);
