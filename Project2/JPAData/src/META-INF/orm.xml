@@ -6,7 +6,8 @@
     </persistence-unit-metadata>
 	
     <package>eai.msejdf.persistence</package>
-    
+
+<!--     
 	<mapped-superclass class="eai.msejdf.data.Company">
 	    <attributes>
 		    <basic name="name" optional="false">
@@ -17,7 +18,7 @@
 	        </basic>
 	    </attributes>	
 	</mapped-superclass>	
-    
+-->    
     <entity class="User">
 		<attributes>
 		     <id name="id">
@@ -35,7 +36,7 @@
         	</basic>		     		          	
 		   	<many-to-one name="bankTeller" fetch="LAZY" target-entity="BankTeller">
         	</many-to-one>	        
-	        <one-to-one name="address" fetch="LAZY" target-entity="Address">
+	        <one-to-one name="address" fetch="LAZY" target-entity="Address" orphan-removal="true">
 	        </one-to-one>
 
 	        <many-to-many name="subscribedCompanies" fetch="LAZY" target-entity="Company">
@@ -47,6 +48,7 @@
 	        
 		</attributes>        
     </entity>
+    
     <entity class="Address" access="PROPERTY" metadata-complete="true">
 		<attributes>
 		     <id name="id">
@@ -55,16 +57,18 @@
 		     </id>        	
 		</attributes>
     </entity>
+    
     <entity class="BankTeller" access="PROPERTY" metadata-complete="true">
 		<attributes>
 		     <id name="id">
 		         <column name="id"/>
 		         <generated-value strategy="IDENTITY"/>
 		     </id>        	
-	        <one-to-one name="address" fetch="LAZY" target-entity="Address">
+	        <one-to-one name="address" fetch="LAZY" target-entity="Address" orphan-removal="true">
 	        </one-to-one>
 		</attributes>    
     </entity>
+    
 	<entity class="BackOfficeUser" access="PROPERTY" metadata-complete="true">
 		<attributes>
 		     <id name="id">
@@ -79,13 +83,16 @@
         	</basic>		     
 		</attributes>
 	</entity>
-	<entity class="Company" access="FIELD">
+	<entity class="Company" access="PROPERTY">
 		<attributes>
 			<id name="id">
 		         <column name="id"/>
 		         <generated-value strategy="IDENTITY"/>
 			</id>
-	        <one-to-one name="addressNew" fetch="LAZY" target-entity="Address">
+		     <basic name="name">
+            	<column name="name" nullable="false" unique="true"/>
+        	</basic>		     		          	
+	        <one-to-one name="address" fetch="LAZY" target-entity="Address" orphan-removal="true">
 	        </one-to-one>	
 	        
 	        <many-to-many name="subscribedUsers" fetch="LAZY" target-entity="User">
