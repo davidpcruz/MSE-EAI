@@ -18,13 +18,13 @@ public interface  IUserBean {
 	public void updateUser(User user) throws ConfigurationException;
 	public User getUser(String name) throws ConfigurationException;
 	
-	public Company getCompany(String name);
+	public Company getCompany(String name) throws ConfigurationException;
 	public List<Company> getCompanyList(String filterPattern);	
 	public List<String> getCompanyNameList(String filterPattern);	
 	
-	public void followCompany(String userName, String companyName);
-	public void unfollowCompany(String userName, String companyName);
-	public List <Company> getfollowedCompanyList(String userName);
+	public void followCompany(String userName, String companyName) throws ConfigurationException;
+	public void unfollowCompany(String userName, String companyName) throws ConfigurationException;
+	public List <Company> getfollowedCompanyList(String userName) throws ConfigurationException;
 	
 	public void setBankTeller(String userName, String tellerName);
 	public void setBankTeller(String userName, BankTeller bankTeller);
