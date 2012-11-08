@@ -27,7 +27,19 @@ public class UserBean implements IUserBean {
 	@Override
 	public void updateUser(User user) throws ConfigurationException {
 		//TODO: Validate parameters
-		entityManager.merge(user); 
+		entityManager.merge(user);	
+		
+		List<Company> subscribedCompanies = user.getSubscribedCompanies();
+		
+		if (null == subscribedCompanies)
+		{
+			return;
+		}
+		
+		for (Company company : subscribedCompanies)
+		{
+			entityManager.merge(company);
+		}
 	}
 
 	@Override
