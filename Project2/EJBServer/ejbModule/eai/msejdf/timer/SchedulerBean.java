@@ -41,7 +41,7 @@ public class SchedulerBean implements ITimer {
 	}
 
     
-	@Schedule(hour="0")						// schedule every day at midnight
+	@Schedule(second = "*", minute = "*", hour="0")
 	protected void dailyMailCompanyDigest() {
 		System.out.println("\nSchedule timeout occurred !!!! ");
 	}
