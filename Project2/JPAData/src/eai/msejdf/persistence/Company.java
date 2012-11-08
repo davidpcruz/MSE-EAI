@@ -12,7 +12,7 @@ import java.util.List;
 public class Company implements Serializable {
 
 	 
-	private Integer id;
+	private Long id;
     protected String name;
 	private Address address;
     protected String website;
@@ -34,11 +34,11 @@ public class Company implements Serializable {
 		super();
 	} 
 	
-	public Integer getId() {
+	public Long getId() {
  		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

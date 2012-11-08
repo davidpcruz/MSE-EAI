@@ -39,6 +39,8 @@ public class TestUserBean {
 
 		System.out.println("Testing  getfollowedCompanyList(filterPattern)");
 		List<Company> companies = bean.getfollowedCompanyList(user);
+		
+//		System.out.println("\t Result " +  companies);
 		for(Company company : companies)
 			System.out.println("\t Result " + company.getName());
 	}

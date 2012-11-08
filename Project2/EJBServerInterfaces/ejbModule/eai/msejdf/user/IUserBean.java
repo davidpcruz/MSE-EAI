@@ -32,5 +32,9 @@ public interface  IUserBean {
 	public BankTeller getBankTeller(String name);
 	public List<BankTeller> getBankTellerList(String filterPattern);
 	public List<String> getBankTellerNameList(String filterPattern);
+	public List<Company> getfollowedCompanyList2(String userName)
+			throws ConfigurationException;
+	
+	public User getUser(Long id) throws ConfigurationException;
 	
 }

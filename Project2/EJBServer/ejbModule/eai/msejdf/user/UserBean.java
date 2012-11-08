@@ -1,14 +1,15 @@
 package eai.msejdf.user;
 
-import org.apache.log4j.Logger;
-
 import java.util.List;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
+
+import org.apache.log4j.Logger;
 
 import eai.msejdf.exception.ConfigurationException;
 import eai.msejdf.persistence.BankTeller;
@@ -30,6 +31,7 @@ public class UserBean implements IUserBean {
 	private static final String EXCEPTION_COMPANY_NOT_FOUND = "The company was not found.";
 
 	@PersistenceContext(unitName = "JPAEAI")
+	// , type = PersistenceContextType.EXTENDED)
 	// TODO: Check if it can be placed in a config file and update name
 	private EntityManager entityManager;
 
@@ -53,7 +55,6 @@ public class UserBean implements IUserBean {
 			logger.debug("getUser(String) - start"); //$NON-NLS-1$
 		}
 
-		// TODO: Validate parameters
 		Query query = entityManager
 				.createQuery("SELECT User FROM User user WHERE user.username=:name");
 		query.setParameter("name", name);
@@ -73,6 +74,30 @@ public class UserBean implements IUserBean {
 	}
 
 	@Override
+	public User getUser(Long id) throws ConfigurationException {
+		if (logger.isDebugEnabled()) {
+			logger.debug("getUser(String) - start"); //$NON-NLS-1$
+		}
+
+		Query query = entityManager
+				.createQuery("SELECT User FROM User user WHERE user.username=:name");
+		query.setParameter("name", id);
+
+		@SuppressWarnings("unchecked")
+		List<User> userList = query.getResultList();
+		if (true == userList.isEmpty()) {
+			// The user doesn't seem to exist
+			throw new ConfigurationException(UserBean.EXCEPTION_USER_NOT_FOUND);
+		}
+
+		User returnUser = userList.get(0);
+		if (logger.isDebugEnabled()) {
+			logger.debug("getUser(String) - end"); //$NON-NLS-1$
+		}
+		return returnUser;
+	}
+	
+	@Override
 	public Company getCompany(String name) throws ConfigurationException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getCompany(String) - start"); //$NON-NLS-1$
@@ -81,7 +106,7 @@ public class UserBean implements IUserBean {
 		// TODO Auto-generated method stub
 		// TODO: Validate parameters
 		Query query = entityManager
-				.createQuery("SELECT Company FROM Company company WHERE company.name=:name");
+				.createQuery("SELECT Company FROM Company company WHERE company.name=:name ORDER BY company.name");
 		query.setParameter("name", name);
 
 		@SuppressWarnings("unchecked")
@@ -148,9 +173,9 @@ public class UserBean implements IUserBean {
 		Company company = getCompany(companyName);
 		List<Company> companies = user.getSubscribedCompanies();
 		if (companies.contains(company)) {
-			logger.debug("User: "+userName +"already follows Company: " + company);
-		}
-		else{
+			logger.debug("User: " + userName + "already follows Company: "
+					+ company);
+		} else {
 			logger.debug("Add company to followed companies" + company);
 			user.getSubscribedCompanies().add(company);
 			entityManager.persist(user);
@@ -181,6 +206,17 @@ public class UserBean implements IUserBean {
 	}
 
 	@Override
+	public List<Company> getfollowedCompanyList2(String userName)
+			throws ConfigurationException {
+		Query query = entityManager
+				.createQuery("SELECT Company FROM Company company INNER JOIN Userin UserAS user WHERE user.username=:userName");
+		query.setParameter("name", userName);
+		@SuppressWarnings("unchecked")
+		List<Company> companyList = query.getResultList();
+		return companyList;
+	}
+
+	@Override
 	public List<Company> getfollowedCompanyList(String userName)
 			throws ConfigurationException {
 		if (logger.isDebugEnabled()) {
@@ -188,11 +224,15 @@ public class UserBean implements IUserBean {
 		}
 
 		User user = getUser(userName);
+
 		List<Company> companyList = user.getSubscribedCompanies();
 
+		entityManager.refresh(companyList);
 		if (logger.isDebugEnabled()) {
 			logger.debug("getfollowedCompanyList(String) - end"); //$NON-NLS-1$
 		}
+		companyList.size();
+
 		return companyList;
 	}
 
