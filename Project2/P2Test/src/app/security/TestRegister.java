@@ -36,6 +36,8 @@ public class TestRegister {
 		bean.RegisterUser(user, pass);
 		
 		System.out.println("User registered");
+		ctx.close();
+
 	}
 
 }

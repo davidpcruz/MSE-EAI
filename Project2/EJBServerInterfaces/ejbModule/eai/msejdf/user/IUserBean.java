@@ -17,24 +17,25 @@ public interface  IUserBean {
 	//public void removeUser(User user);	// TODO: Move to ISecurity ?!
 	public void updateUser(User user) throws ConfigurationException;
 	public User getUser(String name) throws ConfigurationException;
+	public User getUser(Long userid) throws ConfigurationException;
 	
-	public Company getCompany(String name) throws ConfigurationException;
+	public Company getCompany(Long userid) throws ConfigurationException;
 	public List<Company> getCompanyList(String filterPattern);	
 	public List<String> getCompanyNameList(String filterPattern);	
 	
-	public void followCompany(String userName, String companyName) throws ConfigurationException;
-	public void unfollowCompany(String userName, String companyName) throws ConfigurationException;
-	public List <Company> getfollowedCompanyList(String userName) throws ConfigurationException;
+	public void followCompany(Long userid, Long companyId) throws ConfigurationException;
+	public void unfollowCompany(Long userid, Long companyId) throws ConfigurationException;
+	public List <Company> getfollowedCompanyList(Long id) throws ConfigurationException;
 	
-	public void setBankTeller(String userName, String tellerName);
-	public void setBankTeller(String userName, BankTeller bankTeller);
+	public void setBankTeller(Long userid, Long companyId) throws ConfigurationException;
+	public void setBankTeller(Long userid, BankTeller bankTeller) throws ConfigurationException;
 
-	public BankTeller getBankTeller(String name);
+	public BankTeller getBankTeller(Long userid) throws ConfigurationException;
 	public List<BankTeller> getBankTellerList(String filterPattern);
 	public List<String> getBankTellerNameList(String filterPattern);
-	public List<Company> getfollowedCompanyList2(String userName)
+	public List<Company> getfollowedCompanyList2(Long userid)
 			throws ConfigurationException;
 	
-	public User getUser(Long id) throws ConfigurationException;
+
 	
 }

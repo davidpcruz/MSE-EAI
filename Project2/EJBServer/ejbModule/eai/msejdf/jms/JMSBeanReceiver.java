@@ -146,12 +146,12 @@ public class JMSBeanReceiver implements MessageListener {
 		}
 
 		// set Company Address
-		Address addressNew = new Address();
-		addressNew.setAddress(company.getAddress());
+		Address address = new Address();
+		address.setAddress(company.getAddress());
 		// first we need to persist the company address and then we can persist
 		// the company
-		entityManager.persist(addressNew);
-		persistenceCompany.setAddress(addressNew);
+		entityManager.persist(address);
+		persistenceCompany.setAddress(address);
 		// set Company Name
 		persistenceCompany.setName(company.getName());
 		// set Last Quotation
