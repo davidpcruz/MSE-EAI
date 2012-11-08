@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class BackOfficeUser implements Serializable {
 
 	 
-	private Integer id; 
+	private Long id; 
 	private String username; 
 	private String password;
 	private static final long serialVersionUID = 1L;	
@@ -18,11 +18,11 @@ public class BackOfficeUser implements Serializable {
 		super();
 	} 
 	   
-	public Integer getId() {
+	public Long getId() {
  		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	   

@@ -7,18 +7,6 @@
 	
     <package>eai.msejdf.persistence</package>
 
-<!--     
-	<mapped-superclass class="eai.msejdf.data.Company">
-	    <attributes>
-		    <basic name="name" optional="false">
-	        </basic>
-		    <basic name="address">
-	        </basic>
-		    <basic name="website">
-	        </basic>
-	    </attributes>	
-	</mapped-superclass>	
--->    
     <entity class="User">
 		<attributes>
 		     <id name="id">
@@ -41,8 +29,12 @@
 
 	        <many-to-many name="subscribedCompanies" fetch="LAZY" target-entity="Company">
 	            <join-table name="user_company">
-	                <join-column name="User_id" referenced-column-name="id"/>
-	                <inverse-join-column name="subscribedCompanies_id" referenced-column-name="id"/>
+	                <join-column name="user_id" referenced-column-name="id"/>
+	                <inverse-join-column name="subscribedCompanies_id" referenced-column-name="id" />
+	                <unique-constraint>
+						<column-name>user_id</column-name>
+						<column-name>subscribedCompanies_id</column-name>
+					</unique-constraint>
 	            </join-table>
 	        </many-to-many>	        
 	        
@@ -98,8 +90,12 @@
 	        <many-to-many name="subscribedUsers" fetch="LAZY" target-entity="User">
 	            <join-table name="user_company">
 	                <join-column name="subscribedCompanies_id" referenced-column-name="id"/>
-	                <inverse-join-column name="User_id" referenced-column-name="id"/>
-	            </join-table>
+	                <inverse-join-column name="user_id" referenced-column-name="id" />	                
+	                <unique-constraint>
+						<column-name>user_id</column-name>
+						<column-name>subscribedCompanies_id</column-name>
+					</unique-constraint>
+	            </join-table>	            
 	        </many-to-many>	        
 	        
 		</attributes>
