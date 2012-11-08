@@ -17,7 +17,7 @@ import eai.msejdf.persistence.Company;
 import eai.msejdf.persistence.User;
 
 /**
- * Bean implementing operations supported by users
+ * Bean implementing operations supported by users 
  */
 @Stateful
 @LocalBean
@@ -27,22 +27,26 @@ public class UserBean implements IUserBean {
 	 */
 	private static final Logger logger = Logger.getLogger(UserBean.class);
 
-	private static final String EXCEPTION_USER_NOT_FOUND = "The user was not found.";
-	private static final String EXCEPTION_COMPANY_NOT_FOUND = "The company was not found.";
-
-	@PersistenceContext(unitName = "JPAEAI")
-	// , type = PersistenceContextType.EXTENDED)
-	// TODO: Check if it can be placed in a config file and update name
+	private static final String EXCEPTION_USER_NOT_FOUND = "The user was not found."; 
+	
+	@PersistenceContext(unitName = "JPAEAI")  //TODO: Check if it can be placed in a config file and update name
 	private EntityManager entityManager;
 
 	@Override
 	public void updateUser(User user) throws ConfigurationException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("updateUser(User) - start"); //$NON-NLS-1$
+		//TODO: Validate parameters
+		entityManager.merge(user);	
+		
+		List<Company> subscribedCompanies = user.getSubscribedCompanies();
+		
+		if (null == subscribedCompanies)
+		{
+			return;
 		}
-
-		// TODO: Validate parameters
-		entityManager.merge(user);
+		
+		for (Company company : subscribedCompanies)
+		{
+			entityManager.merge(company);
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("updateUser(User) - end"); //$NON-NLS-1$
@@ -62,6 +66,7 @@ public class UserBean implements IUserBean {
 		@SuppressWarnings("unchecked")
 		List<User> userList = query.getResultList();
 		if (true == userList.isEmpty()) {
+        {
 			// The user doesn't seem to exist
 			throw new ConfigurationException(UserBean.EXCEPTION_USER_NOT_FOUND);
 		}
