@@ -38,6 +38,7 @@ public class Admin implements IAdmin {
 	 * 
 	 * @see eai.msejdf.admin.IAdmin#getUserList(int, int)
 	 */
+
 	@Override
 	public List<User> getUserList(int sortType, int ageThreshold) {
 		if (logger.isDebugEnabled()) {

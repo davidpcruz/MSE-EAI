@@ -53,7 +53,8 @@ public class JMSBeanReceiver implements MessageListener {
 			.getLogger(JMSBeanReceiver.class);
 
 	/**
-	 * Get Company information If the company does not exist then returns null
+	 * Get Company information
+	 * If the company does not exist then returns null
 	 * 
 	 * @param company
 	 * @return
@@ -101,7 +102,7 @@ public class JMSBeanReceiver implements MessageListener {
 			if (inMessage instanceof TextMessage) {
 				msg = (TextMessage) inMessage;
 				logger.debug("MESSAGE BEAN: Message received: " + msg.getText());
-				// MArshall XML to a Stocks object
+				// Marshall XML to a Stocks object
 				Stocks objMsg = XmlObjConv.convertToObject(msg.getText(),
 						Stocks.class);
 				for (Stock quote : objMsg.getStock()) {

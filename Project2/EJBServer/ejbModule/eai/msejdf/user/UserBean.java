@@ -15,11 +15,9 @@ import eai.msejdf.persistence.BankTeller;
 import eai.msejdf.persistence.Company;
 import eai.msejdf.persistence.User;
 
-
-
 /**
  * 
- *Bean implementing operations supported by users
+ * Bean implementing operations supported by users
  */
 @Stateful
 @LocalBean
@@ -36,7 +34,6 @@ public class UserBean implements IUserBean {
 	@PersistenceContext(unitName = "JPAEAI")
 	// TODO: Check if it can be placed in a config file and update name
 	private EntityManager entityManager;
-
 
 	/*
 	 * (non-Javadoc) Update User object
@@ -373,12 +370,26 @@ public class UserBean implements IUserBean {
 
 		logger.info("Add bankTeller: " + bankTeller.getName() + " to user: "
 				+ user.getName());
+		if (bankTeller.equals(user.getBankTeller())) {
+			// This bankTeller is already user's bankTeller
+			logger.info("This bankTeller is already user's bankTeller");
+		} else if (null == bankTeller.getId()) {
+			// If BankTeller is new we need to persist it first
+			logger.info("Persist bankTeller: " + bankTeller.toString());
+			entityManager.persist(bankTeller);
+			entityManager.flush();
+			// Setting user teller
+			user.setBankTeller(bankTeller);
 
-		user.setBankTeller(bankTeller);
-		logger.info("Persist bankTeller: " + bankTeller.toString());
-		entityManager.persist(bankTeller);
-		logger.info("Persist user: " + user.toString());
-		entityManager.persist(user);
+			logger.info("Persist user: " + user.toString());
+			entityManager.persist(user);
+		} else {
+			// Setting user teller
+			user.setBankTeller(bankTeller);
+
+			logger.info("Persist user: " + user.toString());
+			entityManager.persist(user);
+		}
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("setBankTeller(Long, BankTeller) - end"); //$NON-NLS-1$

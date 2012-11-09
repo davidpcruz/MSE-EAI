@@ -17,8 +17,15 @@ import eai.msejdf.user.IUserBean;
 import eai.msejdf.admin.IAdmin;
 
 public class TestAdmin {
+	/**
+	 * @param args
+	 * @throws NamingException
+	 * @throws IOException
+	 * @throws SecurityException
+	 * @throws ConfigurationException
+	 */
 	public static void main(String[] args) throws NamingException, IOException,
-			SecurityException, ConfigurationException {
+			SecurityException {
 
 		InitialContext ctx = new InitialContext();
 		IAdmin bean = (IAdmin) ctx.lookup(Resource.JNDI_ADMIN_BEAN);
@@ -27,12 +34,33 @@ public class TestAdmin {
 		int sortType = 1;
 		int ageThreshold = 1;
 
-		TestgetUserList(bean, sortType, ageThreshold);
-		TestgetUserFollowCompanyList(bean, companyId, sortType, ageThreshold);
-		TestgetCompanyList(bean, "%C%", sortType);
+		try {
+			TestgetUserList(bean, sortType, ageThreshold);
+		} catch (ConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			TestgetUserFollowCompanyList(bean, companyId, sortType, ageThreshold);
+		} catch (ConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			TestgetCompanyList(bean, "%C%", sortType);
+		} catch (ConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		ctx.close();
 	}
 
+	/**
+	 * @param bean
+	 * @param filterPattern
+	 * @param sortType
+	 * @throws ConfigurationException
+	 */
 	private static void TestgetCompanyList(IAdmin bean, String filterPattern, int sortType )
 			throws ConfigurationException {
 
@@ -43,6 +71,12 @@ public class TestAdmin {
 			System.out.println("\t Result " + comp.getName());
 	}
 	
+	/**
+	 * @param bean
+	 * @param sortType
+	 * @param ageThreshold
+	 * @throws ConfigurationException
+	 */
 	private static void TestgetUserList(IAdmin bean, int sortType, int ageThreshold)
 			throws ConfigurationException {
 
@@ -55,6 +89,13 @@ public class TestAdmin {
 	}
 	
 	
+	/**
+	 * @param bean
+	 * @param companyId
+	 * @param sortType
+	 * @param ageThreshold
+	 * @throws ConfigurationException
+	 */
 	private static void TestgetUserFollowCompanyList(IAdmin bean,
 			Long companyId, int sortType, int ageThreshold)
 			throws ConfigurationException {
