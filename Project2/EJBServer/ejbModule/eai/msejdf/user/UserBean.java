@@ -217,24 +217,7 @@ public class UserBean implements IUserBean {
 		}
 	}
 
-	@Override
-	public List<Company> getfollowedCompanyList2(Long companyId)
-			throws ConfigurationException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("getfollowedCompanyList2(Long) - start"); //$NON-NLS-1$
-		}
 
-		Query query = entityManager
-				.createQuery("SELECT Company FROM Company company INNER JOIN Userin UserAS user WHERE user.id=:id");
-		query.setParameter("id", companyId);
-		@SuppressWarnings("unchecked")
-		List<Company> companyList = query.getResultList();
-
-		if (logger.isDebugEnabled()) {
-			logger.debug("getfollowedCompanyList2(Long) - end"); //$NON-NLS-1$
-		}
-		return companyList;
-	}
 
 	@Override
 	public List<Company> getfollowedCompanyList(Long id)
