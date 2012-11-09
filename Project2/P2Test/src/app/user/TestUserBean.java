@@ -210,7 +210,7 @@ public class TestUserBean {
 			String tellerName) throws ConfigurationException {
 		// bankTeller.setId( (long) 1);
 
-		tellerName = "qwerty3";
+		tellerName = "qwerty4";
 		System.out.println("Testing  setBankTeller(user, BankTeller)");
 		BankTeller bankTeller = null;
 		List<String> bankTellers = bean.getBankTellerNameList("%");
@@ -221,7 +221,7 @@ public class TestUserBean {
 		if (bankTellers.contains(tellerName)) {
 
 			bankTeller = bean.getBankTellerList(tellerName).get(0);
-			bankTeller.setPassword("AAAAAsd");
+			bankTeller.setPassword("A");
 //			bankTeller.setName("CGD2_2");
 			System.out.println("tellerName already exists"
 					+ bankTeller.toString());
