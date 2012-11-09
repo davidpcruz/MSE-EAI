@@ -385,6 +385,7 @@ public class UserBean implements IUserBean {
 			entityManager.persist(user);
 		} else {
 			logger.info("Persist bankTeller: " + bankTeller.toString());
+			// Merge the difference in bankTeller
 			entityManager.merge(bankTeller);
 			entityManager.flush();
 			// Setting user teller
