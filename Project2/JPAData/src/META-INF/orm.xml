@@ -1,150 +1,147 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<entity-mappings version="2.0" xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd">
+<entity-mappings version="2.0"
+	xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd">
 	<persistence-unit-metadata>
-   		<!--  Override annotations -->
-        <xml-mapping-metadata-complete/>
-    </persistence-unit-metadata>
-	
-    <package>eai.msejdf.persistence</package>
-	
-    <entity class="User">
-		<attributes>
-		     <id name="id">
-		         <column name="id"/>
-		         <generated-value strategy="IDENTITY"/>
-		     </id>   
-		     <basic name="username">
-            	<column name="username" unique="true" nullable="false"/>
-        	</basic>		     
-		     <basic name="password">
-            	<column name="password" nullable="false"/>
-        	</basic>		     		          	
-		     <basic name="name">
-            	<column name="name" nullable="false"/>
-        	</basic>		     		          	
-		   	<many-to-one name="bankTeller" fetch="LAZY" target-entity="BankTeller">
-        	</many-to-one>	        
- 	        <one-to-one name="address" fetch="LAZY" target-entity="Address" orphan-removal="true">
-	        	<cascade>
-	        		<cascade-persist/>
-	        	</cascade>
-	        </one-to-one>
+		<!-- Override annotations -->
+		<xml-mapping-metadata-complete />
+	</persistence-unit-metadata>
 
-	        <many-to-many name="subscribedCompanies" fetch="LAZY" target-entity="Company">
-	            <join-table name="user_company">
-	                <join-column name="user_id" referenced-column-name="id"/>
-	                <inverse-join-column name="subscribedCompanies_id" referenced-column-name="id" />
-	                <unique-constraint>
+	<package>eai.msejdf.persistence</package>
+
+	<entity class="User">
+		<attributes>
+			<id name="id">
+				<column name="id" />
+				<generated-value strategy="IDENTITY" />
+			</id>
+			<basic name="username">
+				<column name="username" unique="true" nullable="false" />
+			</basic>
+			<basic name="password">
+				<column name="password" nullable="false" />
+			</basic>
+			<basic name="name">
+				<column name="name" nullable="false" />
+			</basic>
+			<many-to-one name="bankTeller" fetch="LAZY"
+				target-entity="BankTeller">
+			</many-to-one>
+			<one-to-one name="address" fetch="LAZY" target-entity="Address"
+				orphan-removal="true">
+				<cascade>
+					<cascade-persist />
+				</cascade>
+			</one-to-one>
+
+			<many-to-many name="subscribedCompanies" fetch="LAZY"
+				target-entity="Company">
+				<join-table name="user_company">
+					<join-column name="user_id" referenced-column-name="id" />
+					<inverse-join-column name="subscribedCompanies_id"
+						referenced-column-name="id" />
+					<unique-constraint>
 						<column-name>user_id</column-name>
 						<column-name>subscribedCompanies_id</column-name>
 					</unique-constraint>
-	            </join-table>
-	        </many-to-many>	        
-	        
-		</attributes>        
-    </entity>
-    
-    <entity class="Address" access="PROPERTY" metadata-complete="true">
-		<attributes>
-		     <id name="id">
-		         <column name="id"/>
-		         <generated-value strategy="IDENTITY"/>
-		     </id>   
+				</join-table>
+			</many-to-many>
+
 		</attributes>
-    </entity>
-    
-    <entity class="BankTeller" access="PROPERTY" metadata-complete="true">
+	</entity>
+
+	<entity class="Address" access="PROPERTY" metadata-complete="true">
 		<attributes>
-		     <id name="id">
-		         <column name="id"/>
-		         <generated-value strategy="IDENTITY"/>
-		     </id>   
-		     <basic name="name">
-            	<column name="name" unique="true" nullable="false"/>
-        	</basic>		     		       
-	        <one-to-one name="address" fetch="LAZY" target-entity="Address" orphan-removal="true">
-	        	<cascade>
-	        		<cascade-persist/>
-	        	</cascade>
-	        </one-to-one>
-		</attributes>    
-    </entity>
-    
-	<entity class="BackOfficeUser" access="PROPERTY" metadata-complete="true">
+			<id name="id">
+				<column name="id" />
+				<generated-value strategy="IDENTITY" />
+			</id>
+		</attributes>
+	</entity>
+
+	<entity class="BankTeller" access="PROPERTY" metadata-complete="true">
 		<attributes>
-		     <id name="id">
-		         <column name="id"/>
-		         <generated-value strategy="IDENTITY"/>
-		     </id>        	
-		     <basic name="username">
-            	<column name="username" unique="true" nullable="false"/>
-        	</basic>		     
-		     <basic name="password">
-            	<column name="password" nullable="false"/>
-        	</basic>		     
+			<id name="id">
+				<column name="id" />
+				<generated-value strategy="IDENTITY" />
+			</id>
+			<basic name="name">
+				<column name="name" unique="true" nullable="false" />
+			</basic>
+			<basic name="password">
+				<column name="password" unique="true" nullable="false" />
+			</basic>
+			<one-to-one name="address" fetch="LAZY" target-entity="Address"
+				orphan-removal="true">
+				<cascade>
+					<cascade-persist />
+				</cascade>
+			</one-to-one>
+		</attributes>
+	</entity>
+
+	<entity class="BackOfficeUser" access="PROPERTY"
+		metadata-complete="true">
+		<attributes>
+			<id name="id">
+				<column name="id" />
+				<generated-value strategy="IDENTITY" />
+			</id>
+			<basic name="username">
+				<column name="username" unique="true" nullable="false" />
+			</basic>
+			<basic name="password">
+				<column name="password" nullable="false" />
+			</basic>
 		</attributes>
 	</entity>
 
 	<entity class="Company" access="PROPERTY">
 		<attributes>
 			<id name="id">
-		         <column name="id"/>
-		         <generated-value strategy="IDENTITY"/>
+				<column name="id" />
+				<generated-value strategy="IDENTITY" />
 			</id>
-		    <basic name="name">
-            	<column name="name" nullable="false" unique="true"/>
-        	</basic>
- 	        <one-to-one name="address" fetch="LAZY" target-entity="Address" orphan-removal="true">
-	        	<cascade>
-	        		<cascade-persist/>
-	        	</cascade>
-	        </one-to-one>	
+			<basic name="name">
+				<column name="name" nullable="false" unique="true" />
+			</basic>
+			<one-to-one name="address" fetch="LAZY" target-entity="Address"
+				orphan-removal="true">
+				<cascade>
+					<cascade-persist />
+				</cascade>
+			</one-to-one>
 
-	        <many-to-many name="subscribedUsers" fetch="LAZY" target-entity="User">
-	            <join-table name="user_company">
-	                <join-column name="subscribedCompanies_id" referenced-column-name="id"/>
-	                <inverse-join-column name="user_id" referenced-column-name="id" />	                
-	                <unique-constraint>
+			<many-to-many name="subscribedUsers" fetch="LAZY"
+				target-entity="User">
+				<join-table name="user_company">
+					<join-column name="subscribedCompanies_id"
+						referenced-column-name="id" />
+					<inverse-join-column name="user_id"
+						referenced-column-name="id" />
+					<unique-constraint>
 						<column-name>user_id</column-name>
 						<column-name>subscribedCompanies_id</column-name>
 					</unique-constraint>
-	            </join-table>	            
-	        </many-to-many>	        
-	        
+				</join-table>
+			</many-to-many>
+
 			<embedded name="stockInfo">
-<!-- 				<attribute-override name="lastQuotation">
-					<column name="lastQuotation"/>
-				</attribute-override>
-				<attribute-override name="time">
-					<column name="time"/>
-				</attribute-override>
-				<attribute-override name="variation">
-					<column name="variation"/>
-				</attribute-override>
-				<attribute-override name="quantity">
-					<column name="quantity"/>
-				</attribute-override>
-				<attribute-override name="maximum">
-					<column name="maximum"/>
-				</attribute-override>
-				<attribute-override name="minimum">
-					<column name="minimum"/>
-				</attribute-override>
-				<attribute-override name="purchase">
-					<column name="purchase"/>
-				</attribute-override>
-				<attribute-override name="sell">
-					<column name="sell"/>
-				</attribute-override>
- -->			</embedded>        			     		          	
+				<!-- <attribute-override name="lastQuotation"> <column name="lastQuotation"/> 
+					</attribute-override> <attribute-override name="time"> <column name="time"/> 
+					</attribute-override> <attribute-override name="variation"> <column name="variation"/> 
+					</attribute-override> <attribute-override name="quantity"> <column name="quantity"/> 
+					</attribute-override> <attribute-override name="maximum"> <column name="maximum"/> 
+					</attribute-override> <attribute-override name="minimum"> <column name="minimum"/> 
+					</attribute-override> <attribute-override name="purchase"> <column name="purchase"/> 
+					</attribute-override> <attribute-override name="sell"> <column name="sell"/> 
+					</attribute-override> -->
+			</embedded>
 		</attributes>
 	</entity>
 
 	<embeddable class="StockInfo" access="PROPERTY">
-<!-- 		<attributes>
-		     <basic name="lastQuotation">
-        	</basic>		     		          	
-		</attributes>
- -->	</embeddable>
-	
+		<!-- <attributes> <basic name="lastQuotation"> </basic> </attributes> -->
+	</embeddable>
+
 </entity-mappings>
