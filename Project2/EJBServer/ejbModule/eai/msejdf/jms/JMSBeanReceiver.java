@@ -38,7 +38,7 @@ import eai.msejdf.utils.XmlObjConv;
 		@ActivationConfigProperty(propertyName = "maxSession", propertyValue = "1")
 // TODO get Topic from configuration file
 })
-//@Pool(value=PoolDefaults.POOL_IMPLEMENTATION_STRICTMAX,maxSize=50,timeout=1800000)
+// @Pool(value=PoolDefaults.POOL_IMPLEMENTATION_STRICTMAX,maxSize=50,timeout=1800000)
 public class JMSBeanReceiver implements MessageListener {
 	@Resource
 	private MessageDrivenContext mdc;
@@ -52,8 +52,11 @@ public class JMSBeanReceiver implements MessageListener {
 	private static final Logger logger = Logger
 			.getLogger(JMSBeanReceiver.class);
 
-	/*
+	/**
 	 * Get Company information If the company does not exist then returns null
+	 * 
+	 * @param company
+	 * @return
 	 */
 	public eai.msejdf.persistence.Company getCompany(String company) {
 		if (logger.isDebugEnabled()) {
@@ -81,10 +84,11 @@ public class JMSBeanReceiver implements MessageListener {
 	}
 
 	/*
-	 * Method to read JMS TOPIC (non-Javadoc)
+	 * (non-Javadoc) Method to read JMS TOPIC (non-Javadoc)
 	 * 
 	 * @see javax.jms.MessageListener#onMessage(javax.jms.Message)
 	 */
+
 	@Override
 	public void onMessage(Message inMessage) {
 		if (logger.isDebugEnabled()) {
@@ -128,7 +132,9 @@ public class JMSBeanReceiver implements MessageListener {
 	/*
 	 * Updates company information Update Company data If the company does not
 	 * exist it will be created
+	 *  @param quote
 	 */
+
 	private void updateCompany(Stock quote) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("updateCompany(Stock) - start"); //$NON-NLS-1$
@@ -151,17 +157,16 @@ public class JMSBeanReceiver implements MessageListener {
 		address.setAddress(company.getAddress());
 		// first we need to persist the company address and then we can persist
 		// the company
-		//entityManager.persist(address);
+		// entityManager.persist(address);
 		persistenceCompany.setAddress(address);
 		// set Company Name
 		persistenceCompany.setName(company.getName());
 		// set Company Website
 		persistenceCompany.setWebsite(company.getWebsite());
-		
+
 		// set Last Quotation
 		StockInfo stockInfo = new StockInfo();
-		stockInfo.setLastQuotation(quote.getQuotation()
-				.getLastQuotation());
+		stockInfo.setLastQuotation(quote.getQuotation().getLastQuotation());
 		// set Time
 		stockInfo.setTime(quote.getQuotation().getTime());
 		// set Variation
@@ -176,7 +181,7 @@ public class JMSBeanReceiver implements MessageListener {
 		stockInfo.setPurchase(quote.getQuotation().getPurchase());
 		// set Sell
 		stockInfo.setSell(quote.getQuotation().getSell());
-		
+
 		// set Company StockInfo
 		persistenceCompany.setStockInfo(stockInfo);
 
