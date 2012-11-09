@@ -24,7 +24,10 @@
         	</basic>		     		          	
 		   	<many-to-one name="bankTeller" fetch="LAZY" target-entity="BankTeller">
         	</many-to-one>	        
-	        <one-to-one name="address" fetch="LAZY" target-entity="Address" orphan-removal="true">
+ 	        <one-to-one name="address" fetch="LAZY" target-entity="Address" orphan-removal="true">
+	        	<cascade>
+	        		<cascade-persist/>
+	        	</cascade>
 	        </one-to-one>
 
 	        <many-to-many name="subscribedCompanies" fetch="LAZY" target-entity="Company">
@@ -46,7 +49,7 @@
 		     <id name="id">
 		         <column name="id"/>
 		         <generated-value strategy="IDENTITY"/>
-		     </id>        	
+		     </id>   
 		</attributes>
     </entity>
     
@@ -55,8 +58,14 @@
 		     <id name="id">
 		         <column name="id"/>
 		         <generated-value strategy="IDENTITY"/>
-		     </id>        	
+		     </id>   
+		     <basic name="name">
+            	<column name="name" unique="true" nullable="false"/>
+        	</basic>		     		       
 	        <one-to-one name="address" fetch="LAZY" target-entity="Address" orphan-removal="true">
+	        	<cascade>
+	        		<cascade-persist/>
+	        	</cascade>
 	        </one-to-one>
 		</attributes>    
     </entity>
@@ -84,9 +93,12 @@
 		     <basic name="name">
             	<column name="name" nullable="false" unique="true"/>
         	</basic>		     		          	
-	        <one-to-one name="address" fetch="LAZY" target-entity="Address" orphan-removal="true">
+ 	        <one-to-one name="address" fetch="LAZY" target-entity="Address" orphan-removal="true">
+	        	<cascade>
+	        		<cascade-persist/>
+	        	</cascade>
 	        </one-to-one>	
-	        
+
 	        <many-to-many name="subscribedUsers" fetch="LAZY" target-entity="User">
 	            <join-table name="user_company">
 	                <join-column name="subscribedCompanies_id" referenced-column-name="id"/>
