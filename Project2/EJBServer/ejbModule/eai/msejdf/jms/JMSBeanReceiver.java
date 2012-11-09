@@ -17,6 +17,7 @@ import javax.persistence.Query;
 import javax.xml.bind.JAXBException;
 
 import eai.msejdf.persistence.Address;
+import eai.msejdf.persistence.StockInfo;
 
 import org.apache.log4j.Logger;
 import eai.msejdf.data.Company;
@@ -150,29 +151,34 @@ public class JMSBeanReceiver implements MessageListener {
 		address.setAddress(company.getAddress());
 		// first we need to persist the company address and then we can persist
 		// the company
-		entityManager.persist(address);
+		//entityManager.persist(address);
 		persistenceCompany.setAddress(address);
 		// set Company Name
 		persistenceCompany.setName(company.getName());
-		// set Last Quotation
-		persistenceCompany.setLastQuotation(quote.getQuotation()
-				.getLastQuotation());
 		// set Company Website
 		persistenceCompany.setWebsite(company.getWebsite());
+		
+		// set Last Quotation
+		StockInfo stockInfo = new StockInfo();
+		stockInfo.setLastQuotation(quote.getQuotation()
+				.getLastQuotation());
 		// set Time
-		persistenceCompany.setTime(quote.getQuotation().getTime());
+		stockInfo.setTime(quote.getQuotation().getTime());
 		// set Variation
-		persistenceCompany.setVariation(quote.getQuotation().getVariation());
+		stockInfo.setVariation(quote.getQuotation().getVariation());
 		// set Quantity
-		persistenceCompany.setQuantity(quote.getQuotation().getQuantity());
+		stockInfo.setQuantity(quote.getQuotation().getQuantity());
 		// set Maximum
-		persistenceCompany.setMaximum(quote.getQuotation().getMaximum());
+		stockInfo.setMaximum(quote.getQuotation().getMaximum());
 		// set Minimum
-		persistenceCompany.setMinimum(quote.getQuotation().getMinimum());
+		stockInfo.setMinimum(quote.getQuotation().getMinimum());
 		// set Purchase
-		persistenceCompany.setPurchase(quote.getQuotation().getPurchase());
+		stockInfo.setPurchase(quote.getQuotation().getPurchase());
 		// set Sell
-		persistenceCompany.setSell(quote.getQuotation().getSell());
+		stockInfo.setSell(quote.getQuotation().getSell());
+		
+		// set Company StockInfo
+		persistenceCompany.setStockInfo(stockInfo);
 
 		logger.info("Persist company: " + company.getName());
 		logger.debug("Persist persistence company: "
