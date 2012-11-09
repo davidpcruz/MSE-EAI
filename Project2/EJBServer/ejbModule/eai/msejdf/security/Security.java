@@ -8,8 +8,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import eai.msejdf.persistence.BackOfficeUser;
 import eai.msejdf.persistence.User;
 import eai.msejdf.security.ISecurity;
+import eai.msejdf.security.credentials.Credentials;
 
 
 /**
@@ -19,54 +21,109 @@ import eai.msejdf.security.ISecurity;
 @LocalBean
 public class Security implements ISecurity{
 	private static final String EXCEPTION_USER_ALREADY_EXISTS = "The user already exists."; 
-	private static final String EXCEPTION_INVALID_USER_OR_PASS = "The user or password are not correct."; 
+	private static final String EXCEPTION_INVALID_CREDENTIAL_PARAMETER = "Invalid credential parameter";
 	
-	@PersistenceContext(unitName = "JPAEAI")  //TODO: Check if it can be placed in a config file and update name
+	@PersistenceContext(unitName = "JPAEAI") 
 	private EntityManager entityManager;
 	
-	// TODO: Check transaction use (bean level, method level)
-	public void RegisterUser(String username, String password) {
-		// Try to register the new user. If it already exists, raise an exception		
-		Query query = entityManager.createQuery("SELECT User FROM User user WHERE user.username=:name");
-		query.setParameter("name", username);
+	public void RegisterUser(Credentials credentials) {
+		Query query;
+		
+		validateCredentialsParameters(credentials);
+				
+		// Check if the user already exists		
+		if (Credentials.USER_CREDENTIAL == credentials.getCredentialType())
+		{
+			query = entityManager.createQuery("SELECT user FROM User user WHERE user.username=:name");
+		}
+		else if (Credentials.ADMIN_CREDENTIAL == credentials.getCredentialType())
+		{
+			query = entityManager.createQuery("SELECT user FROM BackOfficeUser user WHERE user.username=:name");
+		}
+		else
+		{
+			throw new IllegalArgumentException(Security.EXCEPTION_INVALID_CREDENTIAL_PARAMETER);
+		}
+		
+		query.setParameter("name", credentials.getUsername());
 		
         @SuppressWarnings("unchecked")
-		List<User> userList= query.getResultList();
+		List<Object> userList= query.getResultList();
         if (false == userList.isEmpty())
         {
         	// The user already exists
         	throw new SecurityException(Security.EXCEPTION_USER_ALREADY_EXISTS);
         }
-        User newUser = new User();
         
-        newUser.setUsername(username);
-        newUser.setPassword(password);
-        newUser.setName(""); // TODO: Should we receive the name of the user as a parameter?
-        
-        entityManager.persist(newUser);
+        // Add new user
+		if (Credentials.USER_CREDENTIAL == credentials.getCredentialType())
+		{
+	        User newUser = new User();
+	        
+	        newUser.setUsername(credentials.getUsername());
+	        newUser.setPassword(credentials.getPassword());
+	        newUser.setName(""); // TODO: Should we receive the name of the user as a parameter?
+
+	        entityManager.persist(newUser);
+	        
+	        return;
+		}
+
+		if (Credentials.ADMIN_CREDENTIAL == credentials.getCredentialType())
+		{
+	        BackOfficeUser newUser = new BackOfficeUser();
+	        
+	        newUser.setUsername(credentials.getUsername());
+	        newUser.setPassword(credentials.getPassword());
+	        
+	        entityManager.persist(newUser);
+	        
+	        return;
+		}
 	}
 
-	public void Login(String username, String password) {
-		// Try to find a user that matches the user name and password. Raise an exception if not found
-		Query query = entityManager.createQuery("SELECT User FROM User user WHERE user.username=:name AND user.password=:pass");
-		query.setParameter("name", username);
-		query.setParameter("pass", password);
+	public boolean CheckUser(Credentials credentials) {
+		Query query;
 		
-        @SuppressWarnings("unchecked")
-		List<User> userList= query.getResultList();
-        if (false == userList.isEmpty())
+		validateCredentialsParameters(credentials);
+		
+		// Try to find a user that matches the user name and password to see if it is valid
+		if (Credentials.USER_CREDENTIAL == credentials.getCredentialType())
+		{
+			query = entityManager.createQuery("SELECT user FROM User user WHERE user.username=:name AND user.password=:pass");
+		}
+		else if (Credentials.ADMIN_CREDENTIAL == credentials.getCredentialType())
+		{
+			query = entityManager.createQuery("SELECT user FROM BackOfficeUser user WHERE user.username=:name AND user.password=:pass");
+		}
+		else
+		{
+			throw new IllegalArgumentException(Security.EXCEPTION_INVALID_CREDENTIAL_PARAMETER);
+		}
+		query.setParameter("name", credentials.getUsername());
+		query.setParameter("pass", credentials.getPassword());
+		
+        if (false == query.getResultList().isEmpty())
         {
-        	// The user already exists
-        	throw new SecurityException(Security.EXCEPTION_INVALID_USER_OR_PASS);
+        	// Correct credentials supplied
+        	return true;
         }
-        
-        // TODO: Should we mark that we are logged in?
+        return false;
 	}
 
-	public void Logout(String username)
+	private void validateCredentialsParameters(Credentials credentials)
 	{
-		// Nothing to do
-		
-		//TODO: If we are marking that we are logged in in the Login method, we must update that state here
+		if ((null == credentials) || 
+			(null == credentials.getUsername()) ||
+			(null == credentials.getPassword()))
+		{
+			throw new IllegalArgumentException(Security.EXCEPTION_INVALID_CREDENTIAL_PARAMETER);
+		}
+		if ((Credentials.ADMIN_CREDENTIAL != credentials.getCredentialType()) &&
+			(Credentials.USER_CREDENTIAL != credentials.getCredentialType()))
+		{
+			throw new IllegalArgumentException(Security.EXCEPTION_INVALID_CREDENTIAL_PARAMETER);
+		}
 	}
+
 }

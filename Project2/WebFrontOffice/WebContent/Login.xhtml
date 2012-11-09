@@ -12,15 +12,15 @@
              <h:panelGrid columns="3">
              
                 <h:outputText value="Name"></h:outputText>
-                <h:inputText id="Name" value="#{test.name}" required="true" requiredMessage="Missing username"></h:inputText>
+                <h:inputText id="Name" value="#{securityBean.username}" required="true" requiredMessage="Missing username"></h:inputText>
                 <h:message for="Name" errorStyle="errorMessage"/>
 
                 <h:outputText value="Password"></h:outputText>
-                <h:inputSecret id="Password" value="#{test.password}" required="true" requiredMessage="Missing password"></h:inputSecret>
+                <h:inputSecret id="Password" value="#{securityBean.password}" required="true" requiredMessage="Missing password"></h:inputSecret>
                 <h:message for="Password" errorStyle="errorMessage"/>
 
             </h:panelGrid>
-            <h:commandButton value="Login" action="MyLogin"></h:commandButton>
+            <h:commandButton value="Login" action="#{securityBean.checkUserCredentials}"></h:commandButton>
         </h:form>
     </ui:define>
 </ui:composition>

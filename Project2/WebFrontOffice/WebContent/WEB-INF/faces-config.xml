@@ -5,7 +5,7 @@
 	<navigation-rule>
 		<from-view-id>/Login.xhtml</from-view-id>
 		<navigation-case>
-			<from-outcome>MyLogin</from-outcome>
+			<from-outcome>true</from-outcome>
 			<to-view-id>/UserInfo.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
