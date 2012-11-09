@@ -1,8 +1,6 @@
 package eai.msejdf.persistence;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.List;
 
 /**
@@ -18,15 +16,8 @@ public class Company implements Serializable {
     protected String website;
 	private List<User> subscribedUsers;
 
-	// quotation fields
-	private BigDecimal lastQuotation;
-	private String time;
-	private BigDecimal variation;
-    private BigInteger quantity;
-    private BigDecimal maximum;
-    private BigDecimal minimum;
-    private BigDecimal purchase;
-    private BigDecimal sell;	
+	// Stocks
+	private StockInfo stockInfo;
     
 	private static final long serialVersionUID = 1L;
 	
@@ -68,86 +59,6 @@ public class Company implements Serializable {
 		this.address = address;
 	}
 
-	public BigDecimal getLastQuotation()
-	{
-		return lastQuotation;
-	}
-
-	public void setLastQuotation(BigDecimal lastQuotation)
-	{
-		this.lastQuotation = lastQuotation;
-	}
-
-	public String getTime()
-	{
-		return time;
-	}
-
-	public void setTime(String time)
-	{
-		this.time = time;
-	}
-
-	public BigDecimal getVariation()
-	{
-		return variation;
-	}
-
-	public void setVariation(BigDecimal variation)
-	{
-		this.variation = variation;
-	}
-
-	public BigInteger getQuantity()
-	{
-		return quantity;
-	}
-
-	public void setQuantity(BigInteger quantity)
-	{
-		this.quantity = quantity;
-	}
-
-	public BigDecimal getMaximum()
-	{
-		return maximum;
-	}
-
-	public void setMaximum(BigDecimal maximum)
-	{
-		this.maximum = maximum;
-	}
-
-	public BigDecimal getMinimum()
-	{
-		return minimum;
-	}
-
-	public void setMinimum(BigDecimal minimum)
-	{
-		this.minimum = minimum;
-	}
-
-	public BigDecimal getPurchase()
-	{
-		return purchase;
-	}
-
-	public void setPurchase(BigDecimal purchase)
-	{
-		this.purchase = purchase;
-	}
-
-	public BigDecimal getSell()
-	{
-		return sell;
-	}
-
-	public void setSell(BigDecimal sell)
-	{
-		this.sell = sell;
-	}
-
 	public String getName()
 	{
 		return name;
@@ -175,15 +86,23 @@ public class Company implements Serializable {
 	    return  "id: " + this.id + newLine +
 	    		"name: " + this.name + newLine + 
 	    		((null != this.address) ? this.address.toString() : "") + 
-	    		"website: " + this.website + newLine + 
-	    		"lastQuotation: " + this.lastQuotation + newLine + 
-	    		"time: " + this.time + newLine + 
-	    		"variation: " + this.variation + newLine + 
-	    		"quantity: " + this.quantity + newLine +
-	    		"maximum: " + this.maximum + newLine +
-	    		"minimum: " + this.minimum + newLine +
-	    		"purchase: " + this.purchase + newLine +
-	    		"sell: " + this.sell + newLine;
- 	} 
+	    		"website: " + this.website + newLine ;
+ 	}
+
+	/**
+	 * @return the stockInfo
+	 */
+	public StockInfo getStockInfo()
+	{
+		return stockInfo;
+	}
+
+	/**
+	 * @param stockInfo the stockInfo to set
+	 */
+	public void setStockInfo(StockInfo stockInfo)
+	{
+		this.stockInfo = stockInfo;
+	} 
    
 }

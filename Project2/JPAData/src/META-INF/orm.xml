@@ -6,7 +6,7 @@
     </persistence-unit-metadata>
 	
     <package>eai.msejdf.persistence</package>
-
+	
     <entity class="User">
 		<attributes>
 		     <id name="id">
@@ -84,15 +84,16 @@
         	</basic>		     
 		</attributes>
 	</entity>
+
 	<entity class="Company" access="PROPERTY">
 		<attributes>
 			<id name="id">
 		         <column name="id"/>
 		         <generated-value strategy="IDENTITY"/>
 			</id>
-		     <basic name="name">
+		    <basic name="name">
             	<column name="name" nullable="false" unique="true"/>
-        	</basic>		     		          	
+        	</basic>
  	        <one-to-one name="address" fetch="LAZY" target-entity="Address" orphan-removal="true">
 	        	<cascade>
 	        		<cascade-persist/>
@@ -110,7 +111,40 @@
 	            </join-table>	            
 	        </many-to-many>	        
 	        
+			<embedded name="stockInfo">
+<!-- 				<attribute-override name="lastQuotation">
+					<column name="lastQuotation"/>
+				</attribute-override>
+				<attribute-override name="time">
+					<column name="time"/>
+				</attribute-override>
+				<attribute-override name="variation">
+					<column name="variation"/>
+				</attribute-override>
+				<attribute-override name="quantity">
+					<column name="quantity"/>
+				</attribute-override>
+				<attribute-override name="maximum">
+					<column name="maximum"/>
+				</attribute-override>
+				<attribute-override name="minimum">
+					<column name="minimum"/>
+				</attribute-override>
+				<attribute-override name="purchase">
+					<column name="purchase"/>
+				</attribute-override>
+				<attribute-override name="sell">
+					<column name="sell"/>
+				</attribute-override>
+ -->			</embedded>        			     		          	
 		</attributes>
 	</entity>
+
+	<embeddable class="StockInfo" access="PROPERTY">
+<!-- 		<attributes>
+		     <basic name="lastQuotation">
+        	</basic>		     		          	
+		</attributes>
+ -->	</embeddable>
 	
 </entity-mappings>
