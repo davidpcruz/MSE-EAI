@@ -1,14 +1,10 @@
 package eai.msejdf.security;
-import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.naming.Context;
 import javax.naming.InitialContext;
-import javax.naming.NameClassPair;
-import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
-import javax.naming.spi.NamingManager;
 
+import eai.msejdf.session.SessionManager;
 import eai.msejdf.exception.SecurityException;
 import eai.msejdf.security.ISecurity;
 import eai.msejdf.security.credentials.Credentials;
@@ -16,13 +12,13 @@ import eai.msejdf.security.credentials.UserCredentials;
 
 @ManagedBean
 @ViewScoped
-public class SecurityBean
+public class SecurityBeanW
 {
 	private ISecurity bean;
 	private String username;
 	private String password;
 	
-	public SecurityBean() throws NamingException
+	public SecurityBeanW() throws NamingException
 	{
 		InitialContext ctx = new InitialContext();
 	
@@ -30,7 +26,7 @@ public class SecurityBean
 		bean = (ISecurity) ctx.lookup("ejb:P2EARDeploy/EJBServer/Security!eai.msejdf.security.ISecurity");
 	}
 	
-	public ISecurity accessor()
+	public ISecurity bean()
 	{
 		return this.bean;
 	}
@@ -58,6 +54,12 @@ public class SecurityBean
 		credentials.setUsername(this.getUsername());
 		credentials.setPassword(this.getPassword());
 		
-		return this.bean.CheckUser(credentials);
+		boolean result = this.bean.CheckUser(credentials);
+		
+		if (false != result)
+		{
+			SessionManager.setProperty(SessionManager.USERNAME_PROPERTY, this.getUsername());
+		}
+		return result;
 	}
 }

@@ -5,8 +5,26 @@
 	<navigation-rule>
 		<from-view-id>/Login.xhtml</from-view-id>
 		<navigation-case>
+			<from-action>#{securityBeanW.checkUserCredentials}</from-action>
 			<from-outcome>true</from-outcome>
 			<to-view-id>/UserInfo.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{securityBeanW.checkUserCredentials}</from-action>
+			<from-outcome>false</from-outcome>
+			<to-view-id>/Login.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Register</from-outcome>
+			<to-view-id>/UserInfo.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/UserInfo.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>Save</from-outcome>
+			<to-view-id>/UserHome.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 </faces-config>
