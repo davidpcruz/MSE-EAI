@@ -15,8 +15,11 @@ import eai.msejdf.persistence.BankTeller;
 import eai.msejdf.persistence.Company;
 import eai.msejdf.persistence.User;
 
+
+
 /**
- * Bean implementing operations supported by users
+ * 
+ *Bean implementing operations supported by users
  */
 @Stateful
 @LocalBean
@@ -28,13 +31,22 @@ public class UserBean implements IUserBean {
 
 	private static final String EXCEPTION_USER_NOT_FOUND = "The user was not found.";
 	private static final String EXCEPTION_COMPANY_NOT_FOUND = "The company was not found.";
-
 	private static final String EXCEPTION_BANKTELLER_NOT_FOUND = "The Bank Teller was not found.";
 
 	@PersistenceContext(unitName = "JPAEAI")
 	// TODO: Check if it can be placed in a config file and update name
 	private EntityManager entityManager;
 
+
+	/*
+	 * (non-Javadoc) Update User object
+	 * 
+	 * @param User user
+	 * 
+	 * @return User
+	 * 
+	 * @see eai.msejdf.user.IUserBean#updateUser(eai.msejdf.persistence.User)
+	 */
 	@Override
 	public void updateUser(User user) throws ConfigurationException {
 		if (logger.isDebugEnabled()) {
@@ -61,20 +73,29 @@ public class UserBean implements IUserBean {
 		}
 	}
 
+	/*
+	 * (non-Javadoc) Get User object knowing the user name
+	 * 
+	 * @param String userName
+	 * 
+	 * @return User
+	 * 
+	 * @see eai.msejdf.user.IUserBean#getUser(java.lang.String)
+	 */
 	@Override
-	public User getUser(String name) throws ConfigurationException {
+	public User getUser(String userName) throws ConfigurationException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getUser(String) - start"); //$NON-NLS-1$
 		}
 
 		Query query = entityManager
 				.createQuery("SELECT User FROM User user WHERE user.username=:name");
-		query.setParameter("name", name);
+		query.setParameter("name", userName);
 
 		@SuppressWarnings("unchecked")
 		List<User> userList = query.getResultList();
 		if (true == userList.isEmpty()) {
-			// The user doesn't seem to exist
+			// The user doesn't exists
 			throw new ConfigurationException(UserBean.EXCEPTION_USER_NOT_FOUND);
 		}
 
@@ -85,6 +106,15 @@ public class UserBean implements IUserBean {
 		return returnUser;
 	}
 
+	/*
+	 * (non-Javadoc) Get User object giving the user ID
+	 * 
+	 * @param Long userId
+	 * 
+	 * @return User
+	 * 
+	 * @see eai.msejdf.user.IUserBean#getUser(java.lang.Long)
+	 */
 	@Override
 	public User getUser(Long userId) throws ConfigurationException {
 		if (logger.isDebugEnabled()) {
@@ -109,6 +139,16 @@ public class UserBean implements IUserBean {
 		return returnUser;
 	}
 
+	/*
+	 * (non-Javadoc) Get Company information Get the object Company giving the
+	 * company ID
+	 * 
+	 * @param Long companyId
+	 * 
+	 * @return Company Object
+	 * 
+	 * @see eai.msejdf.user.IUserBean#getCompany(java.lang.Long)
+	 */
 	@Override
 	public Company getCompany(Long companyId) throws ConfigurationException {
 		if (logger.isDebugEnabled()) {
@@ -136,6 +176,15 @@ public class UserBean implements IUserBean {
 		return returnCompany;
 	}
 
+	/*
+	 * (non-Javadoc) Get a List of <Company> that match the filterPattern
+	 * 
+	 * @param String filterPattern
+	 * 
+	 * @return List<Company>
+	 * 
+	 * @see eai.msejdf.user.IUserBean#getCompanyList(java.lang.String)
+	 */
 	@Override
 	public List<Company> getCompanyList(String filterPattern) {
 		if (logger.isDebugEnabled()) {
@@ -155,6 +204,15 @@ public class UserBean implements IUserBean {
 		return companyList;
 	}
 
+	/*
+	 * (non-Javadoc) Get a List of Company names that match the filterPattern
+	 * 
+	 * @param String filterPattern
+	 * 
+	 * @return List<String>
+	 * 
+	 * @see eai.msejdf.user.IUserBean#getCompanyNameList(java.lang.String)
+	 */
 	@Override
 	public List<String> getCompanyNameList(String filterPattern) {
 		if (logger.isDebugEnabled()) {
@@ -174,6 +232,14 @@ public class UserBean implements IUserBean {
 		return companyList;
 	}
 
+	/*
+	 * (non-Javadoc) Update the User userId to follow the Company companyId
+	 * 
+	 * @param Long userId, Long companyId
+	 * 
+	 * @see eai.msejdf.user.IUserBean#followCompany(java.lang.Long,
+	 * java.lang.Long)
+	 */
 	@Override
 	public void followCompany(Long userId, Long companyId)
 			throws ConfigurationException {
@@ -198,6 +264,17 @@ public class UserBean implements IUserBean {
 		}
 	}
 
+	/*
+	 * (non-Javadoc) Remove Company companyId from the list of companies
+	 * followed by User userId
+	 * 
+	 * @param String filterPattern
+	 * 
+	 * @return void
+	 * 
+	 * @see eai.msejdf.user.IUserBean#unfollowCompany(java.lang.Long,
+	 * java.lang.Long)
+	 */
 	@Override
 	public void unfollowCompany(Long userId, Long companyId)
 			throws ConfigurationException {
@@ -217,22 +294,26 @@ public class UserBean implements IUserBean {
 		}
 	}
 
-
-
+	/*
+	 * (non-Javadoc) Get the list of companies followed by User userId
+	 * 
+	 * @param String filterPattern
+	 * 
+	 * @return List<Company>
+	 * 
+	 * @see eai.msejdf.user.IUserBean#getfollowedCompanyList(java.lang.Long)
+	 */
 	@Override
-	public List<Company> getfollowedCompanyList(Long id)
+	public List<Company> getfollowedCompanyList(Long userId)
 			throws ConfigurationException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getfollowedCompanyList(String) - start"); //$NON-NLS-1$
 		}
 
-		User user = getUser(id);
+		User user = getUser(userId);
 
 		List<Company> companyList = user.getSubscribedCompanies();
 
-		if (logger.isDebugEnabled()) {
-			logger.debug("getfollowedCompanyList(String) - end"); //$NON-NLS-1$
-		}
 		companyList.size();
 
 		if (logger.isDebugEnabled()) {
@@ -241,6 +322,16 @@ public class UserBean implements IUserBean {
 		return companyList;
 	}
 
+	/*
+	 * (non-Javadoc) Set BankTeller bankTellerId as User userId Bank Teller
+	 * 
+	 * @param Long userId, Long bankTellerId
+	 * 
+	 * @return void
+	 * 
+	 * @see eai.msejdf.user.IUserBean#setBankTeller(java.lang.Long,
+	 * java.lang.Long)
+	 */
 	@Override
 	public void setBankTeller(Long userId, Long bankTellerId)
 			throws ConfigurationException {
@@ -248,19 +339,29 @@ public class UserBean implements IUserBean {
 			logger.debug("setBankTeller(Long, Long) - start"); //$NON-NLS-1$
 		}
 
-//		User user = getUser(userId);
+		// User user = getUser(userId);
 		BankTeller bankTeller = getBankTeller(bankTellerId);
-		setBankTeller( userId,bankTeller);
-//		logger.info("Add bankTeller: " + bankTeller.getName() + " to user: "
-//				+ user.getName());
-//		user.setBankTeller(bankTeller);
-//		entityManager.persist(user);
+		setBankTeller(userId, bankTeller);
+		// logger.info("Add bankTeller: " + bankTeller.getName() + " to user: "
+		// + user.getName());
+		// user.setBankTeller(bankTeller);
+		// entityManager.persist(user);
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("setBankTeller(Long, Long) - end"); //$NON-NLS-1$
 		}
 	}
 
+	/*
+	 * (non-Javadoc) Set BankTeller bankTeller as User userId Bank Teller
+	 * 
+	 * @param Long userId, BankTeller bankTeller
+	 * 
+	 * @return void
+	 * 
+	 * @see eai.msejdf.user.IUserBean#setBankTeller(java.lang.Long,
+	 * eai.msejdf.persistence.BankTeller)
+	 */
 	@Override
 	public void setBankTeller(Long userId, BankTeller bankTeller)
 			throws ConfigurationException {
@@ -272,7 +373,7 @@ public class UserBean implements IUserBean {
 
 		logger.info("Add bankTeller: " + bankTeller.getName() + " to user: "
 				+ user.getName());
-		
+
 		user.setBankTeller(bankTeller);
 		logger.info("Persist bankTeller: " + bankTeller.toString());
 		entityManager.persist(bankTeller);
@@ -284,6 +385,15 @@ public class UserBean implements IUserBean {
 		}
 	}
 
+	/*
+	 * (non-Javadoc) Get BankTeller object knowing the bankTellerId
+	 * 
+	 * @param Long bankTellerId
+	 * 
+	 * @return BankTeller
+	 * 
+	 * @see eai.msejdf.user.IUserBean#getBankTeller(java.lang.Long)
+	 */
 	@Override
 	public BankTeller getBankTeller(Long bankTellerId)
 			throws ConfigurationException {
@@ -311,6 +421,15 @@ public class UserBean implements IUserBean {
 		return returnBankTeller;
 	}
 
+	/*
+	 * (non-Javadoc) Get a list of BankTellers that match filterPattern
+	 * 
+	 * @param String filterPattern
+	 * 
+	 * @return List<BankTeller>
+	 * 
+	 * @see eai.msejdf.user.IUserBean#getBankTellerList(java.lang.String)
+	 */
 	@Override
 	public List<BankTeller> getBankTellerList(String filterPattern) {
 		if (logger.isDebugEnabled()) {
@@ -330,6 +449,15 @@ public class UserBean implements IUserBean {
 		return bankTellerList;
 	}
 
+	/*
+	 * (non-Javadoc) Get a list of BankTellers names that match filterPattern
+	 * 
+	 * @param String filterPattern
+	 * 
+	 * @return List<String>
+	 * 
+	 * @see eai.msejdf.user.IUserBean#getBankTellerNameList(java.lang.String)
+	 */
 	@Override
 	public List<String> getBankTellerNameList(String filterPattern) {
 		if (logger.isDebugEnabled()) {

@@ -14,7 +14,6 @@ import eai.msejdf.admin.IAdmin;
 import eai.msejdf.persistence.Company;
 import eai.msejdf.persistence.User;
 
-//TODO-fjn: Check whenever we'll keep this or have it distributed in other beans with method level security permissions
 /**
  * Bean implementing interface for administration related calls
  */
@@ -29,6 +28,16 @@ public class Admin implements IAdmin {
 	// TODO: Check if it can be placed in a config file and update name
 	private EntityManager entityManager;
 
+	/*
+	 * (non-Javadoc) Get a list of Users in the system (sorttype and
+	 * ageThreshold are not implemented yet)
+	 * 
+	 * @param int sortType, int ageThreshold
+	 * 
+	 * @return List<User>
+	 * 
+	 * @see eai.msejdf.admin.IAdmin#getUserList(int, int)
+	 */
 	@Override
 	public List<User> getUserList(int sortType, int ageThreshold) {
 		if (logger.isDebugEnabled()) {
@@ -47,6 +56,17 @@ public class Admin implements IAdmin {
 		return userList;
 	}
 
+	/*
+	 * (non-Javadoc) Get a list of Users that follow the Companay companyId
+	 * (sorttype and ageThreshold are not implemented yet)
+	 * 
+	 * @param Long companyId, int sortType, int ageThreshold
+	 * 
+	 * @return List<User>
+	 * 
+	 * @see eai.msejdf.admin.IAdmin#getUserFollowCompanyList(java.lang.Long,
+	 * int, int)
+	 */
 	@Override
 	public List<User> getUserFollowCompanyList(Long companyId, int sortType,
 			int ageThreshold) {
@@ -75,6 +95,16 @@ public class Admin implements IAdmin {
 		return userList;
 	}
 
+	/*
+	 * (non-Javadoc)Get a list of Companies in the system that mach the
+	 * filterPattern (sorttype are not implemented yet)
+	 * 
+	 * @param String filterPattern, int sortType
+	 * 
+	 * @return List<Company>
+	 * 
+	 * @see eai.msejdf.admin.IAdmin#getCompanyList(java.lang.String, int)
+	 */
 	@Override
 	public List<Company> getCompanyList(String filterPattern, int sortType) {
 		if (logger.isDebugEnabled()) {
