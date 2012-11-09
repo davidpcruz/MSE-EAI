@@ -8,10 +8,6 @@
         <dependent-module archiveName="EAICommon.jar" deploy-path="/lib" handle="module:/resource/EAICommon/EAICommon">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="WebFrontOffice.war" deploy-path="/" handle="module:/resource/WebFrontOffice/WebFrontOffice">
-            <dependent-object/>
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <dependent-module archiveName="EJBServerInterfaces.jar" deploy-path="/" handle="module:/resource/EJBServerInterfaces/EJBServerInterfaces">
             <dependency-type>uses</dependency-type>
         </dependent-module>
@@ -20,6 +16,10 @@
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="JPAData.jar" deploy-path="/lib" handle="module:/resource/JPAData/JPAData">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="WebFrontOffice.war" deploy-path="/" handle="module:/resource/WebFrontOffice/WebFrontOffice">
+            <dependent-object/>
             <dependency-type>uses</dependency-type>
         </dependent-module>
     </wb-module>
