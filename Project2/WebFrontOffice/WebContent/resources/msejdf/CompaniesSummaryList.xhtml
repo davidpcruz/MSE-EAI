@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface>
+
+	<composite:attribute name="companyList" />
+
+</composite:interface>
+
+
+<composite:implementation>
+	<h:dataTable var="company" value="#{cc.attrs.companyList}"
+		rowClasses="oddRow, evenRow" headerClass="tableHeader">
+
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="Name" />
+			</f:facet>
+
+			<h:outputText value="#{company.name}" />
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="Last Quotation" />
+			</f:facet>
+
+			<h:outputText value="#{company.stockInfo.lastQuotation}" />
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="Variation %" />
+			</f:facet>
+
+			<h:outputText value="#{company.stockInfo.variation}" />
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="Maximum" />
+			</f:facet>
+
+			<h:outputText value="#{company.stockInfo.maximum}" />
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="Minimum" />
+			</f:facet>
+
+			<h:outputText value="#{company.stockInfo.minimum}" />
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="Quantity" />
+			</f:facet>
+
+			<h:outputText value="#{company.stockInfo.quantity}" />
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="Time" />
+			</f:facet>
+
+			<h:outputText value="#{company.stockInfo.time}" />
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="Purchase" />
+			</f:facet>
+
+			<h:outputText value="#{company.stockInfo.purchase}" />
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="Sell" />
+			</f:facet>
+
+			<h:outputText value="#{company.stockInfo.sell}" />
+		</h:column>
+
+	</h:dataTable>
+</composite:implementation>
+</html>
+

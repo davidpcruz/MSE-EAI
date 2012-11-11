@@ -4,12 +4,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:af="http://java.sun.com/jsf/adf/faces">
+    xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition template="/WEB-INF/templates/DefaultTemplate.xhtml">
     <ui:define name="content">
     
+    	<h:outputText value="Wrong user data" rendered="#{param.message != WrongUserInfoError}" styleClass="errorMessage"/>
         <h:form>
              <h:panelGrid columns="3">
              
@@ -47,7 +47,7 @@
                 <h:message for="City" errorStyle="errorMessage"/> -->
 
             </h:panelGrid>
-            <h:commandButton value="Save" action="Save"></h:commandButton>
+            <h:commandButton value="Save" action="#{userBeanW.updateUser}"></h:commandButton>
             <h:commandButton value="Cancel" action="Cancel"></h:commandButton>
             <h:commandButton value="Reset" type="reset"></h:commandButton>
         </h:form>

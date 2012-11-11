@@ -5,8 +5,8 @@
   <PROCESS-ITEM ID="rules:#Login.xhtml:0" NAME="item"
    PATH="/Login.xhtml" model-entity="JSFProcessItem">
    <PROCESS-ITEM-OUTPUT
-    ID="true:#{securityBeanW.checkUserCredentials}:#UserInfo.xhtml"
-    NAME="output" PATH="/UserInfo.xhtml" TARGET="rules:#UserInfo.xhtml"
+    ID="true:#{securityBeanW.checkUserCredentials}:#UserHome.xhtml"
+    NAME="output" PATH="/UserHome.xhtml" TARGET="rules:#UserHome.xhtml"
     TITLE="#{securityBeanW.checkUserCredentials}:true" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="false:#{securityBeanW.checkUserCredentials}:#Login.xhtml"
@@ -21,8 +21,16 @@
   SHAPE="632,40,50,25" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:#UserInfo.xhtml:0" NAME="item"
    PATH="/UserInfo.xhtml" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT ID="Save::#UserHome.xhtml" NAME="output"
-    PATH="/UserHome.xhtml" TARGET="rules:#UserHome.xhtml" TITLE="Save" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="true:#{userBeanW.updateUser}:#UserHome.xhtml" NAME="output"
+    PATH="/UserHome.xhtml" TARGET="rules:#UserHome.xhtml"
+    TITLE="#{userBeanW.updateUser}:true" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="false:#{userBeanW.updateUser}:#UserInfo.xhtml" NAME="output1"
+    PATH="/UserInfo.xhtml" TARGET="rules:#UserInfo.xhtml"
+    TITLE="#{userBeanW.updateUser}:false" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="Cancel::#UserHome.xhtml" NAME="output2"
+    PATH="/UserHome.xhtml" TARGET="rules:#UserHome.xhtml" TITLE="Cancel" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#UserHome.xhtml" PATH="/UserHome.xhtml"

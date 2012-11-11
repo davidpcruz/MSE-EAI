@@ -3,7 +3,7 @@ package eai.msejdf.user;
 import java.util.List;
 
 import javax.ejb.LocalBean;
-import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -19,7 +19,7 @@ import eai.msejdf.persistence.User;
  * 
  * Bean implementing operations supported by users
  */
-@Stateful
+@Stateless
 @LocalBean
 public class UserBean implements IUserBean {
 	/**
@@ -51,20 +51,22 @@ public class UserBean implements IUserBean {
 		}
 
 		// TODO: Validate parameters
+		BankTeller bankTeller = user.getBankTeller();
+		
+		if (null == bankTeller)
+		{
+			// Nothing to do
+		}
+		else if (null == bankTeller.getId())
+		{
+			entityManager.persist(bankTeller);
+		}
+		else
+		{
+			entityManager.merge(bankTeller);
+		}
 		entityManager.merge(user);
-
-		List<Company> subscribedCompanies = user.getSubscribedCompanies();
-
-		if (null == subscribedCompanies) {
-			if (logger.isDebugEnabled()) {
-				logger.debug("updateUser(User) - end"); //$NON-NLS-1$
-			}
-			return;
-		}
-
-		for (Company company : subscribedCompanies) {
-			entityManager.merge(company);
-		}
+		
 		if (logger.isDebugEnabled()) {
 			logger.debug("updateUser(User) - end"); //$NON-NLS-1$
 		}
@@ -97,6 +99,19 @@ public class UserBean implements IUserBean {
 		}
 
 		User returnUser = userList.get(0);
+		
+		// TODO: Review this
+		if (null != returnUser.getAddress())
+		{
+			// Force load
+			returnUser.getAddress().getAddress();
+		}
+		if (null != returnUser.getBankTeller())
+		{
+			// Force load
+			returnUser.getBankTeller().getName();
+		}
+		
 		if (logger.isDebugEnabled()) {
 			logger.debug("getUser(String) - end"); //$NON-NLS-1$
 		}

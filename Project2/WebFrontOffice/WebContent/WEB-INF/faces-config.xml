@@ -12,7 +12,7 @@
 		<navigation-case>
 			<from-action>#{securityBeanW.checkUserCredentials}</from-action>
 			<from-outcome>true</from-outcome>
-			<to-view-id>/UserInfo.xhtml</to-view-id>
+			<to-view-id>/UserHome.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 		<navigation-case>
@@ -22,7 +22,7 @@
 			<redirect>
 				<view-param>
 					<name>message</name>
-					<value>User/password mismatch</value>
+					<value>WrongUserPasswordError</value>
 				</view-param>
 			</redirect>
 		</navigation-case>
@@ -35,7 +35,23 @@
 	<navigation-rule>
 		<from-view-id>/UserInfo.xhtml</from-view-id>
 		<navigation-case>
-			<from-outcome>Save</from-outcome>
+			<from-action>#{userBeanW.updateUser}</from-action>
+			<from-outcome>true</from-outcome>
+			<to-view-id>/UserHome.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{userBeanW.updateUser}</from-action>
+			<from-outcome>false</from-outcome>
+			<to-view-id>/UserInfo.xhtml</to-view-id>
+			<redirect>
+				<view-param>
+					<name>message</name>
+					<value>WrongUserInfoError</value>
+				</view-param>
+			</redirect>
+		</navigation-case>		
+		<navigation-case>
+			<from-outcome>Cancel</from-outcome>
 			<to-view-id>/UserHome.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>

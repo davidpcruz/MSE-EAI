@@ -31,6 +31,7 @@
 				orphan-removal="true">
 				<cascade>
 					<cascade-persist />
+					<cascade-merge />
 				</cascade>
 			</one-to-one>
 
@@ -75,6 +76,7 @@
 				orphan-removal="true">
 				<cascade>
 					<cascade-persist />
+					<cascade-merge />
 				</cascade>
 			</one-to-one>
 		</attributes>
@@ -109,6 +111,7 @@
 				orphan-removal="true">
 				<cascade>
 					<cascade-persist />
+					<cascade-merge />
 				</cascade>
 			</one-to-one>
 

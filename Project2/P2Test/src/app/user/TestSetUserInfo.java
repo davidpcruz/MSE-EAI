@@ -34,9 +34,19 @@ public class TestSetUserInfo {
 		
 		User userInfo = bean.getUser(username);
 		
-		Address address = new Address();
-		BankTeller bankTeller = new BankTeller();
-				
+		Address address = userInfo.getAddress();
+		if (null == address)
+		{
+			address = new Address();
+			userInfo.setAddress(address);
+		}				
+		BankTeller bankTeller = userInfo.getBankTeller();
+		if (null == bankTeller)
+		{
+			bankTeller = new BankTeller();
+			userInfo.setBankTeller(bankTeller);
+		}				
+						
 		System.out.println("Name: ");
 		userInfo.setName(br.readLine());
 		
@@ -46,13 +56,9 @@ public class TestSetUserInfo {
 		System.out.println("Zip: ");
 		address.setZipCode(br.readLine());
 		
-		userInfo.setAddress(address);
-
 		bankTeller.setName("BankTeller Name");
-		bankTeller.setAddress(address);
+		bankTeller.setPassword("pass");
 		
-		userInfo.setBankTeller(bankTeller);
-				
 		bean.updateUser(userInfo);
 		
 		System.out.println("User info set");

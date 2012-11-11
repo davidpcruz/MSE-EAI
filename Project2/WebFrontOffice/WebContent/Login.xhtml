@@ -7,13 +7,14 @@
     xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition template="/WEB-INF/templates/DefaultTemplate.xhtml">
-    <ui:define name="content">
-    	<h:outputText value="#{param.message}" styleClass="errorMessage"/>
+	<ui:define name="content">
+	
+    	<h:outputText value="Wrong user or password" rendered="#{param.message != WrongUserPasswordError}" styleClass="errorMessage"/>
         <h:form>
              <h:panelGrid columns="3">
              
                 <h:outputText value="Username"></h:outputText>
-                <h:inputText id="Userame" value="#{securityBeanW.username}" required="true" requiredMessage="Missing username"></h:inputText>
+                <h:inputText id="Username" value="#{securityBeanW.username}" required="true" requiredMessage="Missing username"></h:inputText>
                 <h:message for="Username" styleClass="errorMessage"/>
 
                 <h:outputText value="Password"></h:outputText>
