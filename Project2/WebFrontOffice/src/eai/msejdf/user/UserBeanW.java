@@ -8,6 +8,8 @@ import javax.naming.NamingException;
 
 import eai.msejdf.session.SessionManager;
 import eai.msejdf.exception.ConfigurationException;
+import eai.msejdf.persistence.Address;
+import eai.msejdf.persistence.BankTeller;
 import eai.msejdf.persistence.Company;
 import eai.msejdf.persistence.User;
 
@@ -78,6 +80,31 @@ public class UserBeanW
 	public List<Company> getCompanyList() throws ConfigurationException
 	{
 		return this.bean.getCompanyList("%");
+	}
+	public List<BankTeller> getBankTellerList() throws ConfigurationException
+	{
+		return this.bean.getBankTellerList("%");
+	}
+	
+	public BankTeller getUserBankTeller() throws ConfigurationException
+	{
+		return this.bean.getUserBankTeller(user);
+	}
+	
+	public String getBankTellerAddress() throws ConfigurationException
+	{
+		return this.user.getBankTeller().getAddress().getAddress();
+	}
+	
+	public void setBankTellerAddress(Address address) throws ConfigurationException
+	{
+		this.user.getBankTeller().setAddress(address);
+	}
+	public String getBankTellerAddressAddress(){
+		return this.bean.getBankTellerAddressAddress(user.getBankTeller());
+	}
+	public void setBankTellerAddressAddress(){
+		this.bean.setBankTellerAddressAddress(user.getBankTeller(), user.getBankTeller().getAddress().getAddress());
 	}
 	
 }

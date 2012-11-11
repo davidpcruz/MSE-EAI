@@ -11,11 +11,12 @@ import javax.persistence.Query;
 import org.apache.log4j.Logger;
 
 import eai.msejdf.exception.ConfigurationException;
+import eai.msejdf.persistence.Address;
 import eai.msejdf.persistence.BankTeller;
 import eai.msejdf.persistence.Company;
 import eai.msejdf.persistence.User;
 
-/**
+/*
  * 
  * Bean implementing operations supported by users
  */
@@ -52,21 +53,16 @@ public class UserBean implements IUserBean {
 
 		// TODO: Validate parameters
 		BankTeller bankTeller = user.getBankTeller();
-		
-		if (null == bankTeller)
-		{
+
+		if (null == bankTeller) {
 			// Nothing to do
-		}
-		else if (null == bankTeller.getId())
-		{
+		} else if (null == bankTeller.getId()) {
 			entityManager.persist(bankTeller);
-		}
-		else
-		{
+		} else {
 			entityManager.merge(bankTeller);
 		}
 		entityManager.merge(user);
-		
+
 		if (logger.isDebugEnabled()) {
 			logger.debug("updateUser(User) - end"); //$NON-NLS-1$
 		}
@@ -99,19 +95,17 @@ public class UserBean implements IUserBean {
 		}
 
 		User returnUser = userList.get(0);
-		
+
 		// TODO: Review this
-		if (null != returnUser.getAddress())
-		{
+		if (null != returnUser.getAddress()) {
 			// Force load
 			returnUser.getAddress().getAddress();
 		}
-		if (null != returnUser.getBankTeller())
-		{
+		if (null != returnUser.getBankTeller()) {
 			// Force load
 			returnUser.getBankTeller().getName();
 		}
-		
+
 		if (logger.isDebugEnabled()) {
 			logger.debug("getUser(String) - end"); //$NON-NLS-1$
 		}
@@ -416,6 +410,29 @@ public class UserBean implements IUserBean {
 	}
 
 	/*
+	 * (non-Javadoc) Get the user BankTeller object knowing the user
+	 * 
+	 * @param userId
+	 * 
+	 * @return BankTeller
+	 * 
+	 * @throws ConfigurationException
+	 */
+	public BankTeller getUserBankTeller(User user)
+			throws ConfigurationException {
+		if (logger.isDebugEnabled()) {
+			logger.debug("getUserBankTellerList(Long) - start"); //$NON-NLS-1$
+		}
+
+		BankTeller bankTeller = user.getBankTeller();
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("getUserBankTellerList(Long) - end"); //$NON-NLS-1$
+		}
+		return bankTeller;
+	}
+
+	/*
 	 * (non-Javadoc) Get BankTeller object knowing the bankTellerId
 	 * 
 	 * @param Long bankTellerId
@@ -443,12 +460,12 @@ public class UserBean implements IUserBean {
 					UserBean.EXCEPTION_BANKTELLER_NOT_FOUND);
 		}
 
-		BankTeller returnBankTeller = bankTellerList.get(0);
+		BankTeller bankTeller = bankTellerList.get(0);
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("getBankTeller(String) - end"); //$NON-NLS-1$
 		}
-		return returnBankTeller;
+		return bankTeller;
 	}
 
 	/*
@@ -505,6 +522,65 @@ public class UserBean implements IUserBean {
 			logger.debug("getBankTellerNameList(String) - end"); //$NON-NLS-1$
 		}
 		return bankTellerList;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * eai.msejdf.user.IUserBean#setBankTellerAddress(eai.msejdf.persistence
+	 * .BankTeller, eai.msejdf.persistence.Address)
+	 */
+	@Override
+	public void setBankTellerAddress(BankTeller bankTeller, Address address) {
+		bankTeller.setAddress(address);
+		entityManager.persist(bankTeller);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * eai.msejdf.user.IUserBean#setBankTellerAddressAddress(eai.msejdf.persistence
+	 * .BankTeller, java.lang.String)
+	 */
+	@Override
+	public void setBankTellerAddressAddress(BankTeller bankTeller,
+			String address) {
+		bankTeller.getAddress().setAddress(address);
+		entityManager.persist(bankTeller);
+	}
+
+	@Override
+	public String getBankTellerAddressAddress(BankTeller bankTeller) {
+		return bankTeller.getAddress().getAddress();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * eai.msejdf.user.IUserBean#setBankTellerAddressCity(eai.msejdf.persistence
+	 * .BankTeller, java.lang.String)
+	 */
+	@Override
+	public void setBankTellerAddressCity(BankTeller bankTeller, String city) {
+		bankTeller.getAddress().setCity(city);
+		entityManager.persist(bankTeller);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * eai.msejdf.user.IUserBean#setBankTellerAddressZipCode(eai.msejdf.persistence
+	 * .BankTeller, java.lang.String)
+	 */
+	@Override
+	public void setBankTellerAddressZipCode(BankTeller bankTeller,
+			String zipCode) {
+		bankTeller.getAddress().setZipCode(zipCode);
+		entityManager.persist(bankTeller);
 	}
 
 }

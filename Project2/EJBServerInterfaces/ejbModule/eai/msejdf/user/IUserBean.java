@@ -3,6 +3,7 @@ package eai.msejdf.user;
 import java.util.List;
 
 import eai.msejdf.exception.ConfigurationException;
+import eai.msejdf.persistence.Address;
 import eai.msejdf.persistence.BankTeller;
 import eai.msejdf.persistence.Company;
 import eai.msejdf.persistence.User;
@@ -47,5 +48,16 @@ public interface IUserBean {
 	public List<BankTeller> getBankTellerList(String filterPattern);
 
 	public List<String> getBankTellerNameList(String filterPattern);
+	public BankTeller getUserBankTeller(User user) throws ConfigurationException;
+
+	void setBankTellerAddress(BankTeller bankTellerId, Address address);
+
+	void setBankTellerAddressAddress(BankTeller bankTeller, String address);
+
+	void setBankTellerAddressCity(BankTeller bankTeller, String city);
+
+	void setBankTellerAddressZipCode(BankTeller bankTeller, String zipCode);
+
+	String getBankTellerAddressAddress(BankTeller bankTeller);
 
 }
