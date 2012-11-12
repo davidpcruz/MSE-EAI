@@ -14,7 +14,6 @@ public class BankTeller implements Serializable
 
 	private Long id; 
 	private String name; 
-	private String password;
 	private Address address;
 	private static final long serialVersionUID = 1L;	
 
@@ -51,20 +50,6 @@ public class BankTeller implements Serializable
 		this.name = name;
 	}
 	/**
-	 * @return the password
-	 */
-	public String getPassword()
-	{
-		return password;
-	}
-	/**
-	 * @param password the password to set
-	 */
-	public void setPassword(String password)
-	{
-		this.password = password;
-	}
-	/**
 	 * @return the address
 	 */
 	public Address getAddress()
@@ -85,7 +70,6 @@ public class BankTeller implements Serializable
 	    
 	    return  "id: " + this.id + newLine +
 	    		"name: " + this.name + newLine + 
-	    		"password: " + this.password + newLine + 
 	    		"address: " + this.address + newLine;
  	} 
 	
