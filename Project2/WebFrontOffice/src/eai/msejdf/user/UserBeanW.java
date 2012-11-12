@@ -20,6 +20,7 @@ public class UserBeanW
 {
 	private IUserBean bean;
 	private User user;
+	private BankTeller bankTeller;
 	private String birthDate;
  	
 	
@@ -46,6 +47,14 @@ public class UserBeanW
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
+	public BankTeller getBankTeller() {
+		return bankTeller;
+	}
+
+	public void setBankTeller(BankTeller bankTeller) {
+		this.bankTeller = bankTeller;
+	}
 
 	public boolean updateUser()
 	{
@@ -62,6 +71,23 @@ public class UserBeanW
 		
 		return true;
 	}
+	
+	
+	public boolean updateBankTeller()
+	{
+		//TODO: The exception should cause the user interface to be informed 
+		try
+		{
+			this.bean.setBankTeller(this.user.getId(), bankTeller);	
+		}
+		catch(Exception exception)
+		{
+			exception.printStackTrace();
+			return false;
+		}
+		
+		return true;
+	}	
 	
 	public String getBirthDate() {
 		return birthDate;
@@ -100,6 +126,7 @@ public class UserBeanW
 	{
 		this.user.getBankTeller().setAddress(address);
 	}
+	
 	public String getBankTellerAddressAddress(){
 		return this.bean.getBankTellerAddressAddress(user.getBankTeller());
 	}
