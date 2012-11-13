@@ -90,6 +90,30 @@
 			<h:outputText value="#{company.stockInfo.sell}" />
 		</h:column>
 
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="Details" />
+			</f:facet>
+
+			<h:form>
+				<h:commandLink
+					value="Details"
+					action="CompanyInfo" />
+			</h:form>
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="Subscribe/Unsubscribe" />
+			</f:facet>
+
+			<h:form>
+				<h:commandLink
+					value="#{userBeanW.getSubscriptionChangeAction(company)}"
+					action="#{userBeanW.subscriptionChangeAction(company)}" />
+			</h:form>
+		</h:column>
+
 	</h:dataTable>
 </composite:implementation>
 </html>

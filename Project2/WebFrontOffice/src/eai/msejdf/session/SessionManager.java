@@ -19,4 +19,10 @@ public class SessionManager {
 		FacesContext context = FacesContext.getCurrentInstance();
 		return (String)context.getExternalContext().getSessionMap().get(name);
 	}	
+
+	public static String getRequestParameter(String name)
+	{
+		FacesContext context = FacesContext.getCurrentInstance();
+		return (String)context.getExternalContext().getRequestParameterMap().get(name);
+	}	
 }
