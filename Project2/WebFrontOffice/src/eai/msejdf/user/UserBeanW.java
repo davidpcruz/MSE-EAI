@@ -24,7 +24,8 @@ public class UserBeanW {
 	
 	private IUserBean bean;
 	private User user;
-	// private BankTeller bankTeller;
+	private BankTeller bankTeller;
+	private Address address;
 	private String birthDate;
 	List<Company> followedCompanyList;
 	List<Company> companyList;
@@ -41,6 +42,10 @@ public class UserBeanW {
 		// TODO
 		this.user = bean.getUser(SessionManager
 				.getProperty(SessionManager.USERNAME_PROPERTY));
+		this.bankTeller = new BankTeller();
+		this.address = new Address();
+		this.bankTeller.setAddress(address);
+
 	}
 
 	public IUserBean bean() {
@@ -53,6 +58,18 @@ public class UserBeanW {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+	
+	public BankTeller getBankTeller() {
+		return bankTeller;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 	public BankTeller getBankTeller(User user) {
@@ -96,6 +113,19 @@ public class UserBeanW {
 
 		return true;
 	}
+	
+	public boolean addBankTeller() {
+		// TODO: The exception should cause the user interface to be informed
+		try {
+			this.bean.setBankTeller(this.user.getId(),
+					this.bankTeller);
+		} catch (Exception exception) {
+			exception.printStackTrace();
+			return false;
+		}
+
+		return true;
+	}
 
 	public String getBirthDate() {
 		return birthDate;
@@ -129,14 +159,9 @@ public class UserBeanW {
 		return this.bankTellerList;		
 	}
 
-	public String getBankTellerAddress() throws ConfigurationException {
-		return this.user.getBankTeller().getAddress().getAddress();
-	}
 
-	public void setBankTellerAddress(Address address)
-			throws ConfigurationException {
-		this.user.getBankTeller().setAddress(address);
-	}
+
+
 
 	public String getSubscriptionChangeAction(Company company)
 	{

@@ -4,34 +4,42 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	
+	xmlns:msejdf="http://java.sun.com/jsf/composite/msejdf">
 
 <ui:composition template="/WEB-INF/templates/DefaultTemplate.xhtml">
 	<ui:define name="content">
-	<h:outputText value="Please provide your Bank Teller information" />
-	<h:outputText value="#{userBeanW.user.name}" />
-		<h:form>
-			<h:panelGrid columns="3">
-				<h:outputText value="Name"></h:outputText>
-				<h:inputText id="Name" value="#{userBeanW.user.name}"
-					required="true" requiredMessage="Missing Name"></h:inputText>
-				<h:message for="Name" errorStyle="errorMessage" />
+		<h:outputText value="Please add the information of your new Bank Teller" />
+		
+			<h:form>
+				<h:panelGrid columns="3">
+					<h:outputText value="Name"></h:outputText>
+					<h:inputText id="Name" value="#{userBeanW.bankTeller.name}"
+						required="true" requiredMessage="Missing Bank Teller Name"></h:inputText>
+					<h:message for="Name" errorStyle="errorMessage" />
 
-<!-- 				<h:outputText value="Phone"></h:outputText> -->
-<!-- 				<h:inputText id="Phone" value="#{userBeanW.user.phone}" -->
-<!-- 					required="true" requiredMessage="Missing phone"></h:inputText> -->
-<!-- 				<h:message for="Phone" errorStyle="errorMessage" /> -->
+									<h:outputText value="Address"></h:outputText>
+									<h:inputText id="Address" value="#{userBeanW.bankTeller.address.address}"
+										required="false" requiredMessage="Missing Address"></h:inputText>
+									<h:message for="Address" errorStyle="errorMessage" />
 
-<!-- 				<h:outputText value="e-mail"></h:outputText> -->
-<!-- 				<h:inputText id="e-mail" value="#{userBeanW.user.email}" -->
-<!-- 					required="true" requiredMessage="Missing e-mail"></h:inputText> -->
-<!-- 				<h:message for="e-mail" errorStyle="errorMessage" /> -->
+									<h:outputText value="City"></h:outputText>
+									<h:inputText id="City" value="#{userBeanW.bankTeller.address.city}"
+										required="false" requiredMessage="Missing City"></h:inputText>
+									<h:message for="City" errorStyle="errorMessage" />
 
-			</h:panelGrid>
-			<h:commandButton value="Save" action="Save"></h:commandButton>
-			<h:commandButton value="Cancel" action="Cancel"></h:commandButton>
-			<h:commandButton value="Reset" type="reset"></h:commandButton>
-		</h:form>
+													<h:outputText value="Zip Code"></h:outputText>
+									<h:inputText id="ZipCode" value="#{userBeanW.bankTeller.address.zipCode}"
+										required="false" requiredMessage="Missing Zip Code"></h:inputText>
+									<h:message for="ZipCode" errorStyle="errorMessage" />
+
+				</h:panelGrid>
+				<h:commandButton value="Save" action="#{userBeanW.addBankTeller}"></h:commandButton>
+				<h:commandButton value="Cancel" action="Cancel"></h:commandButton>
+				<h:commandButton value="Reset" type="reset"></h:commandButton>
+			</h:form>
+
 	</ui:define>
 </ui:composition>
 </html>
