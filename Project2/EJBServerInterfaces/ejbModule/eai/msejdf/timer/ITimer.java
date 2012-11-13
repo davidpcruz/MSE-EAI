@@ -5,6 +5,6 @@ import javax.ejb.Remote;
 @Remote
 public interface ITimer {
 
-	public abstract void triggerEmail();
+	public abstract void dailyMailCompanyDigest();
 
 }
