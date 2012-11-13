@@ -34,171 +34,58 @@ public class TestUserBean {
 		Long userId_1 = (long) 1;
 		Long userId_2 = (long) 2;
 		Long userId_3 = (long) 3;
-		Long userId_not = (long) 9999;
+		Long userId_not = (long) 2;
 		Long companyId_1 = (long) 1;
 		Long companyId_2 = (long) 2;
 		Long companyId_3 = (long) 3;
-		Long companyId_not = (long) 9999;
+		Long companyId_not = (long) 2;
 		Long tellerId_1 = (long) 1;
 		Long tellerId_2 = (long) 2;
 		Long tellerId_3 = (long) 3;
 
 		Long tellerId_not = (long) 9999;
 
+		TestgetCompany(bean, companyId_1);
 
-			TestgetCompany(bean, companyId_1);
+		TestgetCompany(bean, companyId_not);
+
+		TestgetUser(bean, "test");
+
+		TestgetCompanyList(bean, "%C%");
+
+		System.out
+				.println("Testing  TestgetCompanyList with an invalide company pattern");
+		TestgetCompanyList(bean, "sadgasdgasfhahasfh");
+
+		TestgetCompanyList(bean, "%C%");
+
+		TestgetCompanyNameList(bean, "%C%");
+
+		// Follow companies
+		TestfollowCompany(bean, userId_1, companyId_1);
+		TestfollowCompany(bean, userId_1, companyId_2);
+		TestfollowCompany(bean, userId_1, companyId_2);
+		TestfollowCompany(bean, userId_1, companyId_3);
+		TestfollowCompany(bean, userId_2, companyId_1);
+		TestfollowCompany(bean, userId_2, companyId_2);
+		TestgetfollowedCompanyList(bean, companyId_1);
+
+		TestunfollowCompany(bean, userId_1, companyId_2);
+		TestgetfollowedCompanyList(bean, userId_1);
 
 
-		// try {
-		// System.out
-		// .println("Testing  TestgetCompany with an invalide company ID");
-		// TestgetCompany(bean, companyId_not);
-		// } catch (ConfigurationException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
+		TestsetBankTeller(bean, userId_1, "vvv6");
+		TestsetBankTeller(bean, userId_2, "vvv5");
+		
+//		TestsetBankTeller(bean, userId_2, "BES");
+//		TestsetBankTeller(bean, userId_1, tellerId_2);
+//		TestgetBankTeller(bean, tellerId_1);
+//		TestgetBankTellerList(bean, "%");
+//		TestgetBankTellerNameList(bean, "%");
 
-		// try {
-		// TestgetUser(bean, "test");
-		// } catch (ConfigurationException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		//
-		// try {
-		// TestgetCompanyList(bean, "%C%");
-		// } catch (ConfigurationException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		//
-		// try {
-		// System.out
-		// .println("Testing  TestgetCompanyList with an invalide company pattern");
-		// TestgetCompanyList(bean, "sadgasdgasfhahasfh");
-		// } catch (ConfigurationException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		// try {
-		// TestgetCompanyList(bean, "%C%");
-		// } catch (ConfigurationException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		//
-		// try {
-		// TestgetCompanyNameList(bean, "%C%");
-		// } catch (ConfigurationException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		//
-		// // Follow companies
-		// try {
-		// TestfollowCompany(bean, userId_1, companyId_1);
-		// } catch (ConfigurationException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		// try {
-		// TestfollowCompany(bean, userId_1, companyId_2);
-		// } catch (ConfigurationException e1) {
-		// // TODO Auto-generated catch block
-		// e1.printStackTrace();
-		// }
-		// try {
-		// TestfollowCompany(bean, userId_1, companyId_2);
-		// } catch (ConfigurationException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		// try {
-		// TestfollowCompany(bean, userId_1, companyId_3);
-		// } catch (ConfigurationException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		// try {
-		// TestfollowCompany(bean, userId_2, companyId_1);
-		// } catch (ConfigurationException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		// try {
-		// TestfollowCompany(bean, userId_2, companyId_2);
-		// } catch (ConfigurationException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		//
-		// try {
-		// TestgetfollowedCompanyList(bean, companyId_1);
-		// } catch (ConfigurationException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		//
-		// try {
-		// TestunfollowCompany(bean, userId_1, companyId_2);
-		// } catch (ConfigurationException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		//
-		// try {
-		// TestgetfollowedCompanyList(bean, userId_1);
-		// } catch (ConfigurationException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-
-		// Set BankTeller
-		try {
-			System.out.println("Test setBankTeller with ccc1");
-			TestsetBankTeller(bean, userId_3, "vvv");
-		} catch (ConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-//		System.exit(0);
-//		try {
-//			System.out.println("Test setBankTeller with BES");
-//			TestsetBankTeller(bean, userId_2, "BES");
-//		} catch (ConfigurationException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//
-//		try {
-//			TestsetBankTeller(bean, userId_1, tellerId_2);
-//		} catch (ConfigurationException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		try {
-//			TestgetBankTeller(bean, tellerId_1);
-//		} catch (ConfigurationException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
-//		try {
-//			TestgetBankTellerList(bean, "%");
-//		} catch (ConfigurationException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		try {
-//			TestgetBankTellerNameList(bean, "%");
-//		} catch (ConfigurationException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 		ctx.close();
 	}
 
-	
 	/**
 	 * @param bean
 	 * @param userId
@@ -209,36 +96,36 @@ public class TestUserBean {
 			String tellerName) throws ConfigurationException {
 		// bankTeller.setId( (long) 1);
 
-//		tellerName = "qwerty4";
+		// tellerName = "qwerty4";
 		System.out.println("Testing  setBankTeller(user, BankTeller)");
-		BankTeller bankTeller = null;
-		List<String> bankTellers = bean.getBankTellerNameList("%");
-
-		for (String b : bankTellers)
-			System.out.println("\t\t tellerName : " + b);
-
-		if (bankTellers.contains(tellerName)) {
-
-			bankTeller = bean.getBankTellerList(tellerName).get(0);
-//			bankTeller.setPassword("A");
-//			bankTeller.setName("CGD2_2");
-			System.out.println("tellerName already exists"
-					+ bankTeller.toString());
+		BankTeller bankTeller = new BankTeller();
+//		List<String> bankTellers = bean.getBankTellerNameList("%");
+//
+//		for (String b : bankTellers)
+//			System.out.println("\t\t tellerName : " + b);
+//
+//		if (bankTellers.contains(tellerName)) {
+//
+//			bankTeller = bean.getBankTellerList(tellerName).get(0);
+//			// bankTeller.setPassword("A");
+			 bankTeller.setName(tellerName);
+//			System.out.println("tellerName already exists"
+//					+ bankTeller.toString());
 
 			bean.setBankTeller(userId, bankTeller);
 
 			System.out.println("set BankTeller User/BankTeller " + userId + " "
 					+ bankTeller.getId());
 
-		} else {
-			System.out.println("creating new bankTeller: " + tellerName);
-			bankTeller = new BankTeller();
-			bankTeller.setName(tellerName);
-//			bankTeller.setPassword("asasd");
-			System.out.println("set BankTeller User/BankTeller " + userId + " "
-					+ bankTeller.getId());
-			bean.setBankTeller(userId, bankTeller);
-		}
+//		} else {
+//			System.out.println("creating new bankTeller: " + tellerName);
+//			bankTeller = new BankTeller();
+//			bankTeller.setName(tellerName);
+//			// bankTeller.setPassword("asasd");
+//			System.out.println("set BankTeller User/BankTeller " + userId + " "
+//					+ bankTeller.getId());
+//			bean.setBankTeller(userId, bankTeller);
+//		}
 
 	}
 

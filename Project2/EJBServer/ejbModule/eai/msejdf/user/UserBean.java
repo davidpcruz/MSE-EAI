@@ -31,6 +31,8 @@ public class UserBean implements IUserBean {
 	private static final String EXCEPTION_USER_NOT_FOUND = "The user was not found.";
 	private static final String EXCEPTION_COMPANY_NOT_FOUND = "The company was not found.";
 	private static final String EXCEPTION_BANKTELLER_NOT_FOUND = "The Bank Teller was not found.";
+	private static final String EXCEPTION_BANKTELLER_ALREADY_EXISTS = "The Bank Teller already exists.";
+	private static final String EXCEPTION_BANKTELLER_NAME_EMPTY = "The Bank Teller name cannot be empty.";
 
 	@PersistenceContext(unitName = "JPAEAI")
 	// TODO: Check if it can be placed in a config file and update name
@@ -379,17 +381,37 @@ public class UserBean implements IUserBean {
 			throws ConfigurationException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("setBankTeller(Long, BankTeller) - start"); //$NON-NLS-1$
+
+		}
+		
+		// Test the BankTeller name
+		try {
+			bankTeller.getName();
+		} catch (Exception ex) {
+			// The bankteller name already exists
+			throw new ConfigurationException(
+					UserBean.EXCEPTION_BANKTELLER_NAME_EMPTY);
+		}
+		
+		
+		// Check if bankteller name already exists
+		Query query = entityManager
+				.createQuery("SELECT bankTeller.name FROM  BankTeller AS bankTeller WHERE bankTeller.name=:bankTellerName");
+		query.setParameter("bankTellerName", bankTeller.getName());
+
+		@SuppressWarnings("unchecked")
+		List<BankTeller> bankTellerList = query.getResultList(); // get all banktellers with the same name
+		if (false == bankTellerList.isEmpty()) {
+			// The bankteller name already exists
+			throw new ConfigurationException(
+					UserBean.EXCEPTION_BANKTELLER_ALREADY_EXISTS);
 		}
 
-		User user = getUser(userId);
+		
+		User user = getUser(userId);	
+		
 
-		logger.info("Add bankTeller: " + bankTeller.getName() + " to user: "
-				+ user.getName());
-
-		if (bankTeller.equals(user.getBankTeller())) {
-			// This bankTeller is already user's bankTeller
-			logger.info("This bankTeller is already user's bankTeller");
-		} else if (null == bankTeller.getId()) {
+		if (null == bankTeller.getId()) {
 			// If BankTeller is new we need to persist it first
 			logger.info("Persist bankTeller: " + bankTeller.toString());
 			entityManager.persist(bankTeller);
@@ -516,38 +538,7 @@ public class UserBean implements IUserBean {
 		return bankTellerList;
 	}
 
-	/*
-	 * (non-Javadoc) Get a list of BankTellers that match filterPattern
-	 * 
-	 * @param String filterPattern
-	 * 
-	 * @return List<BankTeller>
-	 * 
-	 * @see eai.msejdf.user.IUserBean#getBankTellerList(java.lang.String)
-	 */
-	@Override
-	public List<BankTeller> getEagerBankTellerList(String filterPattern) {
-		if (logger.isDebugEnabled()) {
-			logger.debug("getBankTellerList(String) - start"); //$NON-NLS-1$
-		}
-
-		Query query = entityManager
-				.createQuery("SELECT bankTeller FROM  BankTeller AS bankTeller WHERE bankTeller.name LIKE :filterPattern");
-		query.setParameter("filterPattern", filterPattern);
-
-		@SuppressWarnings("unchecked")
-		List<BankTeller> bankTellerList = query.getResultList();
-
-		if (0 != bankTellerList.size()) {
-			bankTellerList.get(0).getAddress().getAddress(); // to be eager
-		}
-
-		if (logger.isDebugEnabled()) {
-			logger.debug("getBankTellerNameList(String) - end"); //$NON-NLS-1$
-		}
-		return bankTellerList;
-	}
-
+	
 	/*
 	 * (non-Javadoc) Get a list of BankTellers names that match filterPattern
 	 * 
