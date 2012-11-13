@@ -26,7 +26,7 @@ public class TestUserBean {
 	 */
 
 	public static void main(String[] args) throws NamingException, IOException,
-			SecurityException {
+			SecurityException, ConfigurationException {
 
 		InitialContext ctx = new InitialContext();
 		IUserBean bean = (IUserBean) ctx.lookup(Resource.JNDI_USER_BEAN);
@@ -45,12 +45,9 @@ public class TestUserBean {
 
 		Long tellerId_not = (long) 9999;
 
-		try {
+
 			TestgetCompany(bean, companyId_1);
-		} catch (ConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 
 		// try {
 		// System.out
@@ -159,47 +156,49 @@ public class TestUserBean {
 		// Set BankTeller
 		try {
 			System.out.println("Test setBankTeller with ccc1");
-			TestsetBankTeller(bean, userId_2, "ccc1");
-		} catch (ConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.exit(0);
-		try {
-			System.out.println("Test setBankTeller with BES");
-			TestsetBankTeller(bean, userId_2, "BES");
+			TestsetBankTeller(bean, userId_3, "vvv");
 		} catch (ConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		try {
-			TestsetBankTeller(bean, userId_1, tellerId_2);
-		} catch (ConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			TestgetBankTeller(bean, tellerId_1);
-		} catch (ConfigurationException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
-			TestgetBankTellerList(bean, "%");
-		} catch (ConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			TestgetBankTellerNameList(bean, "%");
-		} catch (ConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		System.exit(0);
+//		try {
+//			System.out.println("Test setBankTeller with BES");
+//			TestsetBankTeller(bean, userId_2, "BES");
+//		} catch (ConfigurationException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//
+//		try {
+//			TestsetBankTeller(bean, userId_1, tellerId_2);
+//		} catch (ConfigurationException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		try {
+//			TestgetBankTeller(bean, tellerId_1);
+//		} catch (ConfigurationException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//		try {
+//			TestgetBankTellerList(bean, "%");
+//		} catch (ConfigurationException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		try {
+//			TestgetBankTellerNameList(bean, "%");
+//		} catch (ConfigurationException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		ctx.close();
 	}
 
+	
 	/**
 	 * @param bean
 	 * @param userId
@@ -210,7 +209,7 @@ public class TestUserBean {
 			String tellerName) throws ConfigurationException {
 		// bankTeller.setId( (long) 1);
 
-		tellerName = "qwerty4";
+//		tellerName = "qwerty4";
 		System.out.println("Testing  setBankTeller(user, BankTeller)");
 		BankTeller bankTeller = null;
 		List<String> bankTellers = bean.getBankTellerNameList("%");
@@ -221,7 +220,7 @@ public class TestUserBean {
 		if (bankTellers.contains(tellerName)) {
 
 			bankTeller = bean.getBankTellerList(tellerName).get(0);
-			bankTeller.setPassword("A");
+//			bankTeller.setPassword("A");
 //			bankTeller.setName("CGD2_2");
 			System.out.println("tellerName already exists"
 					+ bankTeller.toString());
@@ -235,7 +234,7 @@ public class TestUserBean {
 			System.out.println("creating new bankTeller: " + tellerName);
 			bankTeller = new BankTeller();
 			bankTeller.setName(tellerName);
-			bankTeller.setPassword("asasd");
+//			bankTeller.setPassword("asasd");
 			System.out.println("set BankTeller User/BankTeller " + userId + " "
 					+ bankTeller.getId());
 			bean.setBankTeller(userId, bankTeller);
