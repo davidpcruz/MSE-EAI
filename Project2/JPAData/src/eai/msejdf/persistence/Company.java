@@ -1,6 +1,7 @@
 package eai.msejdf.persistence;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ public class Company implements Serializable {
     protected String name;
 	private Address address;
     protected String website;
-	private List<User> subscribedUsers;
+	private List<User> subscribedUsers = new ArrayList<User>();;
 
 	// Stocks
 	private StockInfo stockInfo;

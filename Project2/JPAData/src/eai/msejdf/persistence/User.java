@@ -4,6 +4,7 @@
 package eai.msejdf.persistence;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class User implements Serializable
 	private String email;
 	private Date birthDate; 
 	private BankTeller bankTeller;
-	private List<Company> subscribedCompanies;
+	private List<Company> subscribedCompanies = new ArrayList<Company>();
 
 	private static final long serialVersionUID = 1L;	
 	

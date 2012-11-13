@@ -1,7 +1,6 @@
 package eai.msejdf.timer;
 
 import javax.annotation.Resource;
-import javax.ejb.Schedule;
 import javax.ejb.Stateless;
 import javax.ejb.Timeout;
 import javax.ejb.Timer;
@@ -43,7 +42,11 @@ public class SchedulerBean implements ITimer {
     
 //	@Schedule(second = "*", minute = "*", hour="0")
 	protected void dailyMailCompanyDigest() {
-		System.out.println("\nSchedule timeout occurred !!!! ");
+		
+		boolean status = EmailUtils.sendEmail("davidpc@dei.uc.pt", "david.cruz@gmail.com", "testing", "testing");
+		
+		System.out.println("Email Status " + status);
+//		System.out.println("\nSchedule timeout occurred !!!! ");
 	}
 
 }
