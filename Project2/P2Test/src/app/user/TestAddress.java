@@ -116,7 +116,7 @@ public class TestAddress {
 		if (bankTellers.contains(tellerName)) {
 
 			bankTeller = bean.getBankTellerList(tellerName).get(0);
-			bankTeller.setPassword("A");
+
 			// bankTeller.setName("CGD2_2");
 			System.out.println("tellerName already exists"
 					+ bankTeller.toString());
@@ -130,7 +130,7 @@ public class TestAddress {
 			System.out.println("creating new bankTeller: " + tellerName);
 			bankTeller = new BankTeller();
 			bankTeller.setName(tellerName);
-			bankTeller.setPassword("asasd");
+
 			System.out.println("set BankTeller User/BankTeller " + userId + " "
 					+ bankTeller.getId());
 			bean.setBankTeller(userId, bankTeller);

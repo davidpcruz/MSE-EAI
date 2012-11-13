@@ -57,7 +57,7 @@ public class TestSetUserInfo {
 		address.setZipCode(br.readLine());
 		
 		bankTeller.setName("BankTeller Name");
-		bankTeller.setPassword("pass");
+//		bankTeller.setPassword("pass");
 		
 		bean.updateUser(userInfo);
 		
