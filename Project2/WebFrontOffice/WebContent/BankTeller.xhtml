@@ -26,6 +26,11 @@
 		<h:outputText value="Here you can see all  Bank Teller information" />
 		<msejdf:BankTellersSummaryList
 			bankTellerList="#{userBeanW.bankTellerList}"></msejdf:BankTellersSummaryList>
+
+		<h:form>
+			<h:commandButton value="Add New Bank Teller" action="#{userBeanW.addBankTeller}"></h:commandButton>
+		</h:form>
+		
 	</ui:define>
 
 </ui:composition>
