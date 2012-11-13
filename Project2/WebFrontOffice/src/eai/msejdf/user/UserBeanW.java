@@ -18,6 +18,10 @@ import eai.msejdf.persistence.User;
 @ManagedBean
 @ViewScoped
 public class UserBeanW {
+	
+	private final static String SUBSCRIBE_ACTION_NAME = "Subscribe"; 
+	private final static String UNSUBSCRIBE_ACTION_NAME = "Unsubscribe"; 
+	
 	private IUserBean bean;
 	private User user;
 	// private BankTeller bankTeller;
@@ -139,4 +143,39 @@ public class UserBeanW {
 		this.user.getBankTeller().setAddress(address);
 	}
 
+	public String getSubscriptionChangeAction(Company company)
+	{
+		//return ((company.getSubscribedUsers().size() == 0) ? UserBeanW.SUBSCRIBE_ACTION_NAME : UserBeanW.UNSUBSCRIBE_ACTION_NAME); 
+
+		//TODO: This is tmp for debug. Replace by a method that checks the subscription
+		return ((company.getName().startsWith("B")) ? UserBeanW.SUBSCRIBE_ACTION_NAME : UserBeanW.UNSUBSCRIBE_ACTION_NAME);
+
+	}
+
+	public boolean subscriptionChangeAction(Company company)
+	{
+//		if (0 == company.getSubscribedUsers().size())
+//		{
+//			// TODO: Subscribe
+//		}
+//		else
+//		{
+//			
+//			// TODO: Unubscribe
+//		}
+
+		//TODO: This is tmp for debug. Replace by a method that checks the subscription
+		if (company.getName().startsWith("B"))
+		{
+			// TODO: Subscribe
+		}
+		else
+		{
+			
+			// TODO: Unubscribe
+		}
+		
+		//TODO: Return code must match action result
+		return true;
+	}		 
 }
