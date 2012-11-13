@@ -57,6 +57,52 @@
 	</navigation-rule>
 
 	<navigation-rule>
+		<from-view-id>/UserHome.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>CompanyInfo</from-outcome>
+			<to-view-id>/CompanyInfo.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{userBeanW.subscriptionChangeAction(company)}</from-action>
+			<from-outcome>true</from-outcome>
+			<to-view-id>/UserHome.xhtml</to-view-id>
+			<redirect>
+			</redirect>
+		</navigation-case>		
+		<navigation-case>
+			<from-action>#{userBeanW.subscriptionChangeAction(company)}</from-action>
+			<from-outcome>false</from-outcome>
+			<!-- TODO: We should show an error page -->
+			<to-view-id>/UserHome.xhtml</to-view-id>
+			<redirect>
+			</redirect>
+		</navigation-case>		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/Companies.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>CompanyInfo</from-outcome>
+			<to-view-id>/CompanyInfo.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{userBeanW.subscriptionChangeAction(company)}</from-action>
+			<from-outcome>true</from-outcome>
+			<to-view-id>/Companies.xhtml</to-view-id>
+			<redirect>
+			</redirect>
+		</navigation-case>		
+		<navigation-case>
+			<from-action>#{userBeanW.subscriptionChangeAction(company)}</from-action>
+			<from-outcome>false</from-outcome>
+			<!-- TODO: We should show an error page -->
+			<to-view-id>/Companies.xhtml</to-view-id>
+			<redirect>
+			</redirect>
+		</navigation-case>		
+	</navigation-rule>
+		
+	<navigation-rule>
 		<from-view-id>/*</from-view-id>
 		<navigation-case>
 			<from-outcome>SessionTimedOut</from-outcome>
