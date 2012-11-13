@@ -124,14 +124,9 @@ public class UserBeanW {
 	public List<BankTeller> getBankTellerList() throws ConfigurationException
 	{
 		if (FacesContext.getCurrentInstance().getRenderResponse()) {
-			this.bankTellerList = this.bean.getBankTellerList("%"); // Reload to get most recent data.
+			this.bankTellerList = this.bean.getEagerBankTellerList("%"); // Reload to get most recent data.
         }		
 		return this.bankTellerList;		
-	}
-	
-	public BankTeller getUserBankTeller() throws ConfigurationException
-	{
-		return this.bean.getUserBankTeller(user);
 	}
 
 	public String getBankTellerAddress() throws ConfigurationException {

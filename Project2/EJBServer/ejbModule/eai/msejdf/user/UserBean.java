@@ -53,14 +53,16 @@ public class UserBean implements IUserBean {
 
 		// TODO: Validate parameters
 		BankTeller bankTeller = user.getBankTeller();
+		Address bankTellerAdress = bankTeller.getAddress();
 
-		if (null == bankTeller) {
+		if (null == bankTellerAdress) {
 			// Nothing to do
 		} else if (null == bankTeller.getId()) {
 			entityManager.persist(bankTeller);
 		} else {
 			entityManager.merge(bankTeller);
 		}
+
 		entityManager.merge(user);
 
 		if (logger.isDebugEnabled()) {
@@ -94,22 +96,28 @@ public class UserBean implements IUserBean {
 			throw new ConfigurationException(UserBean.EXCEPTION_USER_NOT_FOUND);
 		}
 
-		User returnUser = userList.get(0);
+		User user = userList.get(0);
 
 		// TODO: Review this
-		if (null != returnUser.getAddress()) {
+		if (null != user.getAddress()) {
 			// Force load
-			returnUser.getAddress().getAddress();
+			user.getAddress().getAddress();
 		}
-		if (null != returnUser.getBankTeller()) {
-			// Force load
-			returnUser.getBankTeller().getName();
-		}
+		if (null != user.getBankTeller()) {
 
+			BankTeller bankTeller = user.getBankTeller();
+
+			bankTeller.getId(); // To overcome Lazzy parameter
+			if (null != bankTeller.getAddress()) {
+				bankTeller.getAddress().getAddress(); // To overcome Lazzy
+														// parameter
+			}
+
+		}
 		if (logger.isDebugEnabled()) {
 			logger.debug("getUser(String) - end"); //$NON-NLS-1$
 		}
-		return returnUser;
+		return user;
 	}
 
 	/*
@@ -138,11 +146,20 @@ public class UserBean implements IUserBean {
 			throw new ConfigurationException(UserBean.EXCEPTION_USER_NOT_FOUND);
 		}
 
-		User returnUser = userList.get(0);
+		User user = userList.get(0);
+		BankTeller bankTeller = user.getBankTeller();
+		if (null != bankTeller) {
+			bankTeller.getId(); // To overcome Lazzy parameter
+			if (null != bankTeller.getAddress()) {
+				bankTeller.getAddress().getAddress(); // To overcome Lazzy
+														// parameter
+			}
+		}
+
 		if (logger.isDebugEnabled()) {
 			logger.debug("getUser(String) - end"); //$NON-NLS-1$
 		}
-		return returnUser;
+		return user;
 	}
 
 	/*
@@ -328,16 +345,6 @@ public class UserBean implements IUserBean {
 		return companyList;
 	}
 
-	/*
-	 * (non-Javadoc) Set BankTeller bankTellerId as User userId Bank Teller
-	 * 
-	 * @param Long userId, Long bankTellerId
-	 * 
-	 * @return void
-	 * 
-	 * @see eai.msejdf.user.IUserBean#setBankTeller(java.lang.Long,
-	 * java.lang.Long)
-	 */
 	@Override
 	public void setBankTeller(Long userId, Long bankTellerId)
 			throws ConfigurationException {
@@ -379,6 +386,7 @@ public class UserBean implements IUserBean {
 
 		logger.info("Add bankTeller: " + bankTeller.getName() + " to user: "
 				+ user.getName());
+
 		if (bankTeller.equals(user.getBankTeller())) {
 			// This bankTeller is already user's bankTeller
 			logger.info("This bankTeller is already user's bankTeller");
@@ -394,6 +402,7 @@ public class UserBean implements IUserBean {
 			entityManager.persist(user);
 		} else {
 			logger.info("Persist bankTeller: " + bankTeller.toString());
+			System.out.println(bankTeller.getAddress().getAddress());
 			// Merge the difference in bankTeller
 			entityManager.merge(bankTeller);
 			entityManager.flush();
@@ -425,10 +434,18 @@ public class UserBean implements IUserBean {
 		}
 
 		BankTeller bankTeller = user.getBankTeller();
+		if (null != bankTeller) {
+			bankTeller.getId(); // To overcome Lazzy parameter
+			if (null != bankTeller.getAddress()) {
+				bankTeller.getAddress().getAddress(); // To overcome Lazzy
+														// parameter
+			}
+		}
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("getUserBankTellerList(Long) - end"); //$NON-NLS-1$
 		}
+		System.out.println(bankTeller);
 		return bankTeller;
 	}
 
@@ -462,6 +479,10 @@ public class UserBean implements IUserBean {
 
 		BankTeller bankTeller = bankTellerList.get(0);
 
+		if (null != bankTeller.getAddress()) {
+			bankTeller.getAddress().getAddress();
+		}
+
 		if (logger.isDebugEnabled()) {
 			logger.debug("getBankTeller(String) - end"); //$NON-NLS-1$
 		}
@@ -489,6 +510,38 @@ public class UserBean implements IUserBean {
 
 		@SuppressWarnings("unchecked")
 		List<BankTeller> bankTellerList = query.getResultList();
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("getBankTellerNameList(String) - end"); //$NON-NLS-1$
+		}
+		return bankTellerList;
+	}
+
+	/*
+	 * (non-Javadoc) Get a list of BankTellers that match filterPattern
+	 * 
+	 * @param String filterPattern
+	 * 
+	 * @return List<BankTeller>
+	 * 
+	 * @see eai.msejdf.user.IUserBean#getBankTellerList(java.lang.String)
+	 */
+	@Override
+	public List<BankTeller> getEagerBankTellerList(String filterPattern) {
+		if (logger.isDebugEnabled()) {
+			logger.debug("getBankTellerList(String) - start"); //$NON-NLS-1$
+		}
+
+		Query query = entityManager
+				.createQuery("SELECT bankTeller FROM  BankTeller AS bankTeller WHERE bankTeller.name LIKE :filterPattern");
+		query.setParameter("filterPattern", filterPattern);
+
+		@SuppressWarnings("unchecked")
+		List<BankTeller> bankTellerList = query.getResultList();
+
+		if (0 != bankTellerList.size()) {
+			bankTellerList.get(0).getAddress().getAddress(); // to be eager
+		}
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("getBankTellerNameList(String) - end"); //$NON-NLS-1$
@@ -532,8 +585,18 @@ public class UserBean implements IUserBean {
 	 * .BankTeller, eai.msejdf.persistence.Address)
 	 */
 	@Override
-	public void setBankTellerAddress(BankTeller bankTeller, Address address) {
-		bankTeller.setAddress(address);
+	public void setBankTellerAddress(BankTeller bankTeller) {
+		System.out.println("backTeller is: " + bankTeller);
+		// bankTeller.setAddress(address);
+		Address bankTellerAdress = bankTeller.getAddress();
+		if (null == bankTellerAdress) {
+			// Nothing to do
+		} else if (null == bankTeller.getId()) {
+			entityManager.persist(bankTellerAdress);
+		} else {
+			entityManager.merge(bankTeller);
+		}
+		entityManager.persist(bankTellerAdress);
 		entityManager.persist(bankTeller);
 	}
 
@@ -544,17 +607,17 @@ public class UserBean implements IUserBean {
 	 * eai.msejdf.user.IUserBean#setBankTellerAddressAddress(eai.msejdf.persistence
 	 * .BankTeller, java.lang.String)
 	 */
-	@Override
-	public void setBankTellerAddressAddress(BankTeller bankTeller,
-			String address) {
-		bankTeller.getAddress().setAddress(address);
-		entityManager.persist(bankTeller);
-	}
-
-	@Override
-	public String getBankTellerAddressAddress(BankTeller bankTeller) {
-		return bankTeller.getAddress().getAddress();
-	}
+	// @Override
+	// public void setBankTellerAddressAddress(BankTeller bankTeller,
+	// String address) {
+	// bankTeller.getAddress().setAddress(address);
+	// entityManager.persist(bankTeller);
+	// }
+	//
+	// @Override
+	// public String getBankTellerAddressAddress(BankTeller bankTeller) {
+	// return bankTeller.getAddress().getAddress();
+	// }
 
 	/*
 	 * (non-Javadoc)
@@ -563,11 +626,12 @@ public class UserBean implements IUserBean {
 	 * eai.msejdf.user.IUserBean#setBankTellerAddressCity(eai.msejdf.persistence
 	 * .BankTeller, java.lang.String)
 	 */
-	@Override
-	public void setBankTellerAddressCity(BankTeller bankTeller, String city) {
-		bankTeller.getAddress().setCity(city);
-		entityManager.persist(bankTeller);
-	}
+	// @Override
+	// public void setBankTellerAddressCity(BankTeller bankTeller, String city)
+	// {
+	// bankTeller.getAddress().setCity(city);
+	// entityManager.persist(bankTeller);
+	// }
 
 	/*
 	 * (non-Javadoc)
@@ -576,11 +640,11 @@ public class UserBean implements IUserBean {
 	 * eai.msejdf.user.IUserBean#setBankTellerAddressZipCode(eai.msejdf.persistence
 	 * .BankTeller, java.lang.String)
 	 */
-	@Override
-	public void setBankTellerAddressZipCode(BankTeller bankTeller,
-			String zipCode) {
-		bankTeller.getAddress().setZipCode(zipCode);
-		entityManager.persist(bankTeller);
-	}
+	// @Override
+	// public void setBankTellerAddressZipCode(BankTeller bankTeller,
+	// String zipCode) {
+	// bankTeller.getAddress().setZipCode(zipCode);
+	// entityManager.persist(bankTeller);
+	// }
 
 }

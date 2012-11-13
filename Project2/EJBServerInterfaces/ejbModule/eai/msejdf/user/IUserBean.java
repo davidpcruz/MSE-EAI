@@ -20,44 +20,46 @@ public interface IUserBean {
 
 	public User getUser(String name) throws ConfigurationException;
 
-	public User getUser(Long userid) throws ConfigurationException;
+	public User getUser(Long userId) throws ConfigurationException;
 
-	public Company getCompany(Long userid) throws ConfigurationException;
+	public Company getCompany(Long userId) throws ConfigurationException;
 
 	public List<Company> getCompanyList(String filterPattern);
 
 	public List<String> getCompanyNameList(String filterPattern);
 
-	public void followCompany(Long userid, Long companyId)
+	public void followCompany(Long userId, Long companyId)
 			throws ConfigurationException;
 
-	public void unfollowCompany(Long userid, Long companyId)
+	public void unfollowCompany(Long userId, Long companyId)
 			throws ConfigurationException;
 
 	public List<Company> getfollowedCompanyList(Long id)
 			throws ConfigurationException;
 
-	public void setBankTeller(Long userid, Long companyId)
+	public void setBankTeller(Long userId, Long companyId)
 			throws ConfigurationException;
 
-	public void setBankTeller(Long userid, BankTeller bankTeller)
+	public void setBankTeller(Long userId, BankTeller bankTeller)
 			throws ConfigurationException;
 
-	public BankTeller getBankTeller(Long userid) throws ConfigurationException;
+	public BankTeller getBankTeller(Long userId) throws ConfigurationException;
 
 	public List<BankTeller> getBankTellerList(String filterPattern);
 
 	public List<String> getBankTellerNameList(String filterPattern);
 	public BankTeller getUserBankTeller(User user) throws ConfigurationException;
 
-	void setBankTellerAddress(BankTeller bankTellerId, Address address);
+	void setBankTellerAddress(BankTeller bankTellerId);
 
-	void setBankTellerAddressAddress(BankTeller bankTeller, String address);
+	List<BankTeller> getEagerBankTellerList(String filterPattern);
 
-	void setBankTellerAddressCity(BankTeller bankTeller, String city);
+//	void setBankTellerAddressAddress(BankTeller bankTeller, String address);
+//
+//	void setBankTellerAddressCity(BankTeller bankTeller, String city);
+//
+//	void setBankTellerAddressZipCode(BankTeller bankTeller, String zipCode);
 
-	void setBankTellerAddressZipCode(BankTeller bankTeller, String zipCode);
-
-	String getBankTellerAddressAddress(BankTeller bankTeller);
+//	String getBankTellerAddressAddress(BankTeller bankTeller);
 
 }

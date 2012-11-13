@@ -69,9 +69,6 @@
 			<basic name="name">
 				<column name="name" unique="true" nullable="false" />
 			</basic>
-			<basic name="password">
-				<column name="password" unique="true" nullable="false" />
-			</basic>
 			<one-to-one name="address" fetch="LAZY" target-entity="Address"
 				orphan-removal="true">
 				<cascade>
