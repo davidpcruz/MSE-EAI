@@ -129,7 +129,6 @@ public class UserBeanW {
 	{
 		return this.bean.getUserBankTeller(user);
 	}
-	}
 
 	public String getBankTellerAddress() throws ConfigurationException {
 		return this.user.getBankTeller().getAddress().getAddress();
