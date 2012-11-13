@@ -52,7 +52,7 @@ public class TestRegister {
 		credentials.setUsername(user);
 		credentials.setPassword(pass);
 		
-		bean.RegisterUser(credentials);
+		bean.registerUser(credentials);
 		
 		System.out.println("User registered");
 	}

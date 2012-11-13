@@ -94,31 +94,31 @@ public class TestUserBean {
 		// e.printStackTrace();
 		// }
 		//
-		// // Follow companies
-		// try {
-		// TestfollowCompany(bean, userId_1, companyId_1);
-		// } catch (ConfigurationException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		// try {
-		// TestfollowCompany(bean, userId_1, companyId_2);
-		// } catch (ConfigurationException e1) {
-		// // TODO Auto-generated catch block
-		// e1.printStackTrace();
-		// }
-		// try {
-		// TestfollowCompany(bean, userId_1, companyId_2);
-		// } catch (ConfigurationException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		// try {
-		// TestfollowCompany(bean, userId_1, companyId_3);
-		// } catch (ConfigurationException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
+		 // Follow companies
+		 try {
+		 TestfollowCompany(bean, userId_1, companyId_1);
+		 } catch (ConfigurationException e) {
+		 // TODO Auto-generated catch block
+		 e.printStackTrace();
+		 }
+		 try {
+		 TestfollowCompany(bean, userId_1, companyId_2);
+		 } catch (ConfigurationException e1) {
+		 // TODO Auto-generated catch block
+		 e1.printStackTrace();
+		 }
+		 try {
+		 TestfollowCompany(bean, userId_1, companyId_2);
+		 } catch (ConfigurationException e) {
+		 // TODO Auto-generated catch block
+		 e.printStackTrace();
+		 }
+		 try {
+		 TestfollowCompany(bean, userId_1, companyId_3);
+		 } catch (ConfigurationException e) {
+		 // TODO Auto-generated catch block
+		 e.printStackTrace();
+		 }
 		// try {
 		// TestfollowCompany(bean, userId_2, companyId_1);
 		// } catch (ConfigurationException e) {
