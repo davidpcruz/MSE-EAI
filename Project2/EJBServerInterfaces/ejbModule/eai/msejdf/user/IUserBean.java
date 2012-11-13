@@ -22,7 +22,7 @@ public interface IUserBean {
 
 	public User getUser(Long userId) throws ConfigurationException;
 
-	public Company getCompany(Long userId) throws ConfigurationException;
+	public Company getCompany(Long companyId) throws ConfigurationException;
 
 	public List<Company> getCompanyList(String filterPattern);
 

@@ -15,7 +15,7 @@ import eai.msejdf.security.ISecurity;
 import eai.msejdf.security.credentials.AdminCredentials;
 import eai.msejdf.security.credentials.UserCredentials;
 
-public class TestCheckUser {
+public class TestChangePassword {
 
 	/**
 	 * @param args
@@ -30,12 +30,12 @@ public class TestCheckUser {
 		System.out.println("Username: ");
 		String user = br.readLine();
 		
-		System.out.println("Password: ");
+		System.out.println("New Password: ");
 		String pass = br.readLine();
 
 		System.out.println("User type (u=user; a=admin)");
 		String type = br.readLine();
-		 
+		
 		if (type.equals("a"))
 		{
 			credentials = new AdminCredentials();
@@ -48,16 +48,10 @@ public class TestCheckUser {
 		credentials.setUsername(user);
 		credentials.setPassword(pass);
 		 
-		boolean userValid = bean.checkUser(credentials);
+		bean.updateUserCredentials(credentials);
 		
-		if (false != userValid)
-		{
-			System.out.println("User credentials valid");
-		}
-		else
-		{
-			System.out.println("User credentials NOT valid");
-		}
+		System.out.println("User credentials updated");
+		
 	}
 
 }
