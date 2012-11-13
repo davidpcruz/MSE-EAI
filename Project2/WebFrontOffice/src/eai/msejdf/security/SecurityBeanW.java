@@ -54,7 +54,7 @@ public class SecurityBeanW
 		credentials.setUsername(this.getUsername());
 		credentials.setPassword(this.getPassword());
 		
-		boolean result = this.bean.CheckUser(credentials);
+		boolean result = this.bean.checkUser(credentials);
 		
 		if (false != result)
 		{

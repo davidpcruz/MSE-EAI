@@ -15,12 +15,18 @@ public interface ISecurity {
 	 * @param credentials The credentials identifying a user
 	 * @throws SecurityException Exception in case the registration failed
 	 */
-	public void RegisterUser(Credentials credentials) throws SecurityException;
+	public void registerUser(Credentials credentials) throws SecurityException;
 	
 	/** Checks if a the supplied user credentials are valid
 	 * @param credentials The credentials identifying a user
-	 * @throws SecurityException Exception in case the registration failed
+	 * @throws SecurityException Exception in case the validation failed
 	 */
-	public boolean CheckUser(Credentials credentials) throws SecurityException;
+	public boolean checkUser(Credentials credentials) throws SecurityException;
+
+	/** Changes the credentials associated with a user (password)
+	 * @param credentials The credentials identifying a user and to be used
+	 * @throws SecurityException Exception in case the update failed
+	 */
+	public void updateUserCredentials(Credentials credentials) throws SecurityException;
 
 }
