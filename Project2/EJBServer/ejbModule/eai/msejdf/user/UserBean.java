@@ -53,9 +53,8 @@ public class UserBean implements IUserBean {
 
 		// TODO: Validate parameters
 		BankTeller bankTeller = user.getBankTeller();
-		Address bankTellerAdress = bankTeller.getAddress();
 
-		if (null == bankTellerAdress) {
+		if (null == bankTeller) {
 			// Nothing to do
 		} else if (null == bankTeller.getId()) {
 			entityManager.persist(bankTeller);
