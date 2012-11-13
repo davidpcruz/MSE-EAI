@@ -3,6 +3,7 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
@@ -21,7 +22,9 @@ public class UserBeanW
 	private IUserBean bean;
 	private User user;
 	private String birthDate;
- 	
+	List<Company> followedCompanyList;
+	List<Company> companyList;
+	List<BankTeller> bankTellerList;
 	
 	public UserBeanW() throws NamingException, ConfigurationException
 	{
@@ -74,16 +77,25 @@ public class UserBeanW
 	
 	public List<Company> getFollowedCompanyList() throws ConfigurationException
 	{
-		return this.bean.getfollowedCompanyList(user.getId());
+		if (FacesContext.getCurrentInstance().getRenderResponse()) {
+			this.followedCompanyList = this.bean.getfollowedCompanyList(user.getId()); // Reload to get most recent data.
+        }		
+		return this.followedCompanyList;		
 	}
 	
 	public List<Company> getCompanyList() throws ConfigurationException
 	{
-		return this.bean.getCompanyList("%");
+		if (FacesContext.getCurrentInstance().getRenderResponse()) {
+			this.companyList = this.bean.getCompanyList("%"); // Reload to get most recent data.
+        }		
+		return this.companyList;		
 	}
 	public List<BankTeller> getBankTellerList() throws ConfigurationException
 	{
-		return this.bean.getBankTellerList("%");
+		if (FacesContext.getCurrentInstance().getRenderResponse()) {
+			this.bankTellerList = this.bean.getBankTellerList("%"); // Reload to get most recent data.
+        }		
+		return this.bankTellerList;		
 	}
 	
 	public BankTeller getUserBankTeller() throws ConfigurationException
