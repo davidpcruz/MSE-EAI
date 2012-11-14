@@ -59,12 +59,12 @@
     TARGET="rules:#CompanyInfo.xhtml" TITLE="CompanyInfo" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="true:#{userBeanW.subscriptionChangeAction(company)}:#Companies.xhtml"
-    NAME="output1" PATH="/Companies.xhtml"
+    NAME="output2" PATH="/Companies.xhtml"
     TARGET="rules:#Companies.xhtml"
     TITLE="#{userBeanW.subscriptionChangeAction(company)}:true" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="false:#{userBeanW.subscriptionChangeAction(company)}:#Companies.xhtml"
-    NAME="output2" PATH="/Companies.xhtml"
+    NAME="output3" PATH="/Companies.xhtml"
     TARGET="rules:#Companies.xhtml"
     TITLE="#{userBeanW.subscriptionChangeAction(company)}:false" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>

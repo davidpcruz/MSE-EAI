@@ -95,11 +95,9 @@
 				<h:outputText value="Details" />
 			</f:facet>
 
-			<h:form>
-				<h:commandLink
-					value="Details"
-					action="CompanyInfo" />
-			</h:form>
+			<a href="CompanyInfo.jsf?CompanyId=#{company.id}"> <h:outputText
+					value="Details" />
+			</a>
 		</h:column>
 
 		<h:column>

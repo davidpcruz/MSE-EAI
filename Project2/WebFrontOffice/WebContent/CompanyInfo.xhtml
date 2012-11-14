@@ -2,14 +2,17 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:msejdf="http://java.sun.com/jsf/composite/msejdf">
 
 <ui:composition template="/WEB-INF/templates/DefaultTemplate.xhtml">
-    <ui:define name="content">
-    	<h:outputText value="Here you can see the details of a company" />
-    </ui:define>
+	<ui:define name="content">
+		<h:outputText value="Here you can see the details of a company" />
+		<msejdf:CompaniesSummaryList
+			companyList="#{userBeanW.getCompany(param.CompanyId)}"></msejdf:CompaniesSummaryList>
+	</ui:define>
 </ui:composition>
 </html>
 
