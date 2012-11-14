@@ -95,9 +95,9 @@
 				<h:outputText value="Details" />
 			</f:facet>
 
-			<a href="CompanyInfo.jsf?CompanyId=#{company.id}"> <h:outputText
-					value="Details" />
-			</a>
+			<h:link outcome="CompanyDetails" value="Details">
+				<f:param name="CompanyId" value="#{company.id}" />
+			</h:link>
 		</h:column>
 
 		<h:column>
@@ -108,7 +108,11 @@
 			<h:form>
 				<h:commandLink
 					value="#{userBeanW.getSubscriptionChangeAction(company)}"
-					action="#{userBeanW.subscriptionChangeAction(company)}" />
+					action="#{userBeanW.subscriptionChangeAction(company)}">
+
+					<f:param name="CompanyId" value="#{company.id}" />
+				</h:commandLink>
+
 			</h:form>
 		</h:column>
 

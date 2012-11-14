@@ -6,4 +6,24 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd"
     version="2.1">
 
+	<navigation-rule>
+		<from-view-id>/Login.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{securityBeanW.checkUserCredentials}</from-action>
+			<from-outcome>true</from-outcome>
+			<to-view-id>/AdminHome.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{securityBeanW.checkUserCredentials}</from-action>
+			<from-outcome>false</from-outcome>
+			<to-view-id>/Login.xhtml</to-view-id>
+			<redirect>
+				<view-param>
+					<name>message</name>
+					<value>WrongUserPasswordError</value>
+				</view-param>
+			</redirect>
+		</navigation-case>
+	</navigation-rule>
 </faces-config>

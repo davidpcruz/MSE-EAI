@@ -15,5 +15,7 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/EJBServerInterfaces"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/JPAData"/>
+	<classpathentry kind="lib" path="lib/jboss-jsf-api_2.1_spec-2.0.1.Final.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/EAICommon"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

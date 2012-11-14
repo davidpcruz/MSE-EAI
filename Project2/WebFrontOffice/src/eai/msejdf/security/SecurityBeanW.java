@@ -4,7 +4,7 @@ import javax.faces.bean.ViewScoped;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import eai.msejdf.session.SessionManager;
+import eai.msejdf.web.session.SessionManager;
 import eai.msejdf.exception.SecurityException;
 import eai.msejdf.security.ISecurity;
 import eai.msejdf.security.credentials.Credentials;

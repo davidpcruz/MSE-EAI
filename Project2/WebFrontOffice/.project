@@ -5,6 +5,7 @@
 	<projects>
 		<project>EJBServerInterfaces</project>
 		<project>JPAData</project>
+		<project>EAICommon</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

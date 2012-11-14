@@ -16,7 +16,7 @@ import eai.msejdf.persistence.Address;
 import eai.msejdf.persistence.BankTeller;
 import eai.msejdf.persistence.Company;
 import eai.msejdf.persistence.User;
-import eai.msejdf.session.SessionManager;
+import eai.msejdf.web.session.SessionManager;
 
 @ManagedBean
 @ViewScoped
@@ -45,7 +45,8 @@ public class UserBeanW {
 				.lookup("ejb:P2EARDeploy/EJBServer/UserBean!eai.msejdf.user.IUserBean");
 
 		// TODO
-		this.user = bean.getUser(SessionManager.getProperty(SessionManager.USERNAME_PROPERTY));
+		this.user = bean.getUser(SessionManager
+				.getProperty(SessionManager.USERNAME_PROPERTY));
 		this.bankTeller = new BankTeller();
 		this.address = new Address();
 		this.bankTeller.setAddress(address);
@@ -140,8 +141,9 @@ public class UserBeanW {
 
 	public List<Company> getFollowedCompanyList() throws ConfigurationException {
 		if (FacesContext.getCurrentInstance().getRenderResponse()) {
+			// Reload to get most recent data.
 			this.followedCompanyList = this.bean.getfollowedCompanyList(user
-					.getId()); // Reload to get most recent data.
+					.getId());
 		}
 		return this.followedCompanyList;
 	}
@@ -150,21 +152,34 @@ public class UserBeanW {
 		if (FacesContext.getCurrentInstance().getRenderResponse()) {
 			// Reload to get most recent data.
 			this.companyList = this.bean.getCompanyList("%");
-			// Get also the followed list, as we need to know the subscription status
-			this.followedCompanyList = this.bean.getfollowedCompanyList(user.getId()); 
+			// Get also the followed list, as we need to know the subscription
+			// status
+			this.followedCompanyList = this.bean.getfollowedCompanyList(user
+					.getId());
 		}
 		return this.companyList;
 	}
 
 	public Company getCompany(Long companyId) throws ConfigurationException {
-		if (FacesContext.getCurrentInstance().getRenderResponse()) {//Reload to get  most recent  data.
-			this.company = this.bean.getCompany(companyId); 
-}
+		// Reload to get most recent data.
+		if (FacesContext.getCurrentInstance().getRenderResponse()) {
+
+			this.company = this.bean.getCompany(companyId);
+
+			// Get also the followed list, as we need to know the subscription
+			// status
+			this.followedCompanyList = this.bean.getfollowedCompanyList(user
+					.getId());
+		}
 		return this.company;
 	}
+
 	public List<BankTeller> getBankTellerList() throws ConfigurationException {
 		if (FacesContext.getCurrentInstance().getRenderResponse()) {
-			this.bankTellerList = this.bean.getBankTellerList("%"); // Reload to get most recent data.
+			this.bankTellerList = this.bean.getBankTellerList("%"); // Reload to
+																	// get most
+																	// recent
+																	// data.
 		}
 		return this.bankTellerList;
 	}
@@ -172,9 +187,10 @@ public class UserBeanW {
 	public String getSubscriptionChangeAction(Company company) {
 		// If the followedCompanyList has data, it was already loaded
 		if ((null == this.followedCompanyList)
-				|| (false == this.listContainsCompanyById(this.followedCompanyList, company))) {
+				|| (false == this.listContainsCompanyById(
+						this.followedCompanyList, company))) {
 			return UserBeanW.SUBSCRIBE_ACTION_NAME;
-		}		
+		}
 		return UserBeanW.UNSUBSCRIBE_ACTION_NAME;
 	}
 
@@ -182,7 +198,8 @@ public class UserBeanW {
 		try {
 			// If the followedCompanyList has data, it was already loaded
 			if ((null == this.followedCompanyList)
-					|| (false == this.listContainsCompanyById(this.followedCompanyList, company))) {
+					|| (false == this.listContainsCompanyById(
+							this.followedCompanyList, company))) {
 				this.bean.followCompany(this.user.getId(), company.getId());
 			} else {
 				this.bean.unfollowCompany(this.user.getId(), company.getId());
@@ -221,18 +238,15 @@ public class UserBeanW {
 		return result;
 	}
 
-	private boolean listContainsCompanyById(List<Company> list, Company company)
-	{
+	private boolean listContainsCompanyById(List<Company> list, Company company) {
 		Long id = company.getId();
-		
-		for (Company comp : list)
-		{
-			if (comp.getId().equals(id))
-			{
+
+		for (Company comp : list) {
+			if (comp.getId().equals(id)) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 }

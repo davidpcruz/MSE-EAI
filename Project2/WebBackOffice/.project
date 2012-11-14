@@ -3,6 +3,9 @@
 	<name>WebBackOffice</name>
 	<comment></comment>
 	<projects>
+		<project>JPAData</project>
+		<project>EAICommon</project>
+		<project>EJBServerInterfaces</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

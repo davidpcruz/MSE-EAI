@@ -179,8 +179,7 @@ public class UserBean implements IUserBean {
 			logger.debug("getCompany(String) - start"); //$NON-NLS-1$
 		}
 
-		System.out.println("CompanyId: " + companyId);
-		// TODO Auto-generated method stub
+
 		// TODO: Validate parameters
 		Query query = entityManager
 				.createQuery("SELECT Company FROM Company company WHERE company.id=:id ORDER BY company.name");

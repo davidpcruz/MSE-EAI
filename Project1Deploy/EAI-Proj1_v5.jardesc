@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<jardesc>
+    <jar path="Project1/deploy/EAI-Proj1_v5.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/Project1/deploy/EAI-Proj1_v5.jardesc" exportErrors="false" exportWarnings="false" includeDirectoryEntries="false" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+    <selectedProjects/>
+    <manifest generateManifest="true" manifestLocation="/Project1/deploy/EAI-Proj1_v5.manifest" manifestVersion="1.0" reuseManifest="false" saveManifest="true" usesManifest="true">
+        <sealing sealJar="false">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportJavaFiles="true" exportOutputFolder="false">
+        <javaElement handleIdentifier="=Project1/src&lt;eai.msejdf.utils"/>
+        <file path="/Project1/.project"/>
+        <javaElement handleIdentifier="=Project1/src&lt;eai.msejdf.jms"/>
+        <javaElement handleIdentifier="=Project1/src&lt;eai.msejdf.web"/>
+        <file path="/Project1/.classpath"/>
+        <javaElement handleIdentifier="=Project1/src&lt;eai.msejdf.data"/>
+        <javaElement handleIdentifier="=Project1/src&lt;eai.msejdf.apps"/>
+        <javaElement handleIdentifier="=Project1/src&lt;eai.msejdf.rrd"/>
+        <javaElement handleIdentifier="=Project1/src&lt;eai.msejdf.daemons"/>
+        <javaElement handleIdentifier="=Project1/src&lt;eai.msejdf.config"/>
+    </selectedElements>
+</jardesc>
