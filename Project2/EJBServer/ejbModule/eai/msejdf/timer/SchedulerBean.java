@@ -23,7 +23,7 @@ import eai.msejdf.utils.StringUtils;
  */
 @Stateless
 //@LocalBean
-public class SchedulerBean {
+public class SchedulerBean  {
 
 	/**
 	 * Logger for this class
