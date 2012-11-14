@@ -147,10 +147,6 @@
 			<from-outcome>true</from-outcome>
 			<to-view-id>/AddBankTeller.xhtml</to-view-id>
 			<redirect>
-				<view-param>
-					<name>message</name>
-					<value>WrongBankTellerInfoError</value>
-				</view-param>
 			</redirect>
 		</navigation-case>
 		<navigation-case>
@@ -163,10 +159,6 @@
 			<from-outcome>true</from-outcome>
 			<to-view-id>/BankTeller.xhtml</to-view-id>
 			<redirect>
-				<view-param>
-					<name>message</name>
-					<value>WrongBankTellerInfoError</value>
-				</view-param>
 			</redirect>
 		</navigation-case>
 		<navigation-case>
