@@ -3,9 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 	<display-name>WebFrontOffice</display-name>
+<!--  
 	<listener>
-		<listener-class>eai.msejdf.session.SessionListener</listener-class>
+		<listener-class>eai.msejdf.web.session.SessionListener</listener-class>
 	</listener>
+-->	
  	<error-page>
 		<exception-type>javax.faces.application.ViewExpiredException</exception-type>
 		<location>/Login.xhtml</location>

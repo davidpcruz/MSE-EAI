@@ -8,7 +8,7 @@ import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import eai.msejdf.session.SessionManager;
+import eai.msejdf.web.session.SessionManager;
 import eai.msejdf.exception.ConfigurationException;
 import eai.msejdf.persistence.Address;
 import eai.msejdf.persistence.BankTeller;

@@ -8,6 +8,9 @@
         <dependent-module archiveName="EJBServerInterfaces.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/EJBServerInterfaces/EJBServerInterfaces">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="EAICommon.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/EAICommon/EAICommon">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="java-output-path" value="/WebFrontOffice/build/classes"/>
         <property name="context-root" value="WebFrontOffice"/>
     </wb-module>

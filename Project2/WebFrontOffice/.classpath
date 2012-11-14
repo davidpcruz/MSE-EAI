@@ -15,5 +15,6 @@
 	</classpathentry>
 	<classpathentry combineaccessrules="false" kind="src" path="/EJBServerInterfaces"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/JPAData"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/EAICommon"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

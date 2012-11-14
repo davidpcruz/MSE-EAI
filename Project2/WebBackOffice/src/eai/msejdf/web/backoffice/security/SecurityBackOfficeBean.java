@@ -1,29 +1,34 @@
-package eai.msejdf.security;
+package eai.msejdf.web.backoffice.security;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import eai.msejdf.web.session.SessionManager;
 import eai.msejdf.exception.SecurityException;
 import eai.msejdf.security.ISecurity;
+import eai.msejdf.security.credentials.AdminCredentials;
 import eai.msejdf.security.credentials.Credentials;
-import eai.msejdf.security.credentials.UserCredentials;
+import eai.msejdf.utils.EJBLookupConstants;
+import eai.msejdf.web.session.SessionManager;
 
-@ManagedBean
+@ManagedBean(name="securityBeanW")
 @ViewScoped
-public class SecurityBeanW
+public class SecurityBackOfficeBean
 {
 	private ISecurity bean;
 	private String username;
 	private String password;
 	
-	public SecurityBeanW() throws NamingException
+	/**
+	 * Hnaldes the login of the back office users
+	 * @throws NamingException
+	 */
+	public SecurityBackOfficeBean() throws NamingException
 	{
 		InitialContext ctx = new InitialContext();
 	
-		// TODO: Remove hardcoded
-		bean = (ISecurity) ctx.lookup("ejb:P2EARDeploy/EJBServer/Security!eai.msejdf.security.ISecurity");
+		bean = (ISecurity) ctx.lookup(EJBLookupConstants.EJB_I_SECURITY);
 	}
 	
 	public ISecurity bean()
@@ -47,9 +52,15 @@ public class SecurityBeanW
 		this.password = password;
 	}
 
+	/**
+	 * Chacks the user credentials
+	 * @return
+	 * @throws SecurityException
+	 */
 	public boolean checkUserCredentials() throws SecurityException
 	{
-		Credentials credentials = new UserCredentials();
+		// creates a admin credentials class fro login in the back office
+		Credentials credentials = new AdminCredentials();
 		
 		credentials.setUsername(this.getUsername());
 		credentials.setPassword(this.getPassword());

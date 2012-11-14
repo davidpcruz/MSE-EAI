@@ -1,4 +1,4 @@
-package eai.msejdf.session;
+package eai.msejdf.web.session;
 
 import java.util.Date;
 
