@@ -16,7 +16,7 @@
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#Help.xhtml" PATH="/Help.xhtml"
-  SHAPE="288,80,50,25" model-entity="JSFProcessGroup" persistent="true"/>
+  SHAPE="416,64,50,25" model-entity="JSFProcessGroup" persistent="true"/>
  <PROCESS-ITEM NAME="rules:#AdminHome.xhtml" PATH="/AdminHome.xhtml"
   SHAPE="176,240,50,25" model-entity="JSFProcessGroup" persistent="true"/>
 </PROCESS>

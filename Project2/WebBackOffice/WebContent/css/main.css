@@ -1,7 +1,9 @@
 @CHARSET "ISO-8859-1";
 
-.body {
-	font-family: verdana;
+
+body {
+	font-weight: normal;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 
 .errorMessage {
@@ -14,6 +16,10 @@
 
 .warnMessage {
 	color: orange;
+}
+
+#tableList {
+	width: 100%;
 }
 
 #headerTitle {

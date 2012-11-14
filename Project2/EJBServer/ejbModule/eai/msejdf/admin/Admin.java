@@ -1,23 +1,25 @@
 package eai.msejdf.admin;
 
-import org.apache.log4j.Logger;
-
 import java.util.List;
 
 import javax.ejb.LocalBean;
-import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import eai.msejdf.admin.IAdmin;
+import org.apache.log4j.Logger;
+
 import eai.msejdf.persistence.Company;
 import eai.msejdf.persistence.User;
+import eai.msejdf.sort.CompanySort;
+import eai.msejdf.sort.UserSort;
+import eai.msejdf.utils.StringUtils;
 
 /**
  * Bean implementing interface for administration related calls
  */
-@Stateful
+@Stateless
 @LocalBean
 public class Admin implements IAdmin {
 	/**
@@ -29,7 +31,7 @@ public class Admin implements IAdmin {
 	private EntityManager entityManager;
 
 	/*
-	 * (non-Javadoc) Get a list of Users in the system (sorttype and
+	 * (non-Javadoc) Get a list of Users in the system (
 	 * ageThreshold are not implemented yet)
 	 * 
 	 * @param int sortType, int ageThreshold
@@ -40,19 +42,42 @@ public class Admin implements IAdmin {
 	 */
 
 	@Override
-	public List<User> getUserList(int sortType, int ageThreshold) {
+	public List<User> getUserList(UserSort sortType)
+	{
+		return this.getUserList(null, sortType);
+	}
+	
+	/* (non-Javadoc)
+	 * @see eai.msejdf.admin.IAdmin#getUserList(java.lang.Integer, eai.msejdf.admin.UserSort)
+	 */
+	@Override
+	public List<User> getUserList(Integer ageThreshold, UserSort sortType) {
 		if (logger.isDebugEnabled()) {
-			logger.debug("getUserList(int, int) - start"); //$NON-NLS-1$
+			logger.debug("getUserList(Integer, UserSort) - start"); //$NON-NLS-1$
 		}
 
+		String sortBy = "";
+		switch (sortType)
+		{
+			case BIRTHDAY_ASC:
+				sortBy = "ORDER BY user.birthDate ASC";
+				break;
+			case BIRTHDAY_DESC:
+				sortBy = "ORDER BY user.birthDate DESC";
+				break;
+			default:
+				sortBy = "";
+				break;
+		}
+		
 		Query query = entityManager
-				.createQuery("SELECT user FROM  User AS user  ORDER BY user.name");
+				.createQuery("SELECT user FROM  User AS user " + sortBy);
 
 		@SuppressWarnings("unchecked")
 		List<User> userList = query.getResultList();
-
+		
 		if (logger.isDebugEnabled()) {
-			logger.debug("getUserList(int, int) - end"); //$NON-NLS-1$
+			logger.debug("getUserList(Integer, UserSort) - end"); //$NON-NLS-1$
 		}
 		return userList;
 	}
@@ -97,8 +122,8 @@ public class Admin implements IAdmin {
 	}
 
 	/*
-	 * (non-Javadoc)Get a list of Companies in the system that mach the
-	 * filterPattern (sorttype are not implemented yet)
+	 * (non-Javadoc)Get a list of Companies in the system that match the
+	 * filterPattern 
 	 * 
 	 * @param String filterPattern, int sortType
 	 * 
@@ -107,15 +132,34 @@ public class Admin implements IAdmin {
 	 * @see eai.msejdf.admin.IAdmin#getCompanyList(java.lang.String, int)
 	 */
 	@Override
-	public List<Company> getCompanyList(String filterPattern, int sortType) {
+	public List<Company> getCompanyList(String filterPattern, CompanySort sortType) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getCompanyList(String, int) - start"); //$NON-NLS-1$
 		}
 
+		// basic validations
+		if (StringUtils.isNullOrEmpty(filterPattern))
+		{
+			throw new IllegalArgumentException("filterPattern");
+		}		
+		
+		String sortBy = "";
+		switch (sortType)
+		{
+			case NAME_ASC:
+				sortBy = "ORDER BY comp.name ASC";
+				break;
+			case NAME_DESC:
+				sortBy = "ORDER BY comp.name DESC";
+				break;
+			default:
+				sortBy = "";
+				break;
+		}		
+		
 		// Query query = entityManager
-		// .createQuery("SELECT u FROM User AS u JOIN u.subscribedCompanies AS c WHERE c.id=:id");
 		Query query = entityManager
-				.createQuery("SELECT comp FROM Company as comp WHERE comp.name LIKE :filterPattern");
+				.createQuery("SELECT comp FROM Company as comp WHERE comp.name LIKE :filterPattern " + sortBy);
 
 		query.setParameter("filterPattern", filterPattern);
 
