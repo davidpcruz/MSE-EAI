@@ -3,9 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 	<display-name>WebBlackOffice</display-name>
+<!-- 
 	<listener>
 		<listener-class>eai.msejdf.web.session.SessionListener</listener-class>
 	</listener>
+ -->	
  	<error-page>
 		<exception-type>javax.faces.application.ViewExpiredException</exception-type>
 		<location>/Login.xhtml</location>
@@ -25,7 +27,7 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
-		<url-pattern>/faces/*</url-pattern>
+		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>Login.xhtml</welcome-file>
