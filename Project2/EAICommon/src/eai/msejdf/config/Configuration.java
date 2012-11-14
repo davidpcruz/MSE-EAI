@@ -47,8 +47,18 @@ public final class Configuration
 	/** The Constant containing the  connection timeout time */
 	private static final String CONNECTION_TIMEOUT = "app.web.connectiontimeout"; 
 
-	/** The Constant containing the  connection timeout time */
+	/** The Constant containing the SMTP mail host */
 	private static final String SMTP_HOST = "mail.smtp.host"; 	
+
+	/** The Constant containing the from address to send emails */
+	private static final String EMAIL_FROM_ADDRESS = "mail.emailfrom.address"; 	
+
+	/** The Constant containing the user for authentication on the smtp server */
+	private static final String SMTP_USER = "mail.smtp.user"; 	
+
+	/** The Constant containing the password for authentication on the smtp server */
+	private static final String SMTP_PASS = "mail.smtp.pass"; 	
+
 	
 	private static Properties props;
 
@@ -183,4 +193,36 @@ public final class Configuration
 		return getProperties().getProperty(SMTP_HOST);
 	}
 
+	/**
+	 * Gets the smtp user.
+	 *
+	 * @return the smtp user
+	 */
+	public static String getSmtpUser()
+	{
+		return getProperties().getProperty(SMTP_USER);
+	}
+
+	/**
+	 * Gets the smtp password.
+	 *
+	 * @return the smtp password
+	 */
+	public static String getSmtpPass()
+	{
+		return getProperties().getProperty(SMTP_PASS);
+	}
+
+	
+	/**
+	 * Gets the email from to send messages
+	 * 
+	 * @return the email address
+	 */
+	public static String getEmailFromAddress()
+	{
+		return getProperties().getProperty(EMAIL_FROM_ADDRESS);
+	}
+
+	
 }

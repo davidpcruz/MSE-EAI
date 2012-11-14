@@ -15,6 +15,7 @@ import eai.msejdf.config.Configuration;
 
 public class EmailUtils
 {
+	private static final String MAIL_SMTP_AUTH = "mail.smtp.auth";
 	private static final String MAIL_SMTP_HOST = "mail.smtp.host";
 	/**
 	 * Logger for this class
@@ -24,14 +25,19 @@ public class EmailUtils
 	public static boolean sendEmail(String from, String to, String subject,
 			String message)
 	{
+		// create a new authenticator for the SMTP server
+		EmailUtilsAuthenticator authenticator = new EmailUtilsAuthenticator();
+		
 		// Get system properties
 		Properties properties = System.getProperties();
 
 		// Setup mail server
 		properties.setProperty(MAIL_SMTP_HOST, Configuration.getSmtpHost());
-
-		// Get the default Session object.
-		Session session = Session.getDefaultInstance(properties);
+		// setup the authentication
+		properties.setProperty(MAIL_SMTP_AUTH, "true");
+		
+		// Get the Session object with the authenticator.
+		Session session = Session.getInstance(properties, authenticator);
 
 		try
 		{
