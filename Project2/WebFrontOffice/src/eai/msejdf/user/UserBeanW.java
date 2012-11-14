@@ -21,7 +21,10 @@ public class UserBeanW {
 
 	private final static String SUBSCRIBE_ACTION_NAME = "Subscribe";
 	private final static String UNSUBSCRIBE_ACTION_NAME = "Unsubscribe";
-
+	private final static String SET_ACTION_NAME = "Set";
+	private final static String UNSET_ACTION_NAME = "Actual";
+	
+	
 	private IUserBean bean;
 	private User user;
 	private BankTeller bankTeller;
@@ -200,24 +203,22 @@ public class UserBeanW {
 		// TODO: This is tmp for debug. Replace by a method that checks the
 		// subscription
 
-		return (!(user.getBankTeller().getId().equals(bankTeller.getId())) ? UserBeanW.SUBSCRIBE_ACTION_NAME
-				: UserBeanW.UNSUBSCRIBE_ACTION_NAME);
+		return (!(user.getBankTeller().getId().equals(bankTeller.getId())) ? UserBeanW.SET_ACTION_NAME
+				: UserBeanW.UNSET_ACTION_NAME);
 	}
 
-	public boolean subscriptionChangeActionBankTeller(BankTeller bankTeller) {
+	public boolean subscriptionChangeActionBankTeller(BankTeller bankTeller) throws ConfigurationException {
+		boolean result = false;
 
-		// TODO: This is tmp for debug. Replace by a method that checks the
-		// subscription
-		if (!user.getBankTeller().getId().equals(bankTeller.getId())) {
-			try {
-				this.bean.setBankTeller(this.user.getId(),
-						this.user.getBankTeller());
-			} catch (ConfigurationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} 
+//		if (!user.getBankTeller().getId().equals(bankTeller.getId())) {
+			
+
+				this.bean.setBankTeller(this.user.getId(), bankTeller.getId());
+				result = true;
+
+	
+
 		// TODO: Return code must match action result
-		return true;
+		return result;
 	}
 }

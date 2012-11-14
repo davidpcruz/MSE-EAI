@@ -10,27 +10,23 @@
 <ui:composition template="/WEB-INF/templates/DefaultTemplate.xhtml">
 	<ui:define name="content">
 
-		<h:outputText
-			value="Hi #{userBeanW.user.name}, your current Bank Teller is: #{userBeanW.user.bankTeller.name}." />
-
-		<!--  			<h:outputText  -->
-		<!--  			value="Address: #{userBeanW.user.bankTeller.address.address} " />  -->
-		<!-- 		<h:outputText value="City: #{userBeanW.user.bankTeller.address.city} " /> -->
-		<!-- 		<h:outputText -->
-		<!-- 			value="ZipCode: #{userBeanW.user.bankTeller.address.zipCode} " /> -->
+		<h:outputText value="Hi " />
+		<b><h:outputText value="#{userBeanW.user.name}" /></b>
+		<h:outputText value=", your current Bank Teller is:" />
+		<b><h:outputText value=" #{userBeanW.user.bankTeller.name}." /></b>
 
 		<p>Do you want to change your Bank Teller? Simply select one of
 			the list or create a new one.</p>
 
 
-		<h:outputText value="Here you can see all  Bank Teller information" />
 		<msejdf:BankTellersSummaryList
 			bankTellerList="#{userBeanW.bankTellerList}"></msejdf:BankTellersSummaryList>
 
 		<h:form>
-			<h:commandButton value="Add New Bank Teller" action="#{userBeanW.addBankTeller}"></h:commandButton>
+			<h:commandButton value="Add New Bank Teller"
+				action="#{userBeanW.addBankTeller}"></h:commandButton>
 		</h:form>
-		
+
 	</ui:define>
 
 </ui:composition>

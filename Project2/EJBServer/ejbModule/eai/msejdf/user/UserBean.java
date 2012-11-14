@@ -353,13 +353,13 @@ public class UserBean implements IUserBean {
 			logger.debug("setBankTeller(Long, Long) - start"); //$NON-NLS-1$
 		}
 
-		// User user = getUser(userId);
+		User user = getUser(userId);
 		BankTeller bankTeller = getBankTeller(bankTellerId);
-		setBankTeller(userId, bankTeller);
-		// logger.info("Add bankTeller: " + bankTeller.getName() + " to user: "
-		// + user.getName());
-		// user.setBankTeller(bankTeller);
-		// entityManager.persist(user);
+
+		// Setting user BankTeller
+		user.setBankTeller(bankTeller);
+
+		entityManager.persist(user);
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("setBankTeller(Long, Long) - end"); //$NON-NLS-1$
@@ -383,7 +383,7 @@ public class UserBean implements IUserBean {
 			logger.debug("setBankTeller(Long, BankTeller) - start"); //$NON-NLS-1$
 
 		}
-		
+
 		// Test the BankTeller name
 		try {
 			bankTeller.getName();
@@ -392,24 +392,24 @@ public class UserBean implements IUserBean {
 			throw new ConfigurationException(
 					UserBean.EXCEPTION_BANKTELLER_NAME_EMPTY);
 		}
-		
-		
+
 		// Check if bankteller name already exists
 		Query query = entityManager
 				.createQuery("SELECT bankTeller.name FROM  BankTeller AS bankTeller WHERE bankTeller.name=:bankTellerName");
 		query.setParameter("bankTellerName", bankTeller.getName());
 
 		@SuppressWarnings("unchecked")
-		List<BankTeller> bankTellerList = query.getResultList(); // get all banktellers with the same name
+		List<BankTeller> bankTellerList = query.getResultList(); // get all
+																	// banktellers
+																	// with the
+																	// same name
 		if (false == bankTellerList.isEmpty()) {
 			// The bankteller name already exists
 			throw new ConfigurationException(
 					UserBean.EXCEPTION_BANKTELLER_ALREADY_EXISTS);
 		}
 
-		
-		User user = getUser(userId);	
-		
+		User user = getUser(userId);
 
 		if (null == bankTeller.getId()) {
 			// If BankTeller is new we need to persist it first
@@ -538,7 +538,6 @@ public class UserBean implements IUserBean {
 		return bankTellerList;
 	}
 
-	
 	/*
 	 * (non-Javadoc) Get a list of BankTellers names that match filterPattern
 	 * 

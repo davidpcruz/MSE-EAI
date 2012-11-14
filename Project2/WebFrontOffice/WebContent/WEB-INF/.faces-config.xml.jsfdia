@@ -71,8 +71,10 @@
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#CompanyInfo.xhtml" PATH="/CompanyInfo.xhtml"
   SHAPE="784,321,0,0" model-entity="JSFProcessGroup"/>
- <PROCESS-ITEM NAME="rules:" SHAPE="560,481,0,0" model-entity="JSFProcessGroup">
-  <PROCESS-ITEM ID="rules::0" NAME="item" model-entity="JSFProcessItem">
+ <PROCESS-ITEM NAME="rules:#AddBankTeller.xhtml"
+  PATH="/AddBankTeller.xhtml" SHAPE="48,193,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#AddBankTeller.xhtml:0" NAME="item"
+   PATH="/AddBankTeller.xhtml" model-entity="JSFProcessItem">
    <PROCESS-ITEM-OUTPUT
     ID="true:#{userBeanW.addBankTeller}:#BankTeller.xhtml" NAME="output"
     PATH="/BankTeller.xhtml" TARGET="rules:#BankTeller.xhtml"
@@ -87,22 +89,37 @@
     TITLE="Cancel" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
- <PROCESS-ITEM NAME="rules:#AddBankTeller.xhtml"
-  PATH="/AddBankTeller.xhtml" SHAPE="48,193,0,0" model-entity="JSFProcessGroup">
-  <PROCESS-ITEM ID="rules:#AddBankTeller.xhtml:0" NAME="item"
-   PATH="/AddBankTeller.xhtml" model-entity="JSFProcessItem">
+ <PROCESS-ITEM NAME="rules:#BankTeller.xhtml" PATH="/BankTeller.xhtml"
+  SHAPE="656,785,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#BankTeller.xhtml:0" NAME="item"
+   PATH="/BankTeller.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="true:#{userBeanW.addBankTeller}:#AddBankTeller.xhtml"
+    NAME="output" PATH="/AddBankTeller.xhtml"
+    TARGET="rules:#AddBankTeller.xhtml"
+    TITLE="#{userBeanW.addBankTeller}:true" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="false:#{userBeanW.addBankTeller}:#AddBankTeller.xhtml"
+    NAME="output1" PATH="/AddBankTeller.xhtml"
+    TARGET="rules:#AddBankTeller.xhtml"
+    TITLE="#{userBeanW.addBankTeller}:false" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="true:#{userBeanW.subscriptionChangeActionBankTeller(bankTeller)}:#BankTeller.xhtml"
+    NAME="output2" PATH="/BankTeller.xhtml"
+    TARGET="rules:#BankTeller.xhtml"
+    TITLE="#{userBeanW.subscriptionChangeActionBankTeller(bankTeller)}:true" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="false:#{userBeanW.subscriptionChangeActionBankTeller(bankTeller)}:#BankTeller.xhtml"
+    NAME="output3" PATH="/BankTeller.xhtml"
+    TARGET="rules:#BankTeller.xhtml"
+    TITLE="#{userBeanW.subscriptionChangeActionBankTeller(bankTeller)}:false" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#*" PATH="/*" SHAPE="48,369,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#*:0" NAME="item" PATH="/*" model-entity="JSFProcessItem">
    <PROCESS-ITEM-OUTPUT ID="SessionTimedOut::#Login.xhtml" NAME="output"
     PATH="/Login.xhtml" TARGET="rules:#Login.xhtml"
     TITLE="SessionTimedOut" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
-  <PROCESS-ITEM ID="rules:#AddBankTeller.xhtml:1" NAME="item1"
-   PATH="/AddBankTeller.xhtml" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT
-    ID="#{userBeanW.addBankTeller}::#AddBankTeller.xhtml" NAME="output"
-    PATH="/AddBankTeller.xhtml" TARGET="rules:#AddBankTeller.xhtml"
-    TITLE="#{userBeanW.addBankTeller}" model-entity="JSFProcessItemOutput"/>
-  </PROCESS-ITEM>
  </PROCESS-ITEM>
- <PROCESS-ITEM NAME="rules:#BankTeller.xhtml" PATH="/BankTeller.xhtml"
-  SHAPE="656,785,0,0" model-entity="JSFProcessGroup"/>
 </PROCESS>

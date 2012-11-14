@@ -103,7 +103,7 @@
 	</navigation-rule>
 
 	<navigation-rule>
-		<from-view-id>/AddBankTeller.xhtml</from-view-id>
+		<from-view-id>/*</from-view-id>
 		<navigation-case>
 			<from-outcome>SessionTimedOut</from-outcome>
 			<to-view-id>/Login.xhtml</to-view-id>
@@ -111,6 +111,7 @@
 	</navigation-rule>
 
 	<navigation-rule>
+		<from-view-id>/AddBankTeller.xhtml</from-view-id>
 		<navigation-case>
 			<from-action>#{userBeanW.addBankTeller}</from-action>
 			<from-outcome>true</from-outcome>
@@ -123,7 +124,7 @@
 			<redirect>
 				<view-param>
 					<name>message</name>
-					<value>WrongUserInfoError</value>
+					<value>WrongBankTellerInfoError</value>
 				</view-param>
 			</redirect>
 		</navigation-case>
@@ -132,12 +133,47 @@
 			<to-view-id>/BankTeller.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	
-		<navigation-rule>
-		<from-view-id>/AddBankTeller.xhtml</from-view-id>
+
+	<navigation-rule>
+		<from-view-id>/BankTeller.xhtml</from-view-id>
 		<navigation-case>
-			<from-outcome>#{userBeanW.addBankTeller}</from-outcome>
+			<from-action>#{userBeanW.addBankTeller}</from-action>
+			<from-outcome>true</from-outcome>
+			<to-view-id>/AddBankTeller.xhtml</to-view-id>
+			<redirect>
+				<view-param>
+					<name>message</name>
+					<value>WrongBankTellerInfoError</value>
+				</view-param>
+			</redirect>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{userBeanW.addBankTeller}</from-action>
+			<from-outcome>false</from-outcome>
 			<to-view-id>/AddBankTeller.xhtml</to-view-id>
 		</navigation-case>
+		<navigation-case>
+			<from-action>#{userBeanW.subscriptionChangeActionBankTeller(bankTeller)}</from-action>
+			<from-outcome>true</from-outcome>
+			<to-view-id>/BankTeller.xhtml</to-view-id>
+			<redirect>
+				<view-param>
+					<name>message</name>
+					<value>WrongBankTellerInfoError</value>
+				</view-param>
+			</redirect>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{userBeanW.subscriptionChangeActionBankTeller(bankTeller)}</from-action>
+			<from-outcome>false</from-outcome>
+			<to-view-id>/BankTeller.xhtml</to-view-id>
+			<redirect>
+				<view-param>
+					<name>message</name>
+					<value>WrongBankTellerInfoError</value>
+				</view-param>
+			</redirect>
+		</navigation-case>
 	</navigation-rule>
+
 </faces-config>
