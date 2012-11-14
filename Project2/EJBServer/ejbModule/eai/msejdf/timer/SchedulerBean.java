@@ -58,7 +58,7 @@ public class SchedulerBean {
 		else
 		{
 			// set the email subject for all the users
-			String subject = String.format("Dayly Company Digest %1$te/%1$tm/%1$tY at %1$tH:%1$tM:%1$tS%n", new Date());
+			String subject = String.format("Daily Company Digest %1$te/%1$tm/%1$tY at %1$tH:%1$tM:%1$tS%n", new Date());
 			for (User user : userList)
 			{
 				if (StringUtils.IsNullOrWhiteSpace(user.getEmail()))
