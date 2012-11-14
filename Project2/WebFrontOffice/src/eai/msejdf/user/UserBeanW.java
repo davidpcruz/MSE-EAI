@@ -23,8 +23,7 @@ public class UserBeanW {
 	private final static String UNSUBSCRIBE_ACTION_NAME = "Unsubscribe";
 	private final static String SET_ACTION_NAME = "Set";
 	private final static String UNSET_ACTION_NAME = "Actual";
-	
-	
+
 	private IUserBean bean;
 	private User user;
 	private BankTeller bankTeller;
@@ -207,16 +206,18 @@ public class UserBeanW {
 				: UserBeanW.UNSET_ACTION_NAME);
 	}
 
-	public boolean subscriptionChangeActionBankTeller(BankTeller bankTeller) throws ConfigurationException {
+	public boolean subscriptionChangeActionBankTeller(BankTeller bankTeller) {
 		boolean result = false;
 
-//		if (!user.getBankTeller().getId().equals(bankTeller.getId())) {
-			
+		// if (!user.getBankTeller().getId().equals(bankTeller.getId())) {
 
-				this.bean.setBankTeller(this.user.getId(), bankTeller.getId());
-				result = true;
-
-	
+		try {
+			this.bean.setBankTeller(this.user.getId(), bankTeller.getId());
+			result = true;
+		} catch (ConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		// TODO: Return code must match action result
 		return result;

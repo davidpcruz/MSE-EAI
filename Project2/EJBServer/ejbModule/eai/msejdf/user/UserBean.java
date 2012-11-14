@@ -384,9 +384,13 @@ public class UserBean implements IUserBean {
 
 		}
 
-		// Test the BankTeller name
+		// Test the BankTeller name empty or null
+		
 		try {
-			bankTeller.getName();
+			if("" == bankTeller.getName()){
+				throw new ConfigurationException(
+						UserBean.EXCEPTION_BANKTELLER_NAME_EMPTY);
+			}
 		} catch (Exception ex) {
 			// The bankteller name already exists
 			throw new ConfigurationException(

@@ -17,7 +17,7 @@
 			<h:panelGrid columns="3">
 				<h:outputText value="Name"></h:outputText>
 				<h:inputText id="Name" value="#{userBeanW.bankTeller.name}"
-					required="true" requiredMessage="Missing Bank Teller Name"></h:inputText>
+					required="false" requiredMessage="Missing Bank Teller Name"></h:inputText>
 				<h:message for="Name" errorStyle="errorMessage" />
 
 				<h:outputText value="Address"></h:outputText>
@@ -44,7 +44,7 @@
 		</h:form>
 
 		<h:outputText
-			value="Error inserting Bank Teller, probably already exists. Please try again"
+			value="Error inserting Bank Teller, probably already exists or is empty. Please try again"
 			rendered="#{param.message != WrongBankTellerInfoError0}"
 			styleClass="errorMessage" />
 
