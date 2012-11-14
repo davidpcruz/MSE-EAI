@@ -13,8 +13,10 @@
 		<h:outputText value="Hi " />
 		<b><h:outputText value="#{userBeanW.user.name}" /></b>
 		<h:outputText value=", your current Bank Teller is:" />
-		<b><h:outputText value=" #{userBeanW.user.bankTeller.name}." /></b>
+<!-- 		<b><h:outputText value=" #{userBeanW.user.bankTeller.name}." /></b> -->
 
+		<msejdf:BankTellersSummaryList
+			bankTellerList="#{userBeanW.user.bankTeller}"></msejdf:BankTellersSummaryList>
 		<p>Do you want to change your Bank Teller? Simply select one of
 			the list or create a new one.</p>
 

@@ -179,6 +179,7 @@ public class UserBean implements IUserBean {
 			logger.debug("getCompany(String) - start"); //$NON-NLS-1$
 		}
 
+		System.out.println("CompanyId: " + companyId);
 		// TODO Auto-generated method stub
 		// TODO: Validate parameters
 		Query query = entityManager
@@ -385,9 +386,9 @@ public class UserBean implements IUserBean {
 		}
 
 		// Test the BankTeller name empty or null
-		
+
 		try {
-			if("" == bankTeller.getName()){
+			if ("" == bankTeller.getName()) {
 				throw new ConfigurationException(
 						UserBean.EXCEPTION_BANKTELLER_NAME_EMPTY);
 			}

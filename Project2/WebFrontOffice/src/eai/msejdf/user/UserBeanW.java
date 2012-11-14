@@ -8,12 +8,12 @@ import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import eai.msejdf.web.session.SessionManager;
 import eai.msejdf.exception.ConfigurationException;
 import eai.msejdf.persistence.Address;
 import eai.msejdf.persistence.BankTeller;
 import eai.msejdf.persistence.Company;
 import eai.msejdf.persistence.User;
+import eai.msejdf.web.session.SessionManager;
 
 @ManagedBean
 @ViewScoped
@@ -28,6 +28,7 @@ public class UserBeanW {
 	private User user;
 	private BankTeller bankTeller;
 	private Address address;
+	private Company company;
 	private String birthDate;
 	List<Company> followedCompanyList;
 	List<Company> companyList;
@@ -46,7 +47,6 @@ public class UserBeanW {
 		this.bankTeller = new BankTeller();
 		this.address = new Address();
 		this.bankTeller.setAddress(address);
-
 	}
 
 	public IUserBean bean() {
@@ -146,62 +146,60 @@ public class UserBeanW {
 
 	public List<Company> getCompanyList() throws ConfigurationException {
 		if (FacesContext.getCurrentInstance().getRenderResponse()) {
-			this.companyList = this.bean.getCompanyList("%"); // Reload to get
-																// most recent
-																// data.
+			// Reload to get most recent data.
+			this.companyList = this.bean.getCompanyList("%");
+			// Get also the followed list, as we need to know the subscription status
+			this.followedCompanyList = this.bean.getfollowedCompanyList(user.getId()); 
 		}
 		return this.companyList;
 	}
 
+	public Company getCompany(Long companyId) throws ConfigurationException {
+		if (FacesContext.getCurrentInstance().getRenderResponse()) {//Reload to get  most recent  data.
+			this.company = this.bean.getCompany(companyId); 
+}
+		return this.company;
+	}
 	public List<BankTeller> getBankTellerList() throws ConfigurationException {
 		if (FacesContext.getCurrentInstance().getRenderResponse()) {
-			this.bankTellerList = this.bean.getBankTellerList("%"); // Reload to
-																	// get most
-																	// recent
-																	// data.
+			this.bankTellerList = this.bean.getBankTellerList("%"); // Reload to get most recent data.
 		}
 		return this.bankTellerList;
 	}
 
-	public String getSubscriptionChangeAction(Company company)
-	{
+	public String getSubscriptionChangeAction(Company company) {
 		// If the followedCompanyList has data, it was already loaded
-		if ((null == this.followedCompanyList) ||
-			(false == this.followedCompanyList.contains(company)))
-		{
+		if ((null == this.followedCompanyList)
+				|| (false == this.listContainsCompanyById(this.followedCompanyList, company))) {
 			return UserBeanW.SUBSCRIBE_ACTION_NAME;
-		}
+		}		
 		return UserBeanW.UNSUBSCRIBE_ACTION_NAME;
 	}
 
-	public boolean subscriptionChangeAction(Company company)
-	{
-		try
-		{
+	public boolean subscriptionChangeAction(Company company) {
+		try {
 			// If the followedCompanyList has data, it was already loaded
-			if ((null == this.followedCompanyList) ||
-				(false == this.followedCompanyList.contains(company)))
-			{
+			if ((null == this.followedCompanyList)
+					|| (false == this.listContainsCompanyById(this.followedCompanyList, company))) {
 				this.bean.followCompany(this.user.getId(), company.getId());
-			}
-			else
-			{
+			} else {
 				this.bean.unfollowCompany(this.user.getId(), company.getId());
 			}
 			return true;
-		}
-		catch (ConfigurationException exception)
-		{
+		} catch (ConfigurationException exception) {
 			return false;
 		}
 	}
-	
+
 	public String getSubscriptionChangeActionBankTeller(BankTeller bankTeller) {
 		// TODO: This is tmp for debug. Replace by a method that checks the
 		// subscription
-
-		return (!(user.getBankTeller().getId().equals(bankTeller.getId())) ? UserBeanW.SET_ACTION_NAME
-				: UserBeanW.UNSET_ACTION_NAME);
+		try {
+			return (!(user.getBankTeller().getId().equals(bankTeller.getId())) ? UserBeanW.SET_ACTION_NAME
+					: UserBeanW.UNSET_ACTION_NAME);
+		} catch (Exception exception) {
+			return UserBeanW.SET_ACTION_NAME;
+		}
 	}
 
 	public boolean subscriptionChangeActionBankTeller(BankTeller bankTeller) {
@@ -220,4 +218,19 @@ public class UserBeanW {
 		// TODO: Return code must match action result
 		return result;
 	}
+
+	private boolean listContainsCompanyById(List<Company> list, Company company)
+	{
+		Long id = company.getId();
+		
+		for (Company comp : list)
+		{
+			if (comp.getId().equals(id))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
 }
