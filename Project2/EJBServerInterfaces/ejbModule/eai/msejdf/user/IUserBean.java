@@ -34,7 +34,7 @@ public interface IUserBean {
 	public void unfollowCompany(Long userId, Long companyId)
 			throws ConfigurationException;
 
-	public List<Company> getfollowedCompanyList(Long id)
+	public List<Company> getfollowedCompanyList(Long userId)
 			throws ConfigurationException;
 
 	public void setBankTeller(Long userId, Long companyId)

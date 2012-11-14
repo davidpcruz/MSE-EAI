@@ -140,37 +140,34 @@ public class UserBeanW {
 
 	public String getSubscriptionChangeAction(Company company)
 	{
-		//return ((company.getSubscribedUsers().size() == 0) ? UserBeanW.SUBSCRIBE_ACTION_NAME : UserBeanW.UNSUBSCRIBE_ACTION_NAME); 
-
-		//TODO: This is tmp for debug. Replace by a method that checks the subscription
-		return ((company.getName().startsWith("B")) ? UserBeanW.SUBSCRIBE_ACTION_NAME : UserBeanW.UNSUBSCRIBE_ACTION_NAME);
-
+		// If the followedCompanyList has data, it was already loaded
+		if ((null == this.followedCompanyList) ||
+			(false == this.followedCompanyList.contains(company)))
+		{
+			return UserBeanW.SUBSCRIBE_ACTION_NAME;
+		}
+		return UserBeanW.UNSUBSCRIBE_ACTION_NAME;
 	}
 
 	public boolean subscriptionChangeAction(Company company)
 	{
-//		if (0 == company.getSubscribedUsers().size())
-//		{
-//			// TODO: Subscribe
-//		}
-//		else
-//		{
-//			
-//			// TODO: Unubscribe
-//		}
-
-		//TODO: This is tmp for debug. Replace by a method that checks the subscription
-		if (company.getName().startsWith("B"))
+		try
 		{
-			// TODO: Subscribe
+			// If the followedCompanyList has data, it was already loaded
+			if ((null == this.followedCompanyList) ||
+				(false == this.followedCompanyList.contains(company)))
+			{
+				this.bean.followCompany(this.user.getId(), company.getId());
+			}
+			else
+			{
+				this.bean.unfollowCompany(this.user.getId(), company.getId());
+			}
+			return true;
 		}
-		else
+		catch (ConfigurationException exception)
 		{
-			
-			// TODO: Unubscribe
+			return false;
 		}
-		
-		//TODO: Return code must match action result
-		return true;
 	}		 
 }
