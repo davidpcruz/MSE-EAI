@@ -32,7 +32,6 @@ public class UserBeanW {
 	private BankTeller bankTeller;
 	private Address address;
 	private Company company;
-	private Date birthDate;
 	List<Company> followedCompanyList;
 	List<Company> companyList;
 	List<BankTeller> bankTellerList;
@@ -128,15 +127,6 @@ public class UserBeanW {
 		}
 
 		return true;
-	}
-
-	public Date getBirthDate() {
-		return birthDate;
-	}
-
-	public void setBirthDate(Date birthDate) {
-		
-		this.birthDate = birthDate;
 	}
 
 	public List<Company> getFollowedCompanyList() throws ConfigurationException {
