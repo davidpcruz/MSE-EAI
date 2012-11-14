@@ -50,6 +50,18 @@
 			<h:outputText value="#{bankTeller.address.zipCode}" />
 		</h:column>
 
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="" />
+			</f:facet>
+
+			<h:form>
+				<h:commandButton
+					value="#{userBeanW.getSubscriptionChangeActionBankTeller(bankTeller)}"
+					action="#{userBeanW.subscriptionChangeActionBankTeller(bankTeller)}" />
+			</h:form>
+		</h:column>
+
 	</h:dataTable>
 </composite:implementation>
 </html>

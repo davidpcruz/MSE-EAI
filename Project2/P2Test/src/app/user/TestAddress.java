@@ -45,7 +45,7 @@ public class TestAddress {
 
 	private static void TestgetEagerBankTellerList(IUserBean bean, 
 			String fildPattern) throws ConfigurationException {
-		List<BankTeller> bankTellerList = bean.getEagerBankTellerList(fildPattern);
+		List<BankTeller> bankTellerList = bean.getBankTellerList(fildPattern);
 		for( BankTeller bankTeller : bankTellerList ){
 			System.out.println(bankTeller.getName()+ " " + bankTeller.getAddress());
 		}

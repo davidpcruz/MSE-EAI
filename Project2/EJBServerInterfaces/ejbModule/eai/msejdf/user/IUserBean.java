@@ -51,14 +51,5 @@ public interface IUserBean {
 
 	void setBankTellerAddress(BankTeller bankTellerId);
 
-	List<BankTeller> getEagerBankTellerList(String filterPattern);
-
-//	void setBankTellerAddressAddress(BankTeller bankTeller, String address);
-//
-//	void setBankTellerAddressCity(BankTeller bankTeller, String city);
-//
-//	void setBankTellerAddressZipCode(BankTeller bankTeller, String zipCode);
-
-//	String getBankTellerAddressAddress(BankTeller bankTeller);
 
 }
