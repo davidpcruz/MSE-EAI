@@ -22,13 +22,25 @@
                 <h:message for="Phone" errorStyle="errorMessage"/>
 
                 <h:outputText value="e-mail"></h:outputText>
-                <h:inputText id="e-mail" value="#{userBeanW.user.email}" required="true" requiredMessage="Missing e-mail"></h:inputText>
+                <h:inputText id="e-mail" 
+                	value="#{userBeanW.user.email}" 
+                	required="true" 
+                	requiredMessage="Missing e-mail" 
+                	validatorMessage="Invalid email format">
+                	<!-- Pattern from http://stackoverflow.com/questions/7875108/primeface-jsf-2-email-validation-using-regular-expression -->
+                	<f:validateRegex pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)" />
+                </h:inputText>
                 <h:message for="e-mail" errorStyle="errorMessage"/>
 
-<!--                 <h:outputText value="Birth Date"></h:outputText>
-                <h:inputText id="Birth Date" value="#{userBeanW.birthDate}"  required="true" requiredMessage="Missing birth date"></h:inputText>
-				<h:message for="Birth Date" errorStyle="errorMessage"/>
- -->
+                <h:outputText value="Birth Date (dd/mm/yyyy)"></h:outputText>
+                <h:inputText id="BirthDate" 
+                	value="#{userBeanW.birthDate}"  
+                	required="true" 
+                	requiredMessage="Missing birth date"
+                	validatorMessage="Invalid date format">
+                	<f:convertDateTime pattern="dd/MM/yyyy" />
+                </h:inputText>
+				<h:message for="BirthDate" errorStyle="errorMessage"/>
 
 				<!-- <h:outputText value="Address Details" />
 				<h:outputText value="" />
@@ -49,7 +61,6 @@
             </h:panelGrid>
             <h:commandButton value="Save" action="#{userBeanW.updateUser}"></h:commandButton>
             <h:commandButton value="Cancel" action="Cancel"></h:commandButton>
-            <h:commandButton value="Reset" type="reset"></h:commandButton>
         </h:form>
     </ui:define>
 </ui:composition>

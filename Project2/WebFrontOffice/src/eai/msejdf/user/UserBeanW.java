@@ -1,10 +1,13 @@
 package eai.msejdf.user;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.convert.DateTimeConverter;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
@@ -29,7 +32,7 @@ public class UserBeanW {
 	private BankTeller bankTeller;
 	private Address address;
 	private Company company;
-	private String birthDate;
+	private Date birthDate;
 	List<Company> followedCompanyList;
 	List<Company> companyList;
 	List<BankTeller> bankTellerList;
@@ -42,8 +45,7 @@ public class UserBeanW {
 				.lookup("ejb:P2EARDeploy/EJBServer/UserBean!eai.msejdf.user.IUserBean");
 
 		// TODO
-		this.user = bean.getUser(SessionManager
-				.getProperty(SessionManager.USERNAME_PROPERTY));
+		this.user = bean.getUser(SessionManager.getProperty(SessionManager.USERNAME_PROPERTY));
 		this.bankTeller = new BankTeller();
 		this.address = new Address();
 		this.bankTeller.setAddress(address);
@@ -127,13 +129,13 @@ public class UserBeanW {
 		return true;
 	}
 
-	public String getBirthDate() {
+	public Date getBirthDate() {
 		return birthDate;
 	}
 
-	public void setBirthDate(String birthDate) {
+	public void setBirthDate(Date birthDate) {
+		
 		this.birthDate = birthDate;
-		// this.user.setBirthDate(new Date(birthDate));
 	}
 
 	public List<Company> getFollowedCompanyList() throws ConfigurationException {
