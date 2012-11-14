@@ -6,6 +6,8 @@ import javax.ejb.Remote;
 
 import eai.msejdf.persistence.Company;
 import eai.msejdf.persistence.User;
+import eai.msejdf.sort.CompanySort;
+import eai.msejdf.sort.UserSort;
 
 /**
  * Interface class for administration related operations
@@ -13,11 +15,12 @@ import eai.msejdf.persistence.User;
 @Remote
 //TODO: Set annotation for admin previliges only
 public interface IAdmin {
-	public final static int SORT_BY_NAME = 0;	
 
-	public List<User> getUserList(int sortType, int ageThreshold);	
+	public List<User> getUserList(UserSort sortType);	
+	
+	public List<User> getUserList(Integer ageThreshold, UserSort sortType);	
 	
 	public List<User> getUserFollowCompanyList(Long companyId, int sortType, int ageThreshold);
 	
-	public List<Company> getCompanyList(String filterPattern, int sortType); 
+	public List<Company> getCompanyList(String filterPattern, CompanySort sortType); 
 }

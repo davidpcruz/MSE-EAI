@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface>
+	<composite:attribute name="usersList" />
+</composite:interface>
+
+<composite:implementation>
+	<h:dataTable var="user" value="#{cc.attrs.usersList}"
+		rowClasses="oddRow, evenRow" headerClass="tableHeader" styleClass="tableList">
+
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="Username" />
+			</f:facet>
+
+			<h:outputText value="#{user.username}" />
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="Name" />
+			</f:facet>
+
+			<h:outputText value="#{user.name}" />
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="Phone" />
+			</f:facet>
+
+			<h:outputText value="#{user.phone}" />
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="Email" />
+			</f:facet>
+
+			<h:outputText value="#{user.email}" />
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="BirthDate" />
+			</f:facet>
+
+			<h:outputText value="#{user.birthDate}" />
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="Address" />
+			</f:facet>
+
+			<h:outputText value="#{user.address.address}" />
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="City" />
+			</f:facet>
+
+			<h:outputText value="#{user.address.city}" />
+		</h:column>
+		
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="ZipCode" />
+			</f:facet>
+
+			<h:outputText value="#{user.address.zipcode}" />
+		</h:column>
+
+	</h:dataTable>
+</composite:implementation>
+</html>
+

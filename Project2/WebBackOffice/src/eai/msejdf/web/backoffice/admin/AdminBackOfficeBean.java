@@ -1,0 +1,66 @@
+package eai.msejdf.web.backoffice.admin;
+
+import java.util.List;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
+import eai.msejdf.admin.IAdmin;
+import eai.msejdf.exception.ConfigurationException;
+import eai.msejdf.persistence.Company;
+import eai.msejdf.persistence.User;
+import eai.msejdf.sort.CompanySort;
+import eai.msejdf.sort.UserSort;
+import eai.msejdf.utils.EJBLookupConstants;
+
+@ManagedBean(name="adminW")
+@ViewScoped
+public class AdminBackOfficeBean
+{
+	private IAdmin adminBean;
+
+	List<Company> companyList;
+	List<User> userList;
+
+	/**
+	 * Creates a AdminW bean to handle the list queries 
+	 * @throws NamingException
+	 * @throws ConfigurationException
+	 */
+	public AdminBackOfficeBean() throws NamingException, ConfigurationException {
+		InitialContext ctx = new InitialContext();
+
+		this.adminBean = (IAdmin) ctx.lookup(EJBLookupConstants.EJB_I_ADMIN);
+	}
+	
+	/**
+	 * Returns all the companies order by name 
+	 * @return
+	 */
+	public List<Company> getCompanyList()
+	{
+		if (FacesContext.getCurrentInstance().getRenderResponse()) {
+			// Reload to get most recent data.
+			this.companyList = this.adminBean.getCompanyList("%", CompanySort.NAME_ASC);
+		}
+		return this.companyList;
+	}
+	
+	/**
+	 * Returns all the users order by age 
+	 *
+	 * @return the user list
+	 */
+	public List<User> getUserList()
+	{
+		if (FacesContext.getCurrentInstance().getRenderResponse()) {
+			// Reload to get most recent data.
+			this.userList = this.adminBean.getUserList(UserSort.BIRTHDAY_ASC);
+		}		
+		return userList;
+	}
+
+}
