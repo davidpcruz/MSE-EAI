@@ -2,13 +2,12 @@ package eai.msejdf.user;
 
 import java.util.List;
 
+import javax.ejb.Remote;
+
 import eai.msejdf.exception.ConfigurationException;
-import eai.msejdf.persistence.Address;
 import eai.msejdf.persistence.BankTeller;
 import eai.msejdf.persistence.Company;
 import eai.msejdf.persistence.User;
-
-import javax.ejb.Remote;
 
 @Remote
 public interface IUserBean {
