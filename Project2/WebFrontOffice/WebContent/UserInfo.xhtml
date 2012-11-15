@@ -2,62 +2,73 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition template="/WEB-INF/templates/DefaultTemplate.xhtml">
-    <ui:define name="content">
-    
-    	<h:outputText value="Wrong user data" rendered="#{param.message == 'WrongUserInfoError'}" styleClass="errorMessage"/>
-        <h:form>
-             <h:panelGrid columns="3">
-             
-                <h:outputText value="Name"></h:outputText>
-                <h:inputText id="Name" value="#{userInfo.user.name}" required="true" requiredMessage="Missing Name"></h:inputText>
-                <h:message for="Name" errorStyle="errorMessage"/>
+	<ui:define name="content">
 
-                <h:outputText value="Phone"></h:outputText>
-                <h:inputText id="Phone" value="#{userInfo.user.phone}" required="true" requiredMessage="Missing phone"></h:inputText>
-                <h:message for="Phone" errorStyle="errorMessage"/>
+		<h:outputText value="Wrong user data"
+			rendered="#{param.message == 'WrongUserInfoError'}"
+			styleClass="errorMessage" />
+		<h:form>
+			<h:panelGrid columns="3">
 
-                <h:outputText value="e-mail"></h:outputText>
-                <h:inputText id="e-mail" 
-                	value="#{userInfo.user.email}" 
-                	required="true" 
-                	requiredMessage="Missing e-mail" 
-                	validatorMessage="Invalid email format">
-                	<!-- Pattern from http://stackoverflow.com/questions/7875108/primeface-jsf-2-email-validation-using-regular-expression -->
-                	<f:validateRegex pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)" />
-                </h:inputText>
-                <h:message for="e-mail" errorStyle="errorMessage"/>
+				<h:outputText value="Name"></h:outputText>
+				<h:inputText id="Name" value="#{userInfo.user.name}" required="true"
+					requiredMessage="Missing Name">
+				</h:inputText>
+				<h:message for="Name" errorStyle="errorMessage" />
 
-                <h:outputText value="Birth Date (dd/mm/yyyy)"></h:outputText>
-                <h:inputText id="BirthDate" 
-                	value="#{userInfo.user.birthDate}"  
-                	required="true" 
-                	requiredMessage="Missing birth date"
-                	validatorMessage="Invalid date format">
-                	<f:convertDateTime pattern="dd/MM/yyyy" />
-                </h:inputText>
-				<h:message for="BirthDate" errorStyle="errorMessage"/>
+				<h:outputText value="Phone"></h:outputText>
+				<h:inputText id="Phone" value="#{userInfo.user.phone}"
+					required="true" requiredMessage="Missing phone"
+					validatorMessage="Invalid phone. Use only digits.">
+					<f:validateRegex pattern="[\p{Digit}]+"></f:validateRegex>
+				</h:inputText>
+				<h:message for="Phone" errorStyle="errorMessage" />
 
-                <h:outputText value="Street Address"></h:outputText>
-                <h:inputText id="StreetAddress" value="#{userInfo.address.address}" required="true" requiredMessage="Missing street address"></h:inputText>
-                <h:message for="StreetAddress" errorStyle="errorMessage"/>
+				<h:outputText value="e-mail"></h:outputText>
+				<h:inputText id="e-mail" value="#{userInfo.user.email}"
+					required="true" requiredMessage="Missing e-mail"
+					validatorMessage="Invalid email format">
+					<!-- Pattern from http://stackoverflow.com/questions/7875108/primeface-jsf-2-email-validation-using-regular-expression -->
+					<f:validateRegex pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)" />
+				</h:inputText>
+				<h:message for="e-mail" errorStyle="errorMessage" />
 
-                <h:outputText value="Zip Code"></h:outputText>
-                <h:inputText id="ZipCode" value="#{userInfo.address.zipCode}" required="true" requiredMessage="Missing zip code"></h:inputText>
-                <h:message for="ZipCode" errorStyle="errorMessage"/>
+				<h:outputText value="Birth Date (dd/mm/yyyy)"></h:outputText>
+				<h:inputText id="BirthDate" value="#{userInfo.user.birthDate}"
+					required="true" requiredMessage="Missing birth date"
+					validatorMessage="Invalid date format">
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+				</h:inputText>
+				<h:message for="BirthDate" errorStyle="errorMessage" />
 
-                <h:outputText value="City"></h:outputText>
-                <h:inputText id="City" value="#{userInfo.address.city}" required="true" requiredMessage="Missing city"></h:inputText>
-                <h:message for="City" errorStyle="errorMessage"/>
+				<h:outputText value="Street Address"></h:outputText>
+				<h:inputText id="StreetAddress" value="#{userInfo.address.address}"
+					required="true" requiredMessage="Missing street address"></h:inputText>
+				<h:message for="StreetAddress" errorStyle="errorMessage" />
 
-            </h:panelGrid>
-            <h:commandButton value="Save" action="#{userInfo.updateUser}"></h:commandButton>
-            <h:commandButton value="Cancel" action="Cancel"></h:commandButton>
-        </h:form>
-    </ui:define>
+				<h:outputText value="Zip Code"></h:outputText>
+				<h:inputText id="ZipCode" value="#{userInfo.address.zipCode}"
+					required="true" requiredMessage="Missing zip code"
+					validatorMessage="Invalid zip code. Must be 7 digits (ccccaaa).">
+					<f:validateRegex pattern="[\p{Digit}]+"></f:validateRegex>
+					<f:validateLength minimum="7" maximum="7" />
+				</h:inputText>
+				<h:message for="ZipCode" errorStyle="errorMessage" />
+
+				<h:outputText value="City"></h:outputText>
+				<h:inputText id="City" value="#{userInfo.address.city}"
+					required="true" requiredMessage="Missing city"></h:inputText>
+				<h:message for="City" errorStyle="errorMessage" />
+
+			</h:panelGrid>
+			<h:commandButton value="Save" action="#{userInfo.updateUser}"></h:commandButton>
+			<h:commandButton value="Cancel" action="Cancel"></h:commandButton>
+		</h:form>
+	</ui:define>
 </ui:composition>
 </html>
