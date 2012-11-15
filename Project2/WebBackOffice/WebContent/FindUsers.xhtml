@@ -9,7 +9,23 @@
 
 <ui:composition template="templates/DefaultTemplate.xhtml">
 	<ui:define name="content">
-		Hello world
- 	</ui:define>
+		<h:form>
+			<h:panelGrid columns="3">
+
+				<h:outputText value="Age"></h:outputText>
+				
+                <h:inputText id="AgeSearch" size="3" value="#{adminW.searchAge}" required="true" requiredMessage="Missing Age"></h:inputText>
+                <h:message for="AgeSearch" styleClass="errorMessage"/>								
+
+			</h:panelGrid>
+			<h:commandButton value="Search"
+				action="#{adminW.searchUsersByAge}">
+			</h:commandButton>
+		</h:form>
+
+		<msejdf:UsersList rendered="#{adminW.subscribedUserList.size() > 0}" usersList="#{adminW.subscribedUserList}"></msejdf:UsersList>
+		<h:outputText rendered="#{adminW.subscribedUserList.size() == 0}" value="No Results"></h:outputText>
+		
+	</ui:define>
 </ui:composition>
 </html>
