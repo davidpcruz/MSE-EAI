@@ -36,33 +36,27 @@ public class DBCleaner {
 	}
 
 	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see eai.msejdf.timer.IDBCleanerRemote#cleanBankTeller()
+	 * Bean to Clean the Database It will delete all the BankTellers that are in
+	 * DB but no user are using
 	 */
-
-	@Schedule(hour = "*", minute = "*/15")
+	@Schedule(hour = "*", minute = "*/30", second = "0")
 	public void cleanBankTeller() {
 		if (logger.isDebugEnabled()) {
 			logger.debug("cleanBankTeller() - start"); //$NON-NLS-1$
 		}
 
 		List<Long> notUsedBankTellersId = new ArrayList<Long>();
+		
 		// Get a list of all Bank Tellers in DB
 		Query queryGetBankTellersId = entityManager.createQuery("SELECT bankTeller.id FROM  BankTeller AS bankTeller");
 		@SuppressWarnings("unchecked")
 		List<Long> completBankTellerListId = queryGetBankTellersId.getResultList();
+		
 		// Get a list of the used Bank Tellers
 		Query queryGetUsedBankTellersId = entityManager.createQuery("SELECT user.bankTeller.id FROM  User AS user");
 		@SuppressWarnings("unchecked")
 		List<Long> usedBankTellerListId = queryGetUsedBankTellersId.getResultList();
 
-		
-		Query queryUnusedGetUsedBankTellersId = entityManager.createQuery("SELECT user.bankTeller.id FROM  User AS user");
-		@SuppressWarnings("unchecked")
-		List<Long> unusedGetUsedBankTellersId = queryUnusedGetUsedBankTellersId.getResultList();
-		logger.info("test query unused:" + unusedGetUsedBankTellersId);
-		
 		// Get the list of unused tBankTellerListId
 		for (Long bankteler : completBankTellerListId) {
 			if (!usedBankTellerListId.contains(bankteler)) {
@@ -77,7 +71,7 @@ public class DBCleaner {
 			deleteQuery.setParameter("notUsedBankTellers", notUsedBankTellersId);
 			deleteQuery.executeUpdate();
 		} else {
-			logger.info("cleanBankTeller speaking: No  Bank Teller are being unused.\n I'll skip for now but I will be back");
+			logger.info("cleanBankTeller speaking: No  Bank Teller are being unused. I'll skip for now but I will be back");
 		}
 
 		if (logger.isDebugEnabled()) {
