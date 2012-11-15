@@ -7,5 +7,5 @@ public final class Resource {
 	
 	public static final String JNDI_ADMIN_BEAN = "P2EARDeploy/EJBServer/Admin!eai.msejdf.admin.IAdmin";
 															  
-
+//	public static final String JNDI_DBCLEANER_BEAN = "P2EARDeploy/EJBServer/DBCleaner!eai.msejdf.user.IDBCleanerRemote";
 }
