@@ -49,12 +49,10 @@ public class JMSBeanReceiver implements MessageListener {
 	/**
 	 * Logger for this class
 	 */
-	private static final Logger logger = Logger
-			.getLogger(JMSBeanReceiver.class);
+	private static final Logger logger = Logger.getLogger(JMSBeanReceiver.class);
 
 	/**
-	 * Get Company information
-	 * If the company does not exist then returns null
+	 * Get Company information If the company does not exist then returns null
 	 * 
 	 * @param company
 	 * @return
@@ -64,18 +62,15 @@ public class JMSBeanReceiver implements MessageListener {
 			logger.debug("getCompany(String) - start"); //$NON-NLS-1$
 		}
 
-		Query query = entityManager
-				.createQuery("SELECT Company FROM Company company WHERE company.name=:name");
+		Query query = entityManager.createQuery("SELECT Company FROM Company company WHERE company.name=:name");
 		query.setParameter("name", company);
 
 		@SuppressWarnings("unchecked")
-		List<eai.msejdf.persistence.Company> companyList = query
-				.getResultList();
+		List<eai.msejdf.persistence.Company> companyList = query.getResultList();
 
 		if (true == companyList.isEmpty()) {
 			// The company doesn't seem to exist
-			logger.debug("The company doesn not seem to exist in DB: "
-					+ company);
+			logger.debug("The company doesn not seem to exist in DB: " + company);
 			return null;
 
 		} else {
@@ -103,8 +98,7 @@ public class JMSBeanReceiver implements MessageListener {
 				msg = (TextMessage) inMessage;
 				logger.debug("MESSAGE BEAN: Message received: " + msg.getText());
 				// Marshall XML to a Stocks object
-				Stocks objMsg = XmlObjConv.convertToObject(msg.getText(),
-						Stocks.class);
+				Stocks objMsg = XmlObjConv.convertToObject(msg.getText(), Stocks.class);
 				for (Stock quote : objMsg.getStock()) {
 					// Update Company data
 					// If the company does not exist it will be created
@@ -112,8 +106,7 @@ public class JMSBeanReceiver implements MessageListener {
 				}
 
 			} else {
-				logger.warn("Message of wrong type: "
-						+ inMessage.getClass().getName());
+				logger.warn("Message of wrong type: " + inMessage.getClass().getName());
 			}
 		} catch (JMSException e) {
 			logger.error("onMessage(Message)", e); //$NON-NLS-1$
@@ -133,7 +126,8 @@ public class JMSBeanReceiver implements MessageListener {
 	/*
 	 * Updates company information Update Company data If the company does not
 	 * exist it will be created
-	 *  @param quote
+	 * 
+	 * @param quote
 	 */
 
 	private void updateCompany(Stock quote) {
@@ -153,13 +147,18 @@ public class JMSBeanReceiver implements MessageListener {
 			persistenceCompany = new eai.msejdf.persistence.Company();
 		}
 
-		// set Company Address
-		Address address = new Address();
-		address.setAddress(company.getAddress());
-		// first we need to persist the company address and then we can persist
-		// the company
-		// entityManager.persist(address);
-		persistenceCompany.setAddress(address);
+		if (null != company.getAddress()) {
+			logger.info("company.getAddress(): " +company.getAddress());
+
+			// set Company Address
+			Address address = new Address();
+			address.setAddress(company.getAddress());
+			// first we need to persist the company address and then we can
+			// persist
+			// the company
+			// entityManager.persist(address);
+			persistenceCompany.setAddress(address);
+		}
 		// set Company Name
 		persistenceCompany.setName(company.getName());
 		// set Company Website
@@ -187,8 +186,7 @@ public class JMSBeanReceiver implements MessageListener {
 		persistenceCompany.setStockInfo(stockInfo);
 
 		logger.info("Persist company: " + company.getName());
-		logger.debug("Persist persistence company: "
-				+ persistenceCompany.getName());
+		logger.debug("Persist persistence company: " + persistenceCompany.getName());
 
 		// persist the company information to DB
 		entityManager.persist(persistenceCompany);
