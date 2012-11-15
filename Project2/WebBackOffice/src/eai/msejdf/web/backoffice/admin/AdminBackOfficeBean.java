@@ -23,12 +23,14 @@ public class AdminBackOfficeBean
 {
 	private IAdmin adminBean;
 
-	List<Company> companyList;
-	List<User> userList;
-	List<User> subscribedUserList;
+	private List<Company> companyList;
+	private List<User> userList;
+	private List<User> subscribedUserList;
 	
 	// the selected company to search
-	Long searchCompanySelect;
+	private Long searchCompanySelect;
+	// the age to search the users
+	private Integer searchAge;
 
 	/**
 	 * Creates a AdminW bean to handle the list queries 
@@ -71,6 +73,24 @@ public class AdminBackOfficeBean
 	}
 	
 	/**
+	 * Search users greater than age.
+	 *
+	 * @return true, if successful
+	 */
+	public boolean searchUsersByAge() 
+	{
+		// basic validations
+		if (this.getSearchAge() == null)
+		{
+			return false;
+		}
+		
+		this.subscribedUserList = this.adminBean.getUserList(this.getSearchAge(),  UserSort.BIRTHDAY_ASC);
+		
+		return true;
+	}
+	
+	/**
 	 * Returns all the companies order by name 
 	 * @return
 	 */
@@ -100,6 +120,22 @@ public class AdminBackOfficeBean
 	public List<User> getSubscribedUserList()
 	{
 		return subscribedUserList;
+	}
+
+	/**
+	 * @return the searchAge
+	 */
+	public Integer getSearchAge()
+	{
+		return searchAge;
+	}
+
+	/**
+	 * @param searchAge the searchAge to set
+	 */
+	public void setSearchAge(Integer searchAge)
+	{
+		this.searchAge = searchAge;
 	}
 
 
