@@ -1,8 +1,6 @@
 package eai.msejdf.timer;
 
 import java.util.List;
-import java.util.ArrayList;
-
 import javax.ejb.Schedule;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -45,22 +43,19 @@ public class DBCleaner {
 			logger.debug("cleanBankTeller() - start"); //$NON-NLS-1$
 		}
 
-		
 		// Get a list of all Bank Tellers in DB
 		Query queryGetBankTellersId = entityManager.createQuery("SELECT bankTeller.id FROM  BankTeller AS bankTeller");
 		@SuppressWarnings("unchecked")
 		List<Long> bankTellerListId = queryGetBankTellersId.getResultList();
-		
+
 		// Get a list of the used Bank Tellers
 		Query queryGetUsedBankTellersId = entityManager.createQuery("SELECT user.bankTeller.id FROM  User AS user");
 		@SuppressWarnings("unchecked")
 		List<Long> usedBankTellerListId = queryGetUsedBankTellersId.getResultList();
 
-		
 		// Get the list of unused BankTellerListId
 		bankTellerListId.removeAll(usedBankTellerListId);
-		
-		
+
 		// If there are unused Bankteller so they should be deleted
 		if (0 < bankTellerListId.size()) {
 			logger.info("Deleting  Bank Teller with ID:" + bankTellerListId);
