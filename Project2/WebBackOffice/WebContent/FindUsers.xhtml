@@ -14,7 +14,10 @@
 
 				<h:outputText value="Age"></h:outputText>
 				
-                <h:inputText id="AgeSearch" size="3" value="#{adminW.searchAge}" required="true" requiredMessage="Missing Age"></h:inputText>
+                <h:inputText id="AgeSearch" size="3" value="#{adminW.searchAge}" required="true" requiredMessage="Missing Age" 
+                	validatorMessage="Age must be between 0 and 150" converterMessage="Age invalid format">
+                	<f:validateLongRange minimum="0" maximum="150" ></f:validateLongRange>  
+                </h:inputText>
                 <h:message for="AgeSearch" styleClass="errorMessage"/>								
 
 			</h:panelGrid>
