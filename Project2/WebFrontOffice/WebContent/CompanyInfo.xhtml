@@ -11,21 +11,24 @@
 	<ui:define name="content">
 		<h:outputText value="Here you can see the company details." />
 		<msejdf:CompaniesSummaryList
-			companyList="#{userBeanW.getCompany(param.CompanyId)}"></msejdf:CompaniesSummaryList>
+			companyList="#{companyInfo.getCompany(param.CompanyId)}"
+			bean="#{companyInfo}" 
+			renderDetails="false">
+		</msejdf:CompaniesSummaryList>
 
 		<h3>Hour Report</h3>
 		<img
-			src="DataOut/rrd/#{userBeanW.getCompany(param.CompanyId).getName()}_hour.gif" />
+			src="DataOut/rrd/#{companyInfo.getCompany(param.CompanyId).getName()}_hour.gif" />
 
 		<h3>Day Report</h3>
 		<img
-			src="DataOut/rrd/#{userBeanW.getCompany(param.CompanyId).getName()}_day.gif" />
+			src="DataOut/rrd/#{companyInfo.getCompany(param.CompanyId).getName()}_day.gif" />
 		<h3>Week Report</h3>
 		<img
-			src="DataOut/rrd/#{userBeanW.getCompany(param.CompanyId).getName()}_week.gif" />
+			src="DataOut/rrd/#{companyInfo.getCompany(param.CompanyId).getName()}_week.gif" />
 		<h3>Month Report</h3>
 		<img
-			src="DataOut/rrd/#{userBeanW.getCompany(param.CompanyId).getName()}_month.gif" />
+			src="DataOut/rrd/#{companyInfo.getCompany(param.CompanyId).getName()}_month.gif" />
 
 
 	</ui:define>

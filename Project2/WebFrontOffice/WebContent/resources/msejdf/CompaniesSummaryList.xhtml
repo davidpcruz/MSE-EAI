@@ -10,7 +10,9 @@
 <composite:interface>
 
 	<composite:attribute name="companyList" />
-
+	<composite:attribute name="bean" />
+	<composite:attribute name="renderDetails" />
+	
 </composite:interface>
 
 
@@ -90,7 +92,7 @@
 			<h:outputText value="#{company.stockInfo.sell}" />
 		</h:column>
 
-		<h:column>
+		<h:column rendered="#{cc.attrs.renderDetails == 'true'}">
 			<f:facet name="header">
 				<h:outputText value="Details" />
 			</f:facet>
@@ -107,8 +109,8 @@
 
 			<h:form>
 				<h:commandLink
-					value="#{userBeanW.getSubscriptionChangeAction(company)}"
-					action="#{userBeanW.subscriptionChangeAction(company)}">
+					value="#{cc.attrs.bean.getSubscriptionChangeAction(company)}"
+					action="#{cc.attrs.bean.subscriptionChangeAction(company)}">
 
 					<f:param name="CompanyId" value="#{company.id}" />
 				</h:commandLink>
