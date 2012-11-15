@@ -5,17 +5,17 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core">
 <div id="header">
-	<div id="headerTitle">MSE JDF Application BackOffice</div>
+	<div id="headerTitle">MSE JDF Application</div>
 	<div id="navbar">
 		<h:form>
 			<ul>
-				<li><a href="AdminHome.jsf">Home</a></li>
-				<li><a href="ListUsers.jsf">All Users</a></li>
-				<li><a href="FindUsers.jsf">Find Users</a></li>
-				<li><a href="Companies.jsf">Companies</a></li>
-				<li><a href="Subscriptions.jsf">Subscriptions</a></li>
-				<li><a href="Help.jsf">Help</a></li>
-				<li><h:commandLink action="#{securityBeanW.logout}">
+				<li><a href="/WebFrontOffice/UserHome.jsf">Home</a></li>
+				<li><a href="/WebFrontOffice/UserInfo.jsf">UserInfo</a></li>
+				<li><a href="/WebFrontOffice/Companies.jsf">Companies</a></li>
+				<li><a href="/WebFrontOffice/BankTellerInfo.jsf">Bank
+						Teller</a></li>
+				<li><a href="/WebFrontOffice/Help.jsf">Help</a></li>
+				<li><h:commandLink action="#{login.logout}">
 						<h:outputText value="Logout" />
 					</h:commandLink></li>
 			</ul>

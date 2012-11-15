@@ -7,7 +7,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:msejdf="http://java.sun.com/jsf/composite/msejdf">
 
-<ui:composition template="/WEB-INF/templates/DefaultTemplate.xhtml">
+<ui:composition template="templates/DefaultTemplate.xhtml">
 	<ui:define name="content">
 
 
@@ -17,7 +17,7 @@
 			<h:panelGrid columns="3">
 				<h:outputText value="Name"></h:outputText>
 				<h:inputText id="Name" value="#{addBankTeller.bankTeller.name}"
-					required="false" requiredMessage="Missing Bank Teller Name"></h:inputText>
+					required="true" requiredMessage="Missing Bank Teller Name"></h:inputText>
 				<h:message for="Name" errorStyle="errorMessage" />
 
 				<h:outputText value="Address"></h:outputText>
@@ -39,7 +39,7 @@
 
 			</h:panelGrid>
 			<h:commandButton value="Save" action="#{addBankTeller.addBankTeller}"></h:commandButton>
-			<h:commandButton value="Cancel" action="Cancel"></h:commandButton>
+			<h:commandButton value="Cancel" action="Cancel"  immediate="true"></h:commandButton>
 			<h:commandButton value="Reset" type="reset"></h:commandButton>
 		</h:form>
 

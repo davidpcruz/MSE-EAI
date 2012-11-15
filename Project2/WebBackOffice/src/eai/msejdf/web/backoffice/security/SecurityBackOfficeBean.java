@@ -73,4 +73,16 @@ public class SecurityBackOfficeBean
 		}
 		return result;
 	}
+	
+	/**
+	 * Logout then user from the system.
+	 *
+	 * @return true, if successful
+	 */
+	public boolean logout()
+	{
+		SessionManager.removeProperty(SessionManager.USERNAME_PROPERTY);
+		SessionManager.invalidateSession();
+		return true;
+	}
 }

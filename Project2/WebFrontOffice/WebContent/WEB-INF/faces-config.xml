@@ -90,13 +90,6 @@
 	</navigation-rule>
 	
 	<navigation-rule>
-		<from-view-id>/*</from-view-id>
-		<navigation-case>
-			<from-outcome>SessionTimedOut</from-outcome>
-			<to-view-id>/Login.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
 		<from-view-id>/AddBankTeller.xhtml</from-view-id>
 		<navigation-case>
 			<from-action>#{addBankTeller.addBankTeller}</from-action>
@@ -149,13 +142,25 @@
 			</redirect>
 		</navigation-case>
  	</navigation-rule>
+
+	<!-- Session Time out occurred -->
 	<navigation-rule>
 		<from-view-id>/*</from-view-id>
 		<navigation-case>
+			<from-outcome>SessionTimedOut</from-outcome>
+			<to-view-id>/Login.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{login.logout}</from-action>
+			<from-outcome>true</from-outcome>
+			<to-view-id>/Login.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>	
+		<navigation-case>
 			<from-outcome>CompanyDetails</from-outcome>
 			<to-view-id>/CompanyInfo.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
+		</navigation-case>			
+	</navigation-rule>	
 	<lifecycle>
 		<phase-listener>eai.msejdf.web.session.SessionPhaseListener</phase-listener>
 	</lifecycle>

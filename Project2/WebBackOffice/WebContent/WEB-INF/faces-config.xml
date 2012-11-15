@@ -37,6 +37,12 @@
 			<from-outcome>SessionTimedOut</from-outcome>
 			<to-view-id>/Login.xhtml</to-view-id>
 		</navigation-case>
+		<navigation-case>
+			<from-action>#{securityBeanW.logout}</from-action>
+			<from-outcome>true</from-outcome>
+			<to-view-id>/Login.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
 	</navigation-rule>
 
 </faces-config>
