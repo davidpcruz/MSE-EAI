@@ -24,6 +24,9 @@
    <PROCESS-ITEM-OUTPUT ID="SessionTimedOut::#Login.xhtml" NAME="output"
     PATH="/Login.xhtml" TARGET="rules:#Login.xhtml"
     TITLE="SessionTimedOut" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="true:#{securityBeanW.logout}:#Login.xhtml"
+    NAME="output1" PATH="/Login.xhtml" TARGET="rules:#Login.xhtml"
+    TITLE="#{securityBeanW.logout}:true" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
 </PROCESS>
