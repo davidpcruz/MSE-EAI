@@ -10,6 +10,7 @@ import javax.naming.NamingException;
 
 import eai.msejdf.admin.IAdmin;
 import eai.msejdf.exception.ConfigurationException;
+import eai.msejdf.exception.SecurityException;
 import eai.msejdf.persistence.Company;
 import eai.msejdf.persistence.User;
 import eai.msejdf.sort.CompanySort;
@@ -24,6 +25,10 @@ public class AdminBackOfficeBean
 
 	List<Company> companyList;
 	List<User> userList;
+	List<User> subscribedUserList;
+	
+	// the selected company to search
+	Long searchCompanySelect;
 
 	/**
 	 * Creates a AdminW bean to handle the list queries 
@@ -34,6 +39,35 @@ public class AdminBackOfficeBean
 		InitialContext ctx = new InitialContext();
 
 		this.adminBean = (IAdmin) ctx.lookup(EJBLookupConstants.EJB_I_ADMIN);
+	}
+
+	public Long getSearchCompanySelect()
+	{
+		return searchCompanySelect;
+	}
+
+	public void setSearchCompanySelect(Long searchCompanySelect)
+	{
+		this.searchCompanySelect = searchCompanySelect;
+	}
+
+	
+	/**
+	 * searches for a users associated to the companies
+	 * @return
+	 * @throws SecurityException
+	 */
+	public boolean searchUsersCompanies() 
+	{
+		// basic validations
+		if (this.getSearchCompanySelect() == null)
+		{
+			return false;
+		}
+		
+		this.subscribedUserList = this.adminBean.getUserFollowCompanyList(this.getSearchCompanySelect(), UserSort.NAME_ASC);
+		
+		return true;
 	}
 	
 	/**
@@ -62,5 +96,11 @@ public class AdminBackOfficeBean
 		}		
 		return userList;
 	}
+
+	public List<User> getSubscribedUserList()
+	{
+		return subscribedUserList;
+	}
+
 
 }

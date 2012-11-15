@@ -56,19 +56,7 @@ public class Admin implements IAdmin {
 			logger.debug("getUserList(Integer, UserSort) - start"); //$NON-NLS-1$
 		}
 
-		String sortBy = "";
-		switch (sortType)
-		{
-			case BIRTHDAY_ASC:
-				sortBy = "ORDER BY user.birthDate ASC";
-				break;
-			case BIRTHDAY_DESC:
-				sortBy = "ORDER BY user.birthDate DESC";
-				break;
-			default:
-				sortBy = "";
-				break;
-		}
+		String sortBy = buildUserSortType(sortType);
 		
 		Query query = entityManager
 				.createQuery("SELECT user FROM  User AS user " + sortBy);
@@ -82,38 +70,37 @@ public class Admin implements IAdmin {
 		return userList;
 	}
 
+
 	/*
-	 * (non-Javadoc) Get a list of Users that follow the Companay companyId
-	 * (sorttype and ageThreshold are not implemented yet)
+	 * (non-Javadoc) Get a list of Users that follow the Company companyId
 	 * 
-	 * @param Long companyId, int sortType, int ageThreshold
+	 * @param Long companyId, UserSort sortType
 	 * 
 	 * @return List<User>
 	 * 
-	 * @see eai.msejdf.admin.IAdmin#getUserFollowCompanyList(java.lang.Long,
-	 * int, int)
+	 * @see eai.msejdf.admin.IAdmin#getUserFollowCompanyList(java.lang.Long,UserSort)
 	 */
 	@Override
-	public List<User> getUserFollowCompanyList(Long companyId, int sortType,
-			int ageThreshold) {
+	public List<User> getUserFollowCompanyList(Long companyId, UserSort sortType) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getUserFollowCompanyList(String, int, int) - start"); //$NON-NLS-1$
 		}
 
-		// Query query = entityManager
-		// .createQuery("SELECT u FROM User AS u JOIN u.subscribedCompanies AS c WHERE c.id=:id");
-		Query query = entityManager
-				.createQuery("SELECT comp.subscribedUsers FROM Company as comp WHERE comp.id=:id");
+		// basic validations
+		if (null == companyId)
+		{
+			throw new IllegalArgumentException("filterPattern");
+		}		
+
+		String sortBy = buildUserSortType(sortType);
+		
+		Query query = entityManager.createQuery("SELECT user FROM User user join fetch user.subscribedCompanies as comp " +
+				"WHERE comp.id=:id " + sortBy);
 
 		query.setParameter("id", companyId);
 
 		@SuppressWarnings("unchecked")
 		List<User> userList = query.getResultList();
-
-		for (User user : userList) {
-			System.out.println("\t Result " + user.getName());
-			break;
-		}
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("getUserFollowCompanyList(String, int, int) - end"); //$NON-NLS-1$
@@ -143,19 +130,7 @@ public class Admin implements IAdmin {
 			throw new IllegalArgumentException("filterPattern");
 		}		
 		
-		String sortBy = "";
-		switch (sortType)
-		{
-			case NAME_ASC:
-				sortBy = "ORDER BY comp.name ASC";
-				break;
-			case NAME_DESC:
-				sortBy = "ORDER BY comp.name DESC";
-				break;
-			default:
-				sortBy = "";
-				break;
-		}		
+		String sortBy = buildCompanySortType(sortType);		
 		
 		// Query query = entityManager
 		Query query = entityManager
@@ -170,6 +145,60 @@ public class Admin implements IAdmin {
 			logger.debug("getCompanyList(String, int) - end"); //$NON-NLS-1$
 		}
 		return companyList;
+	}
+
+	/**
+	 * Builds the user sort type.
+	 *
+	 * @param sortType the sort type
+	 * @return the string
+	 */
+	private String buildUserSortType(UserSort sortType)
+	{
+		String sortBy = "";
+		switch (sortType)
+		{
+			case BIRTHDAY_ASC:
+				sortBy = "ORDER BY user.birthDate ASC";
+				break;
+			case BIRTHDAY_DESC:
+				sortBy = "ORDER BY user.birthDate DESC";
+				break;
+			case NAME_ASC:
+				sortBy = "ORDER BY user.name ASC";
+				break;
+			case NAME_DESC:
+				sortBy = "ORDER BY user.name DESC";
+				break;
+			default:
+				sortBy = "";
+				break;
+		}
+		return sortBy;
+	}	
+
+	/**
+	 * Builds the company sort type.
+	 *
+	 * @param sortType the sort type
+	 * @return the string
+	 */
+	private String buildCompanySortType(CompanySort sortType)
+	{
+		String sortBy = "";
+		switch (sortType)
+		{
+			case NAME_ASC:
+				sortBy = "ORDER BY comp.name ASC";
+				break;
+			case NAME_DESC:
+				sortBy = "ORDER BY comp.name DESC";
+				break;
+			default:
+				sortBy = "";
+				break;
+		}
+		return sortBy;
 	}
 
 }

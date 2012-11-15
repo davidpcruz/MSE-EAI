@@ -20,7 +20,7 @@ public interface IAdmin {
 	
 	public List<User> getUserList(Integer ageThreshold, UserSort sortType);	
 	
-	public List<User> getUserFollowCompanyList(Long companyId, int sortType, int ageThreshold);
+	public List<User> getUserFollowCompanyList(Long companyId, UserSort sortType);
 	
 	public List<Company> getCompanyList(String filterPattern, CompanySort sortType); 
 }

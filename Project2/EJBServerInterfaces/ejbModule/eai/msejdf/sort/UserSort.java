@@ -5,5 +5,5 @@ package eai.msejdf.sort;
  */
 public enum UserSort
 {
-	NONE, BIRTHDAY_ASC, BIRTHDAY_DESC 
+	NONE, BIRTHDAY_ASC, BIRTHDAY_DESC, NAME_ASC, NAME_DESC 
 }

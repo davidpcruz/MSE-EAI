@@ -9,7 +9,24 @@
 
 <ui:composition template="templates/DefaultTemplate.xhtml">
 	<ui:define name="content">
-		Hello world
- 	</ui:define>
+
+		<h:form>
+			<h:panelGrid columns="3">
+
+				<h:outputText value="Company"></h:outputText>
+				<h:selectOneMenu id="SearchCompany" value="#{adminW.searchCompanySelect}" 
+				required="true" requiredMessage="Missing selected company" >
+					<f:selectItem itemLabel="Select one" itemValue="#{null}" />
+					<f:selectItems value="#{adminW.companyList}" var="comp" itemValue="#{comp.id}" itemLabel="#{comp.name}"/>
+				</h:selectOneMenu>
+				<h:message for="SearchCompany" styleClass="errorMessage" />
+			</h:panelGrid>
+			<h:commandButton value="Search" action="#{adminW.searchUsersCompanies}" >
+			</h:commandButton>
+		</h:form>
+	
+		<msejdf:UsersList rendered="#{adminW.subscribedUserList.size() > 0}" usersList="#{adminW.subscribedUserList}"></msejdf:UsersList>
+		<h:outputText rendered="#{adminW.subscribedUserList.size() == 0}" value="No Results"></h:outputText>
+	</ui:define>
 </ui:composition>
 </html>

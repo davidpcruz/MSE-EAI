@@ -53,7 +53,7 @@ public class SecurityBackOfficeBean
 	}
 
 	/**
-	 * Chacks the user credentials
+	 * Checks the user credentials
 	 * @return
 	 * @throws SecurityException
 	 */
