@@ -2,6 +2,19 @@
 <faces-config version="2.1" xmlns="http://java.sun.com/xml/ns/javaee"
 	xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd">
+	
+	<!-- Lifecycle listener -->
+	<lifecycle>
+		<phase-listener>eai.msejdf.web.session.SessionPhaseListener</phase-listener>
+	</lifecycle>
+
+	<!-- Validators -->
+    <validator>
+        <validator-id>passwordValidator</validator-id>
+        <validator-class>eai.msejdf.validator.PasswordValidator</validator-class>
+    </validator>	
+	
+	<!-- Navigation -->
 	<navigation-rule>
 		<from-view-id>/Login.xhtml</from-view-id>
 		<navigation-case>
@@ -161,7 +174,5 @@
 			<to-view-id>/CompanyInfo.xhtml</to-view-id>
 		</navigation-case>			
 	</navigation-rule>	
-	<lifecycle>
-		<phase-listener>eai.msejdf.web.session.SessionPhaseListener</phase-listener>
-	</lifecycle>
+	
 </faces-config>
