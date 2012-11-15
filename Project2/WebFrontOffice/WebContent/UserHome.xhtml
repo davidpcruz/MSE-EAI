@@ -9,7 +9,7 @@
 
 <ui:composition template="/WEB-INF/templates/DefaultTemplate.xhtml">
 	<ui:define name="content">
-	 	<msejdf:CompaniesSummaryList companyList="#{userBeanW.followedCompanyList}"></msejdf:CompaniesSummaryList>
+		<msejdf:CompaniesSummaryList companyList="#{userHome.followedCompanyList}" bean="#{userHome}"></msejdf:CompaniesSummaryList>
  	</ui:define>
 </ui:composition>
 </html>

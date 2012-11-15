@@ -11,22 +11,26 @@
 	<ui:define name="content">
 
 		<h:outputText value="Hi " />
-		<b><h:outputText value="#{userBeanW.user.name}" /></b>
+		<b><h:outputText value="#{bankTellerInfo.user.name}" /></b>
 		<h:outputText value=", your current Bank Teller is:" />
-<!-- 		<b><h:outputText value=" #{userBeanW.user.bankTeller.name}." /></b> -->
+<!-- 		<b><h:outputText value=" #{bankTellerInfo.user.bankTeller.name}." /></b> -->
 
 		<msejdf:BankTellersSummaryList
-			bankTellerList="#{userBeanW.user.bankTeller}"></msejdf:BankTellersSummaryList>
+			bankTellerList="#{bankTellerInfo.user.bankTeller}"
+			bean="#{bankTellerInfo}">
+		</msejdf:BankTellersSummaryList>
 		<p>Do you want to change your Bank Teller? Simply select one of
 			the list or create a new one.</p>
 
 
 		<msejdf:BankTellersSummaryList
-			bankTellerList="#{userBeanW.bankTellerList}"></msejdf:BankTellersSummaryList>
+			bankTellerList="#{bankTellerInfo.bankTellerList}"
+			bean="#{bankTellerInfo}">
+		</msejdf:BankTellersSummaryList>
 
 		<h:form>
 			<h:commandButton value="Add New Bank Teller"
-				action="#{userBeanW.addBankTeller}"></h:commandButton>
+				action="AddBankTeller"></h:commandButton>
 		</h:form>
 
 	</ui:define>

@@ -10,7 +10,8 @@
 <composite:interface>
 
 	<composite:attribute name="bankTellerList" />
-
+	<composite:attribute name="bean" />
+	
 </composite:interface>
 
 
@@ -55,10 +56,11 @@
 				<h:outputText value="" />
 			</f:facet>
 
-			<h:form>
+ 			<h:form>
 				<h:commandButton
-					value="#{userBeanW.getSubscriptionChangeActionBankTeller(bankTeller)}"
-					action="#{userBeanW.subscriptionChangeActionBankTeller(bankTeller)}" />
+					value="#{cc.attrs.bean.getSubscriptionChangeAction(bankTeller)}"
+					action="#{cc.attrs.bean.subscriptionChangeAction(bankTeller)}" 
+					rendered="#{cc.attrs.bean.getSubscriptionChangeAction(bankTeller) != 'Actual'}"/>
 			</h:form>
 		</h:column>
 

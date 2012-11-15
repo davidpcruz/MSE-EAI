@@ -2,21 +2,16 @@
 <faces-config version="2.1" xmlns="http://java.sun.com/xml/ns/javaee"
 	xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd">
-
-	<lifecycle>
-		<phase-listener>eai.msejdf.web.session.SessionPhaseListener</phase-listener>
-	</lifecycle>
-
 	<navigation-rule>
 		<from-view-id>/Login.xhtml</from-view-id>
 		<navigation-case>
-			<from-action>#{securityBeanW.checkUserCredentials}</from-action>
+			<from-action>#{login.checkUserCredentials}</from-action>
 			<from-outcome>true</from-outcome>
 			<to-view-id>/UserHome.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 		<navigation-case>
-			<from-action>#{securityBeanW.checkUserCredentials}</from-action>
+			<from-action>#{login.checkUserCredentials}</from-action>
 			<from-outcome>false</from-outcome>
 			<to-view-id>/Login.xhtml</to-view-id>
 			<redirect>
@@ -31,16 +26,15 @@
 			<to-view-id>/UserInfo.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-
 	<navigation-rule>
 		<from-view-id>/UserInfo.xhtml</from-view-id>
 		<navigation-case>
-			<from-action>#{userBeanW.updateUser}</from-action>
+			<from-action>#{userInfo.updateUser}</from-action>
 			<from-outcome>true</from-outcome>
 			<to-view-id>/UserHome.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
-			<from-action>#{userBeanW.updateUser}</from-action>
+			<from-action>#{userInfo.updateUser}</from-action>
 			<from-outcome>false</from-outcome>
 			<to-view-id>/UserInfo.xhtml</to-view-id>
 			<redirect>
@@ -55,7 +49,6 @@
 			<to-view-id>/UserHome.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-
 	<navigation-rule>
 		<from-view-id>/UserHome.xhtml</from-view-id>
 		<navigation-case>
@@ -63,46 +56,41 @@
 			<to-view-id>/CompanyInfo.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
-			<from-action>#{userBeanW.subscriptionChangeAction(company)}</from-action>
+			<from-action>#{userHome.subscriptionChangeAction(company)}</from-action>
 			<from-outcome>true</from-outcome>
 			<to-view-id>/UserHome.xhtml</to-view-id>
-			<redirect>
-			</redirect>
+			<redirect />
 		</navigation-case>
 		<navigation-case>
-			<from-action>#{userBeanW.subscriptionChangeAction(company)}</from-action>
+			<from-action>#{userHome.subscriptionChangeAction(company)}</from-action>
 			<from-outcome>false</from-outcome>
 			<!-- TODO: We should show an error page -->
 			<to-view-id>/UserHome.xhtml</to-view-id>
-			<redirect>
-			</redirect>
+			<redirect />
 		</navigation-case>
 	</navigation-rule>
-
+	
 	<navigation-rule>
 		<from-view-id>/Companies.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>CompanyInfo</from-outcome>
 			<to-view-id>/CompanyInfo.xhtml</to-view-id>
 		</navigation-case>
-
 		<navigation-case>
-			<from-action>#{userBeanW.subscriptionChangeAction(company)}</from-action>
+			<from-action>#{companies.subscriptionChangeAction(company)}</from-action>
 			<from-outcome>true</from-outcome>
 			<to-view-id>/Companies.xhtml</to-view-id>
-			<redirect>
-			</redirect>
+			<redirect />
 		</navigation-case>
 		<navigation-case>
-			<from-action>#{userBeanW.subscriptionChangeAction(company)}</from-action>
+			<from-action>#{companies.subscriptionChangeAction(company)}</from-action>
 			<from-outcome>false</from-outcome>
 			<!-- TODO: We should show an error page -->
 			<to-view-id>/Companies.xhtml</to-view-id>
-			<redirect>
-			</redirect>
+			<redirect />
 		</navigation-case>
 	</navigation-rule>
-
+	
 	<navigation-rule>
 		<from-view-id>/*</from-view-id>
 		<navigation-case>
@@ -110,16 +98,15 @@
 			<to-view-id>/Login.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-
 	<navigation-rule>
 		<from-view-id>/AddBankTeller.xhtml</from-view-id>
 		<navigation-case>
-			<from-action>#{userBeanW.addBankTeller}</from-action>
+			<from-action>#{addBankTeller.addBankTeller}</from-action>
 			<from-outcome>true</from-outcome>
-			<to-view-id>/BankTeller.xhtml</to-view-id>
+			<to-view-id>/BankTellerInfo.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
-			<from-action>#{userBeanW.addBankTeller}</from-action>
+			<from-action>#{addBankTeller.addBankTeller}</from-action>
 			<from-outcome>false</from-outcome>
 			<to-view-id>/AddBankTeller.xhtml</to-view-id>
 			<redirect>
@@ -131,7 +118,7 @@
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>Cancel</from-outcome>
-			<to-view-id>/BankTeller.xhtml</to-view-id>
+			<to-view-id>/BankTellerInfo.xhtml</to-view-id>
 			<redirect>
 				<view-param>
 					<name>message</name>
@@ -140,32 +127,23 @@
 			</redirect>
 		</navigation-case>
 	</navigation-rule>
-
+	
 	<navigation-rule>
-		<from-view-id>/BankTeller.xhtml</from-view-id>
-		<navigation-case>
-			<from-action>#{userBeanW.addBankTeller}</from-action>
-			<from-outcome>true</from-outcome>
-			<to-view-id>/AddBankTeller.xhtml</to-view-id>
-			<redirect>
-			</redirect>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{userBeanW.addBankTeller}</from-action>
-			<from-outcome>false</from-outcome>
+		<from-view-id>/BankTellerInfo.xhtml</from-view-id>
+	 	<navigation-case>
+			<from-outcome>AddBankTeller</from-outcome>
 			<to-view-id>/AddBankTeller.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
-			<from-action>#{userBeanW.subscriptionChangeActionBankTeller(bankTeller)}</from-action>
+			<from-action>#{bankTellerInfo.subscriptionChangeAction(bankTeller)}</from-action>
 			<from-outcome>true</from-outcome>
-			<to-view-id>/BankTeller.xhtml</to-view-id>
-			<redirect>
-			</redirect>
+			<to-view-id>/BankTellerInfo.xhtml</to-view-id>
+			<redirect />
 		</navigation-case>
 		<navigation-case>
-			<from-action>#{userBeanW.subscriptionChangeActionBankTeller(bankTeller)}</from-action>
+			<from-action>#{bankTellerInfo.subscriptionChangeAction(bankTeller)}</from-action>
 			<from-outcome>false</from-outcome>
-			<to-view-id>/BankTeller.xhtml</to-view-id>
+			<to-view-id>/BankTellerInfo.xhtml</to-view-id>
 			<redirect>
 				<view-param>
 					<name>message</name>
@@ -174,7 +152,6 @@
 			</redirect>
 		</navigation-case>
 	</navigation-rule>
-
 	<navigation-rule>
 		<from-view-id>/*</from-view-id>
 		<navigation-case>
@@ -182,5 +159,7 @@
 			<to-view-id>/CompanyInfo.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-
+	<lifecycle>
+		<phase-listener>eai.msejdf.web.session.SessionPhaseListener</phase-listener>
+	</lifecycle>
 </faces-config>

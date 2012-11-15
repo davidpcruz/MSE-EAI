@@ -10,7 +10,8 @@
 <composite:interface>
 
 	<composite:attribute name="companyList" />
-
+	<composite:attribute name="bean" />
+	
 </composite:interface>
 
 
@@ -107,8 +108,8 @@
 
 			<h:form>
 				<h:commandLink
-					value="#{userBeanW.getSubscriptionChangeAction(company)}"
-					action="#{userBeanW.subscriptionChangeAction(company)}">
+					value="#{cc.attrs.bean.getSubscriptionChangeAction(company)}"
+					action="#{cc.attrs.bean.subscriptionChangeAction(company)}">
 
 					<f:param name="CompanyId" value="#{company.id}" />
 				</h:commandLink>

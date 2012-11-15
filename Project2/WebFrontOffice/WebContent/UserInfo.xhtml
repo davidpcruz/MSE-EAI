@@ -14,16 +14,16 @@
              <h:panelGrid columns="3">
              
                 <h:outputText value="Name"></h:outputText>
-                <h:inputText id="Name" value="#{userBeanW.user.name}" required="true" requiredMessage="Missing Name"></h:inputText>
+                <h:inputText id="Name" value="#{userInfo.user.name}" required="true" requiredMessage="Missing Name"></h:inputText>
                 <h:message for="Name" errorStyle="errorMessage"/>
 
                 <h:outputText value="Phone"></h:outputText>
-                <h:inputText id="Phone" value="#{userBeanW.user.phone}" required="true" requiredMessage="Missing phone"></h:inputText>
+                <h:inputText id="Phone" value="#{userInfo.user.phone}" required="true" requiredMessage="Missing phone"></h:inputText>
                 <h:message for="Phone" errorStyle="errorMessage"/>
 
                 <h:outputText value="e-mail"></h:outputText>
                 <h:inputText id="e-mail" 
-                	value="#{userBeanW.user.email}" 
+                	value="#{userInfo.user.email}" 
                 	required="true" 
                 	requiredMessage="Missing e-mail" 
                 	validatorMessage="Invalid email format">
@@ -34,7 +34,7 @@
 
                 <h:outputText value="Birth Date (dd/mm/yyyy)"></h:outputText>
                 <h:inputText id="BirthDate" 
-                	value="#{userBeanW.user.birthDate}"  
+                	value="#{userInfo.user.birthDate}"  
                 	required="true" 
                 	requiredMessage="Missing birth date"
                 	validatorMessage="Invalid date format">
@@ -47,19 +47,19 @@
 				<h:outputText value="" />
 
                 <h:outputText value="Street address"></h:outputText>
-                <h:inputText id="Street address" value="#{userBeanW.user.address.address}" required="true" requiredMessage="Missing street address"></h:inputText>
+                <h:inputText id="Street address" value="#{userInfo.user.address.address}" required="true" requiredMessage="Missing street address"></h:inputText>
                 <h:message for="Street address" errorStyle="errorMessage"/>
 
                 <h:outputText value="Zip Code"></h:outputText>
-                <h:inputText id="Zip Code" value="#{userBeanW.user.address.zipCode}" required="true" requiredMessage="Missing zip code"></h:inputText>
+                <h:inputText id="Zip Code" value="#{userInfo.user.address.zipCode}" required="true" requiredMessage="Missing zip code"></h:inputText>
                 <h:message for="Zip Code" errorStyle="errorMessage"/>
 
                 <h:outputText value="City"></h:outputText>
-                <h:inputText id="City" value="#{userBeanW.user.address.city}" required="true" requiredMessage="Missing city"></h:inputText>
+                <h:inputText id="City" value="#{userInfo.user.address.city}" required="true" requiredMessage="Missing city"></h:inputText>
                 <h:message for="City" errorStyle="errorMessage"/> -->
 
             </h:panelGrid>
-            <h:commandButton value="Save" action="#{userBeanW.updateUser}"></h:commandButton>
+            <h:commandButton value="Save" action="#{userInfo.updateUser}"></h:commandButton>
             <h:commandButton value="Cancel" action="Cancel"></h:commandButton>
         </h:form>
     </ui:define>
