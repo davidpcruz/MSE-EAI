@@ -7,14 +7,19 @@
 <div id="header">
 	<div id="headerTitle">MSE JDF Application</div>
 	<div id="navbar">
-		<ul>
-		<li><a href="/WebFrontOffice/Login.jsf">Login</a></li>
-			<li><a href="/WebFrontOffice/UserHome.jsf">Home</a></li>
-			<li><a href="/WebFrontOffice/UserInfo.jsf">UserInfo</a></li>
-			<li><a href="/WebFrontOffice/Companies.jsf">Companies</a></li>
-			<li><a href="/WebFrontOffice/BankTellerInfo.jsf">Bank Teller</a></li>
-			<li><a href="/WebFrontOffice/Help.jsf">Help</a></li>
-		</ul>
+		<h:form>
+			<ul>
+				<li><a href="/WebFrontOffice/UserHome.jsf">Home</a></li>
+				<li><a href="/WebFrontOffice/UserInfo.jsf">UserInfo</a></li>
+				<li><a href="/WebFrontOffice/Companies.jsf">Companies</a></li>
+				<li><a href="/WebFrontOffice/BankTellerInfo.jsf">Bank
+						Teller</a></li>
+				<li><a href="/WebFrontOffice/Help.jsf">Help</a></li>
+				<li><h:commandLink action="#{login.logout}">
+						<h:outputText value="Logout" />
+					</h:commandLink></li>
+			</ul>
+		</h:form>
 	</div>
-</div>	
+</div>
 </html>

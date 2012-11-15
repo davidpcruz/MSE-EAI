@@ -113,12 +113,11 @@
    <PROCESS-ITEM-OUTPUT ID="SessionTimedOut::#Login.xhtml" NAME="output"
     PATH="/Login.xhtml" TARGET="rules:#Login.xhtml"
     TITLE="SessionTimedOut" model-entity="JSFProcessItemOutput"/>
-  </PROCESS-ITEM>
- </PROCESS-ITEM>
- <PROCESS-ITEM NAME="rules:#*:1" PATH="/*" SHAPE="64,369,0,0" model-entity="JSFProcessGroup">
-  <PROCESS-ITEM ID="rules:#*:1" NAME="item" PATH="/*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="true:#{login.logout}:#Login.xhtml"
+    NAME="output1" PATH="/Login.xhtml" TARGET="rules:#Login.xhtml"
+    TITLE="#{login.logout}:true" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT ID="CompanyDetails::#CompanyInfo.xhtml"
-    NAME="output" PATH="/CompanyInfo.xhtml"
+    NAME="output2" PATH="/CompanyInfo.xhtml"
     TARGET="rules:#CompanyInfo.xhtml" TITLE="CompanyDetails" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
