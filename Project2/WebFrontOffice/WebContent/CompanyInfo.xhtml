@@ -12,7 +12,9 @@
 		<h:outputText value="Here you can see the company details." />
 		<msejdf:CompaniesSummaryList
 			companyList="#{companyInfo.getCompany(param.CompanyId)}"
-			bean="#{companyInfo}"></msejdf:CompaniesSummaryList>
+			bean="#{companyInfo}" 
+			renderDetails="false">
+		</msejdf:CompaniesSummaryList>
 
 		<h3>Hour Report</h3>
 		<img

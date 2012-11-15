@@ -11,6 +11,7 @@
 
 	<composite:attribute name="companyList" />
 	<composite:attribute name="bean" />
+	<composite:attribute name="renderDetails" />
 	
 </composite:interface>
 
@@ -91,7 +92,7 @@
 			<h:outputText value="#{company.stockInfo.sell}" />
 		</h:column>
 
-		<h:column>
+		<h:column rendered="#{cc.attrs.renderDetails == 'true'}">
 			<f:facet name="header">
 				<h:outputText value="Details" />
 			</f:facet>
