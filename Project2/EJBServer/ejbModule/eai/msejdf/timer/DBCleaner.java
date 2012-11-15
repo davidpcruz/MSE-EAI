@@ -45,30 +45,27 @@ public class DBCleaner {
 			logger.debug("cleanBankTeller() - start"); //$NON-NLS-1$
 		}
 
-		List<Long> notUsedBankTellersId = new ArrayList<Long>();
 		
 		// Get a list of all Bank Tellers in DB
 		Query queryGetBankTellersId = entityManager.createQuery("SELECT bankTeller.id FROM  BankTeller AS bankTeller");
 		@SuppressWarnings("unchecked")
-		List<Long> completBankTellerListId = queryGetBankTellersId.getResultList();
+		List<Long> bankTellerListId = queryGetBankTellersId.getResultList();
 		
 		// Get a list of the used Bank Tellers
 		Query queryGetUsedBankTellersId = entityManager.createQuery("SELECT user.bankTeller.id FROM  User AS user");
 		@SuppressWarnings("unchecked")
 		List<Long> usedBankTellerListId = queryGetUsedBankTellersId.getResultList();
 
-		// Get the list of unused tBankTellerListId
-		for (Long bankteler : completBankTellerListId) {
-			if (!usedBankTellerListId.contains(bankteler)) {
-				notUsedBankTellersId.add(bankteler);
-			}
-		}
-
+		
+		// Get the list of unused BankTellerListId
+		bankTellerListId.removeAll(usedBankTellerListId);
+		
+		
 		// If there are unused Bankteller so they should be deleted
-		if (0 < notUsedBankTellersId.size()) {
-			logger.info("Deleting  Bank Teller with ID:" + notUsedBankTellersId);
+		if (0 < bankTellerListId.size()) {
+			logger.info("Deleting  Bank Teller with ID:" + bankTellerListId);
 			Query deleteQuery = entityManager.createQuery("delete from BankTeller where id in (:notUsedBankTellers) ");
-			deleteQuery.setParameter("notUsedBankTellers", notUsedBankTellersId);
+			deleteQuery.setParameter("notUsedBankTellers", bankTellerListId);
 			deleteQuery.executeUpdate();
 		} else {
 			logger.info("cleanBankTeller speaking: No  Bank Teller are being unused. I'll skip for now but I will be back");
