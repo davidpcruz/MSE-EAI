@@ -3,6 +3,7 @@
 	<name>EJBServer</name>
 	<comment></comment>
 	<projects>
+		<project>EAICommon</project>
 		<project>EJBServerInterfaces</project>
 		<project>JPAData</project>
 	</projects>
