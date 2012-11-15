@@ -1,5 +1,6 @@
 package eai.msejdf.admin;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -30,8 +31,8 @@ public class Admin implements IAdmin {
 	// TODO: Check if it can be placed in a config file and update name
 	private EntityManager entityManager;
 
-	/*
-	 * (non-Javadoc) Get a list of Users in the system (
+	/**
+	 * Get a list of Users in the system (
 	 * ageThreshold are not implemented yet)
 	 * 
 	 * @param int sortType, int ageThreshold
@@ -40,14 +41,13 @@ public class Admin implements IAdmin {
 	 * 
 	 * @see eai.msejdf.admin.IAdmin#getUserList(int, int)
 	 */
-
 	@Override
 	public List<User> getUserList(UserSort sortType)
 	{
 		return this.getUserList(null, sortType);
 	}
 	
-	/* (non-Javadoc)
+	/**
 	 * @see eai.msejdf.admin.IAdmin#getUserList(java.lang.Integer, eai.msejdf.admin.UserSort)
 	 */
 	@Override
@@ -58,8 +58,21 @@ public class Admin implements IAdmin {
 
 		String sortBy = buildUserSortType(sortType);
 		
-		Query query = entityManager
-				.createQuery("SELECT user FROM  User AS user " + sortBy);
+		Query query;
+		
+		// Different query based on the age restriction
+		if (null == ageThreshold)
+		{
+			query = entityManager.createQuery("SELECT user FROM  User AS user " + sortBy);			
+		} else {
+			
+			Calendar now = Calendar.getInstance();
+			now.add(Calendar.YEAR, (-1) * ageThreshold);
+			
+			query = entityManager.createQuery("SELECT user FROM  User AS user where user.birthDate <=:ageDate " + sortBy);
+			query.setParameter("ageDate", now.getTime());
+		}
+		
 
 		@SuppressWarnings("unchecked")
 		List<User> userList = query.getResultList();
@@ -71,8 +84,8 @@ public class Admin implements IAdmin {
 	}
 
 
-	/*
-	 * (non-Javadoc) Get a list of Users that follow the Company companyId
+	/**
+	 * Get a list of Users that follow the Company companyId
 	 * 
 	 * @param Long companyId, UserSort sortType
 	 * 
