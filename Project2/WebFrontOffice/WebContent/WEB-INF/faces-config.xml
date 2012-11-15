@@ -156,6 +156,36 @@
 		</navigation-case>
  	</navigation-rule>
 
+	<!-- Account -->
+	
+	<navigation-rule>
+		<from-view-id>/Account.xhtml</from-view-id>
+	 	<navigation-case>
+	 		<from-action>#{account.changePassword}</from-action>
+			<from-outcome>true</from-outcome>
+			<to-view-id>/Account.xhtml</to-view-id>
+			<redirect>
+				<view-param>
+					<name>message</name>
+					<value>PasswordChanged</value>
+				</view-param>
+			</redirect>
+		</navigation-case>
+	 	<navigation-case>
+	 		<from-action>#{account.changePassword}</from-action>
+			<from-outcome>false</from-outcome>
+			<to-view-id>/Account.xhtml</to-view-id>
+			<redirect>
+				<view-param>
+					<name>message</name>
+					<value>PasswordChangeError</value>
+				</view-param>
+			</redirect>
+		</navigation-case>
+ 	</navigation-rule>
+
+
+
 	<!-- Session Time out occurred -->
 	<navigation-rule>
 		<from-view-id>/*</from-view-id>

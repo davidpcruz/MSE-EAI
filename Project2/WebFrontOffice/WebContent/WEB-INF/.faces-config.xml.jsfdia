@@ -121,4 +121,18 @@
     TARGET="rules:#CompanyInfo.xhtml" TITLE="CompanyDetails" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#Account.xhtml" PATH="/Account.xhtml"
+  SHAPE="512,1121,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#Account.xhtml:0" NAME="item"
+   PATH="/Account.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="true:#{account.changePassword}:#Account.xhtml" NAME="output"
+    PATH="/Account.xhtml" TARGET="rules:#Account.xhtml"
+    TITLE="#{account.changePassword}:true" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="false:#{account.changePassword}:#Account.xhtml" NAME="output1"
+    PATH="/Account.xhtml" TARGET="rules:#Account.xhtml"
+    TITLE="#{account.changePassword}:false" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
 </PROCESS>
