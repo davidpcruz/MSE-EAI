@@ -77,17 +77,15 @@
 			<to-view-id>/CompanyInfo.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
-			<from-action>#{companies.subscriptionChangeAction(company)}</from-action>
+			<from-action>#{cc.attrs.bean.subscriptionChangeAction(company)}</from-action>
 			<from-outcome>true</from-outcome>
 			<to-view-id>/Companies.xhtml</to-view-id>
-			<redirect />
 		</navigation-case>
 		<navigation-case>
-			<from-action>#{companies.subscriptionChangeAction(company)}</from-action>
+			<from-action>#{cc.attrs.bean.subscriptionChangeAction(company)}</from-action>
 			<from-outcome>false</from-outcome>
 			<!-- TODO: We should show an error page -->
 			<to-view-id>/Companies.xhtml</to-view-id>
-			<redirect />
 		</navigation-case>
 	</navigation-rule>
 	
@@ -134,14 +132,13 @@
 			<from-outcome>AddBankTeller</from-outcome>
 			<to-view-id>/AddBankTeller.xhtml</to-view-id>
 		</navigation-case>
-		<navigation-case>
-			<from-action>#{bankTellerInfo.subscriptionChangeAction(bankTeller)}</from-action>
+ 		<navigation-case>
+			<from-action>#{cc.attrs.bean.subscriptionChangeAction(bankTeller)}</from-action>
 			<from-outcome>true</from-outcome>
 			<to-view-id>/BankTellerInfo.xhtml</to-view-id>
-			<redirect />
 		</navigation-case>
 		<navigation-case>
-			<from-action>#{bankTellerInfo.subscriptionChangeAction(bankTeller)}</from-action>
+			<from-action>#{cc.attrs.bean.subscriptionChangeAction(bankTeller)}</from-action>
 			<from-outcome>false</from-outcome>
 			<to-view-id>/BankTellerInfo.xhtml</to-view-id>
 			<redirect>
@@ -151,7 +148,7 @@
 				</view-param>
 			</redirect>
 		</navigation-case>
-	</navigation-rule>
+ 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>/*</from-view-id>
 		<navigation-case>

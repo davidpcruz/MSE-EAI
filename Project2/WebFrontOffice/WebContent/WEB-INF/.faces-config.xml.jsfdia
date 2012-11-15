@@ -57,15 +57,15 @@
     NAME="output" PATH="/CompanyInfo.xhtml"
     TARGET="rules:#CompanyInfo.xhtml" TITLE="CompanyInfo" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
-    ID="true:#{companies.subscriptionChangeAction(company)}:#Companies.xhtml"
+    ID="true:#{cc.attrs.bean.subscriptionChangeAction(company)}:#Companies.xhtml"
     NAME="output2" PATH="/Companies.xhtml"
     TARGET="rules:#Companies.xhtml"
-    TITLE="#{companies.subscriptionChangeAction(company)}:true" model-entity="JSFProcessItemOutput"/>
+    TITLE="#{cc.attrs.bean.subscriptionChangeAction(company)}:true" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
-    ID="false:#{companies.subscriptionChangeAction(company)}:#Companies.xhtml"
+    ID="false:#{cc.attrs.bean.subscriptionChangeAction(company)}:#Companies.xhtml"
     NAME="output3" PATH="/Companies.xhtml"
     TARGET="rules:#Companies.xhtml"
-    TITLE="#{companies.subscriptionChangeAction(company)}:false" model-entity="JSFProcessItemOutput"/>
+    TITLE="#{cc.attrs.bean.subscriptionChangeAction(company)}:false" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#CompanyInfo.xhtml" PATH="/CompanyInfo.xhtml"
@@ -97,15 +97,15 @@
     NAME="output" PATH="/AddBankTeller.xhtml"
     TARGET="rules:#AddBankTeller.xhtml" TITLE="AddBankTeller" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
-    ID="true:#{bankTellerInfo.subscriptionChangeAction(bankTeller)}:#BankTellerInfo.xhtml"
+    ID="true:#{cc.attrs.bean.subscriptionChangeAction(bankTeller)}:#BankTellerInfo.xhtml"
+    NAME="output1" PATH="/BankTellerInfo.xhtml"
+    TARGET="rules:#BankTellerInfo.xhtml"
+    TITLE="#{cc.attrs.bean.subscriptionChangeAction(bankTeller)}:true" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="false:#{cc.attrs.bean.subscriptionChangeAction(bankTeller)}:#BankTellerInfo.xhtml"
     NAME="output2" PATH="/BankTellerInfo.xhtml"
     TARGET="rules:#BankTellerInfo.xhtml"
-    TITLE="#{bankTellerInfo.subscriptionChangeAction(bankTeller)}:true" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT
-    ID="false:#{bankTellerInfo.subscriptionChangeAction(bankTeller)}:#BankTellerInfo.xhtml"
-    NAME="output3" PATH="/BankTellerInfo.xhtml"
-    TARGET="rules:#BankTellerInfo.xhtml"
-    TITLE="#{bankTellerInfo.subscriptionChangeAction(bankTeller)}:false" model-entity="JSFProcessItemOutput"/>
+    TITLE="#{cc.attrs.bean.subscriptionChangeAction(bankTeller)}:false" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#*" PATH="/*" SHAPE="48,369,0,0" model-entity="JSFProcessGroup">

@@ -9,7 +9,7 @@
 <ui:composition template="/WEB-INF/templates/DefaultTemplate.xhtml">
     <ui:define name="content">
     
-    	<h:outputText value="Wrong user data" rendered="#{param.message != WrongUserInfoError}" styleClass="errorMessage"/>
+    	<h:outputText value="Wrong user data" rendered="#{param.message == 'WrongUserInfoError'}" styleClass="errorMessage"/>
         <h:form>
              <h:panelGrid columns="3">
              
@@ -42,21 +42,17 @@
                 </h:inputText>
 				<h:message for="BirthDate" errorStyle="errorMessage"/>
 
-				<!-- <h:outputText value="Address Details" />
-				<h:outputText value="" />
-				<h:outputText value="" />
-
-                <h:outputText value="Street address"></h:outputText>
-                <h:inputText id="Street address" value="#{userInfo.user.address.address}" required="true" requiredMessage="Missing street address"></h:inputText>
-                <h:message for="Street address" errorStyle="errorMessage"/>
+                <h:outputText value="Street Address"></h:outputText>
+                <h:inputText id="StreetAddress" value="#{userInfo.address.address}" required="true" requiredMessage="Missing street address"></h:inputText>
+                <h:message for="StreetAddress" errorStyle="errorMessage"/>
 
                 <h:outputText value="Zip Code"></h:outputText>
-                <h:inputText id="Zip Code" value="#{userInfo.user.address.zipCode}" required="true" requiredMessage="Missing zip code"></h:inputText>
-                <h:message for="Zip Code" errorStyle="errorMessage"/>
+                <h:inputText id="ZipCode" value="#{userInfo.address.zipCode}" required="true" requiredMessage="Missing zip code"></h:inputText>
+                <h:message for="ZipCode" errorStyle="errorMessage"/>
 
                 <h:outputText value="City"></h:outputText>
-                <h:inputText id="City" value="#{userInfo.user.address.city}" required="true" requiredMessage="Missing city"></h:inputText>
-                <h:message for="City" errorStyle="errorMessage"/> -->
+                <h:inputText id="City" value="#{userInfo.address.city}" required="true" requiredMessage="Missing city"></h:inputText>
+                <h:message for="City" errorStyle="errorMessage"/>
 
             </h:panelGrid>
             <h:commandButton value="Save" action="#{userInfo.updateUser}"></h:commandButton>

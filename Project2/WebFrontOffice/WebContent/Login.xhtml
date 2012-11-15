@@ -9,7 +9,7 @@
 <ui:composition template="/WEB-INF/templates/DefaultTemplate.xhtml">
 	<ui:define name="content">
 	
-    	<h:outputText value="Wrong user or password" rendered="#{param.message != WrongUserPasswordError}" styleClass="errorMessage"/>
+    	<h:outputText value="Wrong user or password" rendered="#{param.message == 'WrongUserPasswordError'}" styleClass="errorMessage"/>
         <h:form>
              <h:panelGrid columns="3">
              
