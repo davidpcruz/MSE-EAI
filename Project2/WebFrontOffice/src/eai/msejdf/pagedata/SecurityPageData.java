@@ -143,15 +143,6 @@ public class SecurityPageData {
 		return true;
 	}
 
-	public User getUserRegistrationInfo() {
-		return userRegistrationInfo;
-	}
-
-	public void setUserRegistrationInfo(User userRegistrationInfo) {
-		this.userRegistrationInfo = userRegistrationInfo;
-	}
-	
-
 	/**
 	 * Delete account.
 	 *
@@ -176,7 +167,6 @@ public class SecurityPageData {
 		return result;
 	}	
 
-
 	public User getUserRegistrationInfo() {
 		return userRegistrationInfo;
 	}
@@ -184,5 +174,4 @@ public class SecurityPageData {
 	public void setUserRegistrationInfo(User userRegistrationInfo) {
 		this.userRegistrationInfo = userRegistrationInfo;
 	}
-
 }
