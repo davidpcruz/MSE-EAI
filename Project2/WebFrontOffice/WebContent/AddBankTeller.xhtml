@@ -20,29 +20,29 @@
 					required="true" requiredMessage="Missing Bank Teller Name"></h:inputText>
 				<h:message for="Name" errorStyle="errorMessage" />
 
-				<h:outputText value="Address"></h:outputText>
-				<h:inputText id="Address"
-					value="#{addBankTeller.bankTeller.address.address}" required="true"
-					requiredMessage="Missing street address"></h:inputText>
-				<h:message for="Address" errorStyle="errorMessage" />
+<!-- 				<h:outputText value="Address"></h:outputText> -->
+<!-- 				<h:inputText id="Address" -->
+<!-- 					value="#{addBankTeller.bankTeller.address.address}" required="true" -->
+<!-- 					requiredMessage="Missing street address"></h:inputText> -->
+<!-- 				<h:message for="Address" errorStyle="errorMessage" /> -->
 
-				<h:outputText value="Zip Code"></h:outputText>
-				<h:inputText id="ZipCode"
-					value="#{addBankTeller.bankTeller.address.zipCode}" required="true"
-					requiredMessage="Missing zip code"
-					validatorMessage="Invalid zip code. Must be 7 digits (ccccaaa).">
-					<f:validateRegex pattern="[\p{Digit}]+"></f:validateRegex>
-					<f:validateLength minimum="7" maximum="7" />
-				</h:inputText>
-				<h:message for="ZipCode" errorStyle="errorMessage" />
+<!-- 				<h:outputText value="Zip Code"></h:outputText> -->
+<!-- 				<h:inputText id="ZipCode" -->
+<!-- 					value="#{addBankTeller.bankTeller.address.zipCode}" required="true" -->
+<!-- 					requiredMessage="Missing zip code" -->
+<!-- 					validatorMessage="Invalid zip code. Must be 7 digits (ccccaaa)."> -->
+<!-- 					<f:validateRegex pattern="[\p{Digit}]+"></f:validateRegex> -->
+<!-- 					<f:validateLength minimum="7" maximum="7" /> -->
+<!-- 				</h:inputText> -->
+<!-- 				<h:message for="ZipCode" errorStyle="errorMessage" /> -->
 
-				<h:outputText value="City"></h:outputText>
-				<h:inputText id="City"
-					value="#{addBankTeller.bankTeller.address.city}" required="true"
-					requiredMessage="Missing City"></h:inputText>
-				<h:message for="City" errorStyle="errorMessage" />
+<!-- 				<h:outputText value="City"></h:outputText> -->
+<!-- 				<h:inputText id="City" -->
+<!-- 					value="#{addBankTeller.bankTeller.address.city}" required="true" -->
+<!-- 					requiredMessage="Missing City"></h:inputText> -->
+<!-- 				<h:message for="City" errorStyle="errorMessage" /> -->
 
-				
+				<msejdf:Address address="#{addBankTeller.bankTeller.address}"></msejdf:Address>
 
 			</h:panelGrid>
 			<h:commandButton value="Save" action="#{addBankTeller.addBankTeller}"></h:commandButton>
