@@ -1,549 +1,226 @@
-[2012-11-15 16:07:19,274]DEBUG143862[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:19,275] INFO143863[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.daemons.RRDDaemon.onMessage(RRDDaemon.java:92) - onMessage(Message) - onMessage, recv text=<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<stocks timestamp="1352995482894" xmlns="msejdf">
-    <stock>
-        <company>
-            <name>ALTRI</name>
-        </company>
-        <quotation>
-            <lastQuotation>1.38</lastQuotation>
-            <time>15:40</time>
-            <variation>-1.01</variation>
-            <quantity>21619</quantity>
-            <maximum>1.39</maximum>
-            <minimum>1.37</minimum>
-            <purchase>0.0</purchase>
-            <sell>0.0</sell>
-        </quotation>
-    </stock>
-    <stock>
-        <company>
-            <name>BCP</name>
-        </company>
-        <quotation>
-            <lastQuotation>0.07</lastQuotation>
-            <time>15:46</time>
-            <variation>-1.43</variation>
-            <quantity>96765762</quantity>
-            <maximum>0.07</maximum>
-            <minimum>0.07</minimum>
-            <purchase>0.0</purchase>
-            <sell>0.0</sell>
-        </quotation>
-    </stock>
-    <stock>
-        <company>
-            <name>BES</name>
-        </company>
-        <quotation>
-            <lastQuotation>0.78</lastQuotation>
-            <time>15:44</time>
-            <variation>-0.89</variation>
-            <quantity>13073689</quantity>
-            <maximum>0.79</maximum>
-            <minimum>0.78</minimum>
-            <purchase>0.0</purchase>
-            <sell>0.0</sell>
-        </quotation>
-    </stock>
-    <stock>
-        <company>
-            <name>BPI</name>
-        </company>
-        <quotation>
-            <lastQuotation>0.8</lastQuotation>
-            <time>15:28</time>
-            <variation>-2.09</variation>
-            <quantity>903723</quantity>
-            <maximum>0.81</maximum>
-            <minimum>0.79</minimum>
-            <purchase>0.0</purchase>
-            <sell>0.0</sell>
-        </quotation>
-    </stock>
-    <stock>
-        <company>
-            <name>BRISA PRIV</name>
-        </company>
-        <quotation>
-            <lastQuotation>1.89</lastQuotation>
-            <time>15:46</time>
-            <variation>7.39</variation>
-            <quantity>373468</quantity>
-            <maximum>1.93</maximum>
-            <minimum>1.77</minimum>
-            <purchase>0.0</purchase>
-            <sell>0.0</sell>
-        </quotation>
-    </stock>
-    <stock>
-        <company>
-            <name>CIMPOR</name>
-        </company>
-        <quotation>
-            <lastQuotation>3.28</lastQuotation>
-            <time>15:35</time>
-            <variation>-0.61</variation>
-            <quantity>75166</quantity>
-            <maximum>3.3</maximum>
-            <minimum>3.26</minimum>
-            <purchase>0.0</purchase>
-            <sell>0.0</sell>
-        </quotation>
-    </stock>
-    <stock>
-        <company>
-            <name>EDP</name>
-        </company>
-        <quotation>
-            <lastQuotation>1.96</lastQuotation>
-            <time>15:46</time>
-            <variation>-0.2</variation>
-            <quantity>2386033</quantity>
-            <maximum>1.97</maximum>
-            <minimum>1.94</minimum>
-            <purchase>0.0</purchase>
-            <sell>0.0</sell>
-        </quotation>
-    </stock>
-    <stock>
-        <company>
-            <name>EDP Renováveis</name>
-        </company>
-        <quotation>
-            <lastQuotation>3.74</lastQuotation>
-            <time>15:45</time>
-            <variation>-1.24</variation>
-            <quantity>199394</quantity>
-            <maximum>3.82</maximum>
-            <minimum>3.72</minimum>
-            <purchase>0.0</purchase>
-            <sell>0.0</sell>
-        </quotation>
-    </stock>
-    <stock>
-        <company>
-            <name>GALP</name>
-        </company>
-        <quotation>
-            <lastQuotation>12.11</lastQuotation>
-            <time>15:46</time>
-            <variation>0.83</variation>
-            <quantity>1112067</quantity>
-            <maximum>12.17</maximum>
-            <minimum>11.93</minimum>
-            <purchase>0.0</purchase>
-            <sell>0.0</sell>
-        </quotation>
-    </stock>
-    <stock>
-        <company>
-            <name>INAPA</name>
-        </company>
-        <quotation>
-            <lastQuotation>0.13</lastQuotation>
-            <time>16:18</time>
-            <variation>0.0</variation>
-            <quantity>5027</quantity>
-            <maximum>0.13</maximum>
-            <minimum>0.12</minimum>
-            <purchase>0.0</purchase>
-            <sell>0.0</sell>
-        </quotation>
-    </stock>
-    <stock>
-        <company>
-            <name>J.MARTINS</name>
-        </company>
-        <quotation>
-            <lastQuotation>13.62</lastQuotation>
-            <time>15:46</time>
-            <variation>-0.98</variation>
-            <quantity>137699</quantity>
-            <maximum>13.75</maximum>
-            <minimum>13.61</minimum>
-            <purchase>0.0</purchase>
-            <sell>0.0</sell>
-        </quotation>
-    </stock>
-    <stock>
-        <company>
-            <name>MOTA ENGIL</name>
-        </company>
-        <quotation>
-            <lastQuotation>1.31</lastQuotation>
-            <time>15:32</time>
-            <variation>0.08</variation>
-            <quantity>95101</quantity>
-            <maximum>1.32</maximum>
-            <minimum>1.29</minimum>
-            <purchase>0.0</purchase>
-            <sell>0.0</sell>
-        </quotation>
-    </stock>
-    <stock>
-        <company>
-            <name>PORTUCEL</name>
-        </company>
-        <quotation>
-            <lastQuotation>2.1</lastQuotation>
-            <time>14:53</time>
-            <variation>-0.94</variation>
-            <quantity>17850</quantity>
-            <maximum>2.12</maximum>
-            <minimum>2.09</minimum>
-            <purchase>0.0</purchase>
-            <sell>0.0</sell>
-        </quotation>
-    </stock>
-    <stock>
-        <company>
-            <name>PTELECOM</name>
-        </company>
-        <quotation>
-            <lastQuotation>3.74</lastQuotation>
-            <time>15:46</time>
-            <variation>0.19</variation>
-            <quantity>998381</quantity>
-            <maximum>3.76</maximum>
-            <minimum>3.71</minimum>
-            <purchase>0.0</purchase>
-            <sell>0.0</sell>
-        </quotation>
-    </stock>
-    <stock>
-        <company>
-            <name>REN</name>
-        </company>
-        <quotation>
-            <lastQuotation>1.99</lastQuotation>
-            <time>15:19</time>
-            <variation>-0.15</variation>
-            <quantity>24914</quantity>
-            <maximum>2.0</maximum>
-            <minimum>1.99</minimum>
-            <purchase>0.0</purchase>
-            <sell>0.0</sell>
-        </quotation>
-    </stock>
-    <stock>
-        <company>
-            <name>SEMAPA</name>
-        </company>
-        <quotation>
-            <lastQuotation>5.23</lastQuotation>
-            <time>15:43</time>
-            <variation>-0.4</variation>
-            <quantity>845</quantity>
-            <maximum>5.24</maximum>
-            <minimum>5.23</minimum>
-            <purchase>0.0</purchase>
-            <sell>0.0</sell>
-        </quotation>
-    </stock>
-    <stock>
-        <company>
-            <name>SONAE IND</name>
-        </company>
-        <quotation>
-            <lastQuotation>0.51</lastQuotation>
-            <time>15:45</time>
-            <variation>1.4</variation>
-            <quantity>20468</quantity>
-            <maximum>0.51</maximum>
-            <minimum>0.5</minimum>
-            <purchase>0.0</purchase>
-            <sell>0.0</sell>
-        </quotation>
-    </stock>
-    <stock>
-        <company>
-            <name>SONAE SGPS</name>
-        </company>
-        <quotation>
-            <lastQuotation>0.58</lastQuotation>
-            <time>15:16</time>
-            <variation>-0.52</variation>
-            <quantity>842661</quantity>
-            <maximum>0.58</maximum>
-            <minimum>0.57</minimum>
-            <purchase>0.0</purchase>
-            <sell>0.0</sell>
-        </quotation>
-    </stock>
-    <stock>
-        <company>
-            <name>SONAE.COM</name>
-        </company>
-        <quotation>
-            <lastQuotation>1.39</lastQuotation>
-            <time>15:42</time>
-            <variation>0.65</variation>
-            <quantity>200188</quantity>
-            <maximum>1.39</maximum>
-            <minimum>1.37</minimum>
-            <purchase>0.0</purchase>
-            <sell>0.0</sell>
-        </quotation>
-    </stock>
-    <stock>
-        <company>
-            <name>ZON MULTI.</name>
-        </company>
-        <quotation>
-            <lastQuotation>2.57</lastQuotation>
-            <time>15:43</time>
-            <variation>0.04</variation>
-            <quantity>71687</quantity>
-            <maximum>2.58</maximum>
-            <minimum>2.55</minimum>
-            <purchase>0.0</purchase>
-            <sell>0.0</sell>
-        </quotation>
-    </stock>
-</stocks>
-
-[2012-11-15 16:07:19,279]DEBUG143867[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.utils.XmlObjConv.convertToObject(XmlObjConv.java:97) - convertToObject(String, Class<T>) - start
-[2012-11-15 16:07:19,280]DEBUG143868[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.utils.XmlObjConv.getClassXSDSchema(XmlObjConv.java:190) - getClassXSDSchema(Class<?>) - start
-[2012-11-15 16:07:19,288]DEBUG143876[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.utils.XmlObjConv.getClassXSDSchema(XmlObjConv.java:219) - getClassXSDSchema(Class<?>) - end
-[2012-11-15 16:07:19,313]DEBUG143901[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.utils.XmlObjConv.convertToObject(XmlObjConv.java:125) - convertToObject(String, Class<T>) - end
-[2012-11-15 16:07:19,314]DEBUG143902[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:54) - RrdDatabase(String, String) - start
-[2012-11-15 16:07:19,315]DEBUG143903[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:101) - RrdDatabase(String, String) - end
-[2012-11-15 16:07:19,315]DEBUG143903[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
-[2012-11-15 16:07:19,727]DEBUG144315[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
-[2012-11-15 16:07:19,727]DEBUG144315[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:19,743]DEBUG144331[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:19,744]DEBUG144332[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:19,755]DEBUG144343[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:19,755]DEBUG144343[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:19,765]DEBUG144353[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:19,766]DEBUG144354[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:19,774]DEBUG144362[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:19,776]DEBUG144364[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:54) - RrdDatabase(String, String) - start
-[2012-11-15 16:07:19,777]DEBUG144365[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:101) - RrdDatabase(String, String) - end
-[2012-11-15 16:07:19,777]DEBUG144365[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
-[2012-11-15 16:07:20,196]DEBUG144784[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
-[2012-11-15 16:07:20,203]DEBUG144791[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:20,213]DEBUG144801[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:20,214]DEBUG144802[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:20,224]DEBUG144812[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:20,225]DEBUG144813[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:20,237]DEBUG144825[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:20,238]DEBUG144826[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:20,479]DEBUG145067[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:20,481]DEBUG145069[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:54) - RrdDatabase(String, String) - start
-[2012-11-15 16:07:20,481]DEBUG145069[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:101) - RrdDatabase(String, String) - end
-[2012-11-15 16:07:20,482]DEBUG145070[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
-[2012-11-15 16:07:20,808]DEBUG145396[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
-[2012-11-15 16:07:20,811]DEBUG145399[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:20,823]DEBUG145411[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:20,823]DEBUG145411[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:20,831]DEBUG145419[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:20,832]DEBUG145420[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:20,844]DEBUG145432[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:20,845]DEBUG145433[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:20,862]DEBUG145450[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:20,864]DEBUG145452[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:54) - RrdDatabase(String, String) - start
-[2012-11-15 16:07:20,865]DEBUG145453[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:101) - RrdDatabase(String, String) - end
-[2012-11-15 16:07:20,866]DEBUG145454[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
-[2012-11-15 16:07:21,118]DEBUG145706[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
-[2012-11-15 16:07:21,121]DEBUG145709[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:21,132]DEBUG145720[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:21,132]DEBUG145720[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:21,142]DEBUG145730[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:21,143]DEBUG145731[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:21,151]DEBUG145739[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:21,153]DEBUG145741[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:21,166]DEBUG145754[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:21,167]DEBUG145755[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:54) - RrdDatabase(String, String) - start
-[2012-11-15 16:07:21,168]DEBUG145756[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:101) - RrdDatabase(String, String) - end
-[2012-11-15 16:07:21,168]DEBUG145756[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
-[2012-11-15 16:07:21,393]DEBUG145981[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
-[2012-11-15 16:07:21,394]DEBUG145982[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:21,402]DEBUG145990[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:21,404]DEBUG145992[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:21,412]DEBUG146000[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:21,413]DEBUG146001[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:21,420]DEBUG146008[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:21,421]DEBUG146009[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:21,430]DEBUG146018[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:21,430]DEBUG146018[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:54) - RrdDatabase(String, String) - start
-[2012-11-15 16:07:21,430]DEBUG146018[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:101) - RrdDatabase(String, String) - end
-[2012-11-15 16:07:21,431]DEBUG146019[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
-[2012-11-15 16:07:21,575]DEBUG146163[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
-[2012-11-15 16:07:21,576]DEBUG146164[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:21,588]DEBUG146176[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:21,589]DEBUG146177[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:21,597]DEBUG146185[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:21,597]DEBUG146185[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:21,604]DEBUG146192[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:21,605]DEBUG146193[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:21,614]DEBUG146202[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:21,614]DEBUG146202[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:54) - RrdDatabase(String, String) - start
-[2012-11-15 16:07:21,615]DEBUG146203[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:101) - RrdDatabase(String, String) - end
-[2012-11-15 16:07:21,615]DEBUG146203[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
-[2012-11-15 16:07:21,786]DEBUG146374[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
-[2012-11-15 16:07:21,787]DEBUG146375[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:21,797]DEBUG146385[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:21,798]DEBUG146386[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:21,805]DEBUG146393[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:21,807]DEBUG146395[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:21,815]DEBUG146403[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:21,816]DEBUG146404[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:21,823]DEBUG146411[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:21,826]DEBUG146414[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:54) - RrdDatabase(String, String) - start
-[2012-11-15 16:07:21,826]DEBUG146414[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:101) - RrdDatabase(String, String) - end
-[2012-11-15 16:07:21,827]DEBUG146415[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
-[2012-11-15 16:07:22,015]DEBUG146603[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
-[2012-11-15 16:07:22,016]DEBUG146604[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:22,037]DEBUG146625[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:22,037]DEBUG146625[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:22,044]DEBUG146632[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:22,045]DEBUG146633[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:22,053]DEBUG146641[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:22,054]DEBUG146642[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:22,061]DEBUG146649[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:22,062]DEBUG146650[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:54) - RrdDatabase(String, String) - start
-[2012-11-15 16:07:22,062]DEBUG146650[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:101) - RrdDatabase(String, String) - end
-[2012-11-15 16:07:22,062]DEBUG146650[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
-[2012-11-15 16:07:22,265]DEBUG146853[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
-[2012-11-15 16:07:22,266]DEBUG146854[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:22,280]DEBUG146868[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:22,280]DEBUG146868[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:22,287]DEBUG146875[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:22,288]DEBUG146876[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:22,297]DEBUG146885[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:22,298]DEBUG146886[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:22,306]DEBUG146894[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:22,307]DEBUG146895[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:54) - RrdDatabase(String, String) - start
-[2012-11-15 16:07:22,307]DEBUG146895[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:101) - RrdDatabase(String, String) - end
-[2012-11-15 16:07:22,308]DEBUG146896[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
-[2012-11-15 16:07:22,456]DEBUG147044[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
-[2012-11-15 16:07:22,458]DEBUG147046[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:22,469]DEBUG147057[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:22,470]DEBUG147058[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:22,482]DEBUG147070[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:22,482]DEBUG147070[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:22,490]DEBUG147078[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:22,491]DEBUG147079[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:22,503]DEBUG147091[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:22,504]DEBUG147092[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:54) - RrdDatabase(String, String) - start
-[2012-11-15 16:07:22,505]DEBUG147093[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:101) - RrdDatabase(String, String) - end
-[2012-11-15 16:07:22,506]DEBUG147094[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
-[2012-11-15 16:07:22,681]DEBUG147269[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
-[2012-11-15 16:07:22,683]DEBUG147271[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:22,704]DEBUG147292[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:22,705]DEBUG147293[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:22,716]DEBUG147304[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:22,717]DEBUG147305[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:22,726]DEBUG147314[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:22,727]DEBUG147315[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:22,736]DEBUG147324[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:22,737]DEBUG147325[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:54) - RrdDatabase(String, String) - start
-[2012-11-15 16:07:22,737]DEBUG147325[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:101) - RrdDatabase(String, String) - end
-[2012-11-15 16:07:22,738]DEBUG147326[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
-[2012-11-15 16:07:22,985]DEBUG147573[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
-[2012-11-15 16:07:22,986]DEBUG147574[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:23,003]DEBUG147591[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:23,003]DEBUG147591[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:23,013]DEBUG147601[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:23,013]DEBUG147601[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:23,021]DEBUG147609[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:23,022]DEBUG147610[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:23,030]DEBUG147618[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:23,031]DEBUG147619[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:54) - RrdDatabase(String, String) - start
-[2012-11-15 16:07:23,032]DEBUG147620[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:101) - RrdDatabase(String, String) - end
-[2012-11-15 16:07:23,033]DEBUG147621[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
-[2012-11-15 16:07:23,193]DEBUG147781[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
-[2012-11-15 16:07:23,197]DEBUG147785[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:23,216]DEBUG147804[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:23,216]DEBUG147804[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:23,227]DEBUG147815[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:23,228]DEBUG147816[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:23,236]DEBUG147824[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:23,236]DEBUG147824[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:23,246]DEBUG147834[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:23,247]DEBUG147835[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:54) - RrdDatabase(String, String) - start
-[2012-11-15 16:07:23,247]DEBUG147835[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:101) - RrdDatabase(String, String) - end
-[2012-11-15 16:07:23,247]DEBUG147835[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
-[2012-11-15 16:07:23,394]DEBUG147982[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
-[2012-11-15 16:07:23,395]DEBUG147983[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:23,411]DEBUG147999[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:23,412]DEBUG148000[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:23,419]DEBUG148007[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:23,419]DEBUG148007[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:23,430]DEBUG148018[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:23,431]DEBUG148019[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:23,438]DEBUG148026[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:23,439]DEBUG148027[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:54) - RrdDatabase(String, String) - start
-[2012-11-15 16:07:23,439]DEBUG148027[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:101) - RrdDatabase(String, String) - end
-[2012-11-15 16:07:23,440]DEBUG148028[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
-[2012-11-15 16:07:23,797]DEBUG148385[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
-[2012-11-15 16:07:23,800]DEBUG148388[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:23,812]DEBUG148400[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:23,813]DEBUG148401[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:23,821]DEBUG148409[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:23,821]DEBUG148409[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:23,834]DEBUG148422[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:23,836]DEBUG148424[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:23,846]DEBUG148434[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:23,848]DEBUG148436[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:54) - RrdDatabase(String, String) - start
-[2012-11-15 16:07:23,848]DEBUG148436[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:101) - RrdDatabase(String, String) - end
-[2012-11-15 16:07:23,849]DEBUG148437[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
-[2012-11-15 16:07:24,020]DEBUG148608[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
-[2012-11-15 16:07:24,022]DEBUG148610[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:24,035]DEBUG148623[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:24,036]DEBUG148624[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:24,044]DEBUG148632[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:24,044]DEBUG148632[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:24,055]DEBUG148643[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:24,055]DEBUG148643[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:24,065]DEBUG148653[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:24,066]DEBUG148654[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:54) - RrdDatabase(String, String) - start
-[2012-11-15 16:07:24,068]DEBUG148656[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:101) - RrdDatabase(String, String) - end
-[2012-11-15 16:07:24,069]DEBUG148657[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
-[2012-11-15 16:07:24,223]DEBUG148811[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
-[2012-11-15 16:07:24,224]DEBUG148812[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:24,240]DEBUG148828[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:24,240]DEBUG148828[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:24,255]DEBUG148843[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:24,255]DEBUG148843[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:24,265]DEBUG148853[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:24,271]DEBUG148859[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:24,282]DEBUG148870[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:24,282]DEBUG148870[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:54) - RrdDatabase(String, String) - start
-[2012-11-15 16:07:24,283]DEBUG148871[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:101) - RrdDatabase(String, String) - end
-[2012-11-15 16:07:24,283]DEBUG148871[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
-[2012-11-15 16:07:24,481]DEBUG149069[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
-[2012-11-15 16:07:24,483]DEBUG149071[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:24,492]DEBUG149080[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:24,492]DEBUG149080[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:24,502]DEBUG149090[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:24,503]DEBUG149091[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:24,513]DEBUG149101[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:24,513]DEBUG149101[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:24,524]DEBUG149112[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:24,525]DEBUG149113[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:54) - RrdDatabase(String, String) - start
-[2012-11-15 16:07:24,526]DEBUG149114[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:101) - RrdDatabase(String, String) - end
-[2012-11-15 16:07:24,526]DEBUG149114[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
-[2012-11-15 16:07:24,961]DEBUG149549[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
-[2012-11-15 16:07:24,963]DEBUG149551[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:24,976]DEBUG149564[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:24,976]DEBUG149564[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:24,985]DEBUG149573[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:24,985]DEBUG149573[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:24,993]DEBUG149581[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:24,994]DEBUG149582[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:25,003]DEBUG149591[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:25,004]DEBUG149592[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:54) - RrdDatabase(String, String) - start
-[2012-11-15 16:07:25,004]DEBUG149592[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:101) - RrdDatabase(String, String) - end
-[2012-11-15 16:07:25,004]DEBUG149592[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
-[2012-11-15 16:07:25,286]DEBUG149874[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
-[2012-11-15 16:07:25,287]DEBUG149875[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:25,401]DEBUG149989[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:25,402]DEBUG149990[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:25,416]DEBUG150004[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:25,417]DEBUG150005[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:25,425]DEBUG150013[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
-[2012-11-15 16:07:25,425]DEBUG150013[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
-[2012-11-15 16:07:25,436]DEBUG150024[Thread-1 (HornetQ-client-global-threads-1608694225)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:07:58,122]DEBUG  8806[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
+[2012-11-16 00:07:58,466]DEBUG  9150[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
+[2012-11-16 00:07:58,466]DEBUG  9150[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:07:58,529]DEBUG  9213[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:07:58,529]DEBUG  9213[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:07:58,544]DEBUG  9228[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:07:58,544]DEBUG  9228[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:07:58,560]DEBUG  9244[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:07:58,575]DEBUG  9259[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:07:58,607]DEBUG  9291[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:07:58,607]DEBUG  9291[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:54) - RrdDatabase(String, String) - start
+[2012-11-16 00:07:58,607]DEBUG  9291[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:101) - RrdDatabase(String, String) - end
+[2012-11-16 00:07:58,607]DEBUG  9291[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
+[2012-11-16 00:07:58,763]DEBUG  9447[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
+[2012-11-16 00:07:58,763]DEBUG  9447[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:07:58,810]DEBUG  9494[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:07:58,810]DEBUG  9494[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:07:58,841]DEBUG  9525[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:07:58,841]DEBUG  9525[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:07:58,857]DEBUG  9541[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:07:58,872]DEBUG  9556[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:07:58,904]DEBUG  9588[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:07:58,904]DEBUG  9588[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:54) - RrdDatabase(String, String) - start
+[2012-11-16 00:07:58,904]DEBUG  9588[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:101) - RrdDatabase(String, String) - end
+[2012-11-16 00:07:58,904]DEBUG  9588[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
+[2012-11-16 00:07:59,044]DEBUG  9728[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
+[2012-11-16 00:07:59,044]DEBUG  9728[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:07:59,091]DEBUG  9775[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:07:59,091]DEBUG  9775[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:07:59,122]DEBUG  9806[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:07:59,122]DEBUG  9806[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:07:59,154]DEBUG  9838[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:07:59,154]DEBUG  9838[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:07:59,200]DEBUG  9884[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:07:59,200]DEBUG  9884[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:54) - RrdDatabase(String, String) - start
+[2012-11-16 00:07:59,200]DEBUG  9884[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:101) - RrdDatabase(String, String) - end
+[2012-11-16 00:07:59,200]DEBUG  9884[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
+[2012-11-16 00:07:59,341]DEBUG 10025[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
+[2012-11-16 00:07:59,357]DEBUG 10041[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:07:59,388]DEBUG 10072[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:07:59,388]DEBUG 10072[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:07:59,419]DEBUG 10103[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:07:59,419]DEBUG 10103[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:07:59,466]DEBUG 10150[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:07:59,466]DEBUG 10150[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:07:59,497]DEBUG 10181[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:07:59,497]DEBUG 10181[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:54) - RrdDatabase(String, String) - start
+[2012-11-16 00:07:59,497]DEBUG 10181[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:101) - RrdDatabase(String, String) - end
+[2012-11-16 00:07:59,497]DEBUG 10181[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
+[2012-11-16 00:07:59,607]DEBUG 10291[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
+[2012-11-16 00:07:59,607]DEBUG 10291[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:07:59,638]DEBUG 10322[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:07:59,638]DEBUG 10322[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:07:59,669]DEBUG 10353[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:07:59,669]DEBUG 10353[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:07:59,700]DEBUG 10384[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:07:59,700]DEBUG 10384[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:07:59,732]DEBUG 10416[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:07:59,732]DEBUG 10416[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:54) - RrdDatabase(String, String) - start
+[2012-11-16 00:07:59,747]DEBUG 10431[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:101) - RrdDatabase(String, String) - end
+[2012-11-16 00:07:59,747]DEBUG 10431[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
+[2012-11-16 00:08:00,029]DEBUG 10713[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
+[2012-11-16 00:08:00,029]DEBUG 10713[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:00,075]DEBUG 10759[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:00,075]DEBUG 10759[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:00,091]DEBUG 10775[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:00,091]DEBUG 10775[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:00,122]DEBUG 10806[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:00,122]DEBUG 10806[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:00,169]DEBUG 10853[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:00,169]DEBUG 10853[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:54) - RrdDatabase(String, String) - start
+[2012-11-16 00:08:00,169]DEBUG 10853[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:101) - RrdDatabase(String, String) - end
+[2012-11-16 00:08:00,169]DEBUG 10853[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
+[2012-11-16 00:08:00,294]DEBUG 10978[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
+[2012-11-16 00:08:00,310]DEBUG 10994[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:00,341]DEBUG 11025[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:00,341]DEBUG 11025[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:00,372]DEBUG 11056[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:00,372]DEBUG 11056[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:00,388]DEBUG 11072[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:00,404]DEBUG 11088[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:00,419]DEBUG 11103[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:00,419]DEBUG 11103[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:54) - RrdDatabase(String, String) - start
+[2012-11-16 00:08:00,435]DEBUG 11119[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:101) - RrdDatabase(String, String) - end
+[2012-11-16 00:08:00,435]DEBUG 11119[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
+[2012-11-16 00:08:00,544]DEBUG 11228[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
+[2012-11-16 00:08:00,560]DEBUG 11244[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:00,591]DEBUG 11275[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:00,591]DEBUG 11275[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:00,622]DEBUG 11306[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:00,622]DEBUG 11306[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:00,654]DEBUG 11338[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:00,654]DEBUG 11338[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:00,685]DEBUG 11369[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:00,685]DEBUG 11369[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:54) - RrdDatabase(String, String) - start
+[2012-11-16 00:08:00,685]DEBUG 11369[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:101) - RrdDatabase(String, String) - end
+[2012-11-16 00:08:00,685]DEBUG 11369[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
+[2012-11-16 00:08:00,857]DEBUG 11541[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
+[2012-11-16 00:08:00,857]DEBUG 11541[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:00,888]DEBUG 11572[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:00,888]DEBUG 11572[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:00,919]DEBUG 11603[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:00,919]DEBUG 11603[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:00,935]DEBUG 11619[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:00,950]DEBUG 11634[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:00,982]DEBUG 11666[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:00,997]DEBUG 11681[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:54) - RrdDatabase(String, String) - start
+[2012-11-16 00:08:00,997]DEBUG 11681[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:101) - RrdDatabase(String, String) - end
+[2012-11-16 00:08:00,997]DEBUG 11681[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
+[2012-11-16 00:08:01,372]DEBUG 12056[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
+[2012-11-16 00:08:01,388]DEBUG 12072[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:01,419]DEBUG 12103[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:01,419]DEBUG 12103[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:01,435]DEBUG 12119[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:01,435]DEBUG 12119[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:01,466]DEBUG 12150[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:01,466]DEBUG 12150[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:01,482]DEBUG 12166[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:01,482]DEBUG 12166[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:54) - RrdDatabase(String, String) - start
+[2012-11-16 00:08:01,497]DEBUG 12181[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:101) - RrdDatabase(String, String) - end
+[2012-11-16 00:08:01,497]DEBUG 12181[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
+[2012-11-16 00:08:01,638]DEBUG 12322[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
+[2012-11-16 00:08:01,638]DEBUG 12322[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:01,669]DEBUG 12353[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:01,669]DEBUG 12353[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:01,685]DEBUG 12369[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:01,685]DEBUG 12369[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:01,700]DEBUG 12384[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:01,700]DEBUG 12384[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:01,716]DEBUG 12400[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:01,732]DEBUG 12416[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:54) - RrdDatabase(String, String) - start
+[2012-11-16 00:08:01,732]DEBUG 12416[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:101) - RrdDatabase(String, String) - end
+[2012-11-16 00:08:01,732]DEBUG 12416[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
+[2012-11-16 00:08:02,060]DEBUG 12744[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
+[2012-11-16 00:08:02,060]DEBUG 12744[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:02,091]DEBUG 12775[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:02,091]DEBUG 12775[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:02,138]DEBUG 12822[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:02,138]DEBUG 12822[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:02,154]DEBUG 12838[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:02,154]DEBUG 12838[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:02,200]DEBUG 12884[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:02,200]DEBUG 12884[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:54) - RrdDatabase(String, String) - start
+[2012-11-16 00:08:02,200]DEBUG 12884[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:101) - RrdDatabase(String, String) - end
+[2012-11-16 00:08:02,200]DEBUG 12884[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
+[2012-11-16 00:08:02,450]DEBUG 13134[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
+[2012-11-16 00:08:02,450]DEBUG 13134[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:02,482]DEBUG 13166[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:02,482]DEBUG 13166[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:02,513]DEBUG 13197[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:02,513]DEBUG 13197[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:02,529]DEBUG 13213[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:02,544]DEBUG 13228[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:02,560]DEBUG 13244[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:02,560]DEBUG 13244[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:54) - RrdDatabase(String, String) - start
+[2012-11-16 00:08:02,575]DEBUG 13259[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:101) - RrdDatabase(String, String) - end
+[2012-11-16 00:08:02,575]DEBUG 13259[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
+[2012-11-16 00:08:02,685]DEBUG 13369[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
+[2012-11-16 00:08:02,700]DEBUG 13384[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:02,747]DEBUG 13431[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:02,747]DEBUG 13431[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:02,763]DEBUG 13447[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:02,763]DEBUG 13447[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:02,794]DEBUG 13478[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:02,794]DEBUG 13478[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:02,810]DEBUG 13494[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:02,810]DEBUG 13494[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:54) - RrdDatabase(String, String) - start
+[2012-11-16 00:08:02,810]DEBUG 13494[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:101) - RrdDatabase(String, String) - end
+[2012-11-16 00:08:02,825]DEBUG 13509[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
+[2012-11-16 00:08:02,950]DEBUG 13634[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
+[2012-11-16 00:08:02,966]DEBUG 13650[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:02,982]DEBUG 13666[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:02,997]DEBUG 13681[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:03,013]DEBUG 13697[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:03,029]DEBUG 13713[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:03,044]DEBUG 13728[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:03,044]DEBUG 13728[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:03,075]DEBUG 13759[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:03,075]DEBUG 13759[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:54) - RrdDatabase(String, String) - start
+[2012-11-16 00:08:03,075]DEBUG 13759[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:101) - RrdDatabase(String, String) - end
+[2012-11-16 00:08:03,075]DEBUG 13759[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
+[2012-11-16 00:08:03,216]DEBUG 13900[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
+[2012-11-16 00:08:03,216]DEBUG 13900[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:03,247]DEBUG 13931[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:03,247]DEBUG 13931[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:03,279]DEBUG 13963[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:03,279]DEBUG 13963[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:03,294]DEBUG 13978[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:03,294]DEBUG 13978[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:03,325]DEBUG 14009[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:03,325]DEBUG 14009[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:54) - RrdDatabase(String, String) - start
+[2012-11-16 00:08:03,325]DEBUG 14009[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:101) - RrdDatabase(String, String) - end
+[2012-11-16 00:08:03,325]DEBUG 14009[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
+[2012-11-16 00:08:03,466]DEBUG 14150[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
+[2012-11-16 00:08:03,466]DEBUG 14150[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:03,497]DEBUG 14181[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:03,513]DEBUG 14197[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:03,529]DEBUG 14213[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:03,544]DEBUG 14228[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:03,560]DEBUG 14244[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:03,560]DEBUG 14244[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:03,591]DEBUG 14275[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:03,591]DEBUG 14275[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:54) - RrdDatabase(String, String) - start
+[2012-11-16 00:08:03,591]DEBUG 14275[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:101) - RrdDatabase(String, String) - end
+[2012-11-16 00:08:03,591]DEBUG 14275[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
+[2012-11-16 00:08:03,787]DEBUG 14471[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
+[2012-11-16 00:08:03,795]DEBUG 14479[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:03,826]DEBUG 14510[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:03,826]DEBUG 14510[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:03,858]DEBUG 14542[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:03,858]DEBUG 14542[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:03,873]DEBUG 14557[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:03,873]DEBUG 14557[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:03,889]DEBUG 14573[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:03,904]DEBUG 14588[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:54) - RrdDatabase(String, String) - start
+[2012-11-16 00:08:03,904]DEBUG 14588[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.<init>(RrdDatabase.java:101) - RrdDatabase(String, String) - end
+[2012-11-16 00:08:03,904]DEBUG 14588[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:116) - updateData(long, float) - start
+[2012-11-16 00:08:04,420]DEBUG 15104[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.updateData(RrdDatabase.java:133) - updateData(long, float) - end
+[2012-11-16 00:08:04,420]DEBUG 15104[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:04,451]DEBUG 15135[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:04,451]DEBUG 15135[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:04,467]DEBUG 15151[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:04,483]DEBUG 15167[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:04,498]DEBUG 15182[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:08:04,498]DEBUG 15182[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
+[2012-11-16 00:08:04,514]DEBUG 15198[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
