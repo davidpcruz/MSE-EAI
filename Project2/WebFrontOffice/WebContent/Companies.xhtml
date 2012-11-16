@@ -8,11 +8,24 @@
 	xmlns:msejdf="http://java.sun.com/jsf/composite/msejdf">
 
 <ui:composition template="templates/DefaultTemplate.xhtml">
+
 	<ui:define name="content">
-		<msejdf:CompaniesSummaryList 
-			companyList="#{companies.companyList}" 
-			bean="#{companies}" 
-			renderDetails="true">
+
+		<h:form>
+			<br />
+			<h:panelGrid columns="3">
+				<h:outputText value="Filter companies" />
+				<h:inputText value="#{companies.filterPattern}" />
+				<h:outputText
+					value="Wildcards: '%' for any number of characters and '_' for a single character" />
+			</h:panelGrid>
+			<h:commandButton value="Filter" action="ApplyDataFilter" />
+			<br />
+			<br />
+		</h:form>
+
+		<msejdf:CompaniesSummaryList companyList="#{companies.companyList}"
+			bean="#{companies}" renderDetails="true">
 		</msejdf:CompaniesSummaryList>
 	</ui:define>
 </ui:composition>

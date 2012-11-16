@@ -97,7 +97,6 @@
 		<navigation-case>
 			<from-action>#{userHome.subscriptionChangeAction(company)}</from-action>
 			<from-outcome>false</from-outcome>
-			<!-- TODO: We should show an error page -->
 			<to-view-id>/UserHome.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
@@ -116,7 +115,6 @@
 		<navigation-case>
 			<from-action>#{cc.attrs.bean.subscriptionChangeAction(company)}</from-action>
 			<from-outcome>false</from-outcome>
-			<!-- TODO: We should show an error page -->
 			<to-view-id>/Companies.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>

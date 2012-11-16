@@ -210,7 +210,7 @@ public class UserBean implements IUserBean {
 
 		Query query = entityManager
 				.createQuery("SELECT company FROM  Company AS company WHERE company.name LIKE :filterPattern");
-		query.setParameter("filterPattern", filterPattern);
+		query.setParameter("filterPattern", getTranslatedFilterPattern(filterPattern));
 
 		@SuppressWarnings("unchecked")
 		List<Company> companyList = query.getResultList();
@@ -484,7 +484,7 @@ public class UserBean implements IUserBean {
 
 		Query query = entityManager
 				.createQuery("SELECT bankTeller FROM  BankTeller AS bankTeller WHERE bankTeller.name LIKE :filterPattern");
-		query.setParameter("filterPattern", filterPattern);
+		query.setParameter("filterPattern", getTranslatedFilterPattern(filterPattern));
 
 		@SuppressWarnings("unchecked")
 		List<BankTeller> bankTellerList = query.getResultList();
@@ -493,6 +493,21 @@ public class UserBean implements IUserBean {
 			logger.debug("getBankTellerNameList(String) - end"); //$NON-NLS-1$
 		}
 		return bankTellerList;
+	}
+	
+	/**
+	 * Translates a filter pattern/query into a syntax understood by lower levels of business logic/data tear 
+	 * 
+	 * @param pattern Pattern string to translate
+	 * @return Pattern string specific for the data tier (database) for data filtering
+	 */
+	private String getTranslatedFilterPattern(String pattern)
+	{
+		if ((null == pattern) || (pattern.equals("")))
+		{
+			return "%";
+		}
+		return pattern;
 	}
 
 }

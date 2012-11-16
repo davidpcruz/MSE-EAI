@@ -1,7 +1,5 @@
 package eai.msejdf.pagedata;
 
-import java.io.IOException;
-import java.net.URL;
 import java.util.List;
 
 import javax.faces.context.FacesContext;
@@ -23,6 +21,7 @@ public class CompanyPageData {
 	private List<Company> followedCompanyList;
 	private List<Company> companyList;
 	private Long userId;
+	private String filterPattern;
 
 	public CompanyPageData() throws NamingException, ConfigurationException {
 		InitialContext ctx = new InitialContext();
@@ -42,8 +41,8 @@ public class CompanyPageData {
 
 	public List<Company> getCompanyList() throws ConfigurationException {
 		if (FacesContext.getCurrentInstance().getRenderResponse()) {
-			// Reload to get most recent data.
-			this.companyList = this.userBean.getCompanyList("%");
+			// Reload to get most recent data.			
+			this.companyList = this.userBean.getCompanyList(this.getFilterPattern());
 			// Get also the followed list, as we need to know the subscription
 			// status
 			this.followedCompanyList = this.userBean.getfollowedCompanyList(this.userId);
@@ -88,6 +87,14 @@ public class CompanyPageData {
 		}
 	}
 
+	public String getFilterPattern() {
+		return filterPattern;
+	}
+
+	public void setFilterPattern(String filterPattern) {
+		this.filterPattern = filterPattern;
+	}
+
 	private boolean listContainsCompanyById(List<Company> list, Company company) {
 		Long id = company.getId();
 
@@ -98,5 +105,4 @@ public class CompanyPageData {
 		}
 		return false;
 	}
-
 }
