@@ -224,3 +224,8 @@
 [2012-11-16 00:08:04,498]DEBUG 15182[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
 [2012-11-16 00:08:04,498]DEBUG 15182[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:147) - createRRDGraph(String, long) - start
 [2012-11-16 00:08:04,514]DEBUG 15198[Thread-1 (HornetQ-client-global-threads-45898474)] - eai.msejdf.rrd.RrdDatabase.createRRDGraph(RrdDatabase.java:165) - createRRDGraph(String, long) - end
+[2012-11-16 00:43:10,078]DEBUG120762[main] - eai.msejdf.jms.JMSReceiver.close(JMSReceiver.java:105) - close() - start
+[2012-11-16 00:43:10,094]DEBUG120778[main] - eai.msejdf.jms.JMSBase.connClose(JMSBase.java:109) - connClose() - start
+[2012-11-16 00:43:10,141]DEBUG120825[main] - eai.msejdf.jms.JMSBase.connClose(JMSBase.java:120) - connClose() - end
+[2012-11-16 00:43:10,141]DEBUG120825[main] - eai.msejdf.jms.JMSReceiver.close(JMSReceiver.java:126) - close() - end
+[2012-11-16 00:43:10,141]DEBUG120825[main] - eai.msejdf.daemons.DaemonBase.run(DaemonBase.java:56) - run() - end

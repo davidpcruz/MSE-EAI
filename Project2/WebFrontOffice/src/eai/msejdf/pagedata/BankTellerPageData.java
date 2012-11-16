@@ -26,16 +26,17 @@ public class BankTellerPageData {
 
 	public BankTellerPageData() throws NamingException, ConfigurationException {
 		InitialContext ctx = new InitialContext();
-		
+
 		this.userBean = (IUserBean) ctx.lookup(EJBLookupConstants.EJB_I_USER);
-		
-		this.user = this.userBean.getUser(SessionManager.getProperty(SessionManager.USERNAME_PROPERTY));
-		
 		this.bankTeller = new BankTeller();
+		this.user = this.userBean.getUser(SessionManager.getProperty(SessionManager.USERNAME_PROPERTY));
+
+		this.address = this.bankTeller.getAddress();
 		this.address = new Address();
 		this.bankTeller.setAddress(address);
+
 	}
-	
+
 	public Address getAddress() {
 		return address;
 	}
@@ -51,19 +52,6 @@ public class BankTellerPageData {
 	public void setBankTeller(BankTeller bankTeller) {
 		this.user.setBankTeller(bankTeller);
 	}
-
-//	public BankTeller getBankTeller(User user) {
-//		BankTeller bankTeller;
-//
-//		try {
-//			bankTeller = this.userBean.getUserBankTeller(user);
-//		} catch (ConfigurationException e) {
-//			bankTeller = new BankTeller();
-//			e.printStackTrace();
-//		}
-//
-//		return bankTeller;
-//	}
 
 	public boolean updateBankTeller() {
 		// TODO: The exception should cause the user interface to be informed
@@ -92,7 +80,7 @@ public class BankTellerPageData {
 	public List<BankTeller> getBankTellerList() throws ConfigurationException {
 		if (FacesContext.getCurrentInstance().getRenderResponse()) {
 			// Reload to get most recent data.
-			this.bankTellerList = this.userBean.getBankTellerList("%"); 
+			this.bankTellerList = this.userBean.getBankTellerList("%");
 		}
 		return this.bankTellerList;
 	}
@@ -124,5 +112,5 @@ public class BankTellerPageData {
 		// TODO: Return code must match action result
 		return result;
 	}
-	
+
 }
