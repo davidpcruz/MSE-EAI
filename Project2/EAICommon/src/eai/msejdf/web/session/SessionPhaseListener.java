@@ -12,6 +12,7 @@ public class SessionPhaseListener implements PhaseListener
 	private static final long serialVersionUID = 1L;
 	private static final String SESSION_TIMED_OUT = "SessionTimedOut";
 	private static final String LOGIN_PAGE = "Login.xhtml";
+	private static final String REGISTRATION_PAGE = "RegisterUser.xhtml";
 
 	@Override
 	public void afterPhase(PhaseEvent event) 
@@ -19,9 +20,14 @@ public class SessionPhaseListener implements PhaseListener
 		FacesContext facesContext = event.getFacesContext();
 		HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
 		boolean isLoginPage = (facesContext.getViewRoot().getViewId().lastIndexOf(SessionPhaseListener.LOGIN_PAGE) > -1);
+		boolean isRegistrationPage = (facesContext.getViewRoot().getViewId().lastIndexOf(SessionPhaseListener.REGISTRATION_PAGE) > -1);
 
-		if (null == session) 
+		if (null == session)
 		{
+			if (false != isRegistrationPage)
+			{
+				return;
+			}
 			// Session does not exist (yet or has expired)
 			NavigationHandler navHandler = facesContext.getApplication().getNavigationHandler();
 			navHandler.handleNavigation(facesContext, null, SessionPhaseListener.SESSION_TIMED_OUT);
@@ -31,6 +37,7 @@ public class SessionPhaseListener implements PhaseListener
 		String activeUser = (String)session.getAttribute(SessionManager.USERNAME_PROPERTY);
 
 		if ((false == isLoginPage) && 
+			(false == isRegistrationPage) && 
 			((null == activeUser) || ("" == activeUser))) 
 		{
 			NavigationHandler navHandler = facesContext.getApplication().getNavigationHandler();

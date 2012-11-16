@@ -14,22 +14,26 @@ public class UserPageData{
 	
 	private IUserBean userBean;
 	private User user;
-	private Address address;
 
 	public UserPageData() throws NamingException, ConfigurationException {
 		InitialContext ctx = new InitialContext();
 		
 		this.userBean = (IUserBean) ctx.lookup(EJBLookupConstants.EJB_I_USER);
 		
-		this.user = this.userBean.getUser(SessionManager.getProperty(SessionManager.USERNAME_PROPERTY));
+		String username = SessionManager.getProperty(SessionManager.USERNAME_PROPERTY);
 		
-		if (null != this.user.getAddress())
+		if (null != username)
 		{
-			this.address = this.user.getAddress();
+			this.user = this.userBean.getUser(username);
 		}
 		else
 		{
-			this.address = new Address();
+			// If the username does not exist in the session, we may be in the creation process of a new user
+			this.user = new User();
+		}
+		if (null == this.user.getAddress())
+		{
+			this.user.setAddress(new Address());
 		}
 	}
 
@@ -49,13 +53,5 @@ public class UserPageData{
 			return false;
 		}
 		return true;
-	}
-
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
 	}
 }

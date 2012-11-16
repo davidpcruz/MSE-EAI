@@ -23,7 +23,27 @@
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>Register</from-outcome>
-			<to-view-id>/UserInfo.xhtml</to-view-id>
+			<to-view-id>/RegisterUser.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/RegisterUser.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{registerUser.register}</from-action>
+			<from-outcome>true</from-outcome>
+			<to-view-id>/UserHome.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{registerUser.register}</from-action>
+			<from-outcome>false</from-outcome>
+			<to-view-id>/RegisterUser.xhtml</to-view-id>
+			<redirect>
+				<view-param>
+					<name>message</name>
+					<value>DuplicateUserError</value>
+				</view-param>
+			</redirect>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
@@ -69,7 +89,6 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
-	
 	<navigation-rule>
 		<from-view-id>/Companies.xhtml</from-view-id>
 		<navigation-case>
@@ -88,7 +107,6 @@
 			<to-view-id>/Companies.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	
 	<navigation-rule>
 		<from-view-id>/AddBankTeller.xhtml</from-view-id>
 		<navigation-case>
@@ -118,14 +136,13 @@
 			</redirect>
 		</navigation-case>
 	</navigation-rule>
-	
 	<navigation-rule>
 		<from-view-id>/BankTellerInfo.xhtml</from-view-id>
-	 	<navigation-case>
+		<navigation-case>
 			<from-outcome>AddBankTeller</from-outcome>
 			<to-view-id>/AddBankTeller.xhtml</to-view-id>
 		</navigation-case>
- 		<navigation-case>
+		<navigation-case>
 			<from-action>#{cc.attrs.bean.subscriptionChangeAction(bankTeller)}</from-action>
 			<from-outcome>true</from-outcome>
 			<to-view-id>/BankTellerInfo.xhtml</to-view-id>
@@ -141,8 +158,7 @@
 				</view-param>
 			</redirect>
 		</navigation-case>
- 	</navigation-rule>
-
+	</navigation-rule>
 	<!-- Session Time out occurred -->
 	<navigation-rule>
 		<from-view-id>/*</from-view-id>
@@ -155,12 +171,16 @@
 			<from-outcome>true</from-outcome>
 			<to-view-id>/Login.xhtml</to-view-id>
 			<redirect />
-		</navigation-case>	
+		</navigation-case>
 		<navigation-case>
 			<from-outcome>CompanyDetails</from-outcome>
 			<to-view-id>/CompanyInfo.xhtml</to-view-id>
-		</navigation-case>			
-	</navigation-rule>	
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Register</from-outcome>
+			<to-view-id>/RegisterUser.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 	<lifecycle>
 		<phase-listener>eai.msejdf.web.session.SessionPhaseListener</phase-listener>
 	</lifecycle>

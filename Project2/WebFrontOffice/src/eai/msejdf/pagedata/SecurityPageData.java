@@ -1,9 +1,12 @@
 package eai.msejdf.pagedata;
 
+import javax.ejb.EJBException;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import eai.msejdf.exception.SecurityException;
+import eai.msejdf.pages.RegisterUser;
+import eai.msejdf.persistence.User;
 import eai.msejdf.security.ISecurity;
 import eai.msejdf.security.credentials.Credentials;
 import eai.msejdf.security.credentials.UserCredentials;
@@ -15,8 +18,13 @@ public class SecurityPageData {
 	private ISecurity securityBean;
 	private String username;
 	private String password;
+	private String oldPassword;
+	private String confirmedPassword;
+	private User userRegistrationInfo;
 	
 	public SecurityPageData() throws NamingException {		
+		System.out.println(RegisterUser.class.getName());
+
 		InitialContext ctx = new InitialContext();
 		
 		this.securityBean = (ISecurity) ctx.lookup(EJBLookupConstants.EJB_I_SECURITY);		
@@ -36,6 +44,22 @@ public class SecurityPageData {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getOldPassword() {
+		return oldPassword;
+	}
+
+	public void setOldPassword(String oldPassword) {
+		this.oldPassword = oldPassword;
+	}
+
+	public String getConfirmedPassword() {
+		return confirmedPassword;
+	}
+
+	public void setConfirmedPassword(String confirmedPassword) {
+		this.confirmedPassword = confirmedPassword;
 	}
 
 	public boolean checkUserCredentials() throws SecurityException
@@ -65,4 +89,29 @@ public class SecurityPageData {
 		SessionManager.invalidateSession();
 		return true;
 	}	
+	
+	public boolean register()
+	{
+		Credentials credentials = new UserCredentials();
+		
+		credentials.setUsername(this.getUsername());
+		credentials.setPassword(this.getPassword());
+		
+		try {
+			this.securityBean.registerUser(credentials, this.userRegistrationInfo);
+			SessionManager.setProperty(SessionManager.USERNAME_PROPERTY, this.getUsername());
+		} catch (EJBException | SecurityException exception) {
+			return false;
+		}
+		return true;
+	}
+
+	public User getUserRegistrationInfo() {
+		return userRegistrationInfo;
+	}
+
+	public void setUserRegistrationInfo(User userRegistrationInfo) {
+		this.userRegistrationInfo = userRegistrationInfo;
+	}
+	
 }

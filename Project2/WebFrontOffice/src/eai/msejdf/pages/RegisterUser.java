@@ -16,9 +16,11 @@ public class RegisterUser extends SecurityPageData{
 	
 	public RegisterUser() throws NamingException, ConfigurationException {
 		super();
+		
 		this.userInfo = new UserPageData();
 		
-		System.out.println(RegisterUser.class.getName());
+		// Associate the user information with the security control (required for registration)
+		this.setUserRegistrationInfo(this.userInfo.getUser());
 	}
 
 	public UserPageData getUserInfo() {
@@ -27,6 +29,5 @@ public class RegisterUser extends SecurityPageData{
 
 	public void setUserInfo(UserPageData userInfo) {
 		this.userInfo = userInfo;
-	}
-	
+	}	
 }

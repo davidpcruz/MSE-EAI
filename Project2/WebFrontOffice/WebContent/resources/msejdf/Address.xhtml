@@ -20,12 +20,12 @@
 		columnClasses="inputFormColumn1,inputFormColumn2,inputFormColumn3">
 
 		<h:outputText value="Street Address"></h:outputText>
-		<h:inputText id="StreetAddress" value="#{userInfo.address.address}"
+		<h:inputText id="StreetAddress" value="#{cc.attrs.address.address}"
 			required="true" requiredMessage="Missing street address"></h:inputText>
 		<h:message for="StreetAddress" errorStyle="errorMessage" />
 
 		<h:outputText value="Zip Code"></h:outputText>
-		<h:inputText id="ZipCode" value="#{userInfo.address.zipCode}"
+		<h:inputText id="ZipCode" value="#{cc.attrs.address.zipCode}"
 			required="true" requiredMessage="Missing zip code"
 			validatorMessage="Invalid zip code. Must be 7 digits (ccccaaa).">
 			<f:validateRegex pattern="[\p{Digit}]+"></f:validateRegex>
@@ -34,7 +34,7 @@
 		<h:message for="ZipCode" errorStyle="errorMessage" />
 
 		<h:outputText value="City"></h:outputText>
-		<h:inputText id="CityXXX" value="#{userInfo.address.city}"
+		<h:inputText id="CityXXX" value="#{cc.attrs.address.city}"
 			required="true" requiredMessage="Missing city"></h:inputText>
 		<h:message for="City" errorStyle="errorMessage" />
 

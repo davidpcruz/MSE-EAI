@@ -1,13 +1,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html >
+
+<ui:composition template="/templates/DefaultTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:msejdf="http://java.sun.com/jsf/composite/msejdf">
-
-<ui:composition template="templates/DefaultTemplate.xhtml">
+    xmlns:msejdf="http://java.sun.com/jsf/composite/msejdf">
+    
 	<ui:define name="content">
 
 		<h:outputText value="Wrong user data"
@@ -15,11 +17,11 @@
 			styleClass="errorMessage" />
 		<h:form>
 
-			<msejdf:UserDetails userInfo="#{userInfo.user}"></msejdf:UserDetails>
+ 			<msejdf:UserDetails user="#{userInfo.user}"></msejdf:UserDetails> 
 
-			<msejdf:Address address="#{userInfo.address}"></msejdf:Address>
+			<msejdf:Address address="#{userInfo.user.address}"></msejdf:Address> 
 
-			<h:commandButton value="Save" action="#{userInfo.updateUser}"></h:commandButton>
+ 			<h:commandButton value="Save" action="#{userInfo.updateUser}"></h:commandButton>
 			<h:commandButton value="Cancel" action="Cancel"></h:commandButton>
 		</h:form>
 	</ui:define>

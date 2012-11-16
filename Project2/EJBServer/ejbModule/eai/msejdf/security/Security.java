@@ -28,7 +28,7 @@ public class Security implements ISecurity{
 	private EntityManager entityManager;
 	
 	@Override
-	public void registerUser(Credentials credentials) {
+	public void registerUser(Credentials credentials, User user) {
 		Query query;
 		
 		validateCredentialsParameters(credentials);
@@ -60,13 +60,10 @@ public class Security implements ISecurity{
         // Add new user
 		if (Credentials.USER_CREDENTIAL == credentials.getCredentialType())
 		{
-	        User newUser = new User();
+	        user.setUsername(credentials.getUsername());
+	        user.setPassword(credentials.getPassword());
 	        
-	        newUser.setUsername(credentials.getUsername());
-	        newUser.setPassword(credentials.getPassword());
-	        newUser.setName(""); // TODO: Should we receive the name of the user as a parameter?
-
-	        entityManager.persist(newUser);
+	        entityManager.persist(user);
 	        
 	        return;
 		}
