@@ -11,17 +11,19 @@
 	xmlns:msejdf="http://java.sun.com/jsf/composite/msejdf">
 
 	<ui:define name="content">
-	
-    	<h:outputText value="Wrong user or password" rendered="#{param.message == 'WrongUserPasswordError'}" styleClass="errorMessage"/>
-        <h:form>
-        
- 			<msejdf:MyCredentials security="#{login}" credentialsAction="Login"></msejdf:MyCredentials>
-        
-            <h:commandButton value="Login" action="#{login.checkUserCredentials}"></h:commandButton>
-        </h:form>
-        <h:form>
-        <h:commandLink value="Register here!" action="Register"/>
-        </h:form>
-    </ui:define>
+
+		<h:outputText value="Wrong user or password"
+			rendered="#{param.message == 'WrongUserPasswordError'}"
+			styleClass="errorMessage" />
+
+		<h:form>
+			<msejdf:MyCredentials security="#{login}" credentialsAction="Login"></msejdf:MyCredentials>
+
+			<h:commandButton value="Login" action="#{login.checkUserCredentials}"></h:commandButton>
+		</h:form>
+		<h:form>
+			<h:commandLink value="Register here!" action="Register" />
+		</h:form>
+	</ui:define>
 </ui:composition>
 </html>

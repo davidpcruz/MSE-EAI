@@ -2,7 +2,7 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html>
-<ui:composition template="templates/DefaultTemplate.xhtml" 
+<ui:composition template="templates/DefaultTemplate.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -11,17 +11,19 @@
 
 	<ui:define name="content">
 
-		<h:outputText value="The user already exists. Please chose a different username"
+		<h:outputText
+			value="The user already exists. Please chose a different username"
 			rendered="#{param.message == 'DuplicateUserError'}"
 			styleClass="errorMessage" />
 		<h:form>
 
- 			<msejdf:MyCredentials security="#{registerUser}" credentialsAction="Register"></msejdf:MyCredentials>
+			<msejdf:MyCredentials security="#{registerUser}"
+				credentialsAction="Register"></msejdf:MyCredentials>
 
- 			<msejdf:UserDetails user="#{registerUser.userInfo.user}"></msejdf:UserDetails>
+			<msejdf:UserDetails user="#{registerUser.userInfo.user}"></msejdf:UserDetails>
 
 			<msejdf:Address address="#{registerUser.userInfo.user.address}"></msejdf:Address>
- 
+
 			<h:commandButton value="Save" action="#{registerUser.register}"></h:commandButton>
 			<h:commandButton value="Cancel" action="Cancel"></h:commandButton>
 		</h:form>
