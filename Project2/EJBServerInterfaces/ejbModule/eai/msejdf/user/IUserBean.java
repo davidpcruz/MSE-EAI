@@ -13,7 +13,6 @@ import eai.msejdf.persistence.User;
 public interface IUserBean {
 	public final static int SORT_BY_NAME = 0;
 
-	// public void addUser(User user); // TODO: Move to ISecurity ?!
 	public void updateUser(User user) throws ConfigurationException;
 
 	public User getUser(String name) throws ConfigurationException;
@@ -24,31 +23,18 @@ public interface IUserBean {
 
 	public List<Company> getCompanyList(String filterPattern);
 
-	public List<String> getCompanyNameList(String filterPattern);
+	public void followCompany(Long userId, Long companyId) throws ConfigurationException;
 
-	public void followCompany(Long userId, Long companyId)
-			throws ConfigurationException;
+	public void unfollowCompany(Long userId, Long companyId) throws ConfigurationException;
 
-	public void unfollowCompany(Long userId, Long companyId)
-			throws ConfigurationException;
+	public List<Company> getfollowedCompanyList(Long userId) throws ConfigurationException;
 
-	public List<Company> getfollowedCompanyList(Long userId)
-			throws ConfigurationException;
+	public void setBankTeller(Long userId, Long companyId) throws ConfigurationException;
 
-	public void setBankTeller(Long userId, Long companyId)
-			throws ConfigurationException;
-
-	public void setBankTeller(Long userId, BankTeller bankTeller)
-			throws ConfigurationException;
-
-	public BankTeller getBankTeller(Long userId) throws ConfigurationException;
+	public void setBankTeller(Long userId, BankTeller bankTeller) throws ConfigurationException;
 
 	public List<BankTeller> getBankTellerList(String filterPattern);
 
-	public List<String> getBankTellerNameList(String filterPattern);
-	public BankTeller getUserBankTeller(User user) throws ConfigurationException;
-
-	void setBankTellerAddress(BankTeller bankTellerId);
-
-
+	public BankTeller getBankTeller(Long userId) throws ConfigurationException;
+	
 }

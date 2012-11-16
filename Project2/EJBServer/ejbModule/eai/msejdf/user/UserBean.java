@@ -7,11 +7,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-
 import org.apache.log4j.Logger;
-
 import eai.msejdf.exception.ConfigurationException;
-import eai.msejdf.persistence.Address;
 import eai.msejdf.persistence.BankTeller;
 import eai.msejdf.persistence.Company;
 import eai.msejdf.persistence.User;
@@ -86,8 +83,7 @@ public class UserBean implements IUserBean {
 			logger.debug("getUser(String) - start"); //$NON-NLS-1$
 		}
 
-		Query query = entityManager
-				.createQuery("SELECT User FROM User user WHERE user.username=:name");
+		Query query = entityManager.createQuery("SELECT User FROM User user WHERE user.username=:name");
 		query.setParameter("name", userName);
 
 		@SuppressWarnings("unchecked")
@@ -136,8 +132,7 @@ public class UserBean implements IUserBean {
 			logger.debug("getUser(String) - start"); //$NON-NLS-1$
 		}
 
-		Query query = entityManager
-				.createQuery("SELECT User FROM User user WHERE user.id=:id");
+		Query query = entityManager.createQuery("SELECT User FROM User user WHERE user.id=:id");
 		query.setParameter("id", userId);
 
 		@SuppressWarnings("unchecked")
@@ -179,7 +174,6 @@ public class UserBean implements IUserBean {
 			logger.debug("getCompany(String) - start"); //$NON-NLS-1$
 		}
 
-
 		// TODO: Validate parameters
 		Query query = entityManager
 				.createQuery("SELECT Company FROM Company company WHERE company.id=:id ORDER BY company.name");
@@ -189,8 +183,7 @@ public class UserBean implements IUserBean {
 		List<Company> companyList = query.getResultList();
 		if (true == companyList.isEmpty()) {
 			// The user doesn't seem to exist
-			throw new ConfigurationException(
-					UserBean.EXCEPTION_COMPANY_NOT_FOUND);
+			throw new ConfigurationException(UserBean.EXCEPTION_COMPANY_NOT_FOUND);
 		}
 
 		Company returnCompany = companyList.get(0);
@@ -229,34 +222,6 @@ public class UserBean implements IUserBean {
 	}
 
 	/*
-	 * (non-Javadoc) Get a List of Company names that match the filterPattern
-	 * 
-	 * @param String filterPattern
-	 * 
-	 * @return List<String>
-	 * 
-	 * @see eai.msejdf.user.IUserBean#getCompanyNameList(java.lang.String)
-	 */
-	@Override
-	public List<String> getCompanyNameList(String filterPattern) {
-		if (logger.isDebugEnabled()) {
-			logger.debug("getCompanyNameList(String) - start"); //$NON-NLS-1$
-		}
-
-		Query query = entityManager
-				.createQuery("SELECT company.name FROM  Company AS company WHERE company.name LIKE :filterPattern");
-		query.setParameter("filterPattern", filterPattern);
-
-		@SuppressWarnings("unchecked")
-		List<String> companyList = query.getResultList();
-
-		if (logger.isDebugEnabled()) {
-			logger.debug("getCompanyNameList(String) - end"); //$NON-NLS-1$
-		}
-		return companyList;
-	}
-
-	/*
 	 * (non-Javadoc) Update the User userId to follow the Company companyId
 	 * 
 	 * @param Long userId, Long companyId
@@ -265,8 +230,7 @@ public class UserBean implements IUserBean {
 	 * java.lang.Long)
 	 */
 	@Override
-	public void followCompany(Long userId, Long companyId)
-			throws ConfigurationException {
+	public void followCompany(Long userId, Long companyId) throws ConfigurationException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("followCompany(String, String) - start"); //$NON-NLS-1$
 		}
@@ -275,8 +239,7 @@ public class UserBean implements IUserBean {
 		Company company = getCompany(companyId);
 		List<Company> companies = user.getSubscribedCompanies();
 		if (companies.contains(company)) {
-			logger.info("User: " + userId + " already follows Company: "
-					+ company);
+			logger.info("User: " + userId + " already follows Company: " + company);
 		} else {
 			logger.info("Add company to followed companies " + company);
 			user.getSubscribedCompanies().add(company);
@@ -300,8 +263,7 @@ public class UserBean implements IUserBean {
 	 * java.lang.Long)
 	 */
 	@Override
-	public void unfollowCompany(Long userId, Long companyId)
-			throws ConfigurationException {
+	public void unfollowCompany(Long userId, Long companyId) throws ConfigurationException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("unfollowCompany(String, String) - start"); //$NON-NLS-1$
 		}
@@ -328,8 +290,7 @@ public class UserBean implements IUserBean {
 	 * @see eai.msejdf.user.IUserBean#getfollowedCompanyList(java.lang.Long)
 	 */
 	@Override
-	public List<Company> getfollowedCompanyList(Long userId)
-			throws ConfigurationException {
+	public List<Company> getfollowedCompanyList(Long userId) throws ConfigurationException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getfollowedCompanyList(String) - start"); //$NON-NLS-1$
 		}
@@ -347,8 +308,7 @@ public class UserBean implements IUserBean {
 	}
 
 	@Override
-	public void setBankTeller(Long userId, Long bankTellerId)
-			throws ConfigurationException {
+	public void setBankTeller(Long userId, Long bankTellerId) throws ConfigurationException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("setBankTeller(Long, Long) - start"); //$NON-NLS-1$
 		}
@@ -377,8 +337,7 @@ public class UserBean implements IUserBean {
 	 * eai.msejdf.persistence.BankTeller)
 	 */
 	@Override
-	public void setBankTeller(Long userId, BankTeller bankTeller)
-			throws ConfigurationException {
+	public void setBankTeller(Long userId, BankTeller bankTeller) throws ConfigurationException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("setBankTeller(Long, BankTeller) - start"); //$NON-NLS-1$
 
@@ -388,13 +347,11 @@ public class UserBean implements IUserBean {
 
 		try {
 			if ("" == bankTeller.getName()) {
-				throw new ConfigurationException(
-						UserBean.EXCEPTION_BANKTELLER_NAME_EMPTY);
+				throw new ConfigurationException(UserBean.EXCEPTION_BANKTELLER_NAME_EMPTY);
 			}
 		} catch (Exception ex) {
 			// The bankteller name already exists
-			throw new ConfigurationException(
-					UserBean.EXCEPTION_BANKTELLER_NAME_EMPTY);
+			throw new ConfigurationException(UserBean.EXCEPTION_BANKTELLER_NAME_EMPTY);
 		}
 
 		// Check if bankteller name already exists
@@ -409,8 +366,7 @@ public class UserBean implements IUserBean {
 																	// same name
 		if (false == bankTellerList.isEmpty()) {
 			// The bankteller name already exists
-			throw new ConfigurationException(
-					UserBean.EXCEPTION_BANKTELLER_ALREADY_EXISTS);
+			throw new ConfigurationException(UserBean.EXCEPTION_BANKTELLER_ALREADY_EXISTS);
 		}
 
 		User user = getUser(userId);
@@ -452,8 +408,7 @@ public class UserBean implements IUserBean {
 	 * 
 	 * @throws ConfigurationException
 	 */
-	public BankTeller getUserBankTeller(User user)
-			throws ConfigurationException {
+	public BankTeller getUserBankTeller(User user) throws ConfigurationException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getUserBankTellerList(Long) - start"); //$NON-NLS-1$
 		}
@@ -484,8 +439,7 @@ public class UserBean implements IUserBean {
 	 * @see eai.msejdf.user.IUserBean#getBankTeller(java.lang.Long)
 	 */
 	@Override
-	public BankTeller getBankTeller(Long bankTellerId)
-			throws ConfigurationException {
+	public BankTeller getBankTeller(Long bankTellerId) throws ConfigurationException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getBankTeller(String) - start"); //$NON-NLS-1$
 		}
@@ -498,8 +452,7 @@ public class UserBean implements IUserBean {
 		List<BankTeller> bankTellerList = query.getResultList();
 		if (true == bankTellerList.isEmpty()) {
 			// The user doesn't seem to exist
-			throw new ConfigurationException(
-					UserBean.EXCEPTION_BANKTELLER_NOT_FOUND);
+			throw new ConfigurationException(UserBean.EXCEPTION_BANKTELLER_NOT_FOUND);
 		}
 
 		BankTeller bankTeller = bankTellerList.get(0);
@@ -541,103 +494,5 @@ public class UserBean implements IUserBean {
 		}
 		return bankTellerList;
 	}
-
-	/*
-	 * (non-Javadoc) Get a list of BankTellers names that match filterPattern
-	 * 
-	 * @param String filterPattern
-	 * 
-	 * @return List<String>
-	 * 
-	 * @see eai.msejdf.user.IUserBean#getBankTellerNameList(java.lang.String)
-	 */
-	@Override
-	public List<String> getBankTellerNameList(String filterPattern) {
-		if (logger.isDebugEnabled()) {
-			logger.debug("getBankTellerNameList(String) - start"); //$NON-NLS-1$
-		}
-
-		Query query = entityManager
-				.createQuery("SELECT bankTeller.name FROM  BankTeller AS bankTeller WHERE bankTeller.name LIKE :filterPattern");
-		query.setParameter("filterPattern", filterPattern);
-
-		@SuppressWarnings("unchecked")
-		List<String> bankTellerList = query.getResultList();
-
-		if (logger.isDebugEnabled()) {
-			logger.debug("getBankTellerNameList(String) - end"); //$NON-NLS-1$
-		}
-		return bankTellerList;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * eai.msejdf.user.IUserBean#setBankTellerAddress(eai.msejdf.persistence
-	 * .BankTeller, eai.msejdf.persistence.Address)
-	 */
-	@Override
-	public void setBankTellerAddress(BankTeller bankTeller) {
-		System.out.println("backTeller is: " + bankTeller);
-		// bankTeller.setAddress(address);
-		Address bankTellerAdress = bankTeller.getAddress();
-		if (null == bankTellerAdress) {
-			// Nothing to do
-		} else if (null == bankTeller.getId()) {
-			entityManager.persist(bankTellerAdress);
-		} else {
-			entityManager.merge(bankTeller);
-		}
-		entityManager.persist(bankTellerAdress);
-		entityManager.persist(bankTeller);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * eai.msejdf.user.IUserBean#setBankTellerAddressAddress(eai.msejdf.persistence
-	 * .BankTeller, java.lang.String)
-	 */
-	// @Override
-	// public void setBankTellerAddressAddress(BankTeller bankTeller,
-	// String address) {
-	// bankTeller.getAddress().setAddress(address);
-	// entityManager.persist(bankTeller);
-	// }
-	//
-	// @Override
-	// public String getBankTellerAddressAddress(BankTeller bankTeller) {
-	// return bankTeller.getAddress().getAddress();
-	// }
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * eai.msejdf.user.IUserBean#setBankTellerAddressCity(eai.msejdf.persistence
-	 * .BankTeller, java.lang.String)
-	 */
-	// @Override
-	// public void setBankTellerAddressCity(BankTeller bankTeller, String city)
-	// {
-	// bankTeller.getAddress().setCity(city);
-	// entityManager.persist(bankTeller);
-	// }
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * eai.msejdf.user.IUserBean#setBankTellerAddressZipCode(eai.msejdf.persistence
-	 * .BankTeller, java.lang.String)
-	 */
-	// @Override
-	// public void setBankTellerAddressZipCode(BankTeller bankTeller,
-	// String zipCode) {
-	// bankTeller.getAddress().setZipCode(zipCode);
-	// entityManager.persist(bankTeller);
-	// }
 
 }
