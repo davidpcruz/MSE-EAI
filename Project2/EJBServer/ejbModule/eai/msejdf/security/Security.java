@@ -177,11 +177,92 @@ public class Security implements ISecurity{
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see eai.msejdf.security.ISecurity#removeUser(eai.msejdf.security.credentials.Credentials)
+	 */
+	@Override
+	public boolean removeUser(Credentials credentials) throws SecurityException
+	{
+		Query query;
+		
+		validateCredentialsParametersSimple(credentials);
+		
+		// Try to find a user that matches the user name and password to see if it is valid
+		if (Credentials.USER_CREDENTIAL == credentials.getCredentialType())
+		{
+			query = entityManager.createQuery("SELECT user FROM User user WHERE user.username=:name");
+		}
+		else if (Credentials.ADMIN_CREDENTIAL == credentials.getCredentialType())
+		{
+			query = entityManager.createQuery("SELECT user FROM BackOfficeUser user WHERE user.username=:name");
+		}
+		else
+		{
+			throw new IllegalArgumentException(Security.EXCEPTION_INVALID_CREDENTIAL_PARAMETER);
+		}
+		
+		query.setParameter("name", credentials.getUsername());
+
+        @SuppressWarnings("unchecked")
+		List<Object> userList= query.getResultList();
+        if (true == userList.isEmpty())
+        {
+        	// The user does not exists
+        	throw new SecurityException(Security.EXCEPTION_USER_DOES_NOT_EXISTS);
+        }        
+        
+        // Add new user
+		if (Credentials.USER_CREDENTIAL == credentials.getCredentialType())
+		{
+	        User user = (User)userList.get(0);
+	        
+	        user.setAddress(null); 					// clean the address
+	        user.setBankTeller(null); 				// clean the bankteller
+	        user.setSubscribedCompanies(null); 		// clean the companies
+	        entityManager.merge(user);	        
+	        entityManager.flush();					// flushit
+	        
+	        entityManager.remove(user);				// remove the user
+	        return true;
+		}
+
+		if (Credentials.ADMIN_CREDENTIAL == credentials.getCredentialType())
+		{
+	        BackOfficeUser backOfficeUser = (BackOfficeUser)userList.get(0);
+	        
+	        entityManager.remove(backOfficeUser);	        
+	        return true;
+		}
+		
+		return false;
+	}	
+
+	/**
+	 * Validate credentials parameters full (include password).
+	 *
+	 * @param credentials the credentials
+	 */
 	private void validateCredentialsParameters(Credentials credentials)
 	{
+		// first validate the simple fields
+		validateCredentialsParametersSimple(credentials);
+		
+		// now validate the missing fields
+		if (null == credentials.getPassword())
+		{
+			throw new IllegalArgumentException(Security.EXCEPTION_INVALID_CREDENTIAL_PARAMETER);
+		}
+	}
+
+	/**
+	 * Validate credentials parameters simple (no password).
+	 *
+	 * @param credentials the credentials
+	 */
+	private void validateCredentialsParametersSimple(Credentials credentials)
+	{
 		if ((null == credentials) || 
-			(null == credentials.getUsername()) ||
-			(null == credentials.getPassword()))
+			(null == credentials.getUsername()))
 		{
 			throw new IllegalArgumentException(Security.EXCEPTION_INVALID_CREDENTIAL_PARAMETER);
 		}
@@ -190,5 +271,6 @@ public class Security implements ISecurity{
 		{
 			throw new IllegalArgumentException(Security.EXCEPTION_INVALID_CREDENTIAL_PARAMETER);
 		}
-	}	
+	}
+
 }

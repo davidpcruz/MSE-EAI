@@ -13,14 +13,14 @@ import eai.msejdf.sort.UserSort;
  * Interface class for administration related operations
  */
 @Remote
-//TODO: Set annotation for admin previliges only
+// TODO: Set annotation for admin previliges only
 public interface IAdmin {
 
-	public List<User> getUserList(UserSort sortType);	
-	
-	public List<User> getUserList(Integer ageThreshold, UserSort sortType);	
-	
+	public List<User> getUserList(UserSort sortType);
+
+	public List<User> getUserList(Integer ageThreshold, UserSort sortType);
+
 	public List<User> getUserFollowCompanyList(Long companyId, UserSort sortType);
-	
-	public List<Company> getCompanyList(String filterPattern, CompanySort sortType); 
+
+	public List<Company> getCompanyList(String filterPattern, CompanySort sortType);
 }

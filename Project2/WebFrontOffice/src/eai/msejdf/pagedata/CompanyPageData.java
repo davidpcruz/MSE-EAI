@@ -1,5 +1,7 @@
 package eai.msejdf.pagedata;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 
 import javax.faces.context.FacesContext;
@@ -27,16 +29,13 @@ public class CompanyPageData {
 
 		this.userBean = (IUserBean) ctx.lookup(EJBLookupConstants.EJB_I_USER);
 
-		this.userId = this.userBean.getUser(
-				SessionManager.getProperty(SessionManager.USERNAME_PROPERTY))
-				.getId();
+		this.userId = this.userBean.getUser(SessionManager.getProperty(SessionManager.USERNAME_PROPERTY)).getId();
 	}
 
 	public List<Company> getFollowedCompanyList() throws ConfigurationException {
 		if (FacesContext.getCurrentInstance().getRenderResponse()) {
 			// Reload to get most recent data.
-			this.followedCompanyList = this.userBean
-					.getfollowedCompanyList(this.userId);
+			this.followedCompanyList = this.userBean.getfollowedCompanyList(this.userId);
 		}
 		return this.followedCompanyList;
 	}
@@ -47,8 +46,7 @@ public class CompanyPageData {
 			this.companyList = this.userBean.getCompanyList("%");
 			// Get also the followed list, as we need to know the subscription
 			// status
-			this.followedCompanyList = this.userBean
-					.getfollowedCompanyList(this.userId);
+			this.followedCompanyList = this.userBean.getfollowedCompanyList(this.userId);
 		}
 		return this.companyList;
 	}
@@ -60,16 +58,44 @@ public class CompanyPageData {
 
 			// Get also the followed list, as we need to know the subscription
 			// status
-			this.followedCompanyList = this.userBean
-					.getfollowedCompanyList(this.userId);
+			this.followedCompanyList = this.userBean.getfollowedCompanyList(this.userId);
 		}
 		return this.company;
 	}
 
+	public URL  getRRDPictureURL(Long companyId) throws IOException {
+		String companyName;
+		String pictureName;
+		URL imgUrl = null;
+
+		try {
+			companyName = this.userBean.getCompany(companyId).getName();
+			pictureName = "DataOut/rrd/" + companyName + "_day.gif";
+			System.out.println("companyName: " + companyName + " pictureName: " + pictureName);
+			this.getClass().getClassLoader();
+			// imgUrl =
+			// this.getClass().getClassLoader().getResource(pictureName);
+			// ALTRI_week.gif
+			// imgUrl =
+			// this.getClass().getClassLoader().getResource(pictureName);
+			// imgUrl =
+			// this.getClass().getClassLoader().getResource("ALTRI_week.gif");
+			imgUrl = ClassLoader.getSystemResources("c:/").nextElement();
+
+			System.out.println("getRRDPictureURL companyName :" + companyName);
+			System.out.println("getRRDPictureURL URL: " + imgUrl);
+		} catch (ConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return imgUrl;
+	}
+
 	public String getSubscriptionChangeAction(Company company) {
 		// If the followedCompanyList has data, it was already loaded
-		if ((null == this.followedCompanyList) || 
-			(false == this.listContainsCompanyById(this.followedCompanyList, company))) {
+		if ((null == this.followedCompanyList)
+				|| (false == this.listContainsCompanyById(this.followedCompanyList, company))) {
 			return CompanyPageData.SUBSCRIBE_ACTION_NAME;
 		}
 		return CompanyPageData.UNSUBSCRIBE_ACTION_NAME;
@@ -78,8 +104,8 @@ public class CompanyPageData {
 	public boolean subscriptionChangeAction(Company company) {
 		try {
 			// If the followedCompanyList has data, it was already loaded
-			if ((null == this.followedCompanyList) || 
-				(false == this.listContainsCompanyById(this.followedCompanyList, company))) {
+			if ((null == this.followedCompanyList)
+					|| (false == this.listContainsCompanyById(this.followedCompanyList, company))) {
 				this.userBean.followCompany(this.userId, company.getId());
 			} else {
 				this.userBean.unfollowCompany(this.userId, company.getId());
@@ -99,5 +125,6 @@ public class CompanyPageData {
 			}
 		}
 		return false;
-	}	
+	}
+
 }

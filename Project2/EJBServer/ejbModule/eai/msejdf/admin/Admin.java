@@ -32,8 +32,7 @@ public class Admin implements IAdmin {
 	private EntityManager entityManager;
 
 	/**
-	 * Get a list of Users in the system (
-	 * ageThreshold are not implemented yet)
+	 * Get a list of Users in the system ( ageThreshold are not implemented yet)
 	 * 
 	 * @param int sortType, int ageThreshold
 	 * 
@@ -42,13 +41,13 @@ public class Admin implements IAdmin {
 	 * @see eai.msejdf.admin.IAdmin#getUserList(int, int)
 	 */
 	@Override
-	public List<User> getUserList(UserSort sortType)
-	{
+	public List<User> getUserList(UserSort sortType) {
 		return this.getUserList(null, sortType);
 	}
-	
+
 	/**
-	 * @see eai.msejdf.admin.IAdmin#getUserList(java.lang.Integer, eai.msejdf.admin.UserSort)
+	 * @see eai.msejdf.admin.IAdmin#getUserList(java.lang.Integer,
+	 *      eai.msejdf.admin.UserSort)
 	 */
 	@Override
 	public List<User> getUserList(Integer ageThreshold, UserSort sortType) {
@@ -57,37 +56,36 @@ public class Admin implements IAdmin {
 		}
 
 		String sortBy = buildUserSortType(sortType);
-		
+
 		Query query;
-		
+
 		// Different query based on the age restriction
-		if (null == ageThreshold)
-		{
-			query = entityManager.createQuery("SELECT user FROM  User AS user " + sortBy);			
+		if (null == ageThreshold) {
+			query = entityManager.createQuery("SELECT user FROM  User AS user " + sortBy);
 		} else {
-			
+
 			Calendar now = Calendar.getInstance();
 			now.add(Calendar.YEAR, (-1) * ageThreshold);
-			
-			query = entityManager.createQuery("SELECT user FROM  User AS user where user.birthDate <=:ageDate " + sortBy);
+
+			query = entityManager.createQuery("SELECT user FROM  User AS user where user.birthDate <=:ageDate "
+					+ sortBy);
 			query.setParameter("ageDate", now.getTime());
 		}
-		
 
 		@SuppressWarnings("unchecked")
 		List<User> userList = query.getResultList();
-		
+
 		if (logger.isDebugEnabled()) {
 			logger.debug("getUserList(Integer, UserSort) - end"); //$NON-NLS-1$
 		}
 		return userList;
 	}
 
-
 	/**
 	 * Get a list of Users that follow the Company companyId
 	 * 
-	 * @param Long companyId, UserSort sortType
+	 * @param Long
+	 *            companyId, UserSort sortType
 	 * 
 	 * @return List<User>
 	 * 
@@ -100,15 +98,15 @@ public class Admin implements IAdmin {
 		}
 
 		// basic validations
-		if (null == companyId)
-		{
+		if (null == companyId) {
 			throw new IllegalArgumentException("filterPattern");
-		}		
+		}
 
 		String sortBy = buildUserSortType(sortType);
-		
-		Query query = entityManager.createQuery("SELECT user FROM User user join fetch user.subscribedCompanies as comp " +
-				"WHERE comp.id=:id " + sortBy);
+
+		Query query = entityManager
+				.createQuery("SELECT user FROM User user join fetch user.subscribedCompanies as comp "
+						+ "WHERE comp.id=:id " + sortBy);
 
 		query.setParameter("id", companyId);
 
@@ -123,7 +121,7 @@ public class Admin implements IAdmin {
 
 	/*
 	 * (non-Javadoc)Get a list of Companies in the system that match the
-	 * filterPattern 
+	 * filterPattern
 	 * 
 	 * @param String filterPattern, int sortType
 	 * 
@@ -138,16 +136,15 @@ public class Admin implements IAdmin {
 		}
 
 		// basic validations
-		if (StringUtils.isNullOrEmpty(filterPattern))
-		{
+		if (StringUtils.isNullOrEmpty(filterPattern)) {
 			throw new IllegalArgumentException("filterPattern");
-		}		
-		
-		String sortBy = buildCompanySortType(sortType);		
-		
+		}
+
+		String sortBy = buildCompanySortType(sortType);
+
 		// Query query = entityManager
-		Query query = entityManager
-				.createQuery("SELECT comp FROM Company as comp WHERE comp.name LIKE :filterPattern " + sortBy);
+		Query query = entityManager.createQuery("SELECT comp FROM Company as comp WHERE comp.name LIKE :filterPattern "
+				+ sortBy);
 
 		query.setParameter("filterPattern", filterPattern);
 
@@ -162,54 +159,52 @@ public class Admin implements IAdmin {
 
 	/**
 	 * Builds the user sort type.
-	 *
-	 * @param sortType the sort type
+	 * 
+	 * @param sortType
+	 *            the sort type
 	 * @return the string
 	 */
-	private String buildUserSortType(UserSort sortType)
-	{
+	private String buildUserSortType(UserSort sortType) {
 		String sortBy = "";
-		switch (sortType)
-		{
-			case BIRTHDAY_ASC:
-				sortBy = "ORDER BY user.birthDate ASC";
-				break;
-			case BIRTHDAY_DESC:
-				sortBy = "ORDER BY user.birthDate DESC";
-				break;
-			case NAME_ASC:
-				sortBy = "ORDER BY user.name ASC";
-				break;
-			case NAME_DESC:
-				sortBy = "ORDER BY user.name DESC";
-				break;
-			default:
-				sortBy = "";
-				break;
+		switch (sortType) {
+		case BIRTHDAY_ASC:
+			sortBy = "ORDER BY user.birthDate ASC";
+			break;
+		case BIRTHDAY_DESC:
+			sortBy = "ORDER BY user.birthDate DESC";
+			break;
+		case NAME_ASC:
+			sortBy = "ORDER BY user.name ASC";
+			break;
+		case NAME_DESC:
+			sortBy = "ORDER BY user.name DESC";
+			break;
+		default:
+			sortBy = "";
+			break;
 		}
 		return sortBy;
-	}	
+	}
 
 	/**
 	 * Builds the company sort type.
-	 *
-	 * @param sortType the sort type
+	 * 
+	 * @param sortType
+	 *            the sort type
 	 * @return the string
 	 */
-	private String buildCompanySortType(CompanySort sortType)
-	{
+	private String buildCompanySortType(CompanySort sortType) {
 		String sortBy = "";
-		switch (sortType)
-		{
-			case NAME_ASC:
-				sortBy = "ORDER BY comp.name ASC";
-				break;
-			case NAME_DESC:
-				sortBy = "ORDER BY comp.name DESC";
-				break;
-			default:
-				sortBy = "";
-				break;
+		switch (sortType) {
+		case NAME_ASC:
+			sortBy = "ORDER BY comp.name ASC";
+			break;
+		case NAME_DESC:
+			sortBy = "ORDER BY comp.name DESC";
+			break;
+		default:
+			sortBy = "";
+			break;
 		}
 		return sortBy;
 	}

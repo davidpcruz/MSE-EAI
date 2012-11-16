@@ -2,6 +2,19 @@
 <faces-config version="2.1" xmlns="http://java.sun.com/xml/ns/javaee"
 	xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd">
+	
+	<!-- Lifecycle listener -->
+	<lifecycle>
+		<phase-listener>eai.msejdf.web.session.SessionPhaseListener</phase-listener>
+	</lifecycle>
+
+	<!-- Validators -->
+    <validator>
+        <validator-id>passwordValidator</validator-id>
+        <validator-class>eai.msejdf.validator.PasswordValidator</validator-class>
+    </validator>	
+	
+	<!-- Navigation -->
 	<navigation-rule>
 		<from-view-id>/Login.xhtml</from-view-id>
 		<navigation-case>
@@ -158,11 +171,45 @@
 				</view-param>
 			</redirect>
 		</navigation-case>
-	</navigation-rule>
-	<!-- Session Time out occurred -->
+ 	</navigation-rule>
+
+	<!-- Account -->	
+	<navigation-rule>
+		<from-view-id>/Account.xhtml</from-view-id>
+	 	<navigation-case>
+	 		<from-action>#{account.changePassword}</from-action>
+			<from-outcome>true</from-outcome>
+			<to-view-id>/Account.xhtml</to-view-id>
+			<redirect>
+				<view-param>
+					<name>message</name>
+					<value>PasswordChanged</value>
+				</view-param>
+			</redirect>
+		</navigation-case>
+	 	<navigation-case>
+	 		<from-action>#{account.changePassword}</from-action>
+			<from-outcome>false</from-outcome>
+			<to-view-id>/Account.xhtml</to-view-id>
+			<redirect>
+				<view-param>
+					<name>message</name>
+					<value>PasswordChangeError</value>
+				</view-param>
+			</redirect>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{account.deleteAccount}</from-action>
+			<from-outcome>true</from-outcome>
+			<to-view-id>/Login.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>			
+ 	</navigation-rule>
+
 	<navigation-rule>
 		<from-view-id>/*</from-view-id>
 		<navigation-case>
+			<!-- Session Time out occurred -->
 			<from-outcome>SessionTimedOut</from-outcome>
 			<to-view-id>/Login.xhtml</to-view-id>
 		</navigation-case>

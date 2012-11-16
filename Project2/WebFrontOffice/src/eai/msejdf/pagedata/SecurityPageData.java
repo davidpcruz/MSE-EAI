@@ -15,16 +15,15 @@ import eai.msejdf.web.session.SessionManager;
 
 public class SecurityPageData {
 	
-	private ISecurity securityBean;
+	protected ISecurity securityBean;
 	private String username;
 	private String password;
+	private String newPassword;
 	private String oldPassword;
 	private String confirmedPassword;
 	private User userRegistrationInfo;
 	
 	public SecurityPageData() throws NamingException {		
-		System.out.println(RegisterUser.class.getName());
-
 		InitialContext ctx = new InitialContext();
 		
 		this.securityBean = (ISecurity) ctx.lookup(EJBLookupConstants.EJB_I_SECURITY);		
@@ -46,6 +45,7 @@ public class SecurityPageData {
 		this.password = password;
 	}
 
+
 	public String getOldPassword() {
 		return oldPassword;
 	}
@@ -60,6 +60,17 @@ public class SecurityPageData {
 
 	public void setConfirmedPassword(String confirmedPassword) {
 		this.confirmedPassword = confirmedPassword;
+	}
+
+	public String getNewPassword()
+	{
+		return newPassword;
+	}
+
+
+	public void setNewPassword(String currentPassword)
+	{
+		this.newPassword = currentPassword;
 	}
 
 	public boolean checkUserCredentials() throws SecurityException
@@ -88,8 +99,34 @@ public class SecurityPageData {
 		SessionManager.removeProperty(SessionManager.USERNAME_PROPERTY);
 		SessionManager.invalidateSession();
 		return true;
+	}
+	
+	/**
+	 * Change password of the user
+	 *
+	 * @return true, if successful
+	 * @throws SecurityException 
+	 */
+	public boolean changePassword() throws SecurityException
+	{
+		// first check the original password is right
+		Credentials credentials = new UserCredentials();
+		
+		credentials.setUsername(SessionManager.getProperty(SessionManager.USERNAME_PROPERTY));
+		credentials.setPassword(this.getPassword());
+		
+		boolean result = this.securityBean.checkUser(credentials);
+				
+		if (false != result)
+		{
+			credentials.setPassword(this.getNewPassword()); // the new password
+			this.securityBean.updateUserCredentials(credentials);
+		}
+				
+		return result;
 	}	
 	
+
 	public boolean register()
 	{
 		Credentials credentials = new UserCredentials();
@@ -114,4 +151,38 @@ public class SecurityPageData {
 		this.userRegistrationInfo = userRegistrationInfo;
 	}
 	
+
+	/**
+	 * Delete account.
+	 *
+	 * @return true, if successful
+	 * @throws SecurityException 
+	 */
+	public boolean deleteAccount() throws SecurityException
+	{		
+		// first check the original password is right
+		Credentials credentials = new UserCredentials();
+		
+		credentials.setUsername(SessionManager.getProperty(SessionManager.USERNAME_PROPERTY));
+
+		boolean result = this.securityBean.removeUser(credentials);
+		
+		if (false != result)
+		{
+			// logout
+			result = this.logout();
+		}
+				
+		return result;
+	}	
+
+
+	public User getUserRegistrationInfo() {
+		return userRegistrationInfo;
+	}
+
+	public void setUserRegistrationInfo(User userRegistrationInfo) {
+		this.userRegistrationInfo = userRegistrationInfo;
+	}
+
 }

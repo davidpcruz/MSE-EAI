@@ -38,5 +38,15 @@ public interface ISecurity {
 	 * @throws SecurityException Exception in case the update failed
 	 */
 	public void updateUserCredentials(Credentials credentials) throws SecurityException;
+	
+	/**
+	 * Removes a user from the system.
+	 *
+	 * @param credentials The credentials identifying a user
+	 * @return true, if successful
+	 * @throws SecurityException Exception in case the registration failed
+	 */
+	public boolean removeUser(Credentials credentials) throws SecurityException;
+
 
 }
