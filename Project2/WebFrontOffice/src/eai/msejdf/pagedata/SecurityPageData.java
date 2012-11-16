@@ -91,7 +91,6 @@ public class SecurityPageData {
 	public boolean changePassword() throws SecurityException
 	{
 		// first check the original password is right
-
 		Credentials credentials = new UserCredentials();
 		
 		credentials.setUsername(SessionManager.getProperty(SessionManager.USERNAME_PROPERTY));
@@ -107,5 +106,30 @@ public class SecurityPageData {
 				
 		return result;
 	}	
+	
+	/**
+	 * Delete account.
+	 *
+	 * @return true, if successful
+	 * @throws SecurityException 
+	 */
+	public boolean deleteAccount() throws SecurityException
+	{		
+		// first check the original password is right
+		Credentials credentials = new UserCredentials();
+		
+		credentials.setUsername(SessionManager.getProperty(SessionManager.USERNAME_PROPERTY));
+
+		boolean result = this.securityBean.removeUser(credentials);
+		
+		if (false != result)
+		{
+			// logout
+			result = this.logout();
+		}
+				
+		return result;
+	}	
+
 
 }

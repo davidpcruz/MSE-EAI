@@ -133,6 +133,9 @@
     ID="false:#{account.changePassword}:#Account.xhtml" NAME="output1"
     PATH="/Account.xhtml" TARGET="rules:#Account.xhtml"
     TITLE="#{account.changePassword}:false" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="true:#{account.deleteAccount}:#Login.xhtml"
+    NAME="output2" PATH="/Login.xhtml" TARGET="rules:#Login.xhtml"
+    TITLE="#{account.deleteAccount}:true" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
 </PROCESS>

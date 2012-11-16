@@ -14,7 +14,6 @@ public interface IUserBean {
 	public final static int SORT_BY_NAME = 0;
 
 	// public void addUser(User user); // TODO: Move to ISecurity ?!
-	// public void removeUser(User user); // TODO: Move to ISecurity ?!
 	public void updateUser(User user) throws ConfigurationException;
 
 	public User getUser(String name) throws ConfigurationException;

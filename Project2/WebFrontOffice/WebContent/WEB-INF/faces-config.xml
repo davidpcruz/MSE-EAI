@@ -156,8 +156,7 @@
 		</navigation-case>
  	</navigation-rule>
 
-	<!-- Account -->
-	
+	<!-- Account -->	
 	<navigation-rule>
 		<from-view-id>/Account.xhtml</from-view-id>
 	 	<navigation-case>
@@ -182,6 +181,12 @@
 				</view-param>
 			</redirect>
 		</navigation-case>
+		<navigation-case>
+			<from-action>#{account.deleteAccount}</from-action>
+			<from-outcome>true</from-outcome>
+			<to-view-id>/Login.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>			
  	</navigation-rule>
 
 
