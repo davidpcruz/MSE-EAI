@@ -38,7 +38,36 @@ public class Security implements ISecurity{
 		{
 			query = entityManager.createQuery("SELECT user FROM User user WHERE user.username=:name");
 		}
-		else if (Credentials.ADMIN_CREDENTIAL == credentials.getCredentialType())
+		else
+		{
+			throw new IllegalArgumentException(Security.EXCEPTION_INVALID_CREDENTIAL_PARAMETER);
+		}
+		
+		query.setParameter("name", credentials.getUsername());
+		
+        @SuppressWarnings("unchecked")
+		List<Object> userList= query.getResultList();
+        if (false == userList.isEmpty())
+        {
+        	// The user already exists
+        	throw new SecurityException(Security.EXCEPTION_USER_ALREADY_EXISTS);
+        }
+        
+        // Add new user
+        user.setUsername(credentials.getUsername());
+        user.setPassword(credentials.getPassword());
+        
+        entityManager.persist(user);
+	}
+
+	@Override
+	public void registerUser(Credentials credentials, BackOfficeUser user) {
+		Query query;
+		
+		validateCredentialsParameters(credentials);
+				
+		// Check if the user already exists		
+		if (Credentials.ADMIN_CREDENTIAL == credentials.getCredentialType())
 		{
 			query = entityManager.createQuery("SELECT user FROM BackOfficeUser user WHERE user.username=:name");
 		}
@@ -58,29 +87,12 @@ public class Security implements ISecurity{
         }
         
         // Add new user
-		if (Credentials.USER_CREDENTIAL == credentials.getCredentialType())
-		{
-	        user.setUsername(credentials.getUsername());
-	        user.setPassword(credentials.getPassword());
-	        
-	        entityManager.persist(user);
-	        
-	        return;
-		}
-
-		if (Credentials.ADMIN_CREDENTIAL == credentials.getCredentialType())
-		{
-	        BackOfficeUser newUser = new BackOfficeUser();
-	        
-	        newUser.setUsername(credentials.getUsername());
-	        newUser.setPassword(credentials.getPassword());
-	        
-	        entityManager.persist(newUser);
-	        
-	        return;
-		}
+        user.setUsername(credentials.getUsername());
+        user.setPassword(credentials.getPassword());
+        
+        entityManager.persist(user);
 	}
-
+	
 	@Override
 	public boolean checkUser(Credentials credentials) {
 		Query query;

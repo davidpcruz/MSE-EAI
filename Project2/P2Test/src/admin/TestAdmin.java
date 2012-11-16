@@ -13,6 +13,8 @@ import eai.msejdf.exception.SecurityException;
 import eai.msejdf.persistence.BankTeller;
 import eai.msejdf.persistence.Company;
 import eai.msejdf.persistence.User;
+import eai.msejdf.sort.CompanySort;
+import eai.msejdf.sort.UserSort;
 import eai.msejdf.user.IUserBean;
 import eai.msejdf.admin.IAdmin;
 
@@ -66,7 +68,7 @@ public class TestAdmin {
 
 		System.out.println("Testing  getCompanyList(filterPattern)");
 		System.out.println("Searching Company Name: " + filterPattern);
-		List<Company> company = bean.getCompanyList(filterPattern, sortType);
+		List<Company> company = bean.getCompanyList(filterPattern, CompanySort.NAME_ASC);
 		for (Company comp : company)
 			System.out.println("\t Result " + comp.getName());
 	}
@@ -82,8 +84,7 @@ public class TestAdmin {
 
 		System.out.println("Testing  getUserList");
 
-		List<User> userList = bean.getUserList(
-				sortType, ageThreshold);
+		List<User> userList = bean.getUserList(ageThreshold, UserSort.BIRTHDAY_ASC);
 		for (User user : userList)
 			System.out.println("\t Result " + user.getName());
 	}
@@ -102,8 +103,7 @@ public class TestAdmin {
 
 		System.out.println("Testing  UserFollowCompanyList");
 
-		List<User> userList = bean.getUserFollowCompanyList(companyId,
-				sortType, ageThreshold);
+		List<User> userList = bean.getUserFollowCompanyList(companyId,UserSort.BIRTHDAY_ASC);
 		for (User user : userList)
 			System.out.println("\t Result " + user.getName());
 	}

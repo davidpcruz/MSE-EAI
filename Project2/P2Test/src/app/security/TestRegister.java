@@ -10,6 +10,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import eai.msejdf.exception.SecurityException;
+import eai.msejdf.persistence.BackOfficeUser;
+import eai.msejdf.persistence.User;
 import eai.msejdf.security.credentials.Credentials;
 import eai.msejdf.security.ISecurity;
 import eai.msejdf.security.credentials.AdminCredentials;
@@ -32,13 +34,16 @@ public class TestRegister {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
 		System.out.println("Username: ");
-		String user = br.readLine();
+		String username = br.readLine();
 		
 		System.out.println("Password: ");
 		String pass = br.readLine();
 		
 		System.out.println("User type (u=user; a=admin)");
 		String type = br.readLine();
+
+		System.out.println("Friendly name: ");
+		String name = br.readLine();
 		
 		if (type.equals("a"))
 		{
@@ -49,10 +54,23 @@ public class TestRegister {
 			// Assume user as default
 			credentials = new UserCredentials();
 		}
-		credentials.setUsername(user);
+		credentials.setUsername(username);
 		credentials.setPassword(pass);
+
+		if (type.equals("a"))
+		{
+			BackOfficeUser user = new BackOfficeUser();
+			
+			bean.registerUser(credentials, user);
+		}
+		else
+		{
+			User user = new User();
+			
+			user.setName(name);
+			bean.registerUser(credentials, user);
+		}
 		
-		bean.registerUser(credentials);
 		
 		System.out.println("User registered");
 	}
