@@ -54,7 +54,7 @@ public class BankTellerPageData {
 	}
 
 	public boolean updateBankTeller() {
-		// TODO: The exception should cause the user interface to be informed
+		
 		try {
 			this.userBean.setBankTeller(this.user.getId(), this.user.getBankTeller());
 		} catch (Exception exception) {
@@ -66,7 +66,7 @@ public class BankTellerPageData {
 	}
 
 	public boolean addBankTeller() {
-		// TODO: The exception should cause the user interface to be informed
+		
 		try {
 			this.userBean.setBankTeller(this.user.getId(), this.bankTeller);
 		} catch (Exception exception) {
@@ -86,8 +86,7 @@ public class BankTellerPageData {
 	}
 
 	public String getSubscriptionChangeAction(BankTeller bankTeller) {
-		// TODO: This is tmp for debug. Replace by a method that checks the
-		// subscription
+		
 		try {
 			return (!(user.getBankTeller().getId().equals(bankTeller.getId())) ? BankTellerPageData.SET_ACTION_NAME
 					: BankTellerPageData.UNSET_ACTION_NAME);
@@ -99,17 +98,13 @@ public class BankTellerPageData {
 	public boolean subscriptionChangeAction(BankTeller bankTeller) {
 		boolean result = false;
 
-		// if (!user.getBankTeller().getId().equals(bankTeller.getId())) {
-
 		try {
 			this.userBean.setBankTeller(this.user.getId(), bankTeller.getId());
 			result = true;
 		} catch (ConfigurationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		// TODO: Return code must match action result
 		return result;
 	}
 
