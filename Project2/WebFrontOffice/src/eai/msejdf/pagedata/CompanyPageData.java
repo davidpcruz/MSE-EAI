@@ -63,35 +63,7 @@ public class CompanyPageData {
 		return this.company;
 	}
 
-	public URL  getRRDPictureURL(Long companyId) throws IOException {
-		String companyName;
-		String pictureName;
-		URL imgUrl = null;
-
-		try {
-			companyName = this.userBean.getCompany(companyId).getName();
-			pictureName = "DataOut/rrd/" + companyName + "_day.gif";
-			System.out.println("companyName: " + companyName + " pictureName: " + pictureName);
-			this.getClass().getClassLoader();
-			// imgUrl =
-			// this.getClass().getClassLoader().getResource(pictureName);
-			// ALTRI_week.gif
-			// imgUrl =
-			// this.getClass().getClassLoader().getResource(pictureName);
-			// imgUrl =
-			// this.getClass().getClassLoader().getResource("ALTRI_week.gif");
-			imgUrl = ClassLoader.getSystemResources("c:/").nextElement();
-
-			System.out.println("getRRDPictureURL companyName :" + companyName);
-			System.out.println("getRRDPictureURL URL: " + imgUrl);
-		} catch (ConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return imgUrl;
-	}
-
+	
 	public String getSubscriptionChangeAction(Company company) {
 		// If the followedCompanyList has data, it was already loaded
 		if ((null == this.followedCompanyList)

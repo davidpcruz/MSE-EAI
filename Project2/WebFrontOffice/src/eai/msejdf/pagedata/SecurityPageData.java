@@ -5,7 +5,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import eai.msejdf.exception.SecurityException;
-import eai.msejdf.pages.RegisterUser;
 import eai.msejdf.persistence.User;
 import eai.msejdf.security.ISecurity;
 import eai.msejdf.security.credentials.Credentials;
