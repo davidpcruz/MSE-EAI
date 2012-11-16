@@ -8,6 +8,7 @@
 		<listener-class>eai.msejdf.web.session.SessionListener</listener-class>
 	</listener>
 -->	
+
  	<error-page>
 		<exception-type>javax.faces.application.ViewExpiredException</exception-type>
 		<location>/Login.xhtml</location>

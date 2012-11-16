@@ -9,7 +9,7 @@ import eai.msejdf.pagedata.CompanyPageData;
 
 @ManagedBean
 @ViewScoped
-public class CompanyInfo extends CompanyPageData{
+public class CompanyInfo extends CompanyPageData {
 
 	public CompanyInfo() throws NamingException, ConfigurationException {
 		super();
