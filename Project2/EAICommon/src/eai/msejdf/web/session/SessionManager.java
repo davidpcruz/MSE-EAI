@@ -58,4 +58,13 @@ public class SessionManager {
 		FacesContext context = FacesContext.getCurrentInstance();
 		return (String)context.getExternalContext().getRequestParameterMap().get(name);
 	}	
+	
+	/**
+	 * Invalidate session set for the user.
+	 */
+	public static void invalidateSession()
+	{
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.getExternalContext().invalidateSession();
+	}
 }

@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface>
+
+	<composite:attribute name="userInfo" />
+
+</composite:interface>
+
+
+<composite:implementation>
+	<h:panelGrid columns="3" styleClass="inputForm"
+		columnClasses="inputFormColumn1,inputFormColumn2,inputFormColumn3">
+
+		<h:outputText value="Name"></h:outputText>
+		<h:inputText id="Name" value="#{userInfo.user.name}" required="true"
+			requiredMessage="Missing Name">
+		</h:inputText>
+		<h:message for="Name" errorStyle="errorMessage" />
+
+		<h:outputText value="Phone"></h:outputText>
+		<h:inputText id="Phone" value="#{userInfo.user.phone}" required="true"
+			requiredMessage="Missing phone"
+			validatorMessage="Invalid phone. Use only digits.">
+			<f:validateRegex pattern="[\p{Digit}]+"></f:validateRegex>
+		</h:inputText>
+		<h:message for="Phone" errorStyle="errorMessage" />
+
+		<h:outputText value="e-mail"></h:outputText>
+		<h:inputText id="e-mail" value="#{userInfo.user.email}"
+			required="true" requiredMessage="Missing e-mail"
+			validatorMessage="Invalid email format">
+			<!-- Pattern from http://stackoverflow.com/questions/7875108/primeface-jsf-2-email-validation-using-regular-expression -->
+			<f:validateRegex pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)" />
+		</h:inputText>
+		<h:message for="e-mail" errorStyle="errorMessage" />
+
+		<h:outputText value="Birth Date (dd/mm/yyyy)"></h:outputText>
+		<h:inputText id="BirthDate" value="#{userInfo.user.birthDate}"
+			required="true" requiredMessage="Missing birth date"
+			validatorMessage="Invalid date format">
+			<f:convertDateTime pattern="dd/MM/yyyy" />
+		</h:inputText>
+		<h:message for="BirthDate" errorStyle="errorMessage" />
+
+	</h:panelGrid>
+
+</composite:implementation>
+</html>

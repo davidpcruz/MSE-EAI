@@ -82,6 +82,7 @@ public class SecurityBackOfficeBean
 	public boolean logout()
 	{
 		SessionManager.removeProperty(SessionManager.USERNAME_PROPERTY);
+		SessionManager.invalidateSession();
 		return true;
 	}
 }

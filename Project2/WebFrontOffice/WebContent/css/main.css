@@ -1,7 +1,9 @@
 @CHARSET "ISO-8859-1";
 
-.body {
-	font-family: verdana;
+
+body {
+	font-weight: normal;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 
 .errorMessage {
@@ -14,6 +16,10 @@
 
 .warnMessage {
 	color: orange;
+}
+
+#tableList {
+	width: 100%;
 }
 
 #headerTitle {
@@ -59,4 +65,27 @@
 .tableHeader {
 	color: white;
 	background-color: black;
+}
+
+.inputFormColumn1 {
+	width: 10%;	
+}
+
+.inputFormColumn2 {
+	width: 10%;
+}
+
+.inputFormColumn3 {
+	width: 70%;
+}
+
+.inputForm {
+	width: 100%;
+}
+
+.divFooter
+{
+	background-color:navy;
+	width:100%;
+	color:white
 }
