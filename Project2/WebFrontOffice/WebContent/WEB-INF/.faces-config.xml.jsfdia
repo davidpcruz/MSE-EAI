@@ -29,9 +29,9 @@
     ID="false:#{login.checkUserCredentials}:#Login.xhtml" NAME="output1"
     PATH="/Login.xhtml" TARGET="rules:#Login.xhtml"
     TITLE="#{login.checkUserCredentials}:false" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT ID="Register::#UserInfo.xhtml" NAME="output2"
-    PATH="/UserInfo.xhtml" TARGET="rules:#UserInfo.xhtml"
-    TITLE="Register" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="Register::#RegisterUser.xhtml"
+    NAME="output2" PATH="/RegisterUser.xhtml"
+    TARGET="rules:#RegisterUser.xhtml" TITLE="Register" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#RegisterUser.xhtml"
@@ -47,6 +47,8 @@
     NAME="output1" PATH="/RegisterUser.xhtml"
     TARGET="rules:#RegisterUser.xhtml"
     TITLE="#{registerUser.register}:false" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="Cancel::#Login.xhtml" NAME="output2"
+    PATH="/Login.xhtml" TARGET="rules:#Login.xhtml" TITLE="Cancel" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#UserInfo.xhtml" PATH="/UserInfo.xhtml"

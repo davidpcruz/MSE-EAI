@@ -37,6 +37,7 @@
 		<navigation-case>
 			<from-outcome>Register</from-outcome>
 			<to-view-id>/RegisterUser.xhtml</to-view-id>
+			<redirect />
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
@@ -57,6 +58,11 @@
 					<value>DuplicateUserError</value>
 				</view-param>
 			</redirect>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Cancel</from-outcome>
+			<to-view-id>/Login.xhtml</to-view-id>
+			<redirect />
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
