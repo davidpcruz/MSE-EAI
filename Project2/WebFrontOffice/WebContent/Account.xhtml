@@ -14,24 +14,8 @@
     	<h:outputText value="Password changed" rendered="#{param.message == 'PasswordChanged'}" />
 
         <h:form>
-             <h:panelGrid columns="3">
-             
-                <h:outputText value="Current Password"></h:outputText>
-                <h:inputSecret id="currentPassword" value="#{account.password}" required="true" requiredMessage="Missing current password"></h:inputSecret>
-                <h:message for="currentPassword" styleClass="errorMessage"/>				
-
-                <h:outputText value="New Password"></h:outputText>
-                <h:inputSecret id="newPassword" value="#{account.newPassword}" required="true" requiredMessage="Missing new password">
-					<f:validator validatorId="passwordValidator" />
-            		<f:attribute name="confirm" value="#{confirmPassword}" />                
-                </h:inputSecret>
-                <h:message for="newPassword" styleClass="errorMessage"/>				
-
-                <h:outputText value="Confirm Password"></h:outputText>
-                <h:inputSecret id="confirmPassword" binding="#{confirmPassword}" required="true" requiredMessage="Missing confirmation password"></h:inputSecret>
-                <h:message for="confirmPassword" styleClass="errorMessage"/>				
-
-            </h:panelGrid>
+        	<msejdf:Credentials security="#{account}" credentialsAction="Change"></msejdf:Credentials>
+        
             <h:commandButton value="Change" action="#{account.changePassword}"></h:commandButton>
             <h:commandButton value="Delete Account" action="#{account.deleteAccount}" immediate="true"
             onclick="return confirm('Are you sure?')"></h:commandButton>

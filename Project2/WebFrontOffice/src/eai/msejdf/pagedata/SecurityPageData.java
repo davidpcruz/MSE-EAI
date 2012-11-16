@@ -19,7 +19,6 @@ public class SecurityPageData {
 	private String username;
 	private String password;
 	private String newPassword;
-	private String oldPassword;
 	private String confirmedPassword;
 	private User userRegistrationInfo;
 	
@@ -43,15 +42,6 @@ public class SecurityPageData {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-
-	public String getOldPassword() {
-		return oldPassword;
-	}
-
-	public void setOldPassword(String oldPassword) {
-		this.oldPassword = oldPassword;
 	}
 
 	public String getConfirmedPassword() {
@@ -132,7 +122,7 @@ public class SecurityPageData {
 		Credentials credentials = new UserCredentials();
 		
 		credentials.setUsername(this.getUsername());
-		credentials.setPassword(this.getPassword());
+		credentials.setPassword(this.getNewPassword());
 		
 		try {
 			this.securityBean.registerUser(credentials, this.userRegistrationInfo);

@@ -17,7 +17,7 @@
 			styleClass="errorMessage" />
 
 		<h:form>
-			<msejdf:MyCredentials security="#{login}" credentialsAction="Login"></msejdf:MyCredentials>
+			<msejdf:Credentials security="#{login}" credentialsAction="Login"></msejdf:Credentials>
 
 			<h:commandButton value="Login" action="#{login.checkUserCredentials}"></h:commandButton>
 		</h:form>
