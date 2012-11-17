@@ -1,5 +1,6 @@
 package eai.msejdf.admin;
 
+import java.security.InvalidParameterException;
 import java.util.Calendar;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import eai.msejdf.persistence.Company;
 import eai.msejdf.persistence.User;
 import eai.msejdf.sort.CompanySort;
 import eai.msejdf.sort.UserSort;
+import eai.msejdf.utils.Patterns;
 import eai.msejdf.utils.StringUtils;
 
 /**
@@ -28,7 +30,6 @@ public class Admin implements IAdmin {
 	 */
 	private static final Logger logger = Logger.getLogger(Admin.class);
 	@PersistenceContext(unitName = "JPAEAI")
-	// TODO: Check if it can be placed in a config file and update name
 	private EntityManager entityManager;
 
 	/**
@@ -42,6 +43,11 @@ public class Admin implements IAdmin {
 	 */
 	@Override
 	public List<User> getUserList(UserSort sortType) {
+
+		if (null == sortType)
+		{
+			throw new InvalidParameterException();
+		}
 		return this.getUserList(null, sortType);
 	}
 
@@ -99,7 +105,7 @@ public class Admin implements IAdmin {
 
 		// basic validations
 		if (null == companyId) {
-			throw new IllegalArgumentException("filterPattern");
+			throw new IllegalArgumentException("companyId");
 		}
 
 		String sortBy = buildUserSortType(sortType);
@@ -135,10 +141,7 @@ public class Admin implements IAdmin {
 			logger.debug("getCompanyList(String, int) - start"); //$NON-NLS-1$
 		}
 
-		// basic validations
-		if (StringUtils.isNullOrEmpty(filterPattern)) {
-			throw new IllegalArgumentException("filterPattern");
-		}
+		// Don't validate filterPattern. It can be null! getTranslatedFilterPattern() will do proper conversion
 
 		String sortBy = buildCompanySortType(sortType);
 
@@ -146,7 +149,7 @@ public class Admin implements IAdmin {
 		Query query = entityManager.createQuery("SELECT comp FROM Company as comp WHERE comp.name LIKE :filterPattern "
 				+ sortBy);
 
-		query.setParameter("filterPattern", filterPattern);
+		query.setParameter("filterPattern", Patterns.getTranslatedFilterPattern(filterPattern));
 
 		@SuppressWarnings("unchecked")
 		List<Company> companyList = query.getResultList();

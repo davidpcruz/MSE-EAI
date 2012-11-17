@@ -1,5 +1,6 @@
 package eai.msejdf.jms;
 
+import java.security.InvalidParameterException;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -62,6 +63,11 @@ public class JMSBeanReceiver implements MessageListener {
 			logger.debug("getCompany(String) - start"); //$NON-NLS-1$
 		}
 
+		if (null == company)
+		{
+			throw new InvalidParameterException();
+		}
+		
 		Query query = entityManager.createQuery("SELECT Company FROM Company company WHERE company.name=:name");
 		query.setParameter("name", company);
 
