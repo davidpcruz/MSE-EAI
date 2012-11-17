@@ -37,36 +37,42 @@ public class BankTellerPageData {
 
 	}
 
+	/**
+	 * @return
+	 */
 	public Address getAddress() {
 		return address;
 	}
 
+	/**
+	 * @param address
+	 */
 	public void setAddress(Address address) {
 		this.address = address;
 	}
 
+	/**
+	 * @return BankTeller
+	 */
 	public BankTeller getBankTeller() {
 		return bankTeller;
 	}
 
+	/**
+	 * Sets the user bank teller
+	 * @param bankTeller
+	 */
 	public void setBankTeller(BankTeller bankTeller) {
 		this.user.setBankTeller(bankTeller);
 	}
 
-	public boolean updateBankTeller() {
-		
-		try {
-			this.userBean.setBankTeller(this.user.getId(), this.user.getBankTeller());
-		} catch (Exception exception) {
-			exception.printStackTrace();
-			return false;
-		}
-
-		return true;
-	}
-
+	/**
+	 * Sets the temporary bankTeller as the current user's bank teller
+	 * 
+	 * @return
+	 */
 	public boolean addBankTeller() {
-		
+
 		try {
 			this.userBean.setBankTeller(this.user.getId(), this.bankTeller);
 		} catch (Exception exception) {
@@ -77,6 +83,12 @@ public class BankTellerPageData {
 		return true;
 	}
 
+	/**
+	 * Gets the List of Bank Tellers in DB
+	 * 
+	 * @return List<BankTeller>
+	 * @throws ConfigurationException
+	 */
 	public List<BankTeller> getBankTellerList() throws ConfigurationException {
 		if (FacesContext.getCurrentInstance().getRenderResponse()) {
 			// Reload to get most recent data.
@@ -85,8 +97,15 @@ public class BankTellerPageData {
 		return this.bankTellerList;
 	}
 
+	/**
+	 * Checks if bankTeller is he current user Bank Teller Return
+	 * SET_ACTION_NAME if the bankteller is not the current user's bank teller
+	 * 
+	 * @param bankTeller
+	 * @return String
+	 */
 	public String getSubscriptionChangeAction(BankTeller bankTeller) {
-		
+
 		try {
 			return (!(user.getBankTeller().getId().equals(bankTeller.getId())) ? BankTellerPageData.SET_ACTION_NAME
 					: BankTellerPageData.UNSET_ACTION_NAME);
@@ -95,6 +114,13 @@ public class BankTellerPageData {
 		}
 	}
 
+	/**
+	 * Sets the bankTeller as the user's Bank Teller returns true if the
+	 * operation succeeds
+	 * 
+	 * @param bankTeller
+	 * @return boolean
+	 */
 	public boolean subscriptionChangeAction(BankTeller bankTeller) {
 		boolean result = false;
 
