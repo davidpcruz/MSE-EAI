@@ -105,19 +105,14 @@ public class UserBean implements IUserBean {
 
 		User user = userList.get(0);
 
-		// TODO: Review this
-		if (null != user.getAddress()) {
-			// Force load
-			user.getAddress().getAddress();
-		}
 		if (null != user.getBankTeller()) {
 
 			BankTeller bankTeller = user.getBankTeller();
 
 			bankTeller.getId(); // To overcome Lazzy parameter
 			if (null != bankTeller.getAddress()) {
-				bankTeller.getAddress().getAddress(); // To overcome Lazzy
-														// parameter
+				// To overcome Lazzy parameter
+				bankTeller.getAddress().getAddress(); 
 			}
 
 		}
@@ -161,10 +156,6 @@ public class UserBean implements IUserBean {
 		BankTeller bankTeller = user.getBankTeller();
 		if (null != bankTeller) {
 			bankTeller.getId(); // To overcome Lazzy parameter
-			if (null != bankTeller.getAddress()) {
-				bankTeller.getAddress().getAddress(); // To overcome Lazzy
-														// parameter
-			}
 		}
 
 		if (logger.isDebugEnabled()) {
@@ -404,11 +395,9 @@ public class UserBean implements IUserBean {
 				.createQuery("SELECT bankTeller.name FROM  BankTeller AS bankTeller WHERE bankTeller.name=:bankTellerName");
 		query.setParameter("bankTellerName", bankTeller.getName());
 
+		// get all  banktellers  with the  same name
 		@SuppressWarnings("unchecked")
-		List<BankTeller> bankTellerList = query.getResultList(); // get all
-																	// banktellers
-																	// with the
-																	// same name
+		List<BankTeller> bankTellerList = query.getResultList(); 
 		if (false == bankTellerList.isEmpty()) {
 			// The bankteller name already exists
 			throw new ConfigurationException(UserBean.EXCEPTION_BANKTELLER_ALREADY_EXISTS);
@@ -466,10 +455,6 @@ public class UserBean implements IUserBean {
 		BankTeller bankTeller = user.getBankTeller();
 		if (null != bankTeller) {
 			bankTeller.getId(); // To overcome Lazzy parameter
-			if (null != bankTeller.getAddress()) {
-				bankTeller.getAddress().getAddress(); // To overcome Lazzy
-														// parameter
-			}
 		}
 
 		if (logger.isDebugEnabled()) {
