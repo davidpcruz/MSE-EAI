@@ -22,7 +22,7 @@
 		<h:outputText value="Street Address"></h:outputText>
 		<h:inputText id="StreetAddress" value="#{cc.attrs.address.address}"
 			required="true" requiredMessage="Missing street address"></h:inputText>
-		<h:message for="StreetAddress" errorStyle="errorMessage" />
+		<h:message for="StreetAddress" styleClass="errorMessage" />
 
 		<h:outputText value="Zip Code"></h:outputText>
 		<h:inputText id="ZipCode" value="#{cc.attrs.address.zipCode}"
@@ -31,12 +31,12 @@
 			<f:validateRegex pattern="[\p{Digit}]+"></f:validateRegex>
 			<f:validateLength minimum="7" maximum="7" />
 		</h:inputText>
-		<h:message for="ZipCode" errorStyle="errorMessage" />
+		<h:message for="ZipCode" styleClass="errorMessage" />
 
 		<h:outputText value="City"></h:outputText>
 		<h:inputText id="City" value="#{cc.attrs.address.city}"
 			required="true" requiredMessage="Missing city"></h:inputText>
-		<h:message for="City" errorStyle="errorMessage" />
+		<h:message for="City" styleClass="errorMessage" />
 
 	</h:panelGrid>
 

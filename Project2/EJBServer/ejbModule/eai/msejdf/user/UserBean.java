@@ -1,5 +1,6 @@
 package eai.msejdf.user;
 
+import java.security.InvalidParameterException;
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -12,6 +13,8 @@ import eai.msejdf.exception.ConfigurationException;
 import eai.msejdf.persistence.BankTeller;
 import eai.msejdf.persistence.Company;
 import eai.msejdf.persistence.User;
+import eai.msejdf.utils.Patterns;
+import eai.msejdf.utils.StringUtils;
 
 /*
  * 
@@ -32,7 +35,6 @@ public class UserBean implements IUserBean {
 	private static final String EXCEPTION_BANKTELLER_NAME_EMPTY = "The Bank Teller name cannot be empty.";
 
 	@PersistenceContext(unitName = "JPAEAI")
-	// TODO: Check if it can be placed in a config file and update name
 	private EntityManager entityManager;
 
 	/*
@@ -50,7 +52,10 @@ public class UserBean implements IUserBean {
 			logger.debug("updateUser(User) - start"); //$NON-NLS-1$
 		}
 
-		// TODO: Validate parameters
+		if (null == user)
+		{
+			throw new InvalidParameterException();
+		}
 		BankTeller bankTeller = user.getBankTeller();
 
 		if (null == bankTeller) {
@@ -81,6 +86,11 @@ public class UserBean implements IUserBean {
 	public User getUser(String userName) throws ConfigurationException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getUser(String) - start"); //$NON-NLS-1$
+		}
+
+		if (false != StringUtils.isNullOrEmpty(userName))
+		{
+			throw new InvalidParameterException();
 		}
 
 		Query query = entityManager.createQuery("SELECT User FROM User user WHERE user.username=:name");
@@ -132,6 +142,11 @@ public class UserBean implements IUserBean {
 			logger.debug("getUser(String) - start"); //$NON-NLS-1$
 		}
 
+		if (null == userId)
+		{
+			throw new InvalidParameterException();
+		}
+
 		Query query = entityManager.createQuery("SELECT User FROM User user WHERE user.id=:id");
 		query.setParameter("id", userId);
 
@@ -174,7 +189,11 @@ public class UserBean implements IUserBean {
 			logger.debug("getCompany(String) - start"); //$NON-NLS-1$
 		}
 
-		// TODO: Validate parameters
+		if (null == companyId)
+		{
+			throw new InvalidParameterException();
+		}
+		
 		Query query = entityManager
 				.createQuery("SELECT Company FROM Company company WHERE company.id=:id ORDER BY company.name");
 		query.setParameter("id", companyId);
@@ -207,10 +226,12 @@ public class UserBean implements IUserBean {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getCompanyList(String) - start"); //$NON-NLS-1$
 		}
+		
+		// Don't validate filterPattern. It can be null! getTranslatedFilterPattern() will do proper conversion
 
 		Query query = entityManager
 				.createQuery("SELECT company FROM  Company AS company WHERE company.name LIKE :filterPattern");
-		query.setParameter("filterPattern", getTranslatedFilterPattern(filterPattern));
+		query.setParameter("filterPattern", Patterns.getTranslatedFilterPattern(filterPattern));
 
 		@SuppressWarnings("unchecked")
 		List<Company> companyList = query.getResultList();
@@ -233,6 +254,11 @@ public class UserBean implements IUserBean {
 	public void followCompany(Long userId, Long companyId) throws ConfigurationException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("followCompany(String, String) - start"); //$NON-NLS-1$
+		}
+		
+		if ((null == userId) || (null == companyId))
+		{
+			throw new InvalidParameterException();
 		}
 
 		User user = getUser(userId);
@@ -268,6 +294,11 @@ public class UserBean implements IUserBean {
 			logger.debug("unfollowCompany(String, String) - start"); //$NON-NLS-1$
 		}
 
+		if ((null == userId) || (null == companyId))
+		{
+			throw new InvalidParameterException();
+		}
+
 		User user = getUser(userId);
 		Company company = getCompany(companyId);
 
@@ -295,6 +326,11 @@ public class UserBean implements IUserBean {
 			logger.debug("getfollowedCompanyList(String) - start"); //$NON-NLS-1$
 		}
 
+		if (null == userId)
+		{
+			throw new InvalidParameterException();
+		}
+		
 		User user = getUser(userId);
 
 		List<Company> companyList = user.getSubscribedCompanies();
@@ -313,6 +349,11 @@ public class UserBean implements IUserBean {
 			logger.debug("setBankTeller(Long, Long) - start"); //$NON-NLS-1$
 		}
 
+		if ((null == userId) || (null == bankTellerId))
+		{
+			throw new InvalidParameterException();
+		}
+		
 		User user = getUser(userId);
 		BankTeller bankTeller = getBankTeller(bankTellerId);
 
@@ -343,9 +384,13 @@ public class UserBean implements IUserBean {
 
 		}
 
-		// Test the BankTeller name empty or null
+		if ((null == userId) || (null == bankTeller))
+		{
+			throw new InvalidParameterException();
+		}
 
 		try {
+			// Test the BankTeller name empty or null
 			if ("" == bankTeller.getName()) {
 				throw new ConfigurationException(UserBean.EXCEPTION_BANKTELLER_NAME_EMPTY);
 			}
@@ -413,6 +458,11 @@ public class UserBean implements IUserBean {
 			logger.debug("getUserBankTellerList(Long) - start"); //$NON-NLS-1$
 		}
 
+		if (null == user)
+		{
+			throw new InvalidParameterException();
+		}
+		
 		BankTeller bankTeller = user.getBankTeller();
 		if (null != bankTeller) {
 			bankTeller.getId(); // To overcome Lazzy parameter
@@ -444,6 +494,11 @@ public class UserBean implements IUserBean {
 			logger.debug("getBankTeller(String) - start"); //$NON-NLS-1$
 		}
 
+		if (null == bankTellerId)
+		{
+			throw new InvalidParameterException();
+		}
+		
 		Query query = entityManager
 				.createQuery("SELECT BankTeller FROM BankTeller bankTeller WHERE bankTeller.id=:id ORDER BY bankTeller.id");
 		query.setParameter("id", bankTellerId);
@@ -457,6 +512,7 @@ public class UserBean implements IUserBean {
 
 		BankTeller bankTeller = bankTellerList.get(0);
 
+		// TODO: Not necessary any more (not using Lazy anymore for address?
 		if (null != bankTeller.getAddress()) {
 			bankTeller.getAddress().getAddress();
 		}
@@ -482,9 +538,11 @@ public class UserBean implements IUserBean {
 			logger.debug("getBankTellerList(String) - start"); //$NON-NLS-1$
 		}
 
+		// Don't validate filterPattern. It can be null! getTranslatedFilterPattern() will do proper conversion
+
 		Query query = entityManager
 				.createQuery("SELECT bankTeller FROM  BankTeller AS bankTeller WHERE bankTeller.name LIKE :filterPattern");
-		query.setParameter("filterPattern", getTranslatedFilterPattern(filterPattern));
+		query.setParameter("filterPattern", Patterns.getTranslatedFilterPattern(filterPattern));
 
 		@SuppressWarnings("unchecked")
 		List<BankTeller> bankTellerList = query.getResultList();
@@ -493,21 +551,6 @@ public class UserBean implements IUserBean {
 			logger.debug("getBankTellerNameList(String) - end"); //$NON-NLS-1$
 		}
 		return bankTellerList;
-	}
-	
-	/**
-	 * Translates a filter pattern/query into a syntax understood by lower levels of business logic/data tear 
-	 * 
-	 * @param pattern Pattern string to translate
-	 * @return Pattern string specific for the data tier (database) for data filtering
-	 */
-	private String getTranslatedFilterPattern(String pattern)
-	{
-		if ((null == pattern) || (pattern.equals("")))
-		{
-			return "%";
-		}
-		return pattern;
 	}
 
 }

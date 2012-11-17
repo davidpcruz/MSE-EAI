@@ -21,7 +21,7 @@
 				<h:outputText value="Name"></h:outputText>
 				<h:inputText id="Name" value="#{addBankTeller.bankTeller.name}"
 					required="true" requiredMessage="Missing Bank Teller Name"></h:inputText>
-				<h:message for="Name" errorStyle="errorMessage" />
+				<h:message for="Name" styleClass="errorMessage" />
 
 			</h:panelGrid>
 			<msejdf:Address address="#{addBankTeller.bankTeller.address}"></msejdf:Address>
