@@ -17,7 +17,7 @@
 				<h:outputText value="Filter companies" />
 				<h:inputText value="#{companies.filterPattern}" />
 				<h:outputText
-					value="Wildcards: '%' for any number of characters and '_' for a single character" />
+					value="Wildcards: '%' for any number of characters and '_' for a single character. Escape: '\'" />
 			</h:panelGrid>
 			<h:commandButton value="Filter" action="ApplyDataFilter" />
 			<br />
