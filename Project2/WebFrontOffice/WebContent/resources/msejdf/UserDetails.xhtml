@@ -22,7 +22,7 @@
 		<h:inputText id="Name" value="#{cc.attrs.user.name}" required="true"
 			requiredMessage="Missing Name">
 		</h:inputText>
-		<h:message for="Name" errorStyle="errorMessage" />
+		<h:message for="Name" styleClass="errorMessage" />
 
 		<h:outputText value="Phone"></h:outputText>
 		<h:inputText id="Phone" value="#{cc.attrs.user.phone}" required="true"
@@ -30,7 +30,7 @@
 			validatorMessage="Invalid phone. Use only digits.">
 			<f:validateRegex pattern="[\p{Digit}]+"></f:validateRegex>
 		</h:inputText>
-		<h:message for="Phone" errorStyle="errorMessage" />
+		<h:message for="Phone" styleClass="errorMessage" />
 
 		<h:outputText value="e-mail"></h:outputText>
 		<h:inputText id="e-mail" value="#{cc.attrs.user.email}"
@@ -39,7 +39,7 @@
 			<!-- Pattern from http://stackoverflow.com/questions/7875108/primeface-jsf-2-email-validation-using-regular-expression -->
 			<f:validateRegex pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)" />
 		</h:inputText>
-		<h:message for="e-mail" errorStyle="errorMessage" />
+		<h:message for="e-mail" styleClass="errorMessage" />
 
 		<h:outputText value="Birth Date (dd/mm/yyyy)"></h:outputText>
 		<h:inputText id="BirthDate" value="#{cc.attrs.user.birthDate}"
@@ -47,7 +47,7 @@
 			validatorMessage="Invalid date format">
 			<f:convertDateTime pattern="dd/MM/yyyy" />
 		</h:inputText>
-		<h:message for="BirthDate" errorStyle="errorMessage" />
+		<h:message for="BirthDate" styleClass="errorMessage" />
 
 	</h:panelGrid>
 
