@@ -497,7 +497,7 @@ public class UserBean implements IUserBean {
 
 		BankTeller bankTeller = bankTellerList.get(0);
 
-		// TODO: Not necessary any more (not using Lazy anymore for address?
+
 		if (null != bankTeller.getAddress()) {
 			bankTeller.getAddress().getAddress();
 		}
