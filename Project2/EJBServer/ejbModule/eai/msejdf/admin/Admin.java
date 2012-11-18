@@ -17,12 +17,11 @@ import eai.msejdf.persistence.User;
 import eai.msejdf.sort.CompanySort;
 import eai.msejdf.sort.UserSort;
 import eai.msejdf.utils.Patterns;
-import eai.msejdf.utils.StringUtils;
 
 /**
  * Bean implementing interface for administration related calls
  */
-@Stateless
+@Stateless(name="Admin")
 @LocalBean
 public class Admin implements IAdmin {
 	/**
