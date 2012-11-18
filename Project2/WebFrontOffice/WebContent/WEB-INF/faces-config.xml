@@ -37,6 +37,7 @@
 		<navigation-case>
 			<from-outcome>Register</from-outcome>
 			<to-view-id>/RegisterUser.xhtml</to-view-id>
+			<redirect />
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
@@ -57,6 +58,11 @@
 					<value>DuplicateUserError</value>
 				</view-param>
 			</redirect>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Cancel</from-outcome>
+			<to-view-id>/Login.xhtml</to-view-id>
+			<redirect />
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
@@ -97,7 +103,6 @@
 		<navigation-case>
 			<from-action>#{userHome.subscriptionChangeAction(company)}</from-action>
 			<from-outcome>false</from-outcome>
-			<!-- TODO: We should show an error page -->
 			<to-view-id>/UserHome.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
@@ -116,7 +121,6 @@
 		<navigation-case>
 			<from-action>#{cc.attrs.bean.subscriptionChangeAction(company)}</from-action>
 			<from-outcome>false</from-outcome>
-			<!-- TODO: We should show an error page -->
 			<to-view-id>/Companies.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
