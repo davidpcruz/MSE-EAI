@@ -7,6 +7,10 @@ import javax.faces.convert.Converter;
 
 import eai.msejdf.persistence.Company;
 
+/**
+ * The Class CompanySelectedItemConverter.
+ * Used for converting companies into Faces UI and viceversa
+ */
 @ManagedBean(name="companySelectedConverter")
 public class CompanySelectedItemConverter implements Converter {
     @Override

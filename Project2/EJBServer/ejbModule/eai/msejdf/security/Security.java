@@ -26,6 +26,9 @@ public class Security implements ISecurity{
 	@PersistenceContext(unitName = "JPAEAI") 
 	private EntityManager entityManager;
 	
+	/* (non-Javadoc)
+	 * @see eai.msejdf.security.ISecurity#registerUser(eai.msejdf.security.credentials.Credentials, eai.msejdf.persistence.User)
+	 */
 	@Override
 	public void registerUser(Credentials credentials, User user) {
 		Query query;
@@ -59,6 +62,9 @@ public class Security implements ISecurity{
         entityManager.persist(user);
 	}
 
+	/* (non-Javadoc)
+	 * @see eai.msejdf.security.ISecurity#registerUser(eai.msejdf.security.credentials.Credentials, eai.msejdf.persistence.BackOfficeUser)
+	 */
 	@Override
 	public void registerUser(Credentials credentials, BackOfficeUser user) {
 		Query query;
@@ -92,6 +98,9 @@ public class Security implements ISecurity{
         entityManager.persist(user);
 	}
 	
+	/* (non-Javadoc)
+	 * @see eai.msejdf.security.ISecurity#checkUser(eai.msejdf.security.credentials.Credentials)
+	 */
 	@Override
 	public boolean checkUser(Credentials credentials) {
 		Query query;
@@ -122,6 +131,9 @@ public class Security implements ISecurity{
         return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see eai.msejdf.security.ISecurity#updateUserCredentials(eai.msejdf.security.credentials.Credentials)
+	 */
 	@Override
 	public void updateUserCredentials(Credentials credentials)
 			throws eai.msejdf.exception.SecurityException {

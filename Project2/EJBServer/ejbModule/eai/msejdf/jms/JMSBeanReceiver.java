@@ -128,13 +128,12 @@ public class JMSBeanReceiver implements MessageListener {
 		}
 	}
 
-	/*
+	/**
 	 * Updates company information Update Company data If the company does not
 	 * exist it will be created
 	 * 
 	 * @param quote
 	 */
-
 	private void updateCompany(Stock quote) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("updateCompany(Stock) - start"); //$NON-NLS-1$
@@ -190,7 +189,7 @@ public class JMSBeanReceiver implements MessageListener {
 		// set Company StockInfo
 		persistenceCompany.setStockInfo(stockInfo);
 
-		logger.info("Persist company: " + company.getName());
+		logger.debug("Persist company: " + company.getName());
 		logger.debug("Persist persistence company: " + persistenceCompany.getName());
 
 		// persist the company information to DB

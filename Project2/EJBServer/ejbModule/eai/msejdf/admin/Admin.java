@@ -31,14 +31,8 @@ public class Admin implements IAdmin {
 	@PersistenceContext(unitName = "JPAEAI")
 	private EntityManager entityManager;
 
-	/**
-	 * Get a list of Users in the system ( ageThreshold are not implemented yet)
-	 * 
-	 * @param int sortType, int ageThreshold
-	 * 
-	 * @return List<User>
-	 * 
-	 * @see eai.msejdf.admin.IAdmin#getUserList(int, int)
+	/* (non-Javadoc)
+	 * @see eai.msejdf.admin.IAdmin#getUserList(eai.msejdf.sort.UserSort)
 	 */
 	@Override
 	public List<User> getUserList(UserSort sortType) {
@@ -50,9 +44,8 @@ public class Admin implements IAdmin {
 		return this.getUserList(null, sortType);
 	}
 
-	/**
-	 * @see eai.msejdf.admin.IAdmin#getUserList(java.lang.Integer,
-	 *      eai.msejdf.admin.UserSort)
+	/* (non-Javadoc)
+	 * @see eai.msejdf.admin.IAdmin#getUserList(java.lang.Integer, eai.msejdf.sort.UserSort)
 	 */
 	@Override
 	public List<User> getUserList(Integer ageThreshold, UserSort sortType) {
@@ -86,15 +79,8 @@ public class Admin implements IAdmin {
 		return userList;
 	}
 
-	/**
-	 * Get a list of Users that follow the Company companyId
-	 * 
-	 * @param Long
-	 *            companyId, UserSort sortType
-	 * 
-	 * @return List<User>
-	 * 
-	 * @see eai.msejdf.admin.IAdmin#getUserFollowCompanyList(java.lang.Long,UserSort)
+	/* (non-Javadoc)
+	 * @see eai.msejdf.admin.IAdmin#getUserFollowCompanyList(java.lang.Long, eai.msejdf.sort.UserSort)
 	 */
 	@Override
 	public List<User> getUserFollowCompanyList(Long companyId, UserSort sortType) {
@@ -124,15 +110,8 @@ public class Admin implements IAdmin {
 		return userList;
 	}
 
-	/*
-	 * (non-Javadoc)Get a list of Companies in the system that match the
-	 * filterPattern
-	 * 
-	 * @param String filterPattern, int sortType
-	 * 
-	 * @return List<Company>
-	 * 
-	 * @see eai.msejdf.admin.IAdmin#getCompanyList(java.lang.String, int)
+	/* (non-Javadoc)
+	 * @see eai.msejdf.admin.IAdmin#getCompanyList(java.lang.String, eai.msejdf.sort.CompanySort)
 	 */
 	@Override
 	public List<Company> getCompanyList(String filterPattern, CompanySort sortType) {

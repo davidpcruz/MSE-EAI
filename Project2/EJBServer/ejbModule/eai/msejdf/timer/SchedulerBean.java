@@ -37,6 +37,9 @@ public class SchedulerBean  {
     public SchedulerBean() {        
     }
     
+	/**
+	 * Daily mail company digest, get all the users subscribed and send them emails abou the comapnies.
+	 */
 	@Schedule(hour="0")
 	public void dailyMailCompanyDigest() {
 

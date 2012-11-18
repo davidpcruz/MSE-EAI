@@ -37,13 +37,7 @@ public class UserBean implements IUserBean {
 	@PersistenceContext(unitName = "JPAEAI")
 	private EntityManager entityManager;
 
-	/*
-	 * (non-Javadoc) Update User object
-	 * 
-	 * @param User user
-	 * 
-	 * @return User
-	 * 
+	/* (non-Javadoc)
 	 * @see eai.msejdf.user.IUserBean#updateUser(eai.msejdf.persistence.User)
 	 */
 	@Override
@@ -73,13 +67,7 @@ public class UserBean implements IUserBean {
 		}
 	}
 
-	/*
-	 * (non-Javadoc) Get User object knowing the user name
-	 * 
-	 * @param String userName
-	 * 
-	 * @return User
-	 * 
+	/* (non-Javadoc)
 	 * @see eai.msejdf.user.IUserBean#getUser(java.lang.String)
 	 */
 	@Override
@@ -122,13 +110,7 @@ public class UserBean implements IUserBean {
 		return user;
 	}
 
-	/*
-	 * (non-Javadoc) Get User object giving the user ID
-	 * 
-	 * @param Long userId
-	 * 
-	 * @return User
-	 * 
+	/* (non-Javadoc)
 	 * @see eai.msejdf.user.IUserBean#getUser(java.lang.Long)
 	 */
 	@Override
@@ -164,14 +146,7 @@ public class UserBean implements IUserBean {
 		return user;
 	}
 
-	/*
-	 * (non-Javadoc) Get Company information Get the object Company giving the
-	 * company ID
-	 * 
-	 * @param Long companyId
-	 * 
-	 * @return Company Object
-	 * 
+	/* (non-Javadoc)
 	 * @see eai.msejdf.user.IUserBean#getCompany(java.lang.Long)
 	 */
 	@Override
@@ -203,13 +178,7 @@ public class UserBean implements IUserBean {
 		return returnCompany;
 	}
 
-	/*
-	 * (non-Javadoc) Get a List of <Company> that match the filterPattern
-	 * 
-	 * @param String filterPattern
-	 * 
-	 * @return List<Company>
-	 * 
+	/* (non-Javadoc)
 	 * @see eai.msejdf.user.IUserBean#getCompanyList(java.lang.String)
 	 */
 	@Override
@@ -233,13 +202,8 @@ public class UserBean implements IUserBean {
 		return companyList;
 	}
 
-	/*
-	 * (non-Javadoc) Update the User userId to follow the Company companyId
-	 * 
-	 * @param Long userId, Long companyId
-	 * 
-	 * @see eai.msejdf.user.IUserBean#followCompany(java.lang.Long,
-	 * java.lang.Long)
+	/* (non-Javadoc)
+	 * @see eai.msejdf.user.IUserBean#followCompany(java.lang.Long, java.lang.Long)
 	 */
 	@Override
 	public void followCompany(Long userId, Long companyId) throws ConfigurationException {
@@ -268,16 +232,8 @@ public class UserBean implements IUserBean {
 		}
 	}
 
-	/*
-	 * (non-Javadoc) Remove Company companyId from the list of companies
-	 * followed by User userId
-	 * 
-	 * @param String filterPattern
-	 * 
-	 * @return void
-	 * 
-	 * @see eai.msejdf.user.IUserBean#unfollowCompany(java.lang.Long,
-	 * java.lang.Long)
+	/* (non-Javadoc)
+	 * @see eai.msejdf.user.IUserBean#unfollowCompany(java.lang.Long, java.lang.Long)
 	 */
 	@Override
 	public void unfollowCompany(Long userId, Long companyId) throws ConfigurationException {
@@ -302,13 +258,7 @@ public class UserBean implements IUserBean {
 		}
 	}
 
-	/*
-	 * (non-Javadoc) Get the list of companies followed by User userId
-	 * 
-	 * @param String filterPattern
-	 * 
-	 * @return List<Company>
-	 * 
+	/* (non-Javadoc)
 	 * @see eai.msejdf.user.IUserBean#getfollowedCompanyList(java.lang.Long)
 	 */
 	@Override
@@ -334,6 +284,9 @@ public class UserBean implements IUserBean {
 		return companyList;
 	}
 
+	/* (non-Javadoc)
+	 * @see eai.msejdf.user.IUserBean#setBankTeller(java.lang.Long, java.lang.Long)
+	 */
 	@Override
 	public void setBankTeller(Long userId, Long bankTellerId) throws ConfigurationException {
 		if (logger.isDebugEnabled()) {
@@ -358,15 +311,8 @@ public class UserBean implements IUserBean {
 		}
 	}
 
-	/*
-	 * (non-Javadoc) Set BankTeller bankTeller as User userId Bank Teller
-	 * 
-	 * @param Long userId, BankTeller bankTeller
-	 * 
-	 * @return void
-	 * 
-	 * @see eai.msejdf.user.IUserBean#setBankTeller(java.lang.Long,
-	 * eai.msejdf.persistence.BankTeller)
+	/* (non-Javadoc)
+	 * @see eai.msejdf.user.IUserBean#setBankTeller(java.lang.Long, eai.msejdf.persistence.BankTeller)
 	 */
 	@Override
 	public void setBankTeller(Long userId, BankTeller bankTeller) throws ConfigurationException {
@@ -433,44 +379,7 @@ public class UserBean implements IUserBean {
 		}
 	}
 
-	/*
-	 * (non-Javadoc) Get the user BankTeller object knowing the user
-	 * 
-	 * @param userId
-	 * 
-	 * @return BankTeller
-	 * 
-	 * @throws ConfigurationException
-	 */
-	public BankTeller getUserBankTeller(User user) throws ConfigurationException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("getUserBankTellerList(Long) - start"); //$NON-NLS-1$
-		}
-
-		if (null == user)
-		{
-			throw new InvalidParameterException();
-		}
-		
-		BankTeller bankTeller = user.getBankTeller();
-		if (null != bankTeller) {
-			bankTeller.getId(); // To overcome Lazzy parameter
-		}
-
-		if (logger.isDebugEnabled()) {
-			logger.debug("getUserBankTellerList(Long) - end"); //$NON-NLS-1$
-		}
-		System.out.println(bankTeller);
-		return bankTeller;
-	}
-
-	/*
-	 * (non-Javadoc) Get BankTeller object knowing the bankTellerId
-	 * 
-	 * @param Long bankTellerId
-	 * 
-	 * @return BankTeller
-	 * 
+	/* (non-Javadoc)
 	 * @see eai.msejdf.user.IUserBean#getBankTeller(java.lang.Long)
 	 */
 	@Override
@@ -508,13 +417,7 @@ public class UserBean implements IUserBean {
 		return bankTeller;
 	}
 
-	/*
-	 * (non-Javadoc) Get a list of BankTellers that match filterPattern
-	 * 
-	 * @param String filterPattern
-	 * 
-	 * @return List<BankTeller>
-	 * 
+	/* (non-Javadoc)
 	 * @see eai.msejdf.user.IUserBean#getBankTellerList(java.lang.String)
 	 */
 	@Override

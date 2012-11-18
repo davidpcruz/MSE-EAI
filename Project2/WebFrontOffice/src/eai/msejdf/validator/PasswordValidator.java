@@ -9,6 +9,10 @@ import javax.faces.validator.ValidatorException;
 
 import eai.msejdf.utils.StringUtils;
 
+/**
+ * The Class PasswordValidator.
+ * Used to validate the confirmation passowrd in forms that suport teh change or creation of a password
+ */
 public class PasswordValidator implements Validator
 {
 

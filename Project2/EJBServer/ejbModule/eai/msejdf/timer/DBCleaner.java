@@ -33,7 +33,7 @@ public class DBCleaner {
 	public DBCleaner() {
 	}
 
-	/*
+	/**
 	 * Bean to Clean the Database It will delete all the BankTellers that are in
 	 * DB but no user are using
 	 */

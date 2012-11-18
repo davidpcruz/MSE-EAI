@@ -21,7 +21,7 @@ public class SecurityBackOfficeBean
 	private String password;
 	
 	/**
-	 * Hnaldes the login of the back office users
+	 * Handles the login of the back office users
 	 * @throws NamingException
 	 */
 	public SecurityBackOfficeBean() throws NamingException

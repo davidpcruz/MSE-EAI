@@ -117,12 +117,19 @@ public class AdminBackOfficeBean
 		return userList;
 	}
 
+	/**
+	 * Gets the subscribed user list.
+	 *
+	 * @return the subscribed user list
+	 */
 	public List<User> getSubscribedUserList()
 	{
 		return subscribedUserList;
 	}
 
 	/**
+	 * Gets the search age.
+	 *
 	 * @return the searchAge
 	 */
 	public Integer getSearchAge()
@@ -131,6 +138,8 @@ public class AdminBackOfficeBean
 	}
 
 	/**
+	 * Sets the search age.
+	 *
 	 * @param searchAge the searchAge to set
 	 */
 	public void setSearchAge(Integer searchAge)
