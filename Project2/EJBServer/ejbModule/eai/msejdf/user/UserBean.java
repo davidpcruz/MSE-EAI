@@ -17,7 +17,7 @@ import eai.msejdf.persistence.User;
  * 
  * Bean implementing operations supported by users
  */
-@Stateless
+@Stateless(name="UserBean")
 @LocalBean
 public class UserBean implements IUserBean {
 	/**

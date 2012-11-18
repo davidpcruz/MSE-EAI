@@ -16,7 +16,7 @@ import org.apache.log4j.Logger;
  * @author joaofcr
  * 
  */
-@Stateless
+@Stateless(name="DBCleaner")
 public class DBCleaner {
 	/**
 	 * Logger for this class

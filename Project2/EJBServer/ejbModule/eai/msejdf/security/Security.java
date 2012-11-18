@@ -10,14 +10,13 @@ import javax.persistence.Query;
 
 import eai.msejdf.persistence.BackOfficeUser;
 import eai.msejdf.persistence.User;
-import eai.msejdf.security.ISecurity;
 import eai.msejdf.security.credentials.Credentials;
 
 
 /**
  * Bean implementing interface for security related calls, such as login, registration, etc.
  */
-@Stateless
+@Stateless(name="Security")
 @LocalBean
 public class Security implements ISecurity{
 	private static final String EXCEPTION_USER_ALREADY_EXISTS = "The user already exists."; 

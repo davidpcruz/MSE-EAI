@@ -38,7 +38,6 @@ import eai.msejdf.utils.XmlObjConv;
 		@ActivationConfigProperty(propertyName = "maxSession", propertyValue = "1")
 // TODO get Topic from configuration file
 })
-// @Pool(value=PoolDefaults.POOL_IMPLEMENTATION_STRICTMAX,maxSize=50,timeout=1800000)
 public class JMSBeanReceiver implements MessageListener {
 	@Resource
 	private MessageDrivenContext mdc;

@@ -21,8 +21,7 @@ import eai.msejdf.utils.StringUtils;
 /**
  * Session Bean implementation class Timer
  */
-@Stateless
-//@LocalBean
+@Stateless(name="SchedulerBean")
 public class SchedulerBean  {
 
 	/**
