@@ -17,7 +17,9 @@ set JavaSrc=..\Project2\
 :: EAR Destination dir
 set JavaDest=src
 
-:: EAR Destination dir
+:: SQL Source dir
+set SqlSrc=..\Project2\
+:: SQL Destination dir
 set SqlDest=sql
 
 :: Zip File
@@ -28,6 +30,7 @@ set zipFile=P2Deploy.zip
 
 :: copy ear files
 echo copying EAR
+if exist %EARDest% rmdir /s /q %EARDest%
 xcopy /I /Y %EARSrc%*.ear %EARDest%
 
 :: copy source files
@@ -44,7 +47,9 @@ xcopy /E /I %JavaSrc%\WebFrontOffice %JavaDest%\WebFrontOffice
 
 :: copy ear files
 echo copying SQL
-if not exist %sqlDest% mkdir %sqlDest%
+if exist %SqlDest% rmdir /s /q %SqlDest%
+
+xcopy /I /Y %SqlSrc%*.sql %SQLDest%
 
 :: Zipping it
 echo Zipping it
