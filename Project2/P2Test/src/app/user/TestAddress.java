@@ -65,19 +65,19 @@ public class TestAddress {
 		System.out.println(user);
 		
 		
-		BankTeller bankTeller = bean.getUserBankTeller(user);
-				System.out.println(bankTeller);
-		
-		bankTeller.setAddress(address);
-		System.out.println("Actual backTeller is: "
-				+ bean.getUserBankTeller(user));
-		
-//		bean.setBankTellerAddress(bankTeller);
-		
-		bean.setBankTeller(userId,bankTeller);
-		System.out.println("Actual backTeller is: "
-				+ bean.getUser(userId).getName() + " "
-				+ bean.getUserBankTeller(user));
+//		BankTeller bankTeller = bean.getUserBankTeller(user);
+//				System.out.println(bankTeller);
+//		
+//		bankTeller.setAddress(address);
+//		System.out.println("Actual backTeller is: "
+//				+ bean.getUserBankTeller(user));
+//		
+////		bean.setBankTellerAddress(bankTeller);
+//		
+//		bean.setBankTeller(userId,bankTeller);
+//		System.out.println("Actual backTeller is: "
+//				+ bean.getUser(userId).getName() + " "
+//				+ bean.getUserBankTeller(user));
 		
 	
 	}
@@ -101,40 +101,40 @@ public class TestAddress {
 	 * @param tellerName
 	 * @throws ConfigurationException
 	 */
-	private static void TestsetBankTeller(IUserBean bean, Long userId,
-			String tellerName) throws ConfigurationException {
-		// bankTeller.setId( (long) 1);
-
-		tellerName = "qwerty4";
-		System.out.println("Testing  setBankTeller(user, BankTeller)");
-		BankTeller bankTeller = null;
-		List<String> bankTellers = bean.getBankTellerNameList("%");
-
-		for (String b : bankTellers)
-			System.out.println("\t\t tellerName : " + b);
-
-		if (bankTellers.contains(tellerName)) {
-
-			bankTeller = bean.getBankTellerList(tellerName).get(0);
-
-			// bankTeller.setName("CGD2_2");
-			System.out.println("tellerName already exists"
-					+ bankTeller.toString());
-
-			bean.setBankTeller(userId, bankTeller);
-
-			System.out.println("set BankTeller User/BankTeller " + userId + " "
-					+ bankTeller.getId());
-
-		} else {
-			System.out.println("creating new bankTeller: " + tellerName);
-			bankTeller = new BankTeller();
-			bankTeller.setName(tellerName);
-
-			System.out.println("set BankTeller User/BankTeller " + userId + " "
-					+ bankTeller.getId());
-			bean.setBankTeller(userId, bankTeller);
-		}
-
-	}
+//	private static void TestsetBankTeller(IUserBean bean, Long userId,
+//			String tellerName) throws ConfigurationException {
+//		// bankTeller.setId( (long) 1);
+//
+//		tellerName = "qwerty4";
+//		System.out.println("Testing  setBankTeller(user, BankTeller)");
+//		BankTeller bankTeller = null;
+//		List<String> bankTellers = bean.getBankTellerNameList("%");
+//
+//		for (String b : bankTellers)
+//			System.out.println("\t\t tellerName : " + b);
+//
+//		if (bankTellers.contains(tellerName)) {
+//
+//			bankTeller = bean.getBankTellerList(tellerName).get(0);
+//
+//			// bankTeller.setName("CGD2_2");
+//			System.out.println("tellerName already exists"
+//					+ bankTeller.toString());
+//
+//			bean.setBankTeller(userId, bankTeller);
+//
+//			System.out.println("set BankTeller User/BankTeller " + userId + " "
+//					+ bankTeller.getId());
+//
+//		} else {
+//			System.out.println("creating new bankTeller: " + tellerName);
+//			bankTeller = new BankTeller();
+//			bankTeller.setName(tellerName);
+//
+//			System.out.println("set BankTeller User/BankTeller " + userId + " "
+//					+ bankTeller.getId());
+//			bean.setBankTeller(userId, bankTeller);
+//		}
+//
+//	}
 }

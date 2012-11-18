@@ -59,7 +59,7 @@ public class TestUserBean {
 
 		TestgetCompanyList(bean, "%C%");
 
-		TestgetCompanyNameList(bean, "%C%");
+//		TestgetCompanyNameList(bean, "%C%");
 
 		// Follow companies
 		TestfollowCompany(bean, userId_1, companyId_1);
@@ -179,15 +179,15 @@ public class TestUserBean {
 	 * @param filterPattern
 	 * @throws ConfigurationException
 	 */
-	private static void TestgetBankTellerNameList(IUserBean bean,
-			String filterPattern) throws ConfigurationException {
-
-		System.out.println("Testing  getBankTellerNameList(filterPattern)");
-		System.out.println("Searching BankTeller Name: " + filterPattern);
-		List<String> company = bean.getBankTellerNameList(filterPattern);
-		for (String comp : company)
-			System.out.println("\t Result " + comp);
-	}
+//	private static void TestgetBankTellerNameList(IUserBean bean,
+//			String filterPattern) throws ConfigurationException {
+//
+//		System.out.println("Testing  getBankTellerNameList(filterPattern)");
+//		System.out.println("Searching BankTeller Name: " + filterPattern);
+//		List<String> company = bean.getBankTellerNameList(filterPattern);
+//		for (String comp : company)
+//			System.out.println("\t Result " + comp);
+//	}
 
 	/**
 	 * @param bean
@@ -269,15 +269,15 @@ public class TestUserBean {
 	 * @param filterPattern
 	 * @throws ConfigurationException
 	 */
-	private static void TestgetCompanyNameList(IUserBean bean,
-			String filterPattern) throws ConfigurationException {
-
-		System.out.println("Testing  getCompanyNameList(filterPattern)");
-		System.out.println("Searching Company Name: " + filterPattern);
-		List<String> company = bean.getCompanyNameList(filterPattern);
-		for (String comp : company)
-			System.out.println("\t Result " + comp);
-	}
+//	private static void TestgetCompanyNameList(IUserBean bean,
+//			String filterPattern) throws ConfigurationException {
+//
+//		System.out.println("Testing  getCompanyNameList(filterPattern)");
+//		System.out.println("Searching Company Name: " + filterPattern);
+//		List<String> company = bean.getCompanyNameList(filterPattern);
+//		for (String comp : company)
+//			System.out.println("\t Result " + comp);
+//	}
 
 	/**
 	 * @param bean
