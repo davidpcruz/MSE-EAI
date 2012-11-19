@@ -10,7 +10,7 @@ import eai.msejdf.security.ISecurity;
 import eai.msejdf.security.credentials.AdminCredentials;
 import eai.msejdf.security.credentials.Credentials;
 import eai.msejdf.utils.EJBLookupConstants;
-import eai.msejdf.web.session.SessionManager;
+import eai.msejdf.web.SessionManager;
 
 @ManagedBean(name="securityBeanW")
 @ViewScoped

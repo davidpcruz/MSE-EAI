@@ -37,13 +37,11 @@ import eai.msejdf.utils.XmlObjConv;
 		@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic"),
 		@ActivationConfigProperty(propertyName = "destination", propertyValue = "topic/EAIProject1"),
 		@ActivationConfigProperty(propertyName = "maxSession", propertyValue = "1")
-// TODO get Topic from configuration file
 })
 public class JMSBeanReceiver implements MessageListener {
 	@Resource
 	private MessageDrivenContext mdc;
 	@PersistenceContext(unitName = "JPAEAI")
-	// TODO: Check if it can be placed in a config file and update name
 	private EntityManager entityManager;
 
 	/**

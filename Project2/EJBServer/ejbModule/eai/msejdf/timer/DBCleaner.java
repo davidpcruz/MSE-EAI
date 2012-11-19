@@ -24,7 +24,6 @@ public class DBCleaner {
 	private static final Logger logger = Logger.getLogger(DBCleaner.class);
 
 	@PersistenceContext(unitName = "JPAEAI")
-	// TODO: Check if it can be placed in a config file and update name
 	private EntityManager entityManager;
 
 	/**

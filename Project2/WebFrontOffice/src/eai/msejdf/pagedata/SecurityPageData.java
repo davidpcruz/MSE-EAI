@@ -13,7 +13,7 @@ import eai.msejdf.security.ISecurity;
 import eai.msejdf.security.credentials.Credentials;
 import eai.msejdf.security.credentials.UserCredentials;
 import eai.msejdf.utils.EJBLookupConstants;
-import eai.msejdf.web.session.SessionManager;
+import eai.msejdf.web.SessionManager;
 
 public class SecurityPageData {
 	

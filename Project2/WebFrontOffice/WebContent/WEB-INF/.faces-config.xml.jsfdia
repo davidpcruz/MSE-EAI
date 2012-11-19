@@ -134,6 +134,9 @@
    <PROCESS-ITEM-OUTPUT ID="CompanyDetails::#CompanyInfo.xhtml"
     NAME="output2" PATH="/CompanyInfo.xhtml"
     TARGET="rules:#CompanyInfo.xhtml" TITLE="CompanyDetails" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="Register::#RegisterUser.xhtml"
+    NAME="output3" PATH="/RegisterUser.xhtml"
+    TARGET="rules:#RegisterUser.xhtml" TITLE="Register" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#CompanyInfo.xhtml" PATH="/CompanyInfo.xhtml"

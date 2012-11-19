@@ -8,7 +8,7 @@ import eai.msejdf.persistence.Address;
 import eai.msejdf.persistence.User;
 import eai.msejdf.user.IUserBean;
 import eai.msejdf.utils.EJBLookupConstants;
-import eai.msejdf.web.session.SessionManager;
+import eai.msejdf.web.SessionManager;
 
 public class UserPageData{
 	

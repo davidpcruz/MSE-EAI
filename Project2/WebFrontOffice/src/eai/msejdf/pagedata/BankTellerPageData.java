@@ -12,7 +12,7 @@ import eai.msejdf.persistence.BankTeller;
 import eai.msejdf.persistence.User;
 import eai.msejdf.user.IUserBean;
 import eai.msejdf.utils.EJBLookupConstants;
-import eai.msejdf.web.session.SessionManager;
+import eai.msejdf.web.SessionManager;
 
 public class BankTellerPageData {
 	private final static String SET_ACTION_NAME = "Set";

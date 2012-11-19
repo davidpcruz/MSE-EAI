@@ -6,7 +6,7 @@
 	version="2.1">
 
 	<lifecycle>
-		<phase-listener>eai.msejdf.web.session.SessionPhaseListener</phase-listener>
+		<phase-listener>eai.msejdf.web.SessionPhaseListener</phase-listener>
 	</lifecycle>
 
 	<navigation-rule>
