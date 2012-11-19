@@ -22,6 +22,9 @@ set SqlSrc=..\Project2\
 :: SQL Destination dir
 set SqlDest=sql
 
+:: Report Destination dir
+set ReportDest=report
+
 :: Zip File
 set zipFile=P2Deploy.zip
 
@@ -54,6 +57,6 @@ xcopy /I /Y %SqlSrc%*.sql %SQLDest%
 :: Zipping it
 echo Zipping it
 if exist %zipFile% del zipFile
-7z.exe a %zipFile% %EARDest% %sqlDest% %JavaDest%
+7z.exe a %zipFile% %EARDest% %sqlDest% %JavaDest% %ReportDest%
 
 pause
