@@ -1,4 +1,4 @@
-package eai.msejdf.web.session;
+package eai.msejdf.web;
 
 import javax.faces.context.FacesContext;
 

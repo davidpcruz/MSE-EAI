@@ -222,7 +222,7 @@ public class Security implements ISecurity{
         	throw new SecurityException(Security.EXCEPTION_USER_DOES_NOT_EXISTS);
         }        
         
-        // Add new user
+        // Remove user
 		if (Credentials.USER_CREDENTIAL == credentials.getCredentialType())
 		{
 	        User user = (User)userList.get(0);

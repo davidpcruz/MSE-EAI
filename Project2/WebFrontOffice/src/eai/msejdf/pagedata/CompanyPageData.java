@@ -10,7 +10,7 @@ import eai.msejdf.exception.ConfigurationException;
 import eai.msejdf.persistence.Company;
 import eai.msejdf.user.IUserBean;
 import eai.msejdf.utils.EJBLookupConstants;
-import eai.msejdf.web.session.SessionManager;
+import eai.msejdf.web.SessionManager;
 
 public class CompanyPageData {
 	private final static String SUBSCRIBE_ACTION_NAME = "Subscribe";
