@@ -31,6 +31,12 @@ public class CompanyPageData {
 		this.userId = this.userBean.getUser(SessionManager.getProperty(SessionManager.USERNAME_PROPERTY)).getId();
 	}
 
+	/**
+	 * Gets the followed company list.
+	 *
+	 * @return the followed company list
+	 * @throws ConfigurationException the configuration exception
+	 */
 	public List<Company> getFollowedCompanyList() throws ConfigurationException {
 		if (FacesContext.getCurrentInstance().getRenderResponse()) {
 			// Reload to get most recent data.
@@ -39,6 +45,12 @@ public class CompanyPageData {
 		return this.followedCompanyList;
 	}
 
+	/**
+	 * Gets the company list.
+	 *
+	 * @return the company list
+	 * @throws ConfigurationException the configuration exception
+	 */
 	public List<Company> getCompanyList() throws ConfigurationException {
 		if (FacesContext.getCurrentInstance().getRenderResponse()) {
 			// Reload to get most recent data.			
@@ -50,6 +62,13 @@ public class CompanyPageData {
 		return this.companyList;
 	}
 
+	/**
+	 * Gets the company.
+	 *
+	 * @param companyId the company id
+	 * @return the company
+	 * @throws ConfigurationException the configuration exception
+	 */
 	public Company getCompany(Long companyId) throws ConfigurationException {
 		// Reload to get most recent data.
 		if (FacesContext.getCurrentInstance().getRenderResponse()) {
@@ -63,6 +82,12 @@ public class CompanyPageData {
 	}
 
 	
+	/**
+	 * Gets the subscription change action.
+	 *
+	 * @param company the company
+	 * @return the subscription change action
+	 */
 	public String getSubscriptionChangeAction(Company company) {
 		// If the followedCompanyList has data, it was already loaded
 		if ((null == this.followedCompanyList)
@@ -72,6 +97,12 @@ public class CompanyPageData {
 		return CompanyPageData.UNSUBSCRIBE_ACTION_NAME;
 	}
 
+	/**
+	 * Subscription change action.
+	 *
+	 * @param company the company
+	 * @return true, if successful
+	 */
 	public boolean subscriptionChangeAction(Company company) {
 		try {
 			// If the followedCompanyList has data, it was already loaded
@@ -87,14 +118,31 @@ public class CompanyPageData {
 		}
 	}
 
+	/**
+	 * Gets the filter pattern.
+	 *
+	 * @return the filter pattern
+	 */
 	public String getFilterPattern() {
 		return filterPattern;
 	}
 
+	/**
+	 * Sets the filter pattern.
+	 *
+	 * @param filterPattern the new filter pattern
+	 */
 	public void setFilterPattern(String filterPattern) {
 		this.filterPattern = filterPattern;
 	}
 
+	/**
+	 * List contains company by id.
+	 *
+	 * @param list the list
+	 * @param company the company
+	 * @return true, if successful
+	 */
 	private boolean listContainsCompanyById(List<Company> list, Company company) {
 		Long id = company.getId();
 
