@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Initial example --> 
+<jbossesb-deployment>
+  <jmsQueue>quickstart_helloworld_Request_esb</jmsQueue>
+  <jmsQueue>quickstart_helloworld_Request_gw</jmsQueue>
+</jbossesb-deployment>
+
+<!-- Blog example 
+<jbossesb-deployment>
+ <depends>org.hornetq:module=JMS,type=Queue,name="quickstart_helloworld_Request_esb"</depends>
+ <depends>org.hornetq:module=JMS,type=Queue,name="quickstart_helloworld_Request_gw"</depends>
+</jbossesb-deployment>
+-->
+ 
