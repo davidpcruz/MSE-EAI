@@ -3,8 +3,8 @@ package eai.msejdf.jms;
 import java.util.Properties;
 
 import javax.jms.JMSException;
-import javax.jms.ObjectMessage;
 import javax.jms.QueueSession;
+import javax.jms.TextMessage;
 import javax.jms.Topic;
 import javax.jms.TopicConnection;
 import javax.jms.TopicConnectionFactory;
@@ -65,7 +65,7 @@ public class ESBReplicator
     public void sendMessage(String msg) throws JMSException {    	    	    	    
     	
         TopicPublisher send = session.createPublisher(esbtopic);        
-        ObjectMessage tm = session.createObjectMessage(msg);
+        TextMessage tm = session.createTextMessage(msg);
         
         send.publish(tm);        
         send.close();
