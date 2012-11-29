@@ -62,12 +62,12 @@ public class ESBReplicator
         conn.close();
     }
     
-    public void sendMessage(String msg) throws JMSException {
-    	    	
+    public void sendMessage(String msg) throws JMSException {    	    	    	    
+    	
         TopicPublisher send = session.createPublisher(esbtopic);        
         ObjectMessage tm = session.createObjectMessage(msg);
         
-        send.send(tm);        
+        send.publish(tm);        
         send.close();
         
     }
