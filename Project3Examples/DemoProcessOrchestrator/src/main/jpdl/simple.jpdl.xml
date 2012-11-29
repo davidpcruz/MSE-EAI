@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition xmlns="urn:jbpm.org:jpdl-3.2"
+	name="simple">
+	<start-state name="start">
+		<transition name="to_state" to="first">
+			<action name="action" class="com.sample.action.MessageActionHandler">
+				<message>Going to the first state!</message>
+			</action>
+		</transition>
+	</start-state>
+	<node name="first">
+		<action name="esbAction"
+			class="org.jboss.soa.esb.services.jbpm.actionhandlers.EsbActionHandler">
+			<esbCategoryName>
+				My_Demo_Service
+			</esbCategoryName>
+			<esbServiceName>Hello</esbServiceName>
+			<bpmToEsbVars>
+				<mapping bpm="myname" esb="whoami" />
+				<mapping bpm="theBody" esb="BODY_CONTENT" />
+			</bpmToEsbVars>
+			<esbToBpmVars>
+				<mapping esb="BODY_CONTENT" bpm="theBody" />
+			</esbToBpmVars>
+		</action>
+		<transition to="task-node1"></transition>
+	</node>
+
+	<decision name="decision1">
+		<handler class="com.sample.action.Decision"></handler>
+		<transition to="state1" name="to_state1"></transition>
+		<transition to="state2" name="to_state2"></transition>
+	</decision>
+
+	<node name="state1">
+		<action name="print1" class="com.sample.action.PrintText">
+			<message>In state 1</message>
+		</action>
+		<transition to="end"></transition>
+	</node>
+
+	<node name="state2">
+		<action name="print2" class="com.sample.action.PrintText">
+			<message>In state 2</message>
+		</action>
+		<transition to="end"></transition>
+	</node>
+
+	<task-node name="task-node1">
+		<task name="Signal me">
+			<assignment actor-id="manager"></assignment>
+		</task>
+		<transition to="decision1"></transition>
+	</task-node>
+
+	<end-state name="end">
+		<event type="node-enter">
+			<action name="action" class="com.sample.action.MessageActionHandler2">
+			</action>
+		</event>
+	</end-state>
+</process-definition>
