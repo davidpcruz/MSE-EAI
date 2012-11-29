@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="lib" path="lib/jboss-client.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://docs.jboss.org/hornetq/2.2.14.Final/api/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="lib/org.jsoup_1.6.1.v201201201356.jar"/>
+	<classpathentry kind="lib" path="lib/rrd4j-2.1.1.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://rrd4j.googlecode.com/svn/trunk/javadoc/reference/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/com.sun.tools.xjc_2.2.0.jar"/>
+	<classpathentry kind="lib" path="lib/com.sun.xml.bind_2.2.0.v201004141950.jar"/>
+	<classpathentry kind="lib" path="lib/javax.xml.bind_2.2.0.v201105210648.jar"/>
+	<classpathentry kind="con" path="org.jboss.esb.runtime.classpath/server.supplied/JBoss 4.2 Runtime"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jBossESB-client"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
