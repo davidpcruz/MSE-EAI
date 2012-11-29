@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<jbossesb-deployment>
+  <depends>jboss.esb:deployment=smooks.esb</depends>
+  <jmsTopic>transform_pojo_gateway</jmsTopic>
+  <jmsTopic>topic/transform_pojo_esb</jmsTopic>
+<!-- 
+  <jmsTopic>quickstart_simple_transformation_Response</jmsTopic>
+ -->    
+</jbossesb-deployment>
