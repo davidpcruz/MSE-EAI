@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ejb-jar xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:ejb="http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd"
+	version="3.1">
+	<description>EJBServer Application</description>
+	<display-name>EJBServer</display-name>
+	<enterprise-beans>
+    <session>
+      <ejb-name>Security</ejb-name>
+      <security-role-ref>
+          <role-name>MSEJDF_FrontEnd</role-name>
+          <role-link>MSEJDF_FrontEnd</role-link>
+      </security-role-ref>
+    </session>
+    </enterprise-beans>
+	<assembly-descriptor>
+		<security-role>
+			<description>WebFrontEnd Role permission</description>
+			<role-name>MSEJDF_FrontEnd</role-name>
+		</security-role>
+		<security-role>
+			<description>WebBackEnd Role permission</description>
+			<role-name>MSEJDF_BackEnd</role-name>
+		</security-role>
+<!--
+		IT DOESN? SEEM TO WORK (UNABLE TO LINK TO THE JBOSS ROLES) 
+		<method-permission>
+			<description>FrontEnd permission</description>
+			<role-name>MSEJDF_FrontEnd</role-name>
+			<method>
+				<ejb-name>Security</ejb-name>
+				<method-name>*</method-name>
+			</method>
+		</method-permission>
+  -->		
+	</assembly-descriptor>
+</ejb-jar>

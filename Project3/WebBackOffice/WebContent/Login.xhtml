@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="templates/LoginTemplate.xhtml">
+	<ui:define name="content">
+	
+    	<h:outputText value="Wrong user or password" rendered="#{param.message == 'WrongUserPasswordError'}" styleClass="errorMessage"/>
+        <h:form>
+             <h:panelGrid columns="3">
+             
+                <h:outputText value="Username"></h:outputText>
+                <h:inputText id="Username" value="#{securityBeanW.username}" required="true" requiredMessage="Missing username"></h:inputText>
+                <h:message for="Username" styleClass="errorMessage"/>
+
+                <h:outputText value="Password"></h:outputText>
+                <h:inputSecret id="Password" value="#{securityBeanW.password}" required="true" requiredMessage="Missing password"></h:inputSecret>
+                <h:message for="Password" styleClass="errorMessage"/>				
+            </h:panelGrid>
+            <h:commandButton value="Login" action="#{securityBeanW.checkUserCredentials}"></h:commandButton>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>

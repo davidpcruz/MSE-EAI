@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface>
+
+	<composite:attribute name="bankTellerList" />
+	<composite:attribute name="bean" />
+	
+</composite:interface>
+
+
+<composite:implementation>
+	<h:dataTable var="bankTeller" value="#{cc.attrs.bankTellerList}"
+		rowClasses="oddRow, evenRow" headerClass="tableHeader">
+
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="Name" />
+			</f:facet>
+
+			<h:outputText value="#{bankTeller.name}" />
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="Address" />
+			</f:facet>
+
+			<h:outputText value="#{bankTeller.address.address}" />
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="City" />
+			</f:facet>
+
+			<h:outputText value="#{bankTeller.address.city}" />
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="Zip Code" />
+			</f:facet>
+
+			<h:outputText value="#{bankTeller.address.zipCode}" />
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="" />
+			</f:facet>
+
+ 			<h:form>
+				<h:commandButton
+					value="#{cc.attrs.bean.getSubscriptionChangeAction(bankTeller)}"
+					action="#{cc.attrs.bean.subscriptionChangeAction(bankTeller)}" 
+					rendered="#{cc.attrs.bean.getSubscriptionChangeAction(bankTeller) != 'Actual'}"/>
+			</h:form>
+		</h:column>
+
+	</h:dataTable>
+</composite:implementation>
+</html>
+

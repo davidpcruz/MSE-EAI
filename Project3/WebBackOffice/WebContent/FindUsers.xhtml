@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:msejdf="http://java.sun.com/jsf/composite/msejdf">
+
+<ui:composition template="templates/DefaultTemplate.xhtml">
+	<ui:define name="content">
+		<h:form>
+			<h:panelGrid columns="3">
+
+				<h:outputText value="Age"></h:outputText>
+				
+                <h:inputText id="AgeSearch" size="3" value="#{adminW.searchAge}" required="true" requiredMessage="Missing Age" 
+                	validatorMessage="Age must be between 0 and 150" converterMessage="Age invalid format">
+                	<f:validateLongRange minimum="0" maximum="150" ></f:validateLongRange>  
+                </h:inputText>
+                <h:message for="AgeSearch" styleClass="errorMessage"/>								
+
+			</h:panelGrid>
+			<h:commandButton value="Search"
+				action="#{adminW.searchUsersByAge}">
+			</h:commandButton>
+		</h:form>
+
+		<msejdf:UsersList rendered="#{adminW.subscribedUserList.size() > 0}" usersList="#{adminW.subscribedUserList}"></msejdf:UsersList>
+		<h:outputText rendered="#{adminW.subscribedUserList.size() == 0}" value="No Results"></h:outputText>
+		
+	</ui:define>
+</ui:composition>
+</html>

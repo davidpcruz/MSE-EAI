@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#Login.xhtml" PATH="/Login.xhtml"
+  SHAPE="48,88,0,0" model-entity="JSFProcessGroup" persistent="true">
+  <PROCESS-ITEM ID="rules:#Login.xhtml:0" NAME="item"
+   PATH="/Login.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="true:#{securityBeanW.checkUserCredentials}:#AdminHome.xhtml"
+    NAME="output" PATH="/AdminHome.xhtml"
+    TARGET="rules:#AdminHome.xhtml"
+    TITLE="#{securityBeanW.checkUserCredentials}:true" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="false:#{securityBeanW.checkUserCredentials}:#Login.xhtml"
+    NAME="output1" PATH="/Login.xhtml" TARGET="rules:#Login.xhtml"
+    TITLE="#{securityBeanW.checkUserCredentials}:false" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#Help.xhtml" PATH="/Help.xhtml"
+  SHAPE="416,64,50,25" model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#AdminHome.xhtml" PATH="/AdminHome.xhtml"
+  SHAPE="176,240,50,25" model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#*" PATH="/*" SHAPE="48,161,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#*:0" NAME="item" PATH="/*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="SessionTimedOut::#Login.xhtml" NAME="output"
+    PATH="/Login.xhtml" TARGET="rules:#Login.xhtml"
+    TITLE="SessionTimedOut" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="true:#{securityBeanW.logout}:#Login.xhtml"
+    NAME="output1" PATH="/Login.xhtml" TARGET="rules:#Login.xhtml"
+    TITLE="#{securityBeanW.logout}:true" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+</PROCESS>

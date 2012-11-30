@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface>
+
+	<composite:attribute name="address" />
+
+</composite:interface>
+
+
+<composite:implementation>
+
+	<h:panelGrid columns="3" styleClass="inputForm"
+		columnClasses="inputFormColumn1,inputFormColumn2,inputFormColumn3">
+
+		<h:outputText value="Street Address"></h:outputText>
+		<h:inputText id="StreetAddress" value="#{cc.attrs.address.address}"
+			required="true" requiredMessage="Missing street address"></h:inputText>
+		<h:message for="StreetAddress" styleClass="errorMessage" />
+
+		<h:outputText value="Zip Code"></h:outputText>
+		<h:inputText id="ZipCode" value="#{cc.attrs.address.zipCode}"
+			required="true" requiredMessage="Missing zip code"
+			validatorMessage="Invalid zip code. Must be 7 digits (ccccaaa).">
+			<f:validateRegex pattern="[\p{Digit}]+"></f:validateRegex>
+			<f:validateLength minimum="7" maximum="7" />
+		</h:inputText>
+		<h:message for="ZipCode" styleClass="errorMessage" />
+
+		<h:outputText value="City"></h:outputText>
+		<h:inputText id="City" value="#{cc.attrs.address.city}"
+			required="true" requiredMessage="Missing city"></h:inputText>
+		<h:message for="City" styleClass="errorMessage" />
+
+	</h:panelGrid>
+
+</composite:implementation>
+</html>
