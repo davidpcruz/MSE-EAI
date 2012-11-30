@@ -3,3 +3,4 @@ build
 /Project2Deploy/src
 /Project2Deploy/ear
 /Project2Deploy/sql
+*.log
