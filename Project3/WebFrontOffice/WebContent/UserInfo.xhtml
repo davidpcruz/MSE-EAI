@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html >
+
+<ui:composition template="/templates/DefaultTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:msejdf="http://java.sun.com/jsf/composite/msejdf">
+    
+	<ui:define name="content">
+
+		<h:outputText value="Wrong user data"
+			rendered="#{param.message == 'WrongUserInfoError'}"
+			styleClass="errorMessage" />
+		<h:form>
+
+ 			<msejdf:UserDetails user="#{userInfo.user}"></msejdf:UserDetails> 
+
+			<msejdf:Address address="#{userInfo.user.address}"></msejdf:Address> 
+
+ 			<h:commandButton value="Save" action="#{userInfo.updateUser}"></h:commandButton>
+			<h:commandButton value="Cancel" action="Cancel"></h:commandButton>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

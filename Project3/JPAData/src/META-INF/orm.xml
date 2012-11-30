@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.0"
+	xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd">
+	<persistence-unit-metadata>
+		<!-- Override annotations -->
+		<xml-mapping-metadata-complete />
+	</persistence-unit-metadata>
+
+	<package>eai.msejdf.persistence</package>
+
+	<entity class="User">
+		<attributes>
+			<id name="id">
+				<column name="id_user" />
+				<generated-value strategy="IDENTITY" />
+			</id>
+			<basic name="username">
+				<column name="username" unique="true" nullable="false" />
+			</basic>
+			<basic name="password">
+				<column name="password" nullable="false" />
+			</basic>
+			<basic name="name">
+				<column name="name" nullable="false" />
+			</basic>
+			<many-to-one name="bankTeller" fetch="LAZY"
+				target-entity="BankTeller">
+			</many-to-one>
+			<one-to-one name="address" fetch="EAGER" target-entity="Address"
+				orphan-removal="true">
+				<cascade>
+					<cascade-persist />
+					<cascade-merge />
+				</cascade>
+			</one-to-one>
+
+			<many-to-many name="subscribedCompanies" fetch="LAZY"
+				target-entity="Company">
+				<join-table name="user_company">
+					<join-column name="user_id" referenced-column-name="id_user" />
+					<inverse-join-column name="subscribedCompany_id"
+						referenced-column-name="id_company" />
+					<unique-constraint>
+						<column-name>user_id</column-name>
+						<column-name>subscribedCompany_id</column-name>
+					</unique-constraint>
+				</join-table>
+			</many-to-many>
+
+		</attributes>
+	</entity>
+
+	<entity class="Address" access="PROPERTY" metadata-complete="true">
+		<attributes>
+			<id name="id">
+				<column name="id" />
+				<generated-value strategy="IDENTITY" />
+			</id>
+		</attributes>
+	</entity>
+
+	<entity class="BankTeller" access="PROPERTY" metadata-complete="true">
+		<attributes>
+			<id name="id">
+				<column name="id" />
+				<generated-value strategy="IDENTITY" />
+			</id>
+			<basic name="name">
+				<column name="name" unique="true" nullable="false" />
+			</basic>
+			<one-to-one name="address" fetch="EAGER" target-entity="Address"
+				orphan-removal="true">
+				<cascade>
+					<cascade-persist />
+					<cascade-merge />
+				</cascade>
+			</one-to-one>
+		</attributes>
+	</entity>
+
+	<entity class="BackOfficeUser" access="PROPERTY"
+		metadata-complete="true">
+		<attributes>
+			<id name="id">
+				<column name="id" />
+				<generated-value strategy="IDENTITY" />
+			</id>
+			<basic name="username">
+				<column name="username" unique="true" nullable="false" />
+			</basic>
+			<basic name="password">
+				<column name="password" nullable="false" />
+			</basic>
+		</attributes>
+	</entity>
+
+	<entity class="Company" access="PROPERTY">
+		<attributes>
+			<id name="id">
+				<column name="id_company" />
+				<generated-value strategy="IDENTITY" />
+			</id>
+			<basic name="name">
+				<column name="name" nullable="false" unique="true" />
+			</basic>
+			<one-to-one name="address" fetch="EAGER" target-entity="Address"
+				orphan-removal="true">
+				<cascade>
+					<cascade-persist />
+					<cascade-merge />
+				</cascade>
+			</one-to-one>
+			
+			<many-to-many name="subscribedUsers" fetch="LAZY"
+				target-entity="User">
+				<join-table name="user_company">
+					<join-column name="subscribedCompany_id"
+						referenced-column-name="id_company" />
+					<inverse-join-column name="user_id"
+						referenced-column-name="id_user" />
+					<unique-constraint>
+						<column-name>subscribedCompany_id</column-name>
+						<column-name>user_id</column-name>
+					</unique-constraint>
+				</join-table>
+			</many-to-many>
+			
+			<embedded name="stockInfo">
+			</embedded>
+		</attributes>
+	</entity>
+
+	<embeddable class="StockInfo" access="PROPERTY">
+	</embeddable>
+
+</entity-mappings>

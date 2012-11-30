@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="2.1" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd">
+	
+	<!-- Lifecycle listener -->
+	<lifecycle>
+		<phase-listener>eai.msejdf.web.SessionPhaseListener</phase-listener>
+	</lifecycle>
+
+	<!-- Validators -->
+    <validator>
+        <validator-id>passwordValidator</validator-id>
+        <validator-class>eai.msejdf.validator.PasswordValidator</validator-class>
+    </validator>	
+	
+	<!-- Navigation -->
+	<navigation-rule>
+		<from-view-id>/Login.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{login.checkUserCredentials}</from-action>
+			<from-outcome>true</from-outcome>
+			<to-view-id>/UserHome.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{login.checkUserCredentials}</from-action>
+			<from-outcome>false</from-outcome>
+			<to-view-id>/Login.xhtml</to-view-id>
+			<redirect>
+				<view-param>
+					<name>message</name>
+					<value>WrongUserPasswordError</value>
+				</view-param>
+			</redirect>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Register</from-outcome>
+			<to-view-id>/RegisterUser.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/RegisterUser.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{registerUser.register}</from-action>
+			<from-outcome>true</from-outcome>
+			<to-view-id>/UserHome.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{registerUser.register}</from-action>
+			<from-outcome>false</from-outcome>
+			<to-view-id>/RegisterUser.xhtml</to-view-id>
+			<redirect>
+				<view-param>
+					<name>message</name>
+					<value>DuplicateUserError</value>
+				</view-param>
+			</redirect>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Cancel</from-outcome>
+			<to-view-id>/Login.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/UserInfo.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{userInfo.updateUser}</from-action>
+			<from-outcome>true</from-outcome>
+			<to-view-id>/UserHome.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{userInfo.updateUser}</from-action>
+			<from-outcome>false</from-outcome>
+			<to-view-id>/UserInfo.xhtml</to-view-id>
+			<redirect>
+				<view-param>
+					<name>message</name>
+					<value>WrongUserInfoError</value>
+				</view-param>
+			</redirect>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Cancel</from-outcome>
+			<to-view-id>/UserHome.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/UserHome.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>CompanyInfo</from-outcome>
+			<to-view-id>/CompanyInfo.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{userHome.subscriptionChangeAction(company)}</from-action>
+			<from-outcome>true</from-outcome>
+			<to-view-id>/UserHome.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{userHome.subscriptionChangeAction(company)}</from-action>
+			<from-outcome>false</from-outcome>
+			<to-view-id>/UserHome.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/Companies.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>CompanyInfo</from-outcome>
+			<to-view-id>/CompanyInfo.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{cc.attrs.bean.subscriptionChangeAction(company)}</from-action>
+			<from-outcome>true</from-outcome>
+			<to-view-id>/Companies.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{cc.attrs.bean.subscriptionChangeAction(company)}</from-action>
+			<from-outcome>false</from-outcome>
+			<to-view-id>/Companies.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/AddBankTeller.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{addBankTeller.addBankTeller}</from-action>
+			<from-outcome>true</from-outcome>
+			<to-view-id>/BankTellerInfo.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{addBankTeller.addBankTeller}</from-action>
+			<from-outcome>false</from-outcome>
+			<to-view-id>/AddBankTeller.xhtml</to-view-id>
+			<redirect>
+				<view-param>
+					<name>message</name>
+					<value>WrongBankTellerInfoError</value>
+				</view-param>
+			</redirect>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Cancel</from-outcome>
+			<to-view-id>/BankTellerInfo.xhtml</to-view-id>
+			<redirect>
+				<view-param>
+					<name>message</name>
+					<value>Cancel</value>
+				</view-param>
+			</redirect>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/BankTellerInfo.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>AddBankTeller</from-outcome>
+			<to-view-id>/AddBankTeller.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{cc.attrs.bean.subscriptionChangeAction(bankTeller)}</from-action>
+			<from-outcome>true</from-outcome>
+			<to-view-id>/BankTellerInfo.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{cc.attrs.bean.subscriptionChangeAction(bankTeller)}</from-action>
+			<from-outcome>false</from-outcome>
+			<to-view-id>/BankTellerInfo.xhtml</to-view-id>
+			<redirect>
+				<view-param>
+					<name>message</name>
+					<value>WrongBankTellerInfoError</value>
+				</view-param>
+			</redirect>
+		</navigation-case>
+ 	</navigation-rule>
+
+	<!-- Account -->	
+	<navigation-rule>
+		<from-view-id>/Account.xhtml</from-view-id>
+	 	<navigation-case>
+	 		<from-action>#{account.changePassword}</from-action>
+			<from-outcome>true</from-outcome>
+			<to-view-id>/Account.xhtml</to-view-id>
+			<redirect>
+				<view-param>
+					<name>message</name>
+					<value>PasswordChanged</value>
+				</view-param>
+			</redirect>
+		</navigation-case>
+	 	<navigation-case>
+	 		<from-action>#{account.changePassword}</from-action>
+			<from-outcome>false</from-outcome>
+			<to-view-id>/Account.xhtml</to-view-id>
+			<redirect>
+				<view-param>
+					<name>message</name>
+					<value>PasswordChangeError</value>
+				</view-param>
+			</redirect>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{account.deleteAccount}</from-action>
+			<from-outcome>true</from-outcome>
+			<to-view-id>/Login.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>			
+ 	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/*</from-view-id>
+		<navigation-case>
+			<!-- Session Time out occurred -->
+			<from-outcome>SessionTimedOut</from-outcome>
+			<to-view-id>/Login.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{login.logout}</from-action>
+			<from-outcome>true</from-outcome>
+			<to-view-id>/Login.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>CompanyDetails</from-outcome>
+			<to-view-id>/CompanyInfo.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Register</from-outcome>
+			<to-view-id>/RegisterUser.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<lifecycle>
+		<phase-listener>eai.msejdf.web.SessionPhaseListener</phase-listener>
+	</lifecycle>
+</faces-config>

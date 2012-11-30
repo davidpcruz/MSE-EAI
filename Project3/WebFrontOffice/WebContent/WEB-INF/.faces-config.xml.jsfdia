@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#UserHome.xhtml" PATH="/UserHome.xhtml"
+  SHAPE="621,286,0,0" model-entity="JSFProcessGroup" persistent="true">
+  <PROCESS-ITEM ID="rules:#UserHome.xhtml:0" NAME="item"
+   PATH="/UserHome.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="CompanyInfo::#CompanyInfo.xhtml"
+    NAME="output" PATH="/CompanyInfo.xhtml"
+    TARGET="rules:#CompanyInfo.xhtml" TITLE="CompanyInfo" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="true:#{userHome.subscriptionChangeAction(company)}:#UserHome.xhtml"
+    NAME="output1" PATH="/UserHome.xhtml" TARGET="rules:#UserHome.xhtml"
+    TITLE="#{userHome.subscriptionChangeAction(company)}:true" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="false:#{userHome.subscriptionChangeAction(company)}:#UserHome.xhtml"
+    NAME="output2" PATH="/UserHome.xhtml" TARGET="rules:#UserHome.xhtml"
+    TITLE="#{userHome.subscriptionChangeAction(company)}:false" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#Login.xhtml" PATH="/Login.xhtml"
+  SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#Login.xhtml:0" NAME="item"
+   PATH="/Login.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="true:#{login.checkUserCredentials}:#UserHome.xhtml"
+    NAME="output" PATH="/UserHome.xhtml" TARGET="rules:#UserHome.xhtml"
+    TITLE="#{login.checkUserCredentials}:true" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="false:#{login.checkUserCredentials}:#Login.xhtml" NAME="output1"
+    PATH="/Login.xhtml" TARGET="rules:#Login.xhtml"
+    TITLE="#{login.checkUserCredentials}:false" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="Register::#RegisterUser.xhtml"
+    NAME="output2" PATH="/RegisterUser.xhtml"
+    TARGET="rules:#RegisterUser.xhtml" TITLE="Register" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#RegisterUser.xhtml"
+  PATH="/RegisterUser.xhtml" SHAPE="304,145,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#RegisterUser.xhtml:0" NAME="item"
+   PATH="/RegisterUser.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="true:#{registerUser.register}:#UserHome.xhtml" NAME="output"
+    PATH="/UserHome.xhtml" TARGET="rules:#UserHome.xhtml"
+    TITLE="#{registerUser.register}:true" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="false:#{registerUser.register}:#RegisterUser.xhtml"
+    NAME="output1" PATH="/RegisterUser.xhtml"
+    TARGET="rules:#RegisterUser.xhtml"
+    TITLE="#{registerUser.register}:false" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="Cancel::#Login.xhtml" NAME="output2"
+    PATH="/Login.xhtml" TARGET="rules:#Login.xhtml" TITLE="Cancel" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#UserInfo.xhtml" PATH="/UserInfo.xhtml"
+  SHAPE="632,40,50,25" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#UserInfo.xhtml:0" NAME="item"
+   PATH="/UserInfo.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="true:#{userInfo.updateUser}:#UserHome.xhtml"
+    NAME="output" PATH="/UserHome.xhtml" TARGET="rules:#UserHome.xhtml"
+    TITLE="#{userInfo.updateUser}:true" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="false:#{userInfo.updateUser}:#UserInfo.xhtml" NAME="output1"
+    PATH="/UserInfo.xhtml" TARGET="rules:#UserInfo.xhtml"
+    TITLE="#{userInfo.updateUser}:false" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="Cancel::#UserHome.xhtml" NAME="output2"
+    PATH="/UserHome.xhtml" TARGET="rules:#UserHome.xhtml" TITLE="Cancel" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#Companies.xhtml" PATH="/Companies.xhtml"
+  SHAPE="560,481,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#Companies.xhtml:0" NAME="item"
+   PATH="/Companies.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="CompanyInfo::#CompanyInfo.xhtml"
+    NAME="output" PATH="/CompanyInfo.xhtml"
+    TARGET="rules:#CompanyInfo.xhtml" TITLE="CompanyInfo" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="true:#{cc.attrs.bean.subscriptionChangeAction(company)}:#Companies.xhtml"
+    NAME="output2" PATH="/Companies.xhtml"
+    TARGET="rules:#Companies.xhtml"
+    TITLE="#{cc.attrs.bean.subscriptionChangeAction(company)}:true" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="false:#{cc.attrs.bean.subscriptionChangeAction(company)}:#Companies.xhtml"
+    NAME="output3" PATH="/Companies.xhtml"
+    TARGET="rules:#Companies.xhtml"
+    TITLE="#{cc.attrs.bean.subscriptionChangeAction(company)}:false" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#AddBankTeller.xhtml"
+  PATH="/AddBankTeller.xhtml" SHAPE="48,193,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#AddBankTeller.xhtml:0" NAME="item"
+   PATH="/AddBankTeller.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="true:#{addBankTeller.addBankTeller}:#BankTellerInfo.xhtml"
+    NAME="output" PATH="/BankTellerInfo.xhtml"
+    TARGET="rules:#BankTellerInfo.xhtml"
+    TITLE="#{addBankTeller.addBankTeller}:true" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="false:#{addBankTeller.addBankTeller}:#AddBankTeller.xhtml"
+    NAME="output1" PATH="/AddBankTeller.xhtml"
+    TARGET="rules:#AddBankTeller.xhtml"
+    TITLE="#{addBankTeller.addBankTeller}:false" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="Cancel::#BankTellerInfo.xhtml"
+    NAME="output2" PATH="/BankTellerInfo.xhtml"
+    TARGET="rules:#BankTellerInfo.xhtml" TITLE="Cancel" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#BankTellerInfo.xhtml"
+  PATH="/BankTellerInfo.xhtml" SHAPE="656,785,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#BankTellerInfo.xhtml:0" NAME="item"
+   PATH="/BankTellerInfo.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="AddBankTeller::#AddBankTeller.xhtml"
+    NAME="output" PATH="/AddBankTeller.xhtml"
+    TARGET="rules:#AddBankTeller.xhtml" TITLE="AddBankTeller" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="true:#{cc.attrs.bean.subscriptionChangeAction(bankTeller)}:#BankTellerInfo.xhtml"
+    NAME="output1" PATH="/BankTellerInfo.xhtml"
+    TARGET="rules:#BankTellerInfo.xhtml"
+    TITLE="#{cc.attrs.bean.subscriptionChangeAction(bankTeller)}:true" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="false:#{cc.attrs.bean.subscriptionChangeAction(bankTeller)}:#BankTellerInfo.xhtml"
+    NAME="output2" PATH="/BankTellerInfo.xhtml"
+    TARGET="rules:#BankTellerInfo.xhtml"
+    TITLE="#{cc.attrs.bean.subscriptionChangeAction(bankTeller)}:false" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#*" PATH="/*" SHAPE="48,369,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#*:0" NAME="item" PATH="/*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="SessionTimedOut::#Login.xhtml" NAME="output"
+    PATH="/Login.xhtml" TARGET="rules:#Login.xhtml"
+    TITLE="SessionTimedOut" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="true:#{login.logout}:#Login.xhtml"
+    NAME="output1" PATH="/Login.xhtml" TARGET="rules:#Login.xhtml"
+    TITLE="#{login.logout}:true" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="CompanyDetails::#CompanyInfo.xhtml"
+    NAME="output2" PATH="/CompanyInfo.xhtml"
+    TARGET="rules:#CompanyInfo.xhtml" TITLE="CompanyDetails" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="Register::#RegisterUser.xhtml"
+    NAME="output3" PATH="/RegisterUser.xhtml"
+    TARGET="rules:#RegisterUser.xhtml" TITLE="Register" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#CompanyInfo.xhtml" PATH="/CompanyInfo.xhtml"
+  SHAPE="784,321,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#Account.xhtml" PATH="/Account.xhtml"
+  SHAPE="512,1121,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#Account.xhtml:0" NAME="item"
+   PATH="/Account.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="true:#{account.changePassword}:#Account.xhtml" NAME="output"
+    PATH="/Account.xhtml" TARGET="rules:#Account.xhtml"
+    TITLE="#{account.changePassword}:true" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="false:#{account.changePassword}:#Account.xhtml" NAME="output1"
+    PATH="/Account.xhtml" TARGET="rules:#Account.xhtml"
+    TITLE="#{account.changePassword}:false" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="true:#{account.deleteAccount}:#Login.xhtml"
+    NAME="output2" PATH="/Login.xhtml" TARGET="rules:#Login.xhtml"
+    TITLE="#{account.deleteAccount}:true" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+</PROCESS>

@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:msejdf="http://java.sun.com/jsf/composite/msejdf">
+
+<ui:composition template="templates/DefaultTemplate.xhtml">
+	<ui:define name="content">
+
+		<h:outputText value="Hi " />
+		<b><h:outputText value="#{bankTellerInfo.user.name}" /></b>
+		<h:outputText value=", your current Bank Teller is:" />
+
+		<msejdf:BankTellersSummaryList
+			bankTellerList="#{bankTellerInfo.user.bankTeller}"
+			bean="#{bankTellerInfo}">	
+		</msejdf:BankTellersSummaryList>
+		<p>Do you want to change your Bank Teller? Simply select one of
+			the list or create a new one.</p>
+
+
+		<msejdf:BankTellersSummaryList
+			bankTellerList="#{bankTellerInfo.bankTellerList}"
+			bean="#{bankTellerInfo}">
+		</msejdf:BankTellersSummaryList>
+
+		<h:form>
+			<h:commandButton value="Add New Bank Teller"
+				action="AddBankTeller"></h:commandButton>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
+</html>
+

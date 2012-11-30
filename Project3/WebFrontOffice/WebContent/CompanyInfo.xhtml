@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:msejdf="http://java.sun.com/jsf/composite/msejdf">
+
+<ui:composition template="templates/DefaultTemplate.xhtml">
+	<ui:define name="content">
+		<h:outputText value="Here you can see the company details." />
+		<msejdf:CompaniesSummaryList
+			companyList="#{companyInfo.getCompany(param.CompanyId)}"
+			bean="#{companyInfo}" renderDetails="false">
+		</msejdf:CompaniesSummaryList>
+
+		<h3>Hour Report</h3>
+		<img
+			src="/DataOut/rrd/#{companyInfo.getCompany(param.CompanyId).getName()}_hour.gif" />
+		<h3>Day Report</h3>
+		<img
+			src="/DataOut/rrd/#{companyInfo.getCompany(param.CompanyId).getName()}_day.gif" />
+		<h3>Week Report</h3>
+		<img
+			src="/DataOut/rrd/#{companyInfo.getCompany(param.CompanyId).getName()}_week.gif" />
+		<h3>Month Report</h3>
+		<img
+			src="/DataOut/rrd/#{companyInfo.getCompany(param.CompanyId).getName()}_month.gif" />
+
+
+	</ui:define>
+</ui:composition>
+</html>
+
