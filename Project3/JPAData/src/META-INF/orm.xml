@@ -24,6 +24,9 @@
 			<basic name="name">
 				<column name="name" nullable="false" />
 			</basic>
+			<basic name="emailCount">
+				<column name="emailCount" unique="false" nullable="false" />
+			</basic>
 			<many-to-one name="bankTeller" fetch="LAZY"
 				target-entity="BankTeller">
 			</many-to-one>
@@ -111,7 +114,7 @@
 					<cascade-merge />
 				</cascade>
 			</one-to-one>
-			
+
 			<many-to-many name="subscribedUsers" fetch="LAZY"
 				target-entity="User">
 				<join-table name="user_company">
@@ -125,7 +128,7 @@
 					</unique-constraint>
 				</join-table>
 			</many-to-many>
-			
+
 			<embedded name="stockInfo">
 			</embedded>
 		</attributes>
