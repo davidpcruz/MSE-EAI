@@ -10,7 +10,6 @@ import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
 
 import org.apache.log4j.Logger;
@@ -35,7 +34,7 @@ public class WebServices implements IWebServices {
 	 * Logger for this class
 	 */
 	private static final Logger logger = Logger.getLogger(Admin.class);
-	@PersistenceContext(unitName = "JPAEAI", type = PersistenceContextType.EXTENDED)
+	@PersistenceContext(unitName = "JPAEAI")
 	private EntityManager entityManager;
 
 	/**
