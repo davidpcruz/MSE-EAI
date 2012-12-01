@@ -21,6 +21,7 @@ public class User implements Serializable
 	private Address address;
 	private String phone;
 	private String email;
+	private Integer emailCount = 0;
 	private Date birthDate; 
 	private BankTeller bankTeller;
 	private List<Company> subscribedCompanies = new ArrayList<Company>();
@@ -96,13 +97,28 @@ public class User implements Serializable
 	}
 
 	/**
+	 * @param emailCount the emailCount to set
+	 */
+	public void setEmailCount(Integer emailCount)
+	{
+		this.emailCount = emailCount;
+//		this.emailCount = emailCount == null ? 0 : emailCount;
+	}
+	/**
+	 * @return the emailCount
+	 */
+	public Integer getEmailCount()
+	{
+		return emailCount;
+	}
+
+	/**
 	 * @param email the email to set
 	 */
 	public void setEmail(String email)
 	{
 		this.email = email;
 	}
-
 	/**
 	 * @return the birthDate
 	 */

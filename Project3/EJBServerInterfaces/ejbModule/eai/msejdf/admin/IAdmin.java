@@ -15,13 +15,6 @@ import eai.msejdf.sort.UserSort;
 @Remote
 public interface IAdmin {
 
-	/**
-	 * Gets the user list sorted by user sort type.
-	 *
-	 * @param sortType the sort type
-	 * @return the user list
-	 */
-	public List<User> getUserListAll();
 
 	/**
 	 * Gets the user list sorted by user sort type.

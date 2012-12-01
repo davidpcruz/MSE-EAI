@@ -9,5 +9,6 @@
 	<classpathentry kind="con" path="org.jboss.esb.runtime.classpath/server.supplied/JBoss 4.2 Runtime"/>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.jboss.ide.eclipse.as.core.server.runtime.runtimeTarget/JBoss 4.2 Runtime"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/EAICommon"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jBossESB-client"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

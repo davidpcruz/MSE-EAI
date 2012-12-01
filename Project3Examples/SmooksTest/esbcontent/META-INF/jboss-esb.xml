@@ -32,7 +32,10 @@
 				<jms-listener busidref="quickstartGwChannel" is-gateway="true" name="JMS-Gateway" />
 				<jms-listener busidref="quickstartEsbChannel" name="jmsTransformer" />
 			</listeners>
-			<actions mep="OneWay">
+			<actions mep="RequestResponse">
+<!-- 			
+				EXEMPLO SMOOKS
+
 				<action class="TransformListenerAction" name="displayBeforeTransformer"
 					process="displayMessage" />
 				<action name="transform" class="org.jboss.soa.esb.smooks.SmooksAction">
@@ -42,13 +45,30 @@
 				</action> 		
                 <action class="StocksAction" name="convertPOJO2Message" 	/>
                 
-                <!-- 
 				<action name="displayAfterTransformer" class="TransformListenerAction" process="displayMessage" />
- 				-->
+ -->
+                 <!-- 
 				<action name="println-xml2pojo" class="org.jboss.soa.esb.actions.SystemPrintln">
 					<property name="message" value=">>>> Message after Smooks intermediate xml -> target pojos : " />
 				</action>           	   
-											
+ 				-->
+
+				<!-- EXEMPLO WEBSERVICE -->
+
+				<action name="request-mapper" class="MyRequestAction">
+				</action>
+
+				<action name="soapui-client-action"
+				   class="org.jboss.soa.esb.actions.soap.SOAPClient">
+				    <property name="wsdl"
+				     value="http://localhost:8080/EJBServer/ListUserService/ListUserInterface?wsdl" />
+				    <property name="SOAPAction" value="getUserListAll"/>
+				    <property name="responseAsOgnlMap" value="true" />
+				</action>	
+				
+				<action name="response-mapper"
+				    class="MyResponseAction">                
+				</action>														
 				<!--  <action name="returnToSender" class="org.jboss.soa.esb.samples.quickstart.transformxml2pojo.MyJMSListenerAction" 
 					process="sendResponse" /> <action name="println-xml2pojo" class="org.jboss.soa.esb.actions.SystemPrintln"> 
 					<property name="message" value=">>>> Message after Smooks intermediate xml 
