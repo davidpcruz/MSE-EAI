@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <faceted-project>
-  <runtime name="JBoss 7.1 Runtime"/>
-  <fixed facet="jst.utility"/>
+  <fixed facet="jst.jboss.esb"/>
   <fixed facet="java"/>
+  <installed facet="jst.jboss.esb" version="4.11"/>
   <installed facet="java" version="1.7"/>
-  <installed facet="jst.utility" version="1.0"/>
 </faceted-project>
