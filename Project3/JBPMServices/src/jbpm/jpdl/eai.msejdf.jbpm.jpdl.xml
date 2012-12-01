@@ -1,21 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<process-definition 
-  xmlns="urn:jbpm.org:jpdl-3.2"
-  name="eai.msejdf.jbpm">
-   <start-state name="start">
-      <transition name="to_state" to="first">
-         <action name="action" class="eai.msejdf.jbpm.actions.MessageActionHandler">
-            <message>BPM: Started!</message>
-         </action>
-      </transition>
-   </start-state>
-   <state name="first">
-      <transition name="to_end" to="end">
-         <action name="action" class="eai.msejdf.jbpm.actions.MessageActionHandler">
-            <message>BPM: About to finish!</message>
-         </action>
-      </transition>
-   </state>
-   <end-state name="end"></end-state>
+<process-definition xmlns="urn:jbpm.org:jpdl-3.2"
+	name="eai.msejdf.jbpm">
+	<start-state name="start">
+		<event type="node-enter">
+			<!-- TODO: Remove this action (used for debugging) -->
+			<action name="action0" class="eai.msejdf.jbpm.actions.MessageActionHandler">
+				<message>Starting BPM</message>
+			</action>
+		</event>
+		<transition to="Check Stock Variation" name="Check Stock Variation" ></transition>
+	</start-state>
+
+	<decision name="Check Stock Variation">
+		<transition to="Approve Stock Variation Notification" name="Request Approval"></transition>
+		<transition to="Notify User" name="Notify User"></transition>
+		<transition to="end-state1" name="No Action Required"></transition>
+	</decision>
+
+	<task-node name="Approve Stock Variation Notification">
+
+		<task name="Approve stock variation e-mail notification">
+			<assignment actor-id="Manager"></assignment>
+
+			<!-- TODO: Remove <controller> <variable access="read,write,required" 
+				name="TECHNICAL_INTERVIEW_OK"></variable> </controller> -->
+		</task>
+
+		<transition to="end-state2" name="Reject notification">
+
+			<!-- TODO: Remove this action (used for debugging) -->
+			<action name="action2" class="eai.msejdf.jbpm.actions.MessageActionHandler">
+				<message>Notification Rejected</message>
+			</action>
+		</transition>
+
+		<transition to="Notify User" name="Approve Notification">
+		
+			<!-- TODO: Remove this action (used for debugging) -->
+			<action name="action3" class="eai.msejdf.jbpm.actions.MessageActionHandler">
+				<message>Notification Approved</message>
+			</action>
+		</transition>
+	</task-node>
+
+	<fork name="Notify User">
+		<transition to="Send e-Mail" name="Start e-mail sending"></transition>
+		<transition to="Count e-Mail" name="Start e-mail counting"></transition>
+	</fork>
+
+	<state name="Send e-Mail">
+		<transition to="Wait e-mail actions complete">
+			<!-- TODO: Remove this action (used for debugging) -->
+			<action name="action4" class="eai.msejdf.jbpm.actions.MessageActionHandler">
+				<message>Send e-mail complete</message>
+			</action>
+		</transition>
+	</state>
+
+	<state name="Count e-Mail">
+		<transition to="Wait e-mail actions complete">
+			<!-- TODO: Remove this action (used for debugging) -->
+			<action name="action4" class="eai.msejdf.jbpm.actions.MessageActionHandler">
+				<message>Count e-mail complete</message>
+			</action>		
+		</transition>
+	</state>
+
+	<join name="Wait e-mail actions complete">
+		<transition to="end-state2">
+		
+			<!-- TODO: Remove this action (used for debugging) -->
+			<action name="action4" class="eai.msejdf.jbpm.actions.MessageActionHandler">
+				<message>Waiting e-mail actions complete</message>
+			</action>
+		</transition>
+	</join>
+
+	<end-state name="end-state2"></end-state>
+
+	<end-state name="end-state1"></end-state>
 </process-definition>

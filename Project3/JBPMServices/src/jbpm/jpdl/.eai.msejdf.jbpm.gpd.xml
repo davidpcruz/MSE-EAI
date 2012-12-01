@@ -1,16 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="eai.msejdf.jbpm" width="901" height="549">
-  <node name="start" x="326" y="37" width="132" height="36">
+<root-container name="eai.msejdf.jbpm" width="1166" height="888">
+  <node name="start" x="552" y="11" width="132" height="47">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="first" x="327" y="173" width="132" height="36">
+  <node name="Check Stock Variation" x="0" y="0" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="end" x="333" y="322" width="132" height="36"/>
+  <node name="Approve Stock Variation Notification" x="416" y="374" width="288" height="46">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="Notify User" x="272" y="492" width="113" height="24">
+    <edge>
+      <label x="-141" y="-15"/>
+    </edge>
+    <edge>
+      <label x="11" y="-11"/>
+    </edge>
+    <edge>
+      <label x="-141" y="-15"/>
+    </edge>
+  </node>
+  <node name="Send e-Mail" x="378" y="624" width="148" height="44">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="Count e-Mail" x="147" y="626" width="137" height="43">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="Wait e-mail actions complete" x="275" y="736" width="114" height="24">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="end-state2" x="503" y="840" width="144" height="46"/>
+  <node name="end-state1" x="792" y="377" width="132" height="36"/>
   <deployment graphicalInfoFile="/JBPMServices/src/jbpm/jpdl/.eai.msejdf.jbpm.gpd.xml" imageFile="/JBPMServices/src/jbpm/jpdl/eai.msejdf.jbpm.jpg" serverName="localhost" serverPort="8180" serverDeployer="/gpd-deployer/upload"/>
 </root-container>
