@@ -13,6 +13,7 @@
 	</start-state>
 
 	<decision name="Check Stock Variation">
+		<handler class="eai.msejdf.jbpm.actions.CheckStockVariationDecisionHandler"></handler>
 		<transition to="Approve Stock Variation Notification" name="Request Approval"></transition>
 		<transition to="Notify User" name="Notify User"></transition>
 		<transition to="end-state1" name="No Action Required"></transition>

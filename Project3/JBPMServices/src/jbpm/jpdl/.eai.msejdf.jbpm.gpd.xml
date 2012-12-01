@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="eai.msejdf.jbpm" width="1166" height="888">
+<root-container name="eai.msejdf.jbpm" width="1165" height="887">
   <node name="start" x="552" y="11" width="132" height="47">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="Check Stock Variation" x="0" y="0" width="132" height="36">
+  <node name="Check Stock Variation" x="417" y="130" width="224" height="46">
     <edge>
       <label x="5" y="-10"/>
     </edge>
@@ -24,9 +24,6 @@
     <edge>
       <label x="5" y="-10"/>
     </edge>
-    <edge>
-      <label x="5" y="-10"/>
-    </edge>
   </node>
   <node name="Notify User" x="272" y="492" width="113" height="24">
     <edge>
@@ -34,9 +31,6 @@
     </edge>
     <edge>
       <label x="11" y="-11"/>
-    </edge>
-    <edge>
-      <label x="-141" y="-15"/>
     </edge>
   </node>
   <node name="Send e-Mail" x="378" y="624" width="148" height="44">
