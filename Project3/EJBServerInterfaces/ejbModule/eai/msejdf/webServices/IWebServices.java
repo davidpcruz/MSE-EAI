@@ -11,11 +11,15 @@ import eai.msejdf.sort.UserSort;
 /**
  * Interface class for webServices related operations
  */
+/**
+ * @author joaofcr
+ * 
+ */
 @Remote
 public interface IWebServices {
 
 	/**
-	 * Gets the user list sorted by user sort type.
+	 * WebMethod Gets the user list sorted by user sort type.
 	 * 
 	 * @param sortType
 	 *            the sort type
@@ -23,14 +27,40 @@ public interface IWebServices {
 	 */
 	public List<User> getUserListAll();
 
-	List<User> getUserList(Integer ageThreshold, UserSort sortType);
-
+	/**
+	 * WebMethod Gets the user numbers of sent emails
+	 * 
+	 * @param userId
+	 * @return
+	 * @throws ConfigurationException
+	 */
 	Integer getUserEmailCount(Long userId) throws ConfigurationException;
 
-	void setUserEmailCount(Long userId, Integer emailCount) throws ConfigurationException;
+	/**
+	 * WebMethod Sets the user numbers of sent emails
+	 * 
+	 * @param userId
+	 * @return
+	 * @throws ConfigurationException
+	 */
+	void setUserEmailCount(Long userId, Integer emailCount)
+			throws ConfigurationException;
 
+	/**
+	 * Gets the user by user id
+	 * @param userId
+	 * @return
+	 * @throws ConfigurationException
+	 */
 	User getUser(Long userId) throws ConfigurationException;
 
-	
+	/**
+	 * Gets the user list sorted by user sort type.
+	 * 
+	 * @param ageThreshold
+	 * @param sortType
+	 * @return
+	 */
+	List<User> getUserList(Integer ageThreshold, UserSort sortType);
 
 }
