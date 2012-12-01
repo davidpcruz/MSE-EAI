@@ -5,10 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.ejb.LocalBean;
-import javax.ejb.Remote;
 import javax.ejb.Stateless;
-import javax.jws.WebMethod;
-import javax.jws.WebService;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
@@ -25,8 +22,6 @@ import eai.msejdf.utils.Patterns;
 /**
  * Bean implementing interface for administration related calls
  */
-@WebService(name = "ListUserInterface", targetNamespace = "http://www.eai.org/mssjdf", serviceName = "ListUserService")
-@Remote(IAdmin.class)
 @Stateless(name="Admin")
 @LocalBean
 public class Admin implements IAdmin {
@@ -37,20 +32,11 @@ public class Admin implements IAdmin {
 	@PersistenceContext(unitName = "JPAEAI", type = PersistenceContextType.EXTENDED)
 	private EntityManager entityManager;
 
-	/* (non-Javadoc)
-	 * @see eai.msejdf.admin.IAdmin#getUserListAll()
-	 */
-	@Override
-	@WebMethod	
-	public List<User> getUserListAll() {
-		return this.getUserList(null, UserSort.NAME_ASC);
-	}	
 	
 	/* (non-Javadoc)
 	 * @see eai.msejdf.admin.IAdmin#getUserList(eai.msejdf.sort.UserSort)
 	 */
 	@Override
-	@WebMethod(exclude = true)	
 	public List<User> getUserList(UserSort sortType) {
 
 		if (null == sortType)
@@ -64,7 +50,6 @@ public class Admin implements IAdmin {
 	 * @see eai.msejdf.admin.IAdmin#getUserList(java.lang.Integer, eai.msejdf.sort.UserSort)
 	 */
 	@Override
-	@WebMethod(exclude = true)
 	public List<User> getUserList(Integer ageThreshold, UserSort sortType) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getUserList(Integer, UserSort) - start"); //$NON-NLS-1$
@@ -100,7 +85,6 @@ public class Admin implements IAdmin {
 	 * @see eai.msejdf.admin.IAdmin#getUserFollowCompanyList(java.lang.Long, eai.msejdf.sort.UserSort)
 	 */
 	@Override
-	@WebMethod(exclude = true)
 	public List<User> getUserFollowCompanyList(Long companyId, UserSort sortType) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getUserFollowCompanyList(String, int, int) - start"); //$NON-NLS-1$
@@ -132,7 +116,6 @@ public class Admin implements IAdmin {
 	 * @see eai.msejdf.admin.IAdmin#getCompanyList(java.lang.String, eai.msejdf.sort.CompanySort)
 	 */
 	@Override
-	@WebMethod(exclude = true)
 	public List<Company> getCompanyList(String filterPattern, CompanySort sortType) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getCompanyList(String, int) - start"); //$NON-NLS-1$
