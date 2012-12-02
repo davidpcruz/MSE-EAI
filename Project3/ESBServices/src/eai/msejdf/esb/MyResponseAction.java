@@ -52,7 +52,8 @@ public class MyResponseAction extends AbstractActionLifecycle
 
       // The "responseLocation" property was set in jboss-esb.xml to
       // "helloworld-response"
-      Map responseMsg = (Map) message.getBody().get(Body.DEFAULT_LOCATION);
+//      Map responseMsg = (Map) message.getBody().get(Body.DEFAULT_LOCATION);
+      Map responseMsg = (Map) message.getBody().get();
       System.out.println("Response Map is: " + responseMsg);
 
       logFooter();

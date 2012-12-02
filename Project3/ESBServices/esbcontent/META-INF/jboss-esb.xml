@@ -55,18 +55,18 @@
 					<property name="wsdl"
 						value="http://127.0.0.1:8080/EJBServer/ListUserService/ListUserInterface?wsdl" />
 					<property name="SOAPAction" value="getUserEmailCount" />
+					<property name="SOAPService" value="{http://www.eai.org/mssjdf}ListUserService" />
 					<property name="responseAsOgnlMap" value="true" />
-					
+
 				</action>
-				<action name="response-mapper"
-				class="eai.msejdf.esb.MyResponseAction">
+				<action name="response-mapper" class="eai.msejdf.esb.MyResponseAction">
 				</action>
 
 			</actions>
 		</service>
-		
-		
-				<!-- GetUserListAll -->
+
+
+		<!-- GetUserListAll -->
 		<service category="EAI_ESB" name="GetUserListAll"
 			description="EAI_ESB: Gets the number of emails sent to a user">
 
@@ -85,10 +85,9 @@
 						value="http://127.0.0.1:8080/EJBServer/ListUserService/ListUserInterface?wsdl" />
 					<property name="SOAPAction" value="getUserListAll" />
 					<property name="responseAsOgnlMap" value="true" />
-					
+
 				</action>
-				<action name="response-mapper"
-				class="eai.msejdf.esb.MyResponseAction">
+				<action name="response-mapper" class="eai.msejdf.esb.MyResponseAction">
 				</action>
 
 			</actions>
