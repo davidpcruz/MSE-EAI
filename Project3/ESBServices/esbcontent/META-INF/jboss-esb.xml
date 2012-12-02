@@ -93,6 +93,40 @@
 
 			</actions>
 		</service>
+
+
+
+
+		<!-- IncrementUserEmailCount -->
+		<service category="EAI_ESB" name="IncrementUserEmailCount"
+			description="EAI_ESB: Gets the number of emails sent to a user">
+
+			<listeners>
+				<jms-listener busidref="EAIProj3GwChannel" is-gateway="true"
+					name="JMS-Gateway" />
+				<jms-listener busidref="EAIProj3EsbChannel" name="incrementUserEmailCount" />
+			</listeners>
+
+
+			<actions mep="OneWay">
+				<action name="request-mapper" class="eai.msejdf.esb.IncrementUserEmailCount">
+				</action>
+				<action name="soapui-client-action" class="org.jboss.soa.esb.actions.soap.SOAPClient">
+					<property name="wsdl"
+						value="http://127.0.0.1:8080/EJBServer/ListUserInterface?wsdl" />
+					<property name="SOAPAction" value="incrementUserEmailCount" />
+					<property name="responseAsOgnlMap" value="true" />
+
+				</action>
+				<action name="response-mapper" class="eai.msejdf.esb.MyResponseAction">
+				</action>
+
+			</actions>
+		</service>
+
+
+
+
 	</services>
 
 </jbossesb>
