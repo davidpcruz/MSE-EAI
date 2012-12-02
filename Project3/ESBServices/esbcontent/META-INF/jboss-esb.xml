@@ -38,25 +38,25 @@
 
 
 		<!-- GetNumberOfEmails -->
-		<service category="EAI_ESB" name="GetNumberOfEmails"
+		<service category="EAI_ESB" name="GetUserEmailCount"
 			description="EAI_ESB: Gets the number of emails sent to a user">
 
 			<listeners>
 				<jms-listener busidref="EAIProj3GwChannel" is-gateway="true"
 					name="JMS-Gateway" />
-				<jms-listener busidref="EAIProj3EsbChannel" name="getNumberOfEmails" />
+				<jms-listener busidref="EAIProj3EsbChannel" name="getUserEmailCount" />
 			</listeners>
 
 
 			<actions mep="OneWay">
-				<action name="request-mapper" class="eai.msejdf.esb.GetNumberOfEmails">
+				<action name="request-mapper" class="eai.msejdf.esb.GetUserEmailCount">
 				</action>
 				<action name="soapui-client-action" class="org.jboss.soa.esb.actions.soap.SOAPClient">
 					<property name="wsdl"
-						value="http://127.0.0.1:8080/EJBServer/ListUserService/ListUserInterface?wsdl" />
+						value="http://127.0.0.1:8080/EJBServer/ListUserInterface?wsdl" />
 					<property name="SOAPAction" value="getUserEmailCount" />
-					<property name="SOAPService"
-						value="{http://www.eai.org/mssjdf}ListUserService" />
+					<!-- <property name="SOAPService" value="{http://www.eai.org/msejdf}ListUserService" 
+						/> -->
 					<property name="responseAsOgnlMap" value="true" />
 
 				</action>
@@ -67,24 +67,24 @@
 		</service>
 
 
-		<!-- GetUserListAll -->
-		<service category="EAI_ESB" name="GetUserListAll"
+		<!-- GetUsersFollowingCompany -->
+		<service category="EAI_ESB" name="GetUsersFollowingCompany"
 			description="EAI_ESB: Gets the number of emails sent to a user">
 
 			<listeners>
 				<jms-listener busidref="EAIProj3GwChannel" is-gateway="true"
 					name="JMS-Gateway" />
-				<jms-listener busidref="EAIProj3EsbChannel" name="getUserListAll" />
+				<jms-listener busidref="EAIProj3EsbChannel" name="getUsersFollowingCompany" />
 			</listeners>
 
 
 			<actions mep="OneWay">
-				<action name="request-mapper" class="eai.msejdf.esb.GetNumberOfEmails">
+				<action name="request-mapper" class="eai.msejdf.esb.GetUsersFollowingCompany">
 				</action>
 				<action name="soapui-client-action" class="org.jboss.soa.esb.actions.soap.SOAPClient">
 					<property name="wsdl"
-						value="http://127.0.0.1:8080/EJBServer/ListUserService/ListUserInterface?wsdl" />
-					<property name="SOAPAction" value="getUserListAll" />
+						value="http://127.0.0.1:8080/EJBServer/ListUserInterface?wsdl" />
+					<property name="SOAPAction" value="getUsersFollowingCompany" />
 					<property name="responseAsOgnlMap" value="true" />
 
 				</action>
@@ -114,6 +114,37 @@
 				</action>
 			</actions>
 		</service>
+
+
+		<!-- IncrementUserEmailCount -->
+		<service category="EAI_ESB" name="IncrementUserEmailCount"
+			description="EAI_ESB: Gets the number of emails sent to a user">
+
+			<listeners>
+				<jms-listener busidref="EAIProj3GwChannel" is-gateway="true"
+					name="JMS-Gateway" />
+				<jms-listener busidref="EAIProj3EsbChannel" name="incrementUserEmailCount" />
+			</listeners>
+
+
+			<actions mep="OneWay">
+				<action name="request-mapper" class="eai.msejdf.esb.IncrementUserEmailCount">
+				</action>
+				<action name="soapui-client-action" class="org.jboss.soa.esb.actions.soap.SOAPClient">
+					<property name="wsdl"
+						value="http://127.0.0.1:8080/EJBServer/ListUserInterface?wsdl" />
+					<property name="SOAPAction" value="incrementUserEmailCount" />
+					<property name="responseAsOgnlMap" value="true" />
+
+				</action>
+				<action name="response-mapper" class="eai.msejdf.esb.MyResponseAction">
+				</action>
+
+			</actions>
+		</service>
+
+
+
 
 	</services>
 

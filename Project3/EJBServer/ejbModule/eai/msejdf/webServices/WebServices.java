@@ -25,8 +25,10 @@ import eai.msejdf.sort.UserSort;
 /**
  * Bean implementing interface for webServices calls related calls
  */
-@WebService(name = "ListUserInterface", targetNamespace = "http://www.eai.org/mssjdf", serviceName = "ListUserService")
+// @WebService(name = "ListUserInterface", targetNamespace =
+// "http://www.eai.org/mssjdf", serviceName = "ListUserService")
 // @Remote(IAdmin.class)
+@WebService(name = "ListUserInterface", targetNamespace = "http://www.eai.org/msejdf")
 @Stateless(name = "WebServices")
 @LocalBean
 public class WebServices implements IWebServices {
@@ -53,6 +55,21 @@ public class WebServices implements IWebServices {
 	}
 
 	/**
+	 * WebMethod Gets the user list that follow company id=companyId sorted by
+	 * user sort type.
+	 * 
+	 * @param companyId
+	 * @return
+	 */
+	@Override
+	@WebMethod
+	public List<eai.msejdf.esb.User> getUsersFollowingCompany(
+			@WebParam(name = "companyId") Long companyId) {
+		return this.getUsersFollowingCompany(companyId, UserSort.NAME_ASC);
+		// return this.getUserList(null, UserSort.NAME_ASC);
+	}
+
+	/**
 	 * WebMethod Gets the user numbers of sent emails
 	 * 
 	 * @param userId
@@ -66,12 +83,7 @@ public class WebServices implements IWebServices {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getUser(String) - start"); //$NON-NLS-1$
 		}
-		
-		
-		System.out.println("#########################################\n");
-		System.out.println("userId = " + userId);
-		System.out.println("#########################################\n");
-		
+
 		if (null == userId) {
 			throw new InvalidParameterException();
 		}
@@ -97,15 +109,14 @@ public class WebServices implements IWebServices {
 	}
 
 	/**
-	 * WebMethod Sets the user numbers of sent emails
+	 * WebMethod Sets the user numbers of sent emails by one
 	 * 
 	 * @param userId
 	 * @return
 	 * @throws ConfigurationException
 	 */
 	@Override
-	public void setUserEmailCount(@WebParam(name = "userId") Long userId,
-			@WebParam(name = "emailCount") Integer emailCount)
+	public void incrementUserEmailCount(@WebParam(name = "userId") Long userId)
 			throws ConfigurationException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("setBankTeller(Long, Long) - start"); //$NON-NLS-1$
@@ -117,8 +128,8 @@ public class WebServices implements IWebServices {
 
 		User user = getUser(userId);
 
-		// Setting user EmailCount
-		user.setEmailCount(emailCount);
+		// increments user EmailCount by one
+		user.setEmailCount(user.getEmailCount() + 1);
 
 		entityManager.persist(user);
 
@@ -183,7 +194,8 @@ public class WebServices implements IWebServices {
 	 */
 	@Override
 	@WebMethod(exclude = true)
-	public List<eai.msejdf.esb.User> getUserList(Integer ageThreshold, UserSort sortType) {
+	public List<eai.msejdf.esb.User> getUserList(Integer ageThreshold,
+			UserSort sortType) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getUserList(Integer, UserSort) - start"); //$NON-NLS-1$
 		}
@@ -210,7 +222,7 @@ public class WebServices implements IWebServices {
 
 		@SuppressWarnings("unchecked")
 		List<User> userList = query.getResultList();
-		for (User user : userList){
+		for (User user : userList) {
 			responseUser.setUsername(user.getUsername());
 			responseUser.setName(user.getName());
 			responseUser.setMailAddress(user.getEmail());
@@ -249,6 +261,50 @@ public class WebServices implements IWebServices {
 			break;
 		}
 		return sortBy;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see eai.msejdf.admin.IAdmin#getUserFollowCompanyList(java.lang.Long,
+	 * eai.msejdf.sort.UserSort)
+	 */
+	@Override
+	@WebMethod(exclude = true)
+	public List<eai.msejdf.esb.User> getUsersFollowingCompany(Long companyId,
+			UserSort sortType) {
+		if (logger.isDebugEnabled()) {
+			logger.debug("getUserFollowCompanyList(String, int, int) - start"); //$NON-NLS-1$
+		}
+
+		// basic validations
+		if (null == companyId) {
+			throw new IllegalArgumentException("companyId");
+		}
+
+		String sortBy = buildUserSortType(sortType);
+
+		eai.msejdf.esb.User responseUser = new eai.msejdf.esb.User();
+		ArrayList<eai.msejdf.esb.User> listOfUsers = new ArrayList<eai.msejdf.esb.User>();
+
+		Query query = entityManager
+				.createQuery("SELECT user FROM User user join fetch user.subscribedCompanies as comp "
+						+ "WHERE comp.id=:id " + sortBy);
+
+		query.setParameter("id", companyId);
+
+		@SuppressWarnings("unchecked")
+		List<User> userList = query.getResultList();
+		for (User user : userList) {
+			responseUser.setUsername(user.getUsername());
+			responseUser.setName(user.getName());
+			responseUser.setMailAddress(user.getEmail());
+			listOfUsers.add(responseUser);
+		}
+		if (logger.isDebugEnabled()) {
+			logger.debug("getUserFollowCompanyList(String, int, int) - end"); //$NON-NLS-1$
+		}
+		return listOfUsers;
 	}
 
 }
