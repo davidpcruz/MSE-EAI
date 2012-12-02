@@ -2,4 +2,18 @@
 <jbossesb-deployment>
 <jmsQueue>bpm_start_request_gw</jmsQueue>
 <jmsQueue>bpm_start_request_esb</jmsQueue>
+
+<!-- TODO: Remove. Temporary for debug START -->
+<jmsQueue>bpm_mail_dispatch_request_gw</jmsQueue>
+<jmsQueue>bpm_mail_dispatch_request_esb</jmsQueue>
+
+<jmsQueue>bpm_mail_count_request_gw</jmsQueue>
+<jmsQueue>bpm_mail_count_request_esb</jmsQueue>
+
+<jmsQueue>bpm_test_request_gw</jmsQueue>
+<jmsQueue>bpm_test_request_gw_reply</jmsQueue>
+<jmsQueue>bpm_test_request_esb</jmsQueue>
+<jmsQueue>bpm_test_request_esb_reply</jmsQueue>
+<!-- TODO: Remove. Temporary for debug END -->
+
 </jbossesb-deployment>

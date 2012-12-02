@@ -4,6 +4,7 @@
 	<comment></comment>
 	<projects>
 		<project>JBPMServices</project>
+		<project>EAICommon</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
