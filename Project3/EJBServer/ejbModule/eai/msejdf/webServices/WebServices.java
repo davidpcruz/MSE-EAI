@@ -7,6 +7,7 @@ import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.jws.WebMethod;
+import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -50,7 +51,6 @@ public class WebServices implements IWebServices {
 		return this.getUserList(null, UserSort.NAME_ASC);
 	}
 
-
 	/**
 	 * WebMethod Gets the user numbers of sent emails
 	 * 
@@ -60,11 +60,17 @@ public class WebServices implements IWebServices {
 	 */
 	@Override
 	@WebMethod
-	public Integer getUserEmailCount(Long userId) throws ConfigurationException {
+	public Integer getUserEmailCount(@WebParam(name = "userId") Long userId)
+			throws ConfigurationException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getUser(String) - start"); //$NON-NLS-1$
 		}
-
+		
+		
+		System.out.println("#########################################\n");
+		System.out.println("userId = " + userId);
+		System.out.println("#########################################\n");
+		
 		if (null == userId) {
 			throw new InvalidParameterException();
 		}
@@ -97,7 +103,8 @@ public class WebServices implements IWebServices {
 	 * @throws ConfigurationException
 	 */
 	@Override
-	public void setUserEmailCount(Long userId, Integer emailCount)
+	public void setUserEmailCount(@WebParam(name = "userId") Long userId,
+			@WebParam(name = "emailCount") Integer emailCount)
 			throws ConfigurationException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("setBankTeller(Long, Long) - start"); //$NON-NLS-1$
@@ -123,6 +130,7 @@ public class WebServices implements IWebServices {
 	// implementing it again
 	/**
 	 * Gets the user by user id
+	 * 
 	 * @param userId
 	 * @return
 	 * @throws ConfigurationException
@@ -146,7 +154,8 @@ public class WebServices implements IWebServices {
 		List<User> userList = query.getResultList();
 		if (true == userList.isEmpty()) {
 			// The user doesn't seem to exist
-			throw new ConfigurationException(WebServices.EXCEPTION_USER_NOT_FOUND);
+			throw new ConfigurationException(
+					WebServices.EXCEPTION_USER_NOT_FOUND);
 		}
 
 		User user = userList.get(0);
