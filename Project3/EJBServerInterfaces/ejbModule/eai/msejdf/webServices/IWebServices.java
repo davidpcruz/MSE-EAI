@@ -25,7 +25,7 @@ public interface IWebServices {
 	 *            the sort type
 	 * @return the user list
 	 */
-	public List<String> getUserListAll();
+	public List<eai.msejdf.esb.User> getUserListAll();
 
 	/**
 	 * WebMethod Gets the user numbers of sent emails
@@ -61,6 +61,6 @@ public interface IWebServices {
 	 * @param sortType
 	 * @return
 	 */
-	List<String> getUserList(Integer ageThreshold, UserSort sortType);
+	List<eai.msejdf.esb.User> getUserList(Integer ageThreshold, UserSort sortType);
 
 }

@@ -19,7 +19,6 @@ import org.apache.log4j.Logger;
 import eai.msejdf.admin.Admin;
 import eai.msejdf.exception.ConfigurationException;
 import eai.msejdf.persistence.BankTeller;
-import eai.msejdf.persistence.Company;
 import eai.msejdf.persistence.User;
 import eai.msejdf.sort.UserSort;
 
@@ -49,7 +48,7 @@ public class WebServices implements IWebServices {
 	 */
 	@Override
 	@WebMethod
-	public List<String> getUserListAll() {
+	public List<eai.msejdf.esb.User> getUserListAll() {
 		return this.getUserList(null, UserSort.NAME_ASC);
 	}
 
@@ -184,13 +183,14 @@ public class WebServices implements IWebServices {
 	 */
 	@Override
 	@WebMethod(exclude = true)
-	public List<String> getUserList(Integer ageThreshold, UserSort sortType) {
+	public List<eai.msejdf.esb.User> getUserList(Integer ageThreshold, UserSort sortType) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getUserList(Integer, UserSort) - start"); //$NON-NLS-1$
 		}
 
 		String sortBy = buildUserSortType(sortType);
-		ArrayList<String> listOfUserNames = new ArrayList<String>();
+		eai.msejdf.esb.User responseUser = new eai.msejdf.esb.User();
+		ArrayList<eai.msejdf.esb.User> listOfUsers = new ArrayList<eai.msejdf.esb.User>();
 		Query query;
 
 		// Different query based on the age restriction
@@ -211,12 +211,15 @@ public class WebServices implements IWebServices {
 		@SuppressWarnings("unchecked")
 		List<User> userList = query.getResultList();
 		for (User user : userList){
-			listOfUserNames.add(user.getName());
+			responseUser.setUsername(user.getUsername());
+			responseUser.setName(user.getName());
+			responseUser.setMailAddress(user.getEmail());
+			listOfUsers.add(responseUser);
 		}
 		if (logger.isDebugEnabled()) {
 			logger.debug("getUserList(Integer, UserSort) - end"); //$NON-NLS-1$
 		}
-		return listOfUserNames;
+		return listOfUsers;
 	}
 
 	/**
