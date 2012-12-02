@@ -16,6 +16,30 @@
 				<jms-message-filter dest-name="queue/EAIProj3_esb"
 					dest-type="QUEUE" />
 			</jms-bus>
+			<jms-bus busid="GetUserEmailCountGwChannel">
+				<jms-message-filter dest-name="queue/GetUserEmailCount_gateway"
+					dest-type="QUEUE" /> 
+			</jms-bus>
+			<jms-bus busid="GetUserEmailCountEsbChannel">
+				<jms-message-filter dest-name="queue/GetUserEmailCount_esb"
+					dest-type="QUEUE" />
+			</jms-bus>
+			<jms-bus busid="GetUsersFollowingCompanyGwChannel">
+				<jms-message-filter dest-name="queue/GetUsersFollowingCompany_gateway"
+					dest-type="QUEUE" />
+			</jms-bus>
+			<jms-bus busid="GetUsersFollowingCompanyEsbChannel">
+				<jms-message-filter dest-name="queue/GetUsersFollowingCompany_esb"
+					dest-type="QUEUE" />
+			</jms-bus>
+			<jms-bus busid="SendMailGwChannel">
+				<jms-message-filter dest-name="queue/SendMail_gateway"
+					dest-type="QUEUE" />
+			</jms-bus>
+			<jms-bus busid="SendMailEsbChannel">
+				<jms-message-filter dest-name="queue/SendMail_esb"
+					dest-type="QUEUE" />
+			</jms-bus>
 		</jms-provider>
 	</providers>
 
@@ -42,10 +66,10 @@
 			description="EAI_ESB: Gets the number of emails sent to a user">
 
 			<listeners>
-				<jms-listener busidref="EAIProj3GwChannel" is-gateway="true"
+				<jms-listener busidref="GetUserEmailCountGwChannel" is-gateway="true"
 					name="JMS-Gateway" />
-				<jms-listener busidref="EAIProj3EsbChannel" name="getUserEmailCount" />
-			</listeners>
+				<jms-listener busidref="GetUserEmailCountEsbChannel" name="getUserEmailCount" />
+			</listeners> 
 
 
 			<actions mep="OneWay">
@@ -72,9 +96,9 @@
 			description="EAI_ESB: Gets the number of emails sent to a user">
 
 			<listeners>
-				<jms-listener busidref="EAIProj3GwChannel" is-gateway="true"
+				<jms-listener busidref="GetUsersFollowingCompanyGwChannel" is-gateway="true"
 					name="JMS-Gateway" />
-				<jms-listener busidref="EAIProj3EsbChannel" name="getUsersFollowingCompany" />
+				<jms-listener busidref="GetUsersFollowingCompanyEsbChannel" name="getUsersFollowingCompany" />
 			</listeners>
 
 
@@ -99,7 +123,7 @@
 			name="Send e-mail">
 
 			<listeners>
-				<jms-listener busidref="EAIProj3EsbChannel" name="Send e-mail" />
+				<jms-listener busidref="SendMailEsbChannel" name="Send e-mail" />
 			</listeners>
 
 			<actions mep="RequestResponse">

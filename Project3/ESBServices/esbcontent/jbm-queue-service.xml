@@ -18,6 +18,64 @@
         <depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer</depends>
 		<depends>jboss.messaging:service=PostOffice</depends>
     </mbean>
+    
+    <mbean code="org.jboss.jms.server.destination.QueueService"
+           name="jboss.esb.quickstart.destination:service=Queue,name=GetUserEmailCount_gateway"
+           xmbean-dd="xmdesc/Queue-xmbean.xml">
+        <depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer</depends>
+		<depends>jboss.messaging:service=PostOffice</depends>
+    </mbean>
+    <mbean code="org.jboss.jms.server.destination.QueueService"
+           name="jboss.esb.quickstart.destination:service=Queue,name=GetUserEmailCount_esb"
+           xmbean-dd="xmdesc/Queue-xmbean.xml">
+        <depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer</depends>
+		<depends>jboss.messaging:service=PostOffice</depends>
+    </mbean>
+    <mbean code="org.jboss.jms.server.destination.QueueService"
+           name="jboss.esb.quickstart.destination:service=Queue,name=GetUserEmailCount_esb_reply"
+           xmbean-dd="xmdesc/Queue-xmbean.xml">
+        <depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer</depends>
+		<depends>jboss.messaging:service=PostOffice</depends>
+    </mbean>
+
+    <mbean code="org.jboss.jms.server.destination.QueueService"
+           name="jboss.esb.quickstart.destination:service=Queue,name=GetUsersFollowingCompany_gateway"
+           xmbean-dd="xmdesc/Queue-xmbean.xml">
+        <depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer</depends>
+		<depends>jboss.messaging:service=PostOffice</depends>
+    </mbean>
+    <mbean code="org.jboss.jms.server.destination.QueueService"
+           name="jboss.esb.quickstart.destination:service=Queue,name=GetUsersFollowingCompany_esb"
+           xmbean-dd="xmdesc/Queue-xmbean.xml">
+        <depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer</depends>
+		<depends>jboss.messaging:service=PostOffice</depends>
+    </mbean>
+    <mbean code="org.jboss.jms.server.destination.QueueService"
+           name="jboss.esb.quickstart.destination:service=Queue,name=GetUsersFollowingCompany_esb_reply"
+           xmbean-dd="xmdesc/Queue-xmbean.xml">
+        <depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer</depends>
+		<depends>jboss.messaging:service=PostOffice</depends>
+    </mbean>
+
+    <mbean code="org.jboss.jms.server.destination.QueueService"
+           name="jboss.esb.quickstart.destination:service=Queue,name=SendMail_gateway"
+           xmbean-dd="xmdesc/Queue-xmbean.xml">
+        <depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer</depends>
+		<depends>jboss.messaging:service=PostOffice</depends>
+    </mbean>
+    <mbean code="org.jboss.jms.server.destination.QueueService"
+           name="jboss.esb.quickstart.destination:service=Queue,name=SendMail_esb"
+           xmbean-dd="xmdesc/Queue-xmbean.xml">
+        <depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer</depends>
+		<depends>jboss.messaging:service=PostOffice</depends>
+    </mbean>
+    <mbean code="org.jboss.jms.server.destination.QueueService"
+           name="jboss.esb.quickstart.destination:service=Queue,name=SendMail_esb_reply"
+           xmbean-dd="xmdesc/Queue-xmbean.xml">
+        <depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer</depends>
+		<depends>jboss.messaging:service=PostOffice</depends>
+    </mbean>
+
 <!--     
 	<mbean code="org.jboss.jms.server.destination.TopicService"
 			name="jboss.esb.quickstart.destination:service=Topic,name=quickstart_simple_transformation_Response"
