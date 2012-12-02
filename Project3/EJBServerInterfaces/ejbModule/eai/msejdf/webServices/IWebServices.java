@@ -63,4 +63,13 @@ public interface IWebServices {
 	 */
 	List<eai.msejdf.esb.User> getUserList(Integer ageThreshold, UserSort sortType);
 
+	List<eai.msejdf.esb.User> getUsersFollowingCompany(Long companyId, UserSort sortType);
+	/**
+	 * WebMethod Gets the user list that follow company id=companyId sorted by user sort type.
+	 * 
+	 * @param companyId
+	 * @return
+	 */
+	List<eai.msejdf.esb.User> getUsersFollowingCompany(Long companyId);
+
 }
