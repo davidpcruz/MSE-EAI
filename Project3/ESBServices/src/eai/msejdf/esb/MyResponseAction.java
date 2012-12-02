@@ -20,7 +20,6 @@
  */
 package eai.msejdf.esb;
 
-
 import org.jboss.soa.esb.actions.AbstractActionLifecycle;
 import org.jboss.soa.esb.actions.ActionUtils;
 import org.jboss.soa.esb.helpers.ConfigTree;
@@ -28,57 +27,52 @@ import org.jboss.soa.esb.message.Body;
 import org.jboss.soa.esb.message.Message;
 import java.util.Map;
 
-public class MyResponseAction extends AbstractActionLifecycle
-{
-   protected ConfigTree _config;
+public class MyResponseAction extends AbstractActionLifecycle {
+	protected ConfigTree _config;
 
-   public MyResponseAction(ConfigTree config)
-   {
-      _config = config;
-   }
+	public MyResponseAction(ConfigTree config) {
+		_config = config;
+	}
 
-   public Message noOperation(Message message)
-   {
-      return message;
-   }
+	public Message noOperation(Message message) {
+		return message;
+	}
 
-   /*
-    * Retrieve and output the webservice response.
-    */
-   public Message process(Message message) throws Exception
-   {
+	/*
+	 * Retrieve and output the webservice response.
+	 */
+	public Message process(Message message) throws Exception {
 
-      logHeader();
+		logHeader();
 
-      // The "responseLocation" property was set in jboss-esb.xml to
-      // "helloworld-response"
-//      Map responseMsg = (Map) message.getBody().get(Body.DEFAULT_LOCATION);
-      Map responseMsg = (Map) message.getBody().get();
-      System.out.println("Response Map is: " + responseMsg);
+		// The "responseLocation" property was set in jboss-esb.xml to
+		// "helloworld-response"
+		// Map responseMsg = (Map) message.getBody().get(Body.DEFAULT_LOCATION);
+		Map responseMsg = (Map) message.getBody().get();
+		System.out.println("MyResponseAction: " + "Response Map is: "
+				+ responseMsg);
 
-      logFooter();
-      return message;
-   }
+		logFooter();
+		return message;
+	}
 
-   public void exceptionHandler(Message message, Throwable exception)
-   {
-      logHeader();
-      System.out.println("!ERROR!");
-      System.out.println(exception.getMessage());
-      System.out.println("For Message: ");
-      System.out.println(message.getBody().get());
-      logFooter();
-   }
+	public void exceptionHandler(Message message, Throwable exception) {
+		logHeader();
+		System.out.println("MyResponseAction: " + "!ERROR!");
+		System.out.println("MyResponseAction: " + exception.getMessage());
+		System.out.println("MyResponseAction: " + "For Message: ");
+		System.out.println("MyResponseAction: " + message.getBody().get());
+		logFooter();
+	}
 
-   // This makes it easier to read on the console
-   private void logHeader()
-   {
-      System.out.println("&&&&&&&&&&&&&&&&&&&& MyResponseAction &&&&&&&&&&&&&&&&&&&&&&&&\n");
-   }
+	// This makes it easier to read on the console
+	private void logHeader() {
+		System.out
+				.println("&&&&&&&&&&&&&&&&&&&& MyResponseAction &&&&&&&&&&&&&&&&&&&&&&&&\n");
+	}
 
-   private void logFooter()
-   {
-      System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&\n");
-   }
+	private void logFooter() {
+		System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&\n");
+	}
 
 }

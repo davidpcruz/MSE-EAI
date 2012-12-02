@@ -25,8 +25,9 @@ import eai.msejdf.sort.UserSort;
 /**
  * Bean implementing interface for webServices calls related calls
  */
-@WebService(name = "ListUserInterface", targetNamespace = "http://www.eai.org/mssjdf", serviceName = "ListUserService")
+//@WebService(name = "ListUserInterface", targetNamespace = "http://www.eai.org/mssjdf", serviceName = "ListUserService")
 // @Remote(IAdmin.class)
+@WebService(name = "ListUserInterface", targetNamespace = "http://www.eai.org/mssjdf")
 @Stateless(name = "WebServices")
 @LocalBean
 public class WebServices implements IWebServices {
