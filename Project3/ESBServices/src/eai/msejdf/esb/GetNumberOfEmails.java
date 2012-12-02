@@ -27,7 +27,7 @@ public class GetNumberOfEmails extends AbstractActionLifecycle {
 		HashMap requestMap = new HashMap();
 
 		// add paramaters to the web service request map
-		requestMap.put("toWhom", msgBody);
+		requestMap.put("userId", msgBody);
 
 		message.getBody().add(requestMap);
 		System.out.println("Request map is: " + requestMap.toString());
@@ -47,7 +47,7 @@ public class GetNumberOfEmails extends AbstractActionLifecycle {
 
 	// This makes it easier to read on the console
 	private void logHeader() {
-		System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&\n");
+		System.out.println("&&&&&&&&&&&&&&&&&&&&&& GetNumberOfEmails &&&&&&&&&&&&&&&&&&&&&&\n");
 	}
 
 	private void logFooter() {
