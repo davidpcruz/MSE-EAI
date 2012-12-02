@@ -22,7 +22,7 @@
 			</action>
 		</transition>
 
-		<transition to="Notify User" name="Notify User">
+		<transition to="Get Subscribed Users" name="Notify User">
 			<!-- TODO: Remove this action (used for debugging) -->
 			<action name="action" class="eai.msejdf.jbpm.actions.MessageActionHandler">
 				<message>Notify user</message>
@@ -71,7 +71,7 @@
 			</action>
 		</transition>
 
-		<transition to="Notify User" name="Approve Notification">
+		<transition to="Get Subscribed Users" name="Approve Notification">
 
 			<!-- TODO: Remove this action (used for debugging) -->
 			<action name="action3" class="eai.msejdf.jbpm.actions.MessageActionHandler">
@@ -79,6 +79,11 @@
 			</action>
 		</transition>
 	</task-node>
+
+	<node name="Get Subscribed Users">
+		<!-- TODO Get user list  -->
+		<transition to="Notify User"></transition>
+	</node>
 
 	<fork name="Notify User">
 		<transition to="Send e-Mail" name="Start e-mail sending">

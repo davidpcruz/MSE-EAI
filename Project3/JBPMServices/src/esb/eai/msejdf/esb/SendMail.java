@@ -15,8 +15,6 @@ import eai.msejdf.utils.StringUtils;
 
 public class SendMail extends AbstractActionLifecycle {
 
-	private static final String MAIL_ADDRESS_SEPARATOR = ",";
-	
 	private static final Logger logger = Logger.getLogger(SendMail.class);
 
 	protected ConfigTree _config;
@@ -45,7 +43,7 @@ public class SendMail extends AbstractActionLifecycle {
 		else 
 		{
 			// mailTo may contain multiple addresses. Extract each to send separate mails
-			List<String> addressList = Arrays.asList(mailTo.split(SendMail.MAIL_ADDRESS_SEPARATOR));
+			List<String> addressList = Arrays.asList(mailTo.split(SOAMessageConstants.MAIL_ADDRESS_SEPARATOR));
 			boolean status;
 			
 			for(String address : addressList)
