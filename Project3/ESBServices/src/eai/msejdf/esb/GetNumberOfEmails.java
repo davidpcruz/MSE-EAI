@@ -27,14 +27,14 @@ public class GetNumberOfEmails extends AbstractActionLifecycle {
 		HashMap requestMap = new HashMap();
 
 		// add paramaters to the web service request map
-		System.out.println("#########################################\n");
+		System.out.println("################### GetNumberOfEmails ######################\n");
 		System.out.println("userId = " + msgBody);
-		System.out.println("#########################################\n");
+		
 		requestMap.put("userId", msgBody);
 
 		message.getBody().add(requestMap);
 		System.out.println("Request map is: " + requestMap.toString());
-
+		System.out.println("################### GetNumberOfEmails ######################\n");
 		logFooter();
 		return message;
 	}
@@ -54,7 +54,7 @@ public class GetNumberOfEmails extends AbstractActionLifecycle {
 	}
 
 	private void logFooter() {
-		System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&\n");
+		System.out.println("&&&&&&&&&&&&&&&&&&&&&& GetNumberOfEmails &&&&&&&&&&&&&&&&&&&&&&\n");
 	}
 
 }

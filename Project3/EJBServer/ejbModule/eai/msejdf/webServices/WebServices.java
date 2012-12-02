@@ -1,6 +1,7 @@
 package eai.msejdf.webServices;
 
 import java.security.InvalidParameterException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import org.apache.log4j.Logger;
 import eai.msejdf.admin.Admin;
 import eai.msejdf.exception.ConfigurationException;
 import eai.msejdf.persistence.BankTeller;
+import eai.msejdf.persistence.Company;
 import eai.msejdf.persistence.User;
 import eai.msejdf.sort.UserSort;
 
@@ -47,7 +49,7 @@ public class WebServices implements IWebServices {
 	 */
 	@Override
 	@WebMethod
-	public List<User> getUserListAll() {
+	public List<String> getUserListAll() {
 		return this.getUserList(null, UserSort.NAME_ASC);
 	}
 
@@ -160,6 +162,7 @@ public class WebServices implements IWebServices {
 
 		User user = userList.get(0);
 		BankTeller bankTeller = user.getBankTeller();
+
 		if (null != bankTeller) {
 			bankTeller.getId(); // To overcome Lazzy parameter
 		}
@@ -181,13 +184,13 @@ public class WebServices implements IWebServices {
 	 */
 	@Override
 	@WebMethod(exclude = true)
-	public List<User> getUserList(Integer ageThreshold, UserSort sortType) {
+	public List<String> getUserList(Integer ageThreshold, UserSort sortType) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getUserList(Integer, UserSort) - start"); //$NON-NLS-1$
 		}
 
 		String sortBy = buildUserSortType(sortType);
-
+		ArrayList<String> listOfUserNames = new ArrayList<String>();
 		Query query;
 
 		// Different query based on the age restriction
@@ -207,11 +210,13 @@ public class WebServices implements IWebServices {
 
 		@SuppressWarnings("unchecked")
 		List<User> userList = query.getResultList();
-
+		for (User user : userList){
+			listOfUserNames.add(user.getName());
+		}
 		if (logger.isDebugEnabled()) {
 			logger.debug("getUserList(Integer, UserSort) - end"); //$NON-NLS-1$
 		}
-		return userList;
+		return listOfUserNames;
 	}
 
 	/**
