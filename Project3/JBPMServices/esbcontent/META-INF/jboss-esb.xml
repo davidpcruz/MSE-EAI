@@ -14,19 +14,11 @@
 				<jms-message-filter dest-name="queue/bpm_start_request_esb"
 					dest-type="QUEUE" />
 			</jms-bus>
-
-
-			<!-- TODO: Remove. This is temporary for debug -->
-			<jms-bus busid="mailDispatchGwChannel">
-				<jms-message-filter dest-name="queue/bpm_mail_dispatch_request_gw"
+			<jms-bus busid="EAIProj3EsbChannel">
+				<jms-message-filter dest-name="queue/EAIProj3_esb"
 					dest-type="QUEUE" />
 			</jms-bus>
-
-			<!-- TODO: Remove. This is temporary for debug -->
-			<jms-bus busid="mailDispatchEsbChannel">
-				<jms-message-filter dest-name="queue/bpm_mail_dispatch_request_esb"
-					dest-type="QUEUE" />
-			</jms-bus>
+			
 
 			<!-- TODO: Remove. This is temporary for debug -->
 			<jms-bus busid="mailCountGwChannel">
@@ -40,17 +32,6 @@
 					dest-type="QUEUE" />
 			</jms-bus>
 
-			<!-- TODO: Remove. This is temporary for debug -->
-			<jms-bus busid="testGwChannel">
-				<jms-message-filter dest-name="queue/bpm_test_request_gw"
-					dest-type="QUEUE" />
-			</jms-bus>
-
-			<!-- TODO: Remove. This is temporary for debug -->
-			<jms-bus busid="testEsbChannel">
-				<jms-message-filter dest-name="queue/bpm_test_request_esb"
-					dest-type="QUEUE" />
-			</jms-bus>
 		</jms-provider>
 	</providers>
 	<services>
@@ -63,10 +44,12 @@
 			<listeners>
 				<jms-listener busidref="startGwChannel" is-gateway="true"
 					name="JMS-Gateway" />
-				<jms-listener busidref="startEsbChannel" name="ESB-Listener" />
+ 				<jms-listener busidref="startEsbChannel" name="ESB-Listener" />
+ 				<jms-listener busidref="EAIProj3EsbChannel" name="EAI-ESB-Listener" />
+				
 			</listeners>
 
-			<actions mep="OneWay">
+			<actions mep="RequestResponse">
 
 				<action name="entryPrint" class="org.jboss.soa.esb.actions.SystemPrintln">
 					<property name="message" value="Starting jBPM Orchestration Process..."></property>
@@ -89,57 +72,6 @@
 			</actions>
 		</service>
 
-		<!-- e-mail dispatch service -->
-		<service category="EAI.MSEJDF.Service"
-			description="e-mail dispatch service"
-			name="Send e-mail">
-
-			<listeners>
-				<jms-listener busidref="mailDispatchGwChannel" is-gateway="true"
-					name="JMS-Gateway" />
-				<jms-listener busidref="mailDispatchEsbChannel" name="ESB-Listener" />
-			</listeners>
-
-			<actions mep="OneWay">
-
-				<action name="entryPrint" class="org.jboss.soa.esb.actions.SystemPrintln">
-					<property name="message" value="Start e-mail sending..."></property>
-				</action>
-
-				<action name="send-email" class="eai.msejdf.esb.SendMail">
-				</action>
-
-				<action name="exitPrint" class="org.jboss.soa.esb.actions.SystemPrintln">
-					<property name="message"
-						value="Starte-mail sending...Complete"></property>
-				</action>
-
-			</actions>
-		</service>
-
-		<!-- TODO: Remove. This is temporary for debug -->
-		<service category="EAI.MSEJDF.Service" description="TODO: Remove. Temporary service for debug"
-			name="Send e-mail (test)">
-
-			<listeners>
-				<jms-listener busidref="mailDispatchGwChannel"
-					is-gateway="true" name="JMS-Gateway" />
-				<jms-listener busidref="mailDispatchEsbChannel" name="ESB-Listener" />
-			</listeners>
-
-			<actions mep="OneWay">
-
-				<action name="entryPrint" class="org.jboss.soa.esb.actions.SystemPrintln">
-					<property name="message" value="Send e-mail Service..."></property>
-				</action>
-
-
-				<action name="exitPrint" class="org.jboss.soa.esb.actions.SystemPrintln">
-					<property name="message" value="Send e-mail Service...Complete"></property>
-				</action>
-
-			</actions>
-		</service>
 
 		<!-- TODO: Remove. This is temporary for debug -->
 		<service category="EAI.MSEJDF.Service" description="TODO: Remove. Temporary service for debug"
@@ -151,7 +83,7 @@
 				<jms-listener busidref="mailCountEsbChannel" name="ESB-Listener" />
 			</listeners>
 
-			<actions mep="OneWay">
+			<actions mep="RequestResponse">
 
 				<action name="entryPrint" class="org.jboss.soa.esb.actions.SystemPrintln">
 					<property name="message" value="Count e-mail Service..."></property>
@@ -166,56 +98,5 @@
 		</service>
 
 
-		<!-- TODO: Remove. This is temporary for debug -->
-		<service category="TestCategory" description="TODO: Remove. Temporary service for debug"
-			name="TestService">
-
-			<listeners>
-				<jms-listener busidref="testGwChannel" is-gateway="true"
-					name="JMS-Gateway" />
-				<jms-listener busidref="testEsbChannel" name="ESB-Listener" />
-			</listeners>
-
-			<actions mep="OneWay">
-
-				<action name="entryPrint" class="org.jboss.soa.esb.actions.SystemPrintln">
-					<property name="message" value="Test Service..."></property>
-				</action>
-
-				<action name="delay" class="eai.msejdf.esb.MyDelay">
-				</action>
-
-				<action name="exitPrint" class="org.jboss.soa.esb.actions.SystemPrintln">
-					<property name="message" value="Test Service...Complete"></property>
-				</action>
-
-			</actions>
-		</service>
-		
-		<!-- TODO: Remove. This is temporary for debug -->
-		<service category="TestCategory" description="TODO: Remove. Temporary service for debug"
-			name="TestService2">
-
-			<listeners>
-				<jms-listener busidref="testGwChannel" is-gateway="true"
-					name="JMS-Gateway" />
-				<jms-listener busidref="testEsbChannel" name="ESB-Listener" />
-			</listeners>
-
-			<actions mep="OneWay">
-
-				<action name="entryPrint" class="org.jboss.soa.esb.actions.SystemPrintln">
-					<property name="message" value="Test Service2..."></property>
-				</action>
-
-				<action name="delay" class="eai.msejdf.esb.MyDelay2">
-				</action>
-
-				<action name="exitPrint" class="org.jboss.soa.esb.actions.SystemPrintln">
-					<property name="message" value="Test Service2...Complete"></property>
-				</action>
-
-			</actions>
-		</service>		
 	</services>
 </jbossesb>

@@ -13,6 +13,9 @@ import eai.msejdf.utils.SOAMessageConstants;
 import eai.msejdf.utils.EmailUtils;
 import eai.msejdf.utils.StringUtils;
 
+/**
+ * Esb Service that sends an e-mail to a list of e-mail addresses
+ */
 public class SendMail extends AbstractActionLifecycle {
 
 	private static final Logger logger = Logger.getLogger(SendMail.class);
@@ -25,6 +28,7 @@ public class SendMail extends AbstractActionLifecycle {
 			logger.debug("SendMail - start");
 		}
 
+		// Retrieve the supplied mail parameter
 		String mailTo = (String) message.getBody().get(SOAMessageConstants.ESB_MAIL_TO);
 		String mailSubject = (String) message.getBody().get(SOAMessageConstants.ESB_MAIL_SUBJECT);
 		String mailMessage = (String) message.getBody().get();
@@ -42,7 +46,8 @@ public class SendMail extends AbstractActionLifecycle {
 		} 
 		else 
 		{
-			// mailTo may contain multiple addresses. Extract each to send separate mails
+			// Send an e-mail to an address
+			// Note: mailTo may contain multiple addresses. Extract each to send separate mails
 			List<String> addressList = Arrays.asList(mailTo.split(SOAMessageConstants.MAIL_ADDRESS_SEPARATOR));
 			boolean status;
 			

@@ -20,7 +20,7 @@
 	</providers>
 
 	<services>
-		<service category="EAI_ESB" name="SmooksSpliter"
+		 <service category="EAI_ESB" name="SmooksSpliter"
 			description="EAI_ESB: Takes XML in and splits it in different companies">
 
 			<listeners>
@@ -55,7 +55,8 @@
 					<property name="wsdl"
 						value="http://127.0.0.1:8080/EJBServer/ListUserService/ListUserInterface?wsdl" />
 					<property name="SOAPAction" value="getUserEmailCount" />
-					<property name="SOAPService" value="{http://www.eai.org/mssjdf}ListUserService" />
+					<property name="SOAPService"
+						value="{http://www.eai.org/mssjdf}ListUserService" />
 					<property name="responseAsOgnlMap" value="true" />
 
 				</action>
@@ -91,7 +92,29 @@
 				</action>
 
 			</actions>
+		</service> 
+
+		<!-- e-mail dispatch service -->
+		<service category="EAI_ESB" description="EAI_ESB: e-mail dispatch service"
+			name="Send e-mail">
+
+			<listeners>
+				<jms-listener busidref="EAIProj3EsbChannel" name="Send e-mail" />
+			</listeners>
+
+			<actions mep="RequestResponse">
+				<action name="entryPrint" class="org.jboss.soa.esb.actions.SystemPrintln">
+					<property name="message" value="Start e-mail sending..."></property>
+				</action>
+
+				<action name="send-email" class="eai.msejdf.esb.SendMail"></action>
+				
+				<action name="exitPrint" class="org.jboss.soa.esb.actions.SystemPrintln">
+					<property name="message" value="Start e-mail sending...Complete"></property>
+				</action>
+			</actions>
 		</service>
+
 	</services>
 
 </jbossesb>

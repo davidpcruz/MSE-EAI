@@ -29,24 +29,7 @@
 			</action>
 		</transition>
 
-		<transition to="esb1" name="No Action Required">
-
-			<action
-				class="org.jboss.soa.esb.services.jbpm.actionhandlers.EsbActionHandler">
-				<esbServiceName>
-					TestService2
-				</esbServiceName>
-				<esbCategoryName>
-					TestCategory
-				</esbCategoryName>
-				<bpmToEsbVars>
-					<mapping bpm="msgBody" esb="BODY_CONTENT" />
-				</bpmToEsbVars>
-				<esbToBpmVars>
-					<mapping esb="BODY_CONTENT" bpm="msgBody" />
-				</esbToBpmVars>
-			</action>
-
+		<transition to="end-state1" name="No Action Required">
 			<!-- TODO: Remove this action (used for debugging) -->
 			<action name="action" class="eai.msejdf.jbpm.actions.MessageActionHandler">
 				<message>No Action required</message>
@@ -58,9 +41,6 @@
 
 		<task name="Approve stock variation e-mail notification">
 			<assignment actor-id="Manager"></assignment>
-
-			<!-- TODO: Remove <controller> <variable access="read,write,required" 
-				name="TECHNICAL_INTERVIEW_OK"></variable> </controller> -->
 		</task>
 
 		<transition to="end-state2" name="Reject notification">
@@ -99,14 +79,13 @@
 		<action name="esb Service Call - Send e-mail"
 			class="org.jboss.soa.esb.services.jbpm.actionhandlers.EsbActionHandler">
 			<esbCategoryName>
-				EAI.MSEJDF.Service
+				EAI_ESB
 			</esbCategoryName>
 			<esbServiceName>Send e-mail</esbServiceName>
 			<bpmToEsbVars>
 				<mapping bpm="msgBody" esb="BODY_CONTENT" />
 				<mapping bpm="mailTo" esb="mailTo" />
-				<mapping bpm="mailSubject" esb="mailSubject" />
-				
+				<mapping bpm="mailSubject" esb="mailSubject" />				
 			</bpmToEsbVars>
 			<esbToBpmVars>
 				<mapping esb="BODY_CONTENT" bpm="msgBody" />
@@ -124,7 +103,7 @@
 
 	<node name="Count e-Mail">
 		<action name="esb Service Call - Count e-mail"
-			class="org.jboss.soa.esb.services.jbpm.actionhandlers.EsbActionHandler">
+			class="org.jboss.soa.esb.services.jbpm.actionhandlers.EsbActionHandler"  async="true"> 
 			<esbCategoryName>
 				EAI.MSEJDF.Service
 			</esbCategoryName>
@@ -154,25 +133,6 @@
 			</action>
 		</transition>
 	</join>
-
-	<node name="esb1">
-		<action
-			class="org.jboss.soa.esb.services.jbpm.actionhandlers.EsbActionHandler">
-			<esbServiceName>
-				TestService
-			</esbServiceName>
-			<esbCategoryName>
-				TestCategory
-			</esbCategoryName>
-			<bpmToEsbVars>
-				<mapping bpm="msgBody" esb="BODY_CONTENT" />
-			</bpmToEsbVars>
-			<esbToBpmVars>
-				<mapping esb="BODY_CONTENT" bpm="msgBody" />
-			</esbToBpmVars>
-		</action>
-		<transition to="end-state1"></transition>
-	</node>
 
 	<end-state name="end-state2">
 		<!-- TODO: Remove this action and event (used for debugging) -->
