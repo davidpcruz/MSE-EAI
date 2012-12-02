@@ -13,4 +13,69 @@
 		<depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer
 		</depends>
 	</mbean>
+
+	<!-- TODO: Remove. Temporary for debug -->
+	<mbean code="org.jboss.jms.server.destination.QueueService"
+		name="jboss.esb.quickstart.destination:service=Queue,name=bpm_mail_dispatch_request_gw"
+		xmbean-dd="xmdesc/Queue-xmbean.xml">
+		<depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer
+		</depends>
+	</mbean>
+
+	<!-- TODO: Remove. Temporary for debug -->
+	<mbean code="org.jboss.jms.server.destination.QueueService"
+		name="jboss.esb.quickstart.destination:service=Queue,name=bpm_mail_dispatch_request_esb"
+		xmbean-dd="xmdesc/Queue-xmbean.xml">
+		<depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer
+		</depends>
+	</mbean>
+
+	<!-- TODO: Remove. Temporary for debug -->
+	<mbean code="org.jboss.jms.server.destination.QueueService"
+		name="jboss.esb.quickstart.destination:service=Queue,name=bpm_mail_count_request_gw"
+		xmbean-dd="xmdesc/Queue-xmbean.xml">
+		<depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer
+		</depends>
+	</mbean>
+
+	<!-- TODO: Remove. Temporary for debug -->
+	<mbean code="org.jboss.jms.server.destination.QueueService"
+		name="jboss.esb.quickstart.destination:service=Queue,name=bpm_mail_count_request_esb"
+		xmbean-dd="xmdesc/Queue-xmbean.xml">
+		<depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer
+		</depends>
+	</mbean>
+
+	<!-- TODO: Remove. Temporary for debug -->
+	<mbean code="org.jboss.jms.server.destination.QueueService"
+		name="jboss.esb.quickstart.destination:service=Queue,name=bpm_test_request_gw"
+		xmbean-dd="xmdesc/Queue-xmbean.xml">
+		<depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer
+		</depends>
+	</mbean>
+
+	<!-- TODO: Remove. Temporary for debug -->
+	<mbean code="org.jboss.jms.server.destination.QueueService"
+		name="jboss.esb.quickstart.destination:service=Queue,name=bpm_test_request_esb"
+		xmbean-dd="xmdesc/Queue-xmbean.xml">
+		<depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer
+		</depends>
+	</mbean>
+
+	<!-- TODO: Remove. Temporary for debug -->
+	<mbean code="org.jboss.jms.server.destination.QueueService"
+		name="jboss.esb.quickstart.destination:service=Queue,name=bpm_test_request_gw_reply"
+		xmbean-dd="xmdesc/Queue-xmbean.xml">
+		<depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer
+		</depends>
+	</mbean>
+
+	<!-- TODO: Remove. Temporary for debug -->
+	<mbean code="org.jboss.jms.server.destination.QueueService"
+		name="jboss.esb.quickstart.destination:service=Queue,name=bpm_test_request_esb_reply"
+		xmbean-dd="xmdesc/Queue-xmbean.xml">
+		<depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer
+		</depends>
+	</mbean>
+
 </server>

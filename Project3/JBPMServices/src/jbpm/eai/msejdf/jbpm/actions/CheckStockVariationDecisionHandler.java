@@ -2,9 +2,15 @@ package eai.msejdf.jbpm.actions;
 
 import org.jbpm.graph.exe.ExecutionContext;
 import org.jbpm.graph.node.DecisionHandler;
+import org.apache.log4j.Logger;
 
 public class CheckStockVariationDecisionHandler implements DecisionHandler  {
-	public static final String APPROVE_NOTIFICATION = "Approve Stock Variation Notification";
+	/**
+	 * Logger for this class
+	 */
+	private static final Logger logger = Logger.getLogger(CheckStockVariationDecisionHandler.class);
+
+	public static final String APPROVE_NOTIFICATION = "Request Approval";
 	public static final String NO_ACTION_REQUIRED = "No Action Required";
 	public static final String NOTIFY_USER = "Notify User";
 	
@@ -15,24 +21,45 @@ public class CheckStockVariationDecisionHandler implements DecisionHandler  {
 
 	public String decide(ExecutionContext executionContext) throws Exception 
 	{
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("decide - start"); //$NON-NLS-1$
+		}
+		
 		String message = executionContext.getContextInstance().getVariable("msgBody").toString();
 		
 		//TODO: Extract variation from the message (or variable carrying it) and remove this
 		String variationStr = message;
 
-		float variation = Math.abs(Float.parseFloat(variationStr));
+		String transition = null;
+		float variation = Math.abs(Float.parseFloat(variationStr.replace("%", "")));
 		
 		if (variation < CheckStockVariationDecisionHandler.VARIATION_THRESHOLD_APPROVAL_REQURIED_LOW_INCL)
 		{
 			/* No action required */ 
-			return CheckStockVariationDecisionHandler.NO_ACTION_REQUIRED;
+			transition = CheckStockVariationDecisionHandler.NO_ACTION_REQUIRED;
 		}
-		if (variation <= CheckStockVariationDecisionHandler.VARIATION_THRESHOLD_APPROVAL_REQURIED_HIGH_INCL)
+		else if (variation <= CheckStockVariationDecisionHandler.VARIATION_THRESHOLD_APPROVAL_REQURIED_HIGH_INCL)
 		{
 			/* User approval required */
-			return CheckStockVariationDecisionHandler.APPROVE_NOTIFICATION;
+			transition = CheckStockVariationDecisionHandler.APPROVE_NOTIFICATION;
 		}
-		/* Automatic notification */
-		return CheckStockVariationDecisionHandler.NOTIFY_USER;
+		else
+		{
+			/* Automatic notification */
+			transition = CheckStockVariationDecisionHandler.NOTIFY_USER;
+		}
+		
+		if (logger.isInfoEnabled())
+		{
+			logger.info("Transition = " + transition); //$NON-NLS-1$
+		}		
+		
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("decide - end"); //$NON-NLS-1$
+		}
+		
+		return transition;
 	}
 }
