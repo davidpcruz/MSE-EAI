@@ -6,9 +6,6 @@ import java.math.BigInteger;
 
 public class Company implements Serializable{
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	protected String name;

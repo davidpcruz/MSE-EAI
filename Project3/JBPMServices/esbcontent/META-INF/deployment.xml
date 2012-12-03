@@ -10,6 +10,10 @@
 <jmsQueue>bpm_mail_count_request_esb</jmsQueue>
 <jmsQueue>bpm_mail_count_request_esb_reply</jmsQueue>
 
+<jmsQueue>temp_gw</jmsQueue>
+<jmsQueue>temp_esb</jmsQueue>
+<jmsQueue>temp_esb_reply</jmsQueue>
+
 <!-- TODO: Remove. Temporary for debug END -->
 
 </jbossesb-deployment>

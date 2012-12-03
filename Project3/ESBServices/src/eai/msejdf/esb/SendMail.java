@@ -31,7 +31,7 @@ public class SendMail extends AbstractActionLifecycle {
 		// Retrieve the supplied mail parameter
 		String mailTo = (String) message.getBody().get(SOAMessageConstants.ESB_MAIL_TO);
 		String mailSubject = (String) message.getBody().get(SOAMessageConstants.ESB_MAIL_SUBJECT);
-		String mailMessage = (String) message.getBody().get();
+		String mailMessage = (String) message.getBody().get(SOAMessageConstants.ESB_MAIL_MESSAGE);
 
 		if (logger.isInfoEnabled()) 
 		{
