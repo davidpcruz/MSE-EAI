@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<smooks-resource-list xmlns="http://www.milyn.org/xsd/smooks-1.1.xsd"
+					  xmlns:ftl="http://www.milyn.org/xsd/smooks/freemarker-1.1.xsd"
+                      xmlns:jb="http://www.milyn.org/xsd/smooks/javabean-1.2.xsd"
+                      xmlns:frag="http://www.milyn.org/xsd/smooks/fragment-routing-1.2.xsd" 
+                      xmlns:esbr="http://www.jboss.org/xsd/jbossesb/smooks/routing-1.0.xsd">
+
+    <jb:bean beanId="companiesList" class="java.util.ArrayList" createOnElement="stocks">
+        <jb:wiring beanIdRef="companyItem" />
+    </jb:bean>
+
+    <jb:bean beanId="companyItem" class="eai.msejdf.esb.Company" createOnElement="stocks/stock">
+        <jb:value property="name" data="stock/company/name" />
+        <jb:value property="address"  data="stock/company/address" />
+        <jb:value property="website"  data="stock/company/website" />
+    </jb:bean>
+
+<!-- 
+    <resource-config selector="stocks stock">
+        <resource>/companies.st</resource>
+    </resource-config>
+ -->    
+ 	<frag:serialize fragment="stocks/stock" bindTo="companiesList" />
+ 	
+ 	<!-- Route each order items split message to an ESB Service... -->
+    <esbr:routeBean routeOnElement="stocks/stock" beanIdRef="companiesList" toServiceCategory="EAI_ESB" toServiceName="SmooksSpliterTest" />
+ 	
+<!-- 
+    <jb:bean beanId="companiesList" class="java.util.ArrayList" createOnElement="stocks">
+        <jb:wiring beanIdRef="company" />
+    </jb:bean>
+     
+    <jb:bean beanId="company" class="java.util.HashMap" createOnElement="company">
+        <jb:value property="name" data="company/name" />
+        <jb:value property="address"  data="company/address" />
+        <jb:value property="website"  data="company/website" />
+    </jb:bean>
+-                       
+	<ftl:freemarker applyOnElement="company">
+		<ftl:template>target/classes/orderitem-split.ftl</ftl:template>
+		<ftl:use>
+			<ftl:outputTo outputStreamResource="orderItemSplitStream"/>
+		</ftl:use>
+	</ftl:freemarker>
+                      
+
+    <jb:bean beanId="orderHeader" class="org.jboss.soa.esb.dvdstore.OrderHeader" createOnElement="order">
+        <jb:value property="orderId"     data="Order/@orderId" />
+        <jb:value property="orderDate"   data="Order/@orderDate" decoder="Calendar">
+            <jb:decodeParam name="format">EEE MMM dd HH:mm:ss z yyyy</jb:decodeParam>
+			<jb:decodeParam name="locale-language">en</jb:decodeParam>
+            <jb:decodeParam name="locale-country">US</jb:decodeParam> 
+        </jb:value>
+        <jb:value property="statusCode"  data="Order/@statusCode" />
+        <jb:value property="netAmount"   data="Order/@netAmount" />
+        <jb:value property="totalAmount" data="Order/@totalAmount" />
+        <jb:value property="tax"         data="Order/@tax" />
+    </jb:bean>
+
+    <jb:bean beanId="customer" class="org.jboss.soa.esb.dvdstore.Customer" createOnElement="customer">
+        <jb:value property="userName"  data="customer/@userName" />
+        <jb:value property="firstName" data="customer/@firstName" />
+        <jb:value property="lastName"  data="customer/@lastName" />
+        <jb:value property="state"     data="customer/@state" />
+    </jb:bean>
+
+    <jb:bean beanId="orderItemList" class="java.util.ArrayList" createOnElement="orderlines">
+        <jb:wiring beanIdRef="orderItem" />
+    </jb:bean>
+
+    <jb:bean beanId="orderItem" class="org.jboss.soa.esb.dvdstore.OrderItem" createOnElement="orderlines/orderline">
+        <jb:value property="position"  data="orderline/@position" />
+        <jb:value property="quantity"  data="orderline/@quantity" />
+        <jb:value property="productId" data="orderline/product/@productId" />
+        <jb:value property="title"     data="orderline/product/@title" />
+        <jb:value property="price"     data="orderline/product/@price" />
+    </jb:bean>
+    -->
+</smooks-resource-list>

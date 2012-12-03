@@ -4,6 +4,7 @@
 	<comment></comment>
 	<projects>
 		<project>ESBServices</project>
+		<project>EAICommon</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

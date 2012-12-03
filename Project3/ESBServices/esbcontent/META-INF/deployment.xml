@@ -3,7 +3,5 @@
   <depends>jboss.esb:deployment=smooks.esb</depends>
   <jmsTopic>EAIProj3_gateway</jmsTopic>
   <jmsQueue>EAIProj3_esb</jmsQueue>
-<!-- 
-  <jmsTopic>quickstart_simple_transformation_Response</jmsTopic>
- -->    
+  <jmsQueue>EAIProj3_company</jmsQueue> 
 </jbossesb-deployment>
