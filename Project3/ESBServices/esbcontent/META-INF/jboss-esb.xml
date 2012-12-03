@@ -23,6 +23,10 @@
 				<jms-message-filter dest-name="queue/EAIProj3_company"
 					dest-type="QUEUE" />
 			</jms-bus>
+			<jms-bus busid="EAIProj3_Aggregator">
+				<jms-message-filter dest-name="queue/EAIProj3_aggregator"
+					dest-type="QUEUE" />
+			</jms-bus>			
 			<jms-bus busid="GetUserEmailCountGwChannel">
 				<jms-message-filter dest-name="queue/GetUserEmailCount_gateway"
 					dest-type="QUEUE" />
@@ -57,7 +61,7 @@
 -->	
 		<service category="EAI_ESB"
 			description="EAI_ESB: Takes XML in and splits it in different companies"
-			name="SmooksSpliter">
+			name="CompaniesSpliter">
 			<listeners>
 				<jms-listener busidref="EAIProj3GwChannel" is-gateway="true"
 					name="JMS-Gateway" />
@@ -77,34 +81,67 @@
 				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="printAfter-xml">
 					<property name="message" value=">>>> 2. XML Message on topic : " />
 				</action>
+				<!-- Do the Split -->
+				<action class="eai.msejdf.esb.SplitCompaniesAction" name="Split Companies">
+  					<property name="service-category" value="EAI_ESB" />
+  					<property name="service-name" value="ServiceSplit1" />  
+				</action>
+<!-- 				
 				<action class="org.jboss.soa.esb.actions.StaticRouter" name="StaticRouter">
 					<property name="destinations">
-						<route-to destination-name="split" service-category="EAI_ESB"
-							service-name="SmooksSpliterTest" />
+						<route-to destination-name="split1" service-category="EAI_ESB"
+							service-name="ServiceSplit1" />
 					</property>
 				</action>
+ -->				
 			</actions>
 		</service>
-<!-- 
-     ########################################################################################################## 
-		Testing the Agregator 
-	 ########################################################################################################## 
--->
+		
 		<service category="EAI_ESB"
-			description="EAI_ESB: Takes XML in and splits it in different companies"
-			name="SmooksSpliterTest">
+			description="EAI_ESB: Service split 1"
+			name="ServiceSplit1">
 			<listeners>
 				<jms-listener busidref="EAIProj3_Spliter_ToCompany"
 					name="Spliter_ToCompany" />
 			</listeners>
 			<actions mep="OneWay">
 
+
+				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="printAfter-xml">
+					<property name="message" value=">>>> 3.1. XML Message on topic : " />
+				</action>
+
+				<action class="eai.msejdf.esb.PrintAggregatorTagAction" name="PrintAggregatorTag" process="displayMessage"/>
+
+				<action class="org.jboss.soa.esb.actions.StaticRouter" name="StaticRouter">
+					<property name="destinations">
+						<route-to destination-name="split1" service-category="EAI_ESB"
+							service-name="CompaniesAggregator" />
+					</property>
+				</action>
+				
+			</actions>
+		</service>
+
+<!-- 
+     ########################################################################################################## 
+		Testing the Aggregator 
+	 ########################################################################################################## 
+-->
+		<service category="EAI_ESB"
+			description="EAI_ESB: Takes XML in and splits it in different companies"
+			name="CompaniesAggregator">
+			<listeners>
+				<jms-listener busidref="EAIProj3_Aggregator" name="Aggregator" />
+			</listeners>
+			<actions mep="OneWay">
+
 				<action class="org.jboss.soa.esb.actions.Aggregator" name="Aggregator">
-					<property name="timeoutInMillies" value="60000" />
+					<property name="timeoutInMillis" value="60000" />
 				</action>
 
 				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="printAfter-xml">
-					<property name="message" value=">>>> 3. XML Message on topic : " />
+					<property name="message" value=">>>> 4. XML Message on topic : " />
 				</action>
 			</actions>
 		</service>
@@ -185,7 +222,6 @@
      ########################################################################################################## 
 		IncrementUserEmailCount 
 	 ########################################################################################################## 
--->		
 		<service category="EAI_ESB" name="IncrementUserEmailCount"
 			description="EAI_ESB: Gets the number of emails sent to a user">
 
@@ -211,5 +247,6 @@
 
 			</actions>
 		</service>
+-->				
 	</services>
 </jbossesb>
