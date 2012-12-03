@@ -1,36 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="eai.msejdf.jbpm" width="1168" height="905">
-  <node name="start" x="552" y="11" width="132" height="47">
+<root-container name="eai.msejdf.jbpm" width="1165" height="1486">
+  <node name="start" x="529" y="329" width="132" height="47">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="Check Stock Variation" x="444" y="126" width="224" height="46">
+  <node name="TempInsertCompany" x="516" y="463" width="180" height="49">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="Check Stock Variation" x="496" y="548" width="224" height="46">
+    <edge>
+      <label x="4" y="0"/>
+    </edge>
     <edge>
       <label x="11" y="-26"/>
     </edge>
     <edge>
       <label x="-36" y="-84"/>
     </edge>
-    <edge>
-      <label x="5" y="-10"/>
-    </edge>
   </node>
-  <node name="Approve Stock Variation Notification" x="453" y="302" width="288" height="46">
-    <edge>
-      <label x="5" y="-10"/>
-    </edge>
-    <edge>
-      <label x="-13" y="11"/>
-    </edge>
-  </node>
-  <node name="Get Subscribed Users" x="120" y="351" width="132" height="36">
-    <edge>
-      <label x="5" y="-10"/>
-    </edge>
-  </node>
-  <node name="Notify User" x="77" y="450" width="252" height="24">
+  <node name="Approve Stock Variation Notification" x="502" y="755" width="200" height="51">
     <edge>
       <label x="5" y="-10"/>
     </edge>
@@ -38,27 +30,48 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="Send e-Mail" x="323" y="623" width="157" height="44">
+  <node name="Identify Company" x="157" y="845" width="189" height="46">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="Count e-Mail" x="-2" y="647" width="132" height="36">
+  <node name="Get Subscribed Users" x="162" y="945" width="194" height="47">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="Wait e-mail actions complete" x="121" y="740" width="252" height="24">
+  <node name="Notify User" x="136" y="1051" width="252" height="24">
+    <edge>
+      <label x="-136" y="-14"/>
+    </edge>
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="end-state2" x="461" y="868" width="132" height="36"/>
-  <node name="end-state1" x="879" y="312" width="132" height="36"/>
+  <node name="Send e-Mail" x="61" y="1188" width="177" height="47">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="Count e-Mail" x="355" y="1180" width="164" height="50">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="Wait e-mail actions complete" x="165" y="1279" width="252" height="24">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="end-state2" x="538" y="1449" width="132" height="36"/>
+  <node name="end-state1" x="929" y="920" width="132" height="36"/>
   <deployment graphicalInfoFile="/JBPMServices/src/jbpm/jpdl/.eai.msejdf.jbpm.gpd.xml" imageFile="/JBPMServices/src/jbpm/jpdl/eai.msejdf.jbpm.jpg" serverName="localhost" serverPort="8180" serverDeployer="/gpd-deployer/upload">
     <classesAndResources>
       <element type="java" value="/JBPMServices/src/jbpm/eai/msejdf/jbpm/actions/CheckStockVariationDecisionHandler.java"/>
       <element type="java" value="/JBPMServices/src/jbpm/eai/msejdf/jbpm/actions/MessageActionHandler.java"/>
+      <element type="java" value="/JBPMServices/src/jbpm/eai/msejdf/jbpm/actions/PrepareEsbMailCall.java"/>
+      <element type="java" value="/JBPMServices/src/jbpm/eai/msejdf/jbpm/actions/ExtractCompanyName.java"/>
+      <element type="java" value="/JBPMServices/src/jbpm/eai/msejdf/jbpm/actions/TempInsertCompany.java"/>
     </classesAndResources>
   </deployment>
 </root-container>

@@ -72,7 +72,7 @@
 			</listeners> 
 
 
-			<actions mep="OneWay">
+			<actions mep="RequestResponse">
 				<action name="request-mapper" class="eai.msejdf.esb.GetUserEmailCount">
 				</action>
 				<action name="soapui-client-action" class="org.jboss.soa.esb.actions.soap.SOAPClient">
@@ -102,7 +102,7 @@
 			</listeners>
 
 
-			<actions mep="OneWay">
+			<actions mep="RequestResponse">
 				<action name="request-mapper" class="eai.msejdf.esb.GetUsersFollowingCompany">
 				</action>
 				<action name="soapui-client-action" class="org.jboss.soa.esb.actions.soap.SOAPClient">
@@ -141,7 +141,7 @@
 
 
 		<!-- IncrementUserEmailCount -->
-		<service category="EAI_ESB" name="IncrementUserEmailCount"
+<!-- 		<service category="EAI_ESB" name="IncrementUserEmailCount"
 			description="EAI_ESB: Gets the number of emails sent to a user">
 
 			<listeners>
@@ -166,7 +166,7 @@
 
 			</actions>
 		</service>
-
+ -->
 
 
 

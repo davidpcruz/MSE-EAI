@@ -9,8 +9,14 @@
 				<message>Starting BPM</message>
 			</action>
 		</event>
-		<transition to="Check Stock Variation" name="Check Stock Variation"></transition>
+		<transition to="TempInsertCompany" name="Check Stock Variation"></transition>
 	</start-state>
+
+	<node name="TempInsertCompany">
+		<transition to="Check Stock Variation">
+		<action name="TempInsertCompany" class="eai.msejdf.jbpm.actions.TempInsertCompany"></action>
+		</transition>
+	</node>
 
 	<decision name="Check Stock Variation">
 		<handler class="eai.msejdf.jbpm.actions.CheckStockVariationDecisionHandler"></handler>
@@ -22,7 +28,7 @@
 			</action>
 		</transition>
 
-		<transition to="Get Subscribed Users" name="Notify User">
+		<transition to="Identify Company" name="Notify User">
 			<!-- TODO: Remove this action (used for debugging) -->
 			<action name="action" class="eai.msejdf.jbpm.actions.MessageActionHandler">
 				<message>Notify user</message>
@@ -51,7 +57,7 @@
 			</action>
 		</transition>
 
-		<transition to="Get Subscribed Users" name="Approve Notification">
+		<transition to="Identify Company" name="Approve Notification">
 
 			<!-- TODO: Remove this action (used for debugging) -->
 			<action name="action3" class="eai.msejdf.jbpm.actions.MessageActionHandler">
@@ -60,9 +66,32 @@
 		</transition>
 	</task-node>
 
+	<node name="Identify Company">
+		<transition to="Get Subscribed Users">
+			<action name="Extract Company Name"
+				class="eai.msejdf.jbpm.actions.ExtractCompanyName">
+			</action>	
+		</transition>
+	</node>
+	
 	<node name="Get Subscribed Users">
-		<!-- TODO Get user list  -->
-		<transition to="Notify User"></transition>
+		<transition to="Notify User">
+			<action name="GetUsersFollowingCompany"
+				class="org.jboss.soa.esb.services.jbpm.actionhandlers.EsbActionHandler">
+				<esbCategoryName>
+					EAI_ESB
+				</esbCategoryName>
+				<esbServiceName>GetUsersFollowingCompany</esbServiceName>
+				<bpmToEsbVars>
+					<mapping bpm="msgBody" esb="BODY_CONTENT" />
+					<mapping bpm="companyName" esb="companyName" />
+				</bpmToEsbVars>
+				<esbToBpmVars>
+					<mapping esb="BODY_CONTENT" bpm="msgBody" />
+					<mapping esb="userList" bpm="userList"/>
+				</esbToBpmVars>
+			</action>		
+		</transition>
 	</node>
 
 	<fork name="Notify User">
@@ -83,13 +112,14 @@
 			</esbCategoryName>
 			<esbServiceName>Send e-mail</esbServiceName>
 			<bpmToEsbVars>
-				<mapping bpm="msgBody" esb="BODY_CONTENT" />
 				<mapping bpm="mailTo" esb="mailTo" />
 				<mapping bpm="mailSubject" esb="mailSubject" />				
+				<mapping bpm="mailMessage" esb="mailMessage" />				
+				<mapping bpm="msgBody" esb="BODY_CONTENT"/>
 			</bpmToEsbVars>
 			<esbToBpmVars>
 				<mapping esb="BODY_CONTENT" bpm="msgBody" />
-				<!-- No need to map mail* variables as they are unidirectional -->
+				<!-- No need to map variables as they are unidirectional -->
 			</esbToBpmVars>
 		</action>
 
@@ -133,6 +163,7 @@
 			</action>
 		</transition>
 	</join>
+
 
 	<end-state name="end-state2">
 		<!-- TODO: Remove this action and event (used for debugging) -->

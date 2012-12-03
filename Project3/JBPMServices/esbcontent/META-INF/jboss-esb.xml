@@ -18,6 +18,17 @@
 				<jms-message-filter dest-name="queue/EAIProj3_esb"
 					dest-type="QUEUE" />
 			</jms-bus>
+
+			<!-- TODO: Remove. This is temporary for debug -->
+			<jms-bus busid="tempGwChannel">
+				<jms-message-filter dest-name="queue/temp_gw"
+					dest-type="QUEUE" />
+			</jms-bus>
+			<!-- TODO: Remove. This is temporary for debug -->
+			<jms-bus busid="tempEsbChannel">
+				<jms-message-filter dest-name="queue/temp_esb"
+					dest-type="QUEUE" />
+			</jms-bus>
 			
 
 			<!-- TODO: Remove. This is temporary for debug -->
@@ -96,7 +107,6 @@
 
 			</actions>
 		</service>
-
-
+		
 	</services>
 </jbossesb>
