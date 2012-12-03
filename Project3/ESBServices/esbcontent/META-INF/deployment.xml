@@ -10,6 +10,8 @@
   <jmsQueue>GetUserEmailCount_esb_reply</jmsQueue>
   <jmsQueue>GetUsersFollowingCompany_esb</jmsQueue>
   <jmsQueue>GetUsersFollowingCompany_esb_reply</jmsQueue>
+  <jmsQueue>IncrementUserEmailCount_esb</jmsQueue>
+  <jmsQueue>IncrementUserEmailCount_esb_reply</jmsQueue>
   <jmsQueue>SendMail_esb</jmsQueue>
   <jmsQueue>SendMail_esb_reply</jmsQueue>
 <!-- 

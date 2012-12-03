@@ -26,6 +26,7 @@ import org.jboss.soa.esb.helpers.ConfigTree;
 import org.jboss.soa.esb.message.Body;
 import org.jboss.soa.esb.message.Message;
 import java.util.Map;
+import java.util.Set;
 
 public class MyResponseAction extends AbstractActionLifecycle {
 	protected ConfigTree _config;
@@ -48,9 +49,19 @@ public class MyResponseAction extends AbstractActionLifecycle {
 		// The "responseLocation" property was set in jboss-esb.xml to
 		// "helloworld-response"
 		// Map responseMsg = (Map) message.getBody().get(Body.DEFAULT_LOCATION);
+		@SuppressWarnings("rawtypes")
 		Map responseMsg = (Map) message.getBody().get();
-		System.out.println("MyResponseAction: " + "Response Map is: "
-				+ responseMsg);
+//		String[] responseMsg2 = message.getBody().getNames();
+		
+		@SuppressWarnings("unchecked")
+		Set<String> set = responseMsg.keySet();
+		for (String user : set) {
+			System.out.println("MyResponseAction: " + "Response Map is: "
+					+ user + " " + responseMsg.get(user));
+		}
+//		for (String user : responseMsg2) {
+//			System.out.println("MyResponseAction2: " + user);
+//		}
 
 		logFooter();
 		return message;

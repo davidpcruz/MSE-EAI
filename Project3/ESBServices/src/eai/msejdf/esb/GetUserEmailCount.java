@@ -33,7 +33,7 @@ public class GetUserEmailCount extends AbstractActionLifecycle {
 		System.out.println("GetNumberOfEmails: " + "userId = " + msgBody);
 		
 		
-		requestMap.put("getUserEmailCount"+ SOAMessageConstants.ESB_USER_ID, msgBody);
+		requestMap.put("getUserEmailCount."+ SOAMessageConstants.ESB_USER_ID, msgBody);
 
 		message.getBody().add(requestMap);
 		System.out.println("Request map is: " + requestMap.toString());

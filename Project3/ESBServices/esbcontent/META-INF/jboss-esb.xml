@@ -12,39 +12,37 @@
 				<jms-message-filter dest-name="topic/EAIProj3_gateway"
 					dest-type="TOPIC" />
 			</jms-bus>
+
 			<jms-bus busid="EAIProj3EsbChannel">
 				<jms-message-filter dest-name="queue/EAIProj3_esb"
 					dest-type="QUEUE" />
 			</jms-bus>
-			<jms-bus busid="GetUserEmailCountGwChannel">
-				<jms-message-filter dest-name="queue/GetUserEmailCount_gateway"
-					dest-type="QUEUE" /> 
-			</jms-bus>
+
 			<jms-bus busid="GetUserEmailCountEsbChannel">
 				<jms-message-filter dest-name="queue/GetUserEmailCount_esb"
 					dest-type="QUEUE" />
 			</jms-bus>
-			<jms-bus busid="GetUsersFollowingCompanyGwChannel">
-				<jms-message-filter dest-name="queue/GetUsersFollowingCompany_gateway"
-					dest-type="QUEUE" />
-			</jms-bus>
+
 			<jms-bus busid="GetUsersFollowingCompanyEsbChannel">
 				<jms-message-filter dest-name="queue/GetUsersFollowingCompany_esb"
 					dest-type="QUEUE" />
 			</jms-bus>
-			<jms-bus busid="SendMailGwChannel">
-				<jms-message-filter dest-name="queue/SendMail_gateway"
+
+			<jms-bus busid="IncrementUserEmailCountEsbChannel">
+				<jms-message-filter dest-name="queue/IncrementUserEmailCount_esb"
 					dest-type="QUEUE" />
 			</jms-bus>
+
 			<jms-bus busid="SendMailEsbChannel">
 				<jms-message-filter dest-name="queue/SendMail_esb"
 					dest-type="QUEUE" />
 			</jms-bus>
+
 		</jms-provider>
 	</providers>
 
 	<services>
-		 <service category="EAI_ESB" name="SmooksSpliter"
+		<service category="EAI_ESB" name="SmooksSpliter"
 			description="EAI_ESB: Takes XML in and splits it in different companies">
 
 			<listeners>
@@ -66,13 +64,12 @@
 			description="EAI_ESB: Gets the number of emails sent to a user">
 
 			<listeners>
-				<jms-listener busidref="GetUserEmailCountGwChannel" is-gateway="true"
-					name="JMS-Gateway" />
-				<jms-listener busidref="GetUserEmailCountEsbChannel" name="getUserEmailCount" />
-			</listeners> 
+				<jms-listener busidref="GetUserEmailCountEsbChannel"
+					name="getUserEmailCount" />
+			</listeners>
 
 
-			<actions mep="OneWay">
+			<actions mep="RequestResponse">
 				<action name="request-mapper" class="eai.msejdf.esb.GetUserEmailCount">
 				</action>
 				<action name="soapui-client-action" class="org.jboss.soa.esb.actions.soap.SOAPClient">
@@ -96,13 +93,12 @@
 			description="EAI_ESB: Gets the number of emails sent to a user">
 
 			<listeners>
-				<jms-listener busidref="GetUsersFollowingCompanyGwChannel" is-gateway="true"
-					name="JMS-Gateway" />
-				<jms-listener busidref="GetUsersFollowingCompanyEsbChannel" name="getUsersFollowingCompany" />
+				<jms-listener busidref="GetUsersFollowingCompanyEsbChannel"
+					name="getUsersFollowingCompany" />
 			</listeners>
 
 
-			<actions mep="OneWay">
+			<actions mep="RequestResponse">
 				<action name="request-mapper" class="eai.msejdf.esb.GetUsersFollowingCompany">
 				</action>
 				<action name="soapui-client-action" class="org.jboss.soa.esb.actions.soap.SOAPClient">
@@ -116,7 +112,7 @@
 				</action>
 
 			</actions>
-		</service> 
+		</service>
 
 		<!-- e-mail dispatch service -->
 		<service category="EAI_ESB" description="EAI_ESB: e-mail dispatch service"
@@ -132,7 +128,7 @@
 				</action>
 
 				<action name="send-email" class="eai.msejdf.esb.SendMail"></action>
-				
+
 				<action name="exitPrint" class="org.jboss.soa.esb.actions.SystemPrintln">
 					<property name="message" value="Start e-mail sending...Complete"></property>
 				</action>
@@ -142,30 +138,33 @@
 
 		<!-- IncrementUserEmailCount -->
 		<service category="EAI_ESB" name="IncrementUserEmailCount"
-			description="EAI_ESB: Gets the number of emails sent to a user">
+			description="EAI_ESB: Increments the number of emails sent to a user">
 
 			<listeners>
-				<jms-listener busidref="EAIProj3GwChannel" is-gateway="true"
-					name="JMS-Gateway" />
-				<jms-listener busidref="EAIProj3EsbChannel" name="incrementUserEmailCount" />
+				<jms-listener busidref="IncrementUserEmailCountEsbChannel"
+					name="incrementUserEmailCount" />
 			</listeners>
 
 
-			<actions mep="OneWay">
+			<actions mep="RequestResponse">
+				<action name="entryPrint" class="org.jboss.soa.esb.actions.SystemPrintln">
+					<property name="message"
+						value="###############################################################\n incrementUserEmailCount..."></property>
+				</action>
 				<action name="request-mapper" class="eai.msejdf.esb.IncrementUserEmailCount">
 				</action>
 				<action name="soapui-client-action" class="org.jboss.soa.esb.actions.soap.SOAPClient">
 					<property name="wsdl"
 						value="http://127.0.0.1:8080/EJBServer/ListUserInterface?wsdl" />
 					<property name="SOAPAction" value="incrementUserEmailCount" />
+					<!-- <property name="SOAPService" value="{http://www.eai.org/msejdf}ListUserService" 
+						/> -->
 					<property name="responseAsOgnlMap" value="true" />
-
 				</action>
-				<action name="response-mapper" class="eai.msejdf.esb.MyResponseAction">
-				</action>
-
 			</actions>
 		</service>
+
+
 
 
 

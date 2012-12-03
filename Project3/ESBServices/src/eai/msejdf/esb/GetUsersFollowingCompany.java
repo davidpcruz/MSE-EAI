@@ -31,7 +31,7 @@ public class GetUsersFollowingCompany extends AbstractActionLifecycle {
 		System.out.println("GetUsersFollowingCompany: " + "companyName = " + msgBody);
 		
 		
-		requestMap.put("getUsersFollowingCompany" + SOAMessageConstants.ESB_COMPANY_NAME , msgBody);
+		requestMap.put("getUsersFollowingCompany." + SOAMessageConstants.ESB_COMPANY_NAME , msgBody);
 
 		message.getBody().add(requestMap);
 		System.out.println("Request map is: " + requestMap.toString());
