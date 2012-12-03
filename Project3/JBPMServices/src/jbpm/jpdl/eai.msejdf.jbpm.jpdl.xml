@@ -9,23 +9,38 @@
 				<message>Starting BPM</message>
 			</action>
 		</event>
-		<transition to="Check Stock Variation" name="Check Stock Variation" ></transition>
+		<transition to="Check Stock Variation" name="Check Stock Variation"></transition>
 	</start-state>
 
 	<decision name="Check Stock Variation">
 		<handler class="eai.msejdf.jbpm.actions.CheckStockVariationDecisionHandler"></handler>
-		<transition to="Approve Stock Variation Notification" name="Request Approval"></transition>
-		<transition to="Notify User" name="Notify User"></transition>
-		<transition to="end-state1" name="No Action Required"></transition>
+
+		<transition to="Approve Stock Variation Notification" name="Request Approval">
+			<!-- TODO: Remove this action (used for debugging) -->
+			<action name="action" class="eai.msejdf.jbpm.actions.MessageActionHandler">
+				<message>Request Approval</message>
+			</action>
+		</transition>
+
+		<transition to="Get Subscribed Users" name="Notify User">
+			<!-- TODO: Remove this action (used for debugging) -->
+			<action name="action" class="eai.msejdf.jbpm.actions.MessageActionHandler">
+				<message>Notify user</message>
+			</action>
+		</transition>
+
+		<transition to="end-state1" name="No Action Required">
+			<!-- TODO: Remove this action (used for debugging) -->
+			<action name="action" class="eai.msejdf.jbpm.actions.MessageActionHandler">
+				<message>No Action required</message>
+			</action>
+		</transition>
 	</decision>
 
 	<task-node name="Approve Stock Variation Notification">
 
 		<task name="Approve stock variation e-mail notification">
 			<assignment actor-id="Manager"></assignment>
-
-			<!-- TODO: Remove <controller> <variable access="read,write,required" 
-				name="TECHNICAL_INTERVIEW_OK"></variable> </controller> -->
 		</task>
 
 		<transition to="end-state2" name="Reject notification">
@@ -36,8 +51,8 @@
 			</action>
 		</transition>
 
-		<transition to="Notify User" name="Approve Notification">
-		
+		<transition to="Get Subscribed Users" name="Approve Notification">
+
 			<!-- TODO: Remove this action (used for debugging) -->
 			<action name="action3" class="eai.msejdf.jbpm.actions.MessageActionHandler">
 				<message>Notification Approved</message>
@@ -45,32 +60,73 @@
 		</transition>
 	</task-node>
 
+	<node name="Get Subscribed Users">
+		<!-- TODO Get user list  -->
+		<transition to="Notify User"></transition>
+	</node>
+
 	<fork name="Notify User">
-		<transition to="Send e-Mail" name="Start e-mail sending"></transition>
+		<transition to="Send e-Mail" name="Start e-mail sending">
+			<action name="esb Service Call - Prepare"
+				class="eai.msejdf.jbpm.actions.PrepareEsbMailCall">
+			</action>		
+		</transition>
 		<transition to="Count e-Mail" name="Start e-mail counting"></transition>
 	</fork>
 
-	<state name="Send e-Mail">
+	<node name="Send e-Mail">
+		
+		<action name="esb Service Call - Send e-mail"
+			class="org.jboss.soa.esb.services.jbpm.actionhandlers.EsbActionHandler">
+			<esbCategoryName>
+				EAI_ESB
+			</esbCategoryName>
+			<esbServiceName>Send e-mail</esbServiceName>
+			<bpmToEsbVars>
+				<mapping bpm="msgBody" esb="BODY_CONTENT" />
+				<mapping bpm="mailTo" esb="mailTo" />
+				<mapping bpm="mailSubject" esb="mailSubject" />				
+			</bpmToEsbVars>
+			<esbToBpmVars>
+				<mapping esb="BODY_CONTENT" bpm="msgBody" />
+				<!-- No need to map mail* variables as they are unidirectional -->
+			</esbToBpmVars>
+		</action>
+
 		<transition to="Wait e-mail actions complete">
 			<!-- TODO: Remove this action (used for debugging) -->
 			<action name="action4" class="eai.msejdf.jbpm.actions.MessageActionHandler">
 				<message>Send e-mail complete</message>
 			</action>
 		</transition>
-	</state>
+	</node>
 
-	<state name="Count e-Mail">
+	<node name="Count e-Mail">
+		<action name="esb Service Call - Count e-mail"
+			class="org.jboss.soa.esb.services.jbpm.actionhandlers.EsbActionHandler"  async="true"> 
+			<esbCategoryName>
+				EAI.MSEJDF.Service
+			</esbCategoryName>
+			<esbServiceName>Count e-mail</esbServiceName>
+			<bpmToEsbVars>
+				<mapping bpm="msgBody" esb="BODY_CONTENT" />
+			</bpmToEsbVars>
+			<esbToBpmVars>
+				<mapping esb="BODY_CONTENT" bpm="msgBody" />
+			</esbToBpmVars>
+		</action>
+
 		<transition to="Wait e-mail actions complete">
 			<!-- TODO: Remove this action (used for debugging) -->
 			<action name="action4" class="eai.msejdf.jbpm.actions.MessageActionHandler">
 				<message>Count e-mail complete</message>
-			</action>		
+			</action>
 		</transition>
-	</state>
+	</node>
 
 	<join name="Wait e-mail actions complete">
 		<transition to="end-state2">
-		
+
 			<!-- TODO: Remove this action (used for debugging) -->
 			<action name="action4" class="eai.msejdf.jbpm.actions.MessageActionHandler">
 				<message>Waiting e-mail actions complete</message>
@@ -78,7 +134,21 @@
 		</transition>
 	</join>
 
-	<end-state name="end-state2"></end-state>
+	<end-state name="end-state2">
+		<!-- TODO: Remove this action and event (used for debugging) -->
+		<event type="node-enter">
+			<action name="action" class="eai.msejdf.jbpm.actions.MessageActionHandler">
+				<message>Ended jBPM Orchestration Process</message>
+			</action>
+		</event>
+	</end-state>
 
-	<end-state name="end-state1"></end-state>
+	<end-state name="end-state1">
+		<!-- TODO: Remove this action and event (used for debugging) -->
+		<event type="node-enter">
+			<action name="action" class="eai.msejdf.jbpm.actions.MessageActionHandler">
+				<message>Ended jBPM Orchestration Process</message>
+			</action>
+		</event>
+	</end-state>
 </process-definition>

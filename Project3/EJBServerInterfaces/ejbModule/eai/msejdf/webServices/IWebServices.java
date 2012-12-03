@@ -25,7 +25,7 @@ public interface IWebServices {
 	 *            the sort type
 	 * @return the user list
 	 */
-	public List<User> getUserListAll();
+	public List<eai.msejdf.esb.User> getUserListAll();
 
 	/**
 	 * WebMethod Gets the user numbers of sent emails
@@ -37,13 +37,13 @@ public interface IWebServices {
 	Integer getUserEmailCount(Long userId) throws ConfigurationException;
 
 	/**
-	 * WebMethod Sets the user numbers of sent emails
+	 * WebMethod increments the user numbers of sent emails by one
 	 * 
 	 * @param userId
 	 * @return
 	 * @throws ConfigurationException
 	 */
-	void setUserEmailCount(Long userId, Integer emailCount)
+	void incrementUserEmailCount(Long userId)
 			throws ConfigurationException;
 
 	/**
@@ -61,6 +61,17 @@ public interface IWebServices {
 	 * @param sortType
 	 * @return
 	 */
-	List<User> getUserList(Integer ageThreshold, UserSort sortType);
+	List<eai.msejdf.esb.User> getUserList(Integer ageThreshold, UserSort sortType);
+
+	List<eai.msejdf.esb.User> getUsersFollowingCompany(Long companyId, UserSort sortType);
+	/**
+	 * WebMethod Gets the user list that follow company id=companyId sorted by user sort type.
+	 * 
+	 * @param companyId
+	 * @return
+	 */
+	List<eai.msejdf.esb.User> getUsersFollowingCompany(Long companyId);
+
+
 
 }
