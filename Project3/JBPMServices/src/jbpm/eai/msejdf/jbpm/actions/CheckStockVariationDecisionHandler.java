@@ -4,8 +4,6 @@ import org.jbpm.graph.exe.ExecutionContext;
 import org.jbpm.graph.node.DecisionHandler;
 import org.apache.log4j.Logger;
 
-import eai.msejdf.esb.Company;
-
 public class CheckStockVariationDecisionHandler implements DecisionHandler  {
 	/**
 	 * Logger for this class
@@ -28,18 +26,13 @@ public class CheckStockVariationDecisionHandler implements DecisionHandler  {
 			logger.debug("decide - start"); //$NON-NLS-1$
 		}
 		
-//		String message = executionContext.getContextInstance().getVariable("msgBody").toString();
-//		
-//		//TODO: Extract variation from the message (or variable carrying it) and remove this
-//		String variationStr = message;
-//		
-//		float variation = Math.abs(Float.parseFloat(variationStr.replace("%", "")));
-
-		Company company = (Company) executionContext.getContextInstance().getVariable("msgBody");
-		String transition = null;
+		String message = executionContext.getContextInstance().getVariable("msgBody").toString();
 		
-		//Extract variation from the message
-		float variation = Math.abs(company.getVariation().floatValue());
+		//TODO: Extract variation from the message (or variable carrying it) and remove this
+		String variationStr = message;
+
+		String transition = null;
+		float variation = Math.abs(Float.parseFloat(variationStr.replace("%", "")));
 		
 		if (variation < CheckStockVariationDecisionHandler.VARIATION_THRESHOLD_APPROVAL_REQURIED_LOW_INCL)
 		{

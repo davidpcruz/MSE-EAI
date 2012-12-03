@@ -13,6 +13,12 @@
 		<depends>jboss.messaging:service=PostOffice</depends>
     </mbean>
     <mbean code="org.jboss.jms.server.destination.QueueService"
+           name="jboss.esb.quickstart.destination:service=Queue,name=EAIProj3_company"
+           xmbean-dd="xmdesc/Queue-xmbean.xml">
+        <depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer</depends>
+		<depends>jboss.messaging:service=PostOffice</depends>
+    </mbean>
+    <mbean code="org.jboss.jms.server.destination.QueueService"
            name="jboss.esb.quickstart.destination:service=Queue,name=EAIProj3_esb_reply"
            xmbean-dd="xmdesc/Queue-xmbean.xml">
         <depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer</depends>
@@ -74,16 +80,7 @@
            xmbean-dd="xmdesc/Queue-xmbean.xml">
         <depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer</depends>
 		<depends>jboss.messaging:service=PostOffice</depends>
-    </mbean>
-
-<!--     
-	<mbean code="org.jboss.jms.server.destination.TopicService"
-			name="jboss.esb.quickstart.destination:service=Topic,name=quickstart_simple_transformation_Response"
-			xmbean-dd="xmdesc/Topic-xmbean.xml">
-		<depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer</depends>
-		<depends>jboss.messaging:service=PostOffice</depends>
-	</mbean>
- -->
+    </mbean>    
 </server>
 
 

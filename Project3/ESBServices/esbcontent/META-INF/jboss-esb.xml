@@ -1,4 +1,4 @@
-<?xml version = "1.0" encoding = "UTF-8"?>
+<?xml version="1.0"?>
 <jbossesb parameterReloadSecs="5"
 	xmlns="http://anonsvn.labs.jboss.com/labs/jbossesb/trunk/product/etc/schemas/xml/jbossesb-1.0.1.xsd"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -16,9 +16,13 @@
 				<jms-message-filter dest-name="queue/EAIProj3_esb"
 					dest-type="QUEUE" />
 			</jms-bus>
+			<jms-bus busid="EAIProj3_Spliter_ToCompany">
+				<jms-message-filter dest-name="queue/EAIProj3_company"
+					dest-type="QUEUE" />
+			</jms-bus>
 			<jms-bus busid="GetUserEmailCountGwChannel">
 				<jms-message-filter dest-name="queue/GetUserEmailCount_gateway"
-					dest-type="QUEUE" /> 
+					dest-type="QUEUE" />
 			</jms-bus>
 			<jms-bus busid="GetUserEmailCountEsbChannel">
 				<jms-message-filter dest-name="queue/GetUserEmailCount_esb"
@@ -42,34 +46,62 @@
 			</jms-bus>
 		</jms-provider>
 	</providers>
-
 	<services>
-		 <service category="EAI_ESB" name="SmooksSpliter"
-			description="EAI_ESB: Takes XML in and splits it in different companies">
-
+		<service category="EAI_ESB"
+			description="EAI_ESB: Takes XML in and splits it in different companies"
+			name="SmooksSpliter">
 			<listeners>
 				<jms-listener busidref="EAIProj3GwChannel" is-gateway="true"
 					name="JMS-Gateway" />
 				<jms-listener busidref="EAIProj3EsbChannel" name="jmsTransformer" />
+				<jms-listener busidref="EAIProj3GwChannel" name="test" />
 			</listeners>
-
 			<actions mep="OneWay">
-				<action name="print-xml" class="org.jboss.soa.esb.actions.SystemPrintln">
-					<property name="message" value=">>>> XML Message on topic : " />
+				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="print-xml">
+					<property name="message" value=">>>> 1. XML Message on topic : " />
+				</action>
+				<!-- Split it -->
+				<action class="org.jboss.soa.esb.smooks.SmooksAction" name="transform">
+					<property name="smooksConfig" value="/smooks-res.xml" />
+					<property name="resultType" value="JAVA" />
+					<property name="javaResultBeanId" value="companiesList" />
+					<property name="reportPath" value="/zap/smooks-report.html" />
+				</action>
+				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="printAfter-xml">
+					<property name="message" value=">>>> 2. XML Message on topic : " />
+				</action>
+
+				<!-- <action class="org.jboss.soa.esb.actions.StaticRouter" name="StaticRouter"> 
+					<property name="destinations"> <route-to destination-name="split" service-category="EAI_ESB" 
+					service-name="SmooksSpliterTest"/> </property> </action> -->
+			</actions>
+		</service>
+		
+		<!-- Testing the Spliting -->
+		<service category="EAI_ESB"
+			description="EAI_ESB: Takes XML in and splits it in different companies"
+			name="SmooksSpliterTest">
+			<listeners>
+				<jms-listener busidref="EAIProj3_Spliter_ToCompany"
+					name="Spliter_ToCompany" />
+			</listeners>
+			<actions mep="OneWay">
+				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="printAfter-xml">
+					<property name="message" value=">>>> 3. XML Message on topic : " />
 				</action>
 			</actions>
 		</service>
-
 
 		<!-- GetNumberOfEmails -->
 		<service category="EAI_ESB" name="GetUserEmailCount"
 			description="EAI_ESB: Gets the number of emails sent to a user">
 
 			<listeners>
-				<jms-listener busidref="GetUserEmailCountGwChannel" is-gateway="true"
-					name="JMS-Gateway" />
-				<jms-listener busidref="GetUserEmailCountEsbChannel" name="getUserEmailCount" />
-			</listeners> 
+				<jms-listener busidref="GetUserEmailCountGwChannel"
+					is-gateway="true" name="JMS-Gateway" />
+				<jms-listener busidref="GetUserEmailCountEsbChannel"
+					name="getUserEmailCount" />
+			</listeners>
 
 
 			<actions mep="RequestResponse">
@@ -96,9 +128,10 @@
 			description="EAI_ESB: Gets the number of emails sent to a user">
 
 			<listeners>
-				<jms-listener busidref="GetUsersFollowingCompanyGwChannel" is-gateway="true"
-					name="JMS-Gateway" />
-				<jms-listener busidref="GetUsersFollowingCompanyEsbChannel" name="getUsersFollowingCompany" />
+				<jms-listener busidref="GetUsersFollowingCompanyGwChannel"
+					is-gateway="true" name="JMS-Gateway" />
+				<jms-listener busidref="GetUsersFollowingCompanyEsbChannel"
+					name="getUsersFollowingCompany" />
 			</listeners>
 
 
@@ -116,7 +149,7 @@
 				</action>
 
 			</actions>
-		</service> 
+		</service>
 
 		<!-- e-mail dispatch service -->
 		<service category="EAI_ESB" description="EAI_ESB: e-mail dispatch service"
@@ -132,7 +165,7 @@
 				</action>
 
 				<action name="send-email" class="eai.msejdf.esb.SendMail"></action>
-				
+
 				<action name="exitPrint" class="org.jboss.soa.esb.actions.SystemPrintln">
 					<property name="message" value="Start e-mail sending...Complete"></property>
 				</action>
@@ -141,7 +174,7 @@
 
 
 		<!-- IncrementUserEmailCount -->
-<!-- 		<service category="EAI_ESB" name="IncrementUserEmailCount"
+		<service category="EAI_ESB" name="IncrementUserEmailCount"
 			description="EAI_ESB: Gets the number of emails sent to a user">
 
 			<listeners>
@@ -166,10 +199,7 @@
 
 			</actions>
 		</service>
- -->
-
-
 
 	</services>
-
 </jbossesb>
+
