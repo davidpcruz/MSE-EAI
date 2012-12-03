@@ -14,10 +14,6 @@
 				<jms-message-filter dest-name="queue/bpm_start_request_esb"
 					dest-type="QUEUE" />
 			</jms-bus>
-			<jms-bus busid="EAIProj3EsbChannel">
-				<jms-message-filter dest-name="queue/EAIProj3_esb"
-					dest-type="QUEUE" />
-			</jms-bus>
 
 			<!-- TODO: Remove. This is temporary for debug -->
 			<jms-bus busid="tempGwChannel">
@@ -56,11 +52,10 @@
 				<jms-listener busidref="startGwChannel" is-gateway="true"
 					name="JMS-Gateway" />
  				<jms-listener busidref="startEsbChannel" name="ESB-Listener" />
- 				<jms-listener busidref="EAIProj3EsbChannel" name="EAI-ESB-Listener" />
 				
 			</listeners>
 
-			<actions mep="RequestResponse">
+			<actions mep="OneWay">
 
 				<action name="entryPrint" class="org.jboss.soa.esb.actions.SystemPrintln">
 					<property name="message" value="Starting jBPM Orchestration Process..."></property>
@@ -69,7 +64,8 @@
 				<action class="org.jboss.soa.esb.services.jbpm.actions.BpmProcessor"
 					name="BpmProcessor">
 					<property name="command" value="StartProcessInstanceCommand" />
-					<property name="process-definition-name" value="eai.msejdf.jbpm" />
+					<!-- <property name="process-definition-name" value="eai.msejdf.jbpm" /> -->
+					<property name="process-definition-name" value="test" />
 					<property name="esbToBpmVars">
 						<mapping bpm="msgBody" esb="BODY_CONTENT" />
 					</property>

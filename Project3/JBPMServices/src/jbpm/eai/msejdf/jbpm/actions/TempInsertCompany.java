@@ -15,6 +15,9 @@ public class TempInsertCompany implements ActionHandler {
 	public void execute(ExecutionContext context) throws Exception {
 		
 		//TODO: Remove++ tmp for debug
+		
+		System.out.println("TempInsertCompany...");
+		
 		String body = (String)context.getContextInstance().getVariable(SOAMessageConstants.JBPM_MSG_BODY);
 		//if (null == body)
 		{
@@ -25,6 +28,7 @@ public class TempInsertCompany implements ActionHandler {
 			comp.setVariation( BigDecimal.valueOf(Float.parseFloat(body.replace("%", ""))));	
 			context.getContextInstance().setVariable(SOAMessageConstants.JBPM_MSG_BODY, comp);			
 		}
+		System.out.println("TempInsertCompany...Complete");
 		//TODO: Remove-- tmp for debug		
 	
 	}
