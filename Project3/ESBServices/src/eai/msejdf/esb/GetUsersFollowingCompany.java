@@ -4,6 +4,7 @@ import org.jboss.soa.esb.actions.AbstractActionLifecycle;
 import org.jboss.soa.esb.helpers.ConfigTree;
 import org.jboss.soa.esb.message.Message;
 import java.util.HashMap;
+import eai.msejdf.utils.SOAMessageConstants;
 
 public class GetUsersFollowingCompany extends AbstractActionLifecycle {
 
@@ -30,7 +31,7 @@ public class GetUsersFollowingCompany extends AbstractActionLifecycle {
 		System.out.println("GetUsersFollowingCompany: " + "companyName = " + msgBody);
 		
 		
-		requestMap.put("getUsersFollowingCompany.companyName", msgBody);
+		requestMap.put("getUsersFollowingCompany" + SOAMessageConstants.ESB_COMPANY_NAME , msgBody);
 
 		message.getBody().add(requestMap);
 		System.out.println("Request map is: " + requestMap.toString());
