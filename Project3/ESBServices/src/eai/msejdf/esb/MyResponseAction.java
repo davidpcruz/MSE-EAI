@@ -31,8 +31,7 @@ import eai.msejdf.utils.SOAMessageConstants;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
+
 
 public class MyResponseAction extends AbstractActionLifecycle {
 	protected ConfigTree _config;
@@ -70,7 +69,7 @@ public class MyResponseAction extends AbstractActionLifecycle {
 		// }
 
 		User user = new User();
-		List<User> list = new ArrayList();
+		List<User> list = new ArrayList<User>();
 		
 		user.setName("test");
 		user.setMailAddress("my@gmail.com");
