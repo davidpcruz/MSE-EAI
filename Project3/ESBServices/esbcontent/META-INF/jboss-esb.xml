@@ -86,14 +86,6 @@
   					<property name="service-category" value="EAI_ESB" />
   					<property name="service-name" value="ServiceSplit1" />  
 				</action>
-<!-- 				
-				<action class="org.jboss.soa.esb.actions.StaticRouter" name="StaticRouter">
-					<property name="destinations">
-						<route-to destination-name="split1" service-category="EAI_ESB"
-							service-name="ServiceSplit1" />
-					</property>
-				</action>
- -->				
 			</actions>
 		</service>
 		
@@ -125,7 +117,7 @@
 
 <!-- 
      ########################################################################################################## 
-		Testing the Aggregator 
+		Companies Aggregator 
 	 ########################################################################################################## 
 -->
 		<service category="EAI_ESB"
@@ -139,6 +131,9 @@
 				<action class="org.jboss.soa.esb.actions.Aggregator" name="Aggregator">
 					<property name="timeoutInMillis" value="60000" />
 				</action>
+
+                  <!-- aggregate the attachments into 1 message -->
+                  <action name="assemble" class="eai.msejdf.esb.AggregatedAssemblerAction" />
 
 				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="printAfter-xml">
 					<property name="message" value=">>>> 4. XML Message on topic : " />

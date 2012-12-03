@@ -23,8 +23,7 @@ public class SplitCompaniesAction extends AbstractActionPipelineProcessor {
 	public static final String SERVICE_NAME_TAG = "service-name";
 
 	protected ConfigTree config;
-	protected static final Logger logger = Logger
-			.getLogger(SplitCompaniesAction.class);
+	protected static final Logger logger = Logger.getLogger(SplitCompaniesAction.class);
 
 	private String serviceCategory;
 	private String serviceName;
@@ -81,7 +80,10 @@ public class SplitCompaniesAction extends AbstractActionPipelineProcessor {
 						addAggregationDetails(message, seriesUUID, companiesCount,
 								seriesTimestamp, i + 1);
 					}
-
+					
+					// add the company to this message
+					message.getBody().add(compItems.get(i));
+					
 					invoker.deliverAsync(message);
 				} catch (MessageDeliverException e) {
 					logger.error("Failed to deliver message to Service '"
@@ -107,7 +109,7 @@ public class SplitCompaniesAction extends AbstractActionPipelineProcessor {
 		AggregationDetails aggrDetails = new AggregationDetails(uuId,
 				messageIndex, recipientCount, seriesTimestamp);
 
-		// get the context Agregator Tags
+		// get the context Aggregator Tags
 		@SuppressWarnings("unchecked")
 		ArrayList<String> aggregatorTags = (ArrayList<String>) message
 				.getContext().getContext(Aggregator.AGGEGRATOR_TAG);
