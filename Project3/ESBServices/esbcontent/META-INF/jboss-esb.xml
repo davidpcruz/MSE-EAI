@@ -53,7 +53,7 @@
 
 			<actions mep="OneWay">
 				<action name="print-xml" class="org.jboss.soa.esb.actions.SystemPrintln">
-					<property name="message" value=">>>> XML Message on topic : " />
+					<property name="message" value=">>>>SmooksSpliter: XML Message on topic : " />
 				</action>
 			</actions>
 		</service>
