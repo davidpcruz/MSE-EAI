@@ -5,6 +5,7 @@
 	<projects>
 		<project>Smooks</project>
 		<project>EAICommon</project>
+		<project>SmooksTest</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

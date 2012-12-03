@@ -14,27 +14,47 @@
 				<jms-message-filter dest-name="queue/bpm_start_request_esb"
 					dest-type="QUEUE" />
 			</jms-bus>
+			<jms-bus busid="EAIProj3EsbChannel">
+				<jms-message-filter dest-name="queue/EAIProj3_esb"
+					dest-type="QUEUE" />
+			</jms-bus>
+			
+
+			<!-- TODO: Remove. This is temporary for debug -->
+			<jms-bus busid="mailCountGwChannel">
+				<jms-message-filter dest-name="queue/bpm_mail_count_request_gw"
+					dest-type="QUEUE" />
+			</jms-bus>
+
+			<!-- TODO: Remove. This is temporary for debug -->
+			<jms-bus busid="mailCountEsbChannel">
+				<jms-message-filter dest-name="queue/bpm_mail_count_request_esb"
+					dest-type="QUEUE" />
+			</jms-bus>
+
 		</jms-provider>
 	</providers>
 	<services>
-	
+
 		<!-- ESB Orchestration service to wrap BPM process invocation -->
 		<service category="jBPM Orchestrator Service"
 			description="BPM Orchestration Service: Process instance starter"
 			name="Start">
-			
+
 			<listeners>
 				<jms-listener busidref="startGwChannel" is-gateway="true"
 					name="JMS-Gateway" />
-				<jms-listener busidref="startEsbChannel" name="ESB-Listener" />
+ 				<jms-listener busidref="startEsbChannel" name="ESB-Listener" />
+ 				<jms-listener busidref="EAIProj3EsbChannel" name="EAI-ESB-Listener" />
+				
 			</listeners>
-			
-			<actions mep="OneWay">
-			
+
+			<actions mep="RequestResponse">
+
 				<action name="entryPrint" class="org.jboss.soa.esb.actions.SystemPrintln">
 					<property name="message" value="Starting jBPM Orchestration Process..."></property>
 				</action>
-			
+
 				<action class="org.jboss.soa.esb.services.jbpm.actions.BpmProcessor"
 					name="BpmProcessor">
 					<property name="command" value="StartProcessInstanceCommand" />
@@ -45,10 +65,38 @@
 				</action>
 
 				<action name="exitPrint" class="org.jboss.soa.esb.actions.SystemPrintln">
-					<property name="message" value="Starting jBPM Orchestration Process...Complete"></property>
+					<property name="message"
+						value="Starting jBPM Orchestration Process...Complete"></property>
 				</action>
-				
+
 			</actions>
 		</service>
+
+
+		<!-- TODO: Remove. This is temporary for debug -->
+		<service category="EAI.MSEJDF.Service" description="TODO: Remove. Temporary service for debug"
+			name="Count e-mail">
+
+			<listeners>
+				<jms-listener busidref="mailCountGwChannel" is-gateway="true"
+					name="JMS-Gateway" />
+				<jms-listener busidref="mailCountEsbChannel" name="ESB-Listener" />
+			</listeners>
+
+			<actions mep="RequestResponse">
+
+				<action name="entryPrint" class="org.jboss.soa.esb.actions.SystemPrintln">
+					<property name="message" value="Count e-mail Service..."></property>
+				</action>
+
+
+				<action name="exitPrint" class="org.jboss.soa.esb.actions.SystemPrintln">
+					<property name="message" value="Count e-mail Service...Complete"></property>
+				</action>
+
+			</actions>
+		</service>
+
+
 	</services>
 </jbossesb>
