@@ -27,20 +27,19 @@
 				<jms-message-filter dest-name="queue/EAIProj3_aggregator"
 					dest-type="QUEUE" />
 			</jms-bus>			
-			<jms-bus busid="GetUserEmailCountGwChannel">
-				<jms-message-filter dest-name="queue/GetUserEmailCount_gateway"
-					dest-type="QUEUE" />
-			</jms-bus>
+
 			<jms-bus busid="GetUserEmailCountEsbChannel">
 				<jms-message-filter dest-name="queue/GetUserEmailCount_esb"
 					dest-type="QUEUE" />
 			</jms-bus>
-			<jms-bus busid="GetUsersFollowingCompanyGwChannel">
-				<jms-message-filter dest-name="queue/GetUsersFollowingCompany_gateway"
-					dest-type="QUEUE" />
-			</jms-bus>
+
 			<jms-bus busid="GetUsersFollowingCompanyEsbChannel">
 				<jms-message-filter dest-name="queue/GetUsersFollowingCompany_esb"
+					dest-type="QUEUE" />
+			</jms-bus>
+
+			<jms-bus busid="IncrementUserEmailCountEsbChannel">
+				<jms-message-filter dest-name="queue/IncrementUserEmailCount_esb"
 					dest-type="QUEUE" />
 			</jms-bus>
 			<jms-bus busid="SendMailGwChannel">
@@ -149,8 +148,6 @@
 		<service category="EAI_ESB"
 			description="EAI_ESB: Gets the number of emails sent to a user" name="GetUserEmailCount">
 			<listeners>
-				<jms-listener busidref="GetUserEmailCountGwChannel"
-					is-gateway="true" name="JMS-Gateway" />
 				<jms-listener busidref="GetUserEmailCountEsbChannel"
 					name="getUserEmailCount" />
 			</listeners>
@@ -176,8 +173,6 @@
 		<service category="EAI_ESB"
 			description="EAI_ESB: Gets the number of emails sent to a user" name="GetUsersFollowingCompany">
 			<listeners>
-				<jms-listener busidref="GetUsersFollowingCompanyGwChannel"
-					is-gateway="true" name="JMS-Gateway" />
 				<jms-listener busidref="GetUsersFollowingCompanyEsbChannel"
 					name="getUsersFollowingCompany" />
 			</listeners>
@@ -217,15 +212,14 @@
      ########################################################################################################## 
 		IncrementUserEmailCount 
 	 ########################################################################################################## 
+-->	
 		<service category="EAI_ESB" name="IncrementUserEmailCount"
-			description="EAI_ESB: Gets the number of emails sent to a user">
+			description="EAI_ESB: Increments the number of emails sent to a user">
 
 			<listeners>
-				<jms-listener busidref="EAIProj3GwChannel" is-gateway="true"
-					name="JMS-Gateway" />
-				<jms-listener busidref="EAIProj3EsbChannel" name="incrementUserEmailCount" />
+				<jms-listener busidref="IncrementUserEmailCountEsbChannel"
+					name="incrementUserEmailCount" />
 			</listeners>
-
 
 			<actions mep="OneWay">
 				<action name="request-mapper" class="eai.msejdf.esb.IncrementUserEmailCount">
@@ -242,6 +236,6 @@
 
 			</actions>
 		</service>
--->				
+			
 	</services>
 </jbossesb>
