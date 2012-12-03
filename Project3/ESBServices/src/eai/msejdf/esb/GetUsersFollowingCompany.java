@@ -27,10 +27,10 @@ public class GetUsersFollowingCompany extends AbstractActionLifecycle {
 
 		// add parameters to the web service request map
 		System.out.println("################### GetUsersFollowingCompany ######################\n");
-		System.out.println("GetUsersFollowingCompany: " + "userId = " + msgBody);
+		System.out.println("GetUsersFollowingCompany: " + "companyName = " + msgBody);
 		
 		
-		requestMap.put("getUsersFollowingCompany.companyId", msgBody);
+		requestMap.put("getUsersFollowingCompany.companyName", msgBody);
 
 		message.getBody().add(requestMap);
 		System.out.println("Request map is: " + requestMap.toString());

@@ -41,21 +41,10 @@ public class WebServices implements IWebServices {
 	@PersistenceContext(unitName = "JPAEAI")
 	private EntityManager entityManager;
 
-	/**
-	 * WebMethod Gets the user list sorted by user sort type.
-	 * 
-	 * @param sortType
-	 *            the sort type
-	 * @return the user list
-	 */
-	@Override
-	@WebMethod
-	public List<eai.msejdf.esb.User> getUserListAll() {
-		return this.getUserList(null, UserSort.NAME_ASC);
-	}
+
 
 	/**
-	 * WebMethod Gets the user list that follow company id=companyId sorted by
+	 * WebMethod Gets the user list that follow company name=companyName sorted by
 	 * user sort type.
 	 * 
 	 * @param companyId
@@ -64,8 +53,8 @@ public class WebServices implements IWebServices {
 	@Override
 	@WebMethod
 	public List<eai.msejdf.esb.User> getUsersFollowingCompany(
-			@WebParam(name = "companyId") Long companyId) {
-		return this.getUsersFollowingCompany(companyId, UserSort.NAME_ASC);
+			@WebParam(name = "companyName") String companyName) {
+		return this.getUsersFollowingCompany(companyName, UserSort.NAME_ASC);
 		// return this.getUserList(null, UserSort.NAME_ASC);
 	}
 
@@ -271,15 +260,15 @@ public class WebServices implements IWebServices {
 	 */
 	@Override
 	@WebMethod(exclude = true)
-	public List<eai.msejdf.esb.User> getUsersFollowingCompany(Long companyId,
+	public List<eai.msejdf.esb.User> getUsersFollowingCompany(String companyName,
 			UserSort sortType) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getUserFollowCompanyList(String, int, int) - start"); //$NON-NLS-1$
 		}
 
 		// basic validations
-		if (null == companyId) {
-			throw new IllegalArgumentException("companyId");
+		if (null == companyName) {
+			throw new IllegalArgumentException("companyName");
 		}
 
 		String sortBy = buildUserSortType(sortType);
@@ -289,9 +278,9 @@ public class WebServices implements IWebServices {
 
 		Query query = entityManager
 				.createQuery("SELECT user FROM User user join fetch user.subscribedCompanies as comp "
-						+ "WHERE comp.id=:id " + sortBy);
+						+ "WHERE comp.name=:companyName " + sortBy);
 
-		query.setParameter("id", companyId);
+		query.setParameter("companyName", companyName);
 
 		@SuppressWarnings("unchecked")
 		List<User> userList = query.getResultList();
