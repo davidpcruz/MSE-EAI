@@ -162,7 +162,7 @@
 						/> -->
 					<property name="responseAsOgnlMap" value="true" />
 				</action>
-				<action class="eai.msejdf.esb.MyResponseAction" name="response-mapper" />
+<!-- 				<action class="eai.msejdf.esb.MyResponseAction" name="response-mapper" /> -->
 			</actions>
 		</service>
 <!-- 
@@ -250,8 +250,8 @@
 					<property name="responseAsOgnlMap" value="true" />
 
 				</action>
-				<action name="response-mapper" class="eai.msejdf.esb.MyResponseAction">
-				</action>
+<!-- 				<action name="response-mapper" class="eai.msejdf.esb.MyResponseAction"> -->
+<!-- 				</action> -->
 
 			</actions>
 		</service>

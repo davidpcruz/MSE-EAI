@@ -21,6 +21,7 @@
 package eai.msejdf.esb;
 
 import java.util.Map;
+import java.util.Set;
 
 import org.jboss.soa.esb.actions.AbstractActionLifecycle;
 import org.jboss.soa.esb.helpers.ConfigTree;
