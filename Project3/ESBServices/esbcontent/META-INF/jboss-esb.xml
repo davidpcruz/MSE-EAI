@@ -151,7 +151,7 @@
 				<jms-listener busidref="GetUserEmailCountEsbChannel"
 					name="getUserEmailCount" />
 			</listeners>
-			<actions mep="OneWay">
+			<actions mep="RequestResponse">
 				<action class="eai.msejdf.esb.GetUserEmailCount" name="request-mapper" />
 				<action class="org.jboss.soa.esb.actions.soap.SOAPClient"
 					name="soapui-client-action">
@@ -176,8 +176,17 @@
 				<jms-listener busidref="GetUsersFollowingCompanyEsbChannel"
 					name="getUsersFollowingCompany" />
 			</listeners>
-			<actions mep="OneWay">
+			<actions mep="RequestResponse">
+				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="entryPrint1">
+					<property name="message" value="eai.msejdf.esb.GetUsersFollowingCompany 1" />
+				</action>
+			
 				<action class="eai.msejdf.esb.GetUsersFollowingCompany" name="request-mapper" />
+
+				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="entryPrint2">
+					<property name="message" value="eai.msejdf.esb.GetUsersFollowingCompany 2" />
+				</action>
+
 				<action class="org.jboss.soa.esb.actions.soap.SOAPClient"
 					name="soapui-client-action">
 					<property name="wsdl"
@@ -185,7 +194,17 @@
 					<property name="SOAPAction" value="getUsersFollowingCompany" />
 					<property name="responseAsOgnlMap" value="true" />
 				</action>
+
+				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="entryPrint3">
+					<property name="message" value="eai.msejdf.esb.GetUsersFollowingCompany 3" />
+				</action>
+				
 				<action class="eai.msejdf.esb.MyResponseAction" name="response-mapper" />
+				
+				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="entryPrint4">
+					<property name="message" value="eai.msejdf.esb.GetUsersFollowingCompany 4" />
+				</action>
+				
 			</actions>
 		</service>
 <!-- 

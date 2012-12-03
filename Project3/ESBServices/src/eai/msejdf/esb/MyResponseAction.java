@@ -25,6 +25,11 @@ import java.util.Map;
 import org.jboss.soa.esb.actions.AbstractActionLifecycle;
 import org.jboss.soa.esb.helpers.ConfigTree;
 import org.jboss.soa.esb.message.Message;
+
+import eai.msejdf.utils.SOAMessageConstants;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -63,6 +68,16 @@ public class MyResponseAction extends AbstractActionLifecycle {
 		// System.out.println("MyResponseAction2: " + user);
 		// }
 
+		User user = new User();
+		List<User> list = new ArrayList();
+		
+		user.setName("test");
+		user.setMailAddress("my@gmail.com");
+		user.setUsername("MyUserName");
+		list.add(user);
+		
+		message.getBody().add(SOAMessageConstants.ESB_USER_LIST, list.toString());
+		
 		logFooter();
 		return message;
 	}

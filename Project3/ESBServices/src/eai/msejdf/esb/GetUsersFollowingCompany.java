@@ -23,7 +23,7 @@ public class GetUsersFollowingCompany extends AbstractActionLifecycle {
 	 */
 	public Message process(Message message) throws Exception {
 		logHeader();
-		String msgBody = (String) message.getBody().get();
+		String msgBody = (String) message.getBody().get(SOAMessageConstants.ESB_COMPANY_NAME).toString();
 		HashMap requestMap = new HashMap();
 
 		// add parameters to the web service request map
