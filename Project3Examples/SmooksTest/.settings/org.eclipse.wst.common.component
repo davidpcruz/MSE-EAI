@@ -8,6 +8,9 @@
         <dependent-module archiveName="EAICommon.jar" deploy-path="/" handle="module:/resource/EAICommon/EAICommon">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module deploy-path="/" handle="module:/org.jboss.ide.eclipse.as.wtp.core.vcf.outputFolders/">
+            <dependency-type>consumes</dependency-type>
+        </dependent-module>
         <property name="java-output-path" value="build/classes"/>
     </wb-module>
 </project-modules>

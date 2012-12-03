@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<smooks-resource-list xmlns="http://www.milyn.org/xsd/smooks-1.1.xsd"
+					  xmlns:ftl="http://www.milyn.org/xsd/smooks/freemarker-1.1.xsd"
+                      xmlns:jb="http://www.milyn.org/xsd/smooks/javabean-1.2.xsd"
+                      xmlns:frag="http://www.milyn.org/xsd/smooks/fragment-routing-1.2.xsd" 
+                      xmlns:esbr="http://www.jboss.org/xsd/jbossesb/smooks/routing-1.0.xsd">
+
+	<!-- Use the SAX engine -->
+    <params>
+	     <param name="stream.filter.type">SAX</param>
+    </params>
+
+    <jb:bean beanId="companiesList" class="java.util.ArrayList" createOnElement="stocks">
+        <jb:wiring beanIdRef="companyItem" />
+    </jb:bean>
+
+    <jb:bean beanId="companyItem" class="eai.msejdf.esb.Company" createOnElement="stock">
+        <jb:value property="name" data="stock/company/name" />
+        <jb:value property="address"  data="stock/company/address" />
+        <jb:value property="lastQuotation"  data="stock/quotation/lastQuotation" />
+        <jb:value property="time"  data="stock/quotation/time" />
+        <jb:value property="variation"  data="stock/quotation/variation" />
+        <jb:value property="quantity"  data="stock/quotation/quantity" />
+        <jb:value property="maximum"  data="stock/quotation/maximum" />
+        <jb:value property="minimum"  data="stock/quotation/minimum" />
+        <jb:value property="purchase"  data="stock/quotation/purchase" />
+        <jb:value property="sell"  data="stock/quotation/sell" />
+    </jb:bean>
+
+<!-- 
+ 	<frag:serialize fragment="stocks/stock" bindTo="companiesList" />
+ 	
+    <esbr:routeBean routeOnElement="stocks/stock" beanIdRef="companiesList" toServiceCategory="EAI_ESB" toServiceName="SmooksSpliterTest" />
+ --> 	
+ 	<!-- Route each order items split message to an ESB Service... -->
+<!-- 
+    <jb:bean beanId="companiesList" class="java.util.ArrayList" createOnElement="stocks">
+        <jb:wiring beanIdRef="company" />
+    </jb:bean>
+     
+    <jb:bean beanId="company" class="java.util.HashMap" createOnElement="company">
+        <jb:value property="name" data="company/name" />
+        <jb:value property="address"  data="company/address" />
+        <jb:value property="website"  data="company/website" />
+    </jb:bean>
+-                       
+	<ftl:freemarker applyOnElement="company">
+		<ftl:template>target/classes/orderitem-split.ftl</ftl:template>
+		<ftl:use>
+			<ftl:outputTo outputStreamResource="orderItemSplitStream"/>
+		</ftl:use>
+	</ftl:freemarker>
+-->                      
+</smooks-resource-list>

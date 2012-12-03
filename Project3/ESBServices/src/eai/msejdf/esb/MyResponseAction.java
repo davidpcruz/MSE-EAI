@@ -20,10 +20,10 @@
  */
 package eai.msejdf.esb;
 
+import java.util.Map;
+
 import org.jboss.soa.esb.actions.AbstractActionLifecycle;
-import org.jboss.soa.esb.actions.ActionUtils;
 import org.jboss.soa.esb.helpers.ConfigTree;
-import org.jboss.soa.esb.message.Body;
 import org.jboss.soa.esb.message.Message;
 import java.util.Map;
 import java.util.Set;

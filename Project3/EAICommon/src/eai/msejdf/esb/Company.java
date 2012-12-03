@@ -1,11 +1,14 @@
 package eai.msejdf.esb;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-public class Company {
+public class Company implements Serializable{
 
-    protected String name;
+	private static final long serialVersionUID = 1L;
+	
+	protected String name;
     protected String address;
     protected String website;
     
