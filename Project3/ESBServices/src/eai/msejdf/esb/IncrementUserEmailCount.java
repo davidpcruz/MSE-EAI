@@ -3,6 +3,9 @@ package eai.msejdf.esb;
 import org.jboss.soa.esb.actions.AbstractActionLifecycle;
 import org.jboss.soa.esb.helpers.ConfigTree;
 import org.jboss.soa.esb.message.Message;
+
+import eai.msejdf.utils.SOAMessageConstants;
+
 import java.util.HashMap;
 
 public class IncrementUserEmailCount extends AbstractActionLifecycle {
@@ -30,7 +33,7 @@ public class IncrementUserEmailCount extends AbstractActionLifecycle {
 		System.out.println("IncrementUserEmailCount: " + "userId = " + msgBody);
 		
 		
-		requestMap.put("incrementUserEmailCount.userId", msgBody);
+		requestMap.put("incrementUserEmailCount"+ SOAMessageConstants.ESB_USER_ID, msgBody);
 
 		message.getBody().add(requestMap);
 		System.out.println("Request map is: " + requestMap.toString());

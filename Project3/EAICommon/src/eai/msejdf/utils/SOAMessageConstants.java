@@ -15,6 +15,8 @@ public final class SOAMessageConstants
 	public static final String ESB_MAIL_MESSAGE = "mailMessage";
 
 	public static final String ESB_COMPANY_NAME = "companyName";
+	
+	public static final String ESB_USER_ID = "userId";
 
 	public static final String ESB_USER_LIST = "userList";
 	
