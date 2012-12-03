@@ -21,9 +21,11 @@ public class GetUsersFollowingCompany extends AbstractActionLifecycle {
 	/*
 	 * Convert the message into a webservice request map.
 	 */
+	@SuppressWarnings("unchecked")
 	public Message process(Message message) throws Exception {
 		logHeader();
 		String msgBody = (String) message.getBody().get();
+		@SuppressWarnings("rawtypes")
 		HashMap requestMap = new HashMap();
 
 		// add parameters to the web service request map
