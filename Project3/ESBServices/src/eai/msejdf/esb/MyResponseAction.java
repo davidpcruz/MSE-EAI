@@ -20,12 +20,11 @@
  */
 package eai.msejdf.esb;
 
-import org.jboss.soa.esb.actions.AbstractActionLifecycle;
-import org.jboss.soa.esb.actions.ActionUtils;
-import org.jboss.soa.esb.helpers.ConfigTree;
-import org.jboss.soa.esb.message.Body;
-import org.jboss.soa.esb.message.Message;
 import java.util.Map;
+
+import org.jboss.soa.esb.actions.AbstractActionLifecycle;
+import org.jboss.soa.esb.helpers.ConfigTree;
+import org.jboss.soa.esb.message.Message;
 
 public class MyResponseAction extends AbstractActionLifecycle {
 	protected ConfigTree _config;
