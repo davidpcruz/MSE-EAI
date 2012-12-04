@@ -18,8 +18,9 @@ public class MessageActionHandler implements ActionHandler {
 	 * member. The process variable is created if it doesn't exist yet.
 	 */
 	public void execute(ExecutionContext context) throws Exception {
-		System.out.println("Inside MessageActionHandler");
+		System.out.println("MessageActionHandler...");
 		System.out.println("MessageActionHandler: " + message);
+		System.out.println("MessageActionHandler...Complete");
 	}
 
 }

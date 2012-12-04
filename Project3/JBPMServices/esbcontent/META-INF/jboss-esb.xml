@@ -64,8 +64,8 @@
 				<action class="org.jboss.soa.esb.services.jbpm.actions.BpmProcessor"
 					name="BpmProcessor">
 					<property name="command" value="StartProcessInstanceCommand" />
-					<!-- <property name="process-definition-name" value="eai.msejdf.jbpm" /> -->
-					<property name="process-definition-name" value="test" />
+					<property name="process-definition-name" value="eai.msejdf.jbpm" />
+<!-- 					<property name="process-definition-name" value="test2" /> -->
 					<property name="esbToBpmVars">
 						<mapping bpm="msgBody" esb="BODY_CONTENT" />
 					</property>
@@ -103,6 +103,30 @@
 
 			</actions>
 		</service>
+		
+		<!-- TODO: Remove. This is temporary for debug -->
+<!-- 		<service category="EAI.MSEJDF.Service" description="TODO: Remove. Temporary service for debug" -->
+<!-- 			name="Dummy"> -->
+
+<!-- 			<listeners> -->
+<!-- 				<jms-listener busidref="mailCountGwChannel" is-gateway="true" -->
+<!-- 					name="JMS-Gateway" /> -->
+<!-- 				<jms-listener busidref="mailCountEsbChannel" name="ESB-Listener" /> -->
+<!-- 			</listeners> -->
+
+<!-- 			<actions mep="RequestResponse"> -->
+
+<!-- 				<action name="entryPrint" class="org.jboss.soa.esb.actions.SystemPrintln"> -->
+<!-- 					<property name="message" value="Dummy Service..."></property> -->
+<!-- 				</action> -->
+
+
+<!-- 				<action name="exitPrint" class="org.jboss.soa.esb.actions.SystemPrintln"> -->
+<!-- 					<property name="message" value="Dummy  Service...Complete"></property> -->
+<!-- 				</action> -->
+
+<!-- 			</actions> -->
+<!-- 		</service> -->
 		
 	</services>
 </jbossesb>

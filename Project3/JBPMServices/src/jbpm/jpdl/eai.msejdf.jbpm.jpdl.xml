@@ -14,7 +14,7 @@
 
 	<node name="TempInsertCompany">
 		<transition to="Check Stock Variation">
-		<action name="TempInsertCompany" class="eai.msejdf.jbpm.actions.TempInsertCompany"></action>
+			<action name="TempInsertCompany" class="eai.msejdf.jbpm.actions.TempInsertCompany"></action>
 		</transition>
 	</node>
 
@@ -75,22 +75,21 @@
 	</node>
 	
 	<node name="Get Subscribed Users">
+		<action name="GetUsersFollowingCompany"
+			class="org.jboss.soa.esb.services.jbpm.actionhandlers.EsbActionHandler">
+			<esbCategoryName>
+				EAI_ESB
+			</esbCategoryName>
+			<esbServiceName>GetUsersFollowingCompany</esbServiceName>
+			<bpmToEsbVars>
+				<mapping bpm="msgBody" esb="BODY_CONTENT" />
+				<mapping bpm="companyName" esb="companyName" />
+			</bpmToEsbVars>
+			<esbToBpmVars>
+				<mapping esb="userList" bpm="userList"/>
+			</esbToBpmVars>
+		</action>		
 		<transition to="Notify User">
-			<action name="GetUsersFollowingCompany"
-				class="org.jboss.soa.esb.services.jbpm.actionhandlers.EsbActionHandler">
-				<esbCategoryName>
-					EAI_ESB
-				</esbCategoryName>
-				<esbServiceName>GetUsersFollowingCompany</esbServiceName>
-				<bpmToEsbVars>
-					<mapping bpm="msgBody" esb="BODY_CONTENT" />
-					<mapping bpm="companyName" esb="companyName" />
-				</bpmToEsbVars>
-				<esbToBpmVars>
-					<mapping esb="BODY_CONTENT" bpm="msgBody" />
-					<mapping esb="userList" bpm="userList"/>
-				</esbToBpmVars>
-			</action>		
 		</transition>
 	</node>
 
@@ -118,7 +117,7 @@
 				<mapping bpm="msgBody" esb="BODY_CONTENT"/>
 			</bpmToEsbVars>
 			<esbToBpmVars>
-				<mapping esb="BODY_CONTENT" bpm="msgBody" />
+ 				<mapping esb="BODY_CONTENT" bpm="msgBody" /> 
 				<!-- No need to map variables as they are unidirectional -->
 			</esbToBpmVars>
 		</action>

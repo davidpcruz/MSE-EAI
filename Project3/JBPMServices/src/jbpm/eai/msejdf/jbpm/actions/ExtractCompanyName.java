@@ -1,8 +1,6 @@
 package eai.msejdf.jbpm.actions;
 
 
-import java.math.BigDecimal;
-
 import org.jbpm.graph.def.ActionHandler;
 import org.jbpm.graph.exe.ExecutionContext;
 
@@ -16,7 +14,6 @@ public class ExtractCompanyName implements ActionHandler {
 	public void execute(ExecutionContext context) throws Exception {
 
 		Company company = (Company)context.getContextInstance().getVariable(SOAMessageConstants.JBPM_MSG_BODY);
-		//Company company = null; //TODO: We should get this from body
 		
 		//TODO: Remove++ tmp for debug
 		if (null == company)

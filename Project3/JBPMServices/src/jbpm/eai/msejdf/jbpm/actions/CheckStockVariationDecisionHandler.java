@@ -6,6 +6,7 @@ import org.jbpm.graph.node.DecisionHandler;
 import org.apache.log4j.Logger;
 
 import eai.msejdf.esb.Company;
+import eai.msejdf.utils.SOAMessageConstants;
 
 public class CheckStockVariationDecisionHandler implements DecisionHandler  {
 	/**
@@ -29,14 +30,7 @@ public class CheckStockVariationDecisionHandler implements DecisionHandler  {
 			logger.debug("decide - start"); //$NON-NLS-1$
 		}
 		
-//		String message = executionContext.getContextInstance().getVariable("msgBody").toString();
-//		
-//		//TODO: Extract variation from the message (or variable carrying it) and remove this
-//		String variationStr = message;
-//		
-//		float variation = Math.abs(Float.parseFloat(variationStr.replace("%", "")));
-
-		Company company = (Company) executionContext.getContextInstance().getVariable("msgBody");
+		Company company = (Company) executionContext.getContextInstance().getVariable(SOAMessageConstants.JBPM_MSG_BODY);
 		String transition = null;
 		
 		//Extract variation from the message
