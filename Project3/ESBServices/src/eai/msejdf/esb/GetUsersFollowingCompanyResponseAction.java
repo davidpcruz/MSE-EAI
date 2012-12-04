@@ -55,8 +55,7 @@ public class GetUsersFollowingCompanyResponseAction extends AbstractActionLifecy
 				.println("####################### original message response end ###################\n ");
 
 		@SuppressWarnings("unchecked")
-		List<User> userList = (List<User>) message
-				.getBody().get();
+		List<User> userList = (List<User>) message.getBody().get();
 		System.out.println("Response Map is: " + userList.getClass());
 		for (User user : userList) {
 			System.out.println("\t" + user + ": " + user.getName() + "\t: "
