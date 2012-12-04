@@ -26,7 +26,10 @@ public class GetUsersFollowingCompany extends AbstractActionLifecycle {
 		logHeader();
 
 		String msgBody = (String) message.getBody().get(SOAMessageConstants.ESB_COMPANY_NAME).toString();
+//		String msgBody = (String) message.getBody().get(); //to be used on tests
 
+		
+		
 		@SuppressWarnings("rawtypes")
 		HashMap requestMap = new HashMap();
 
