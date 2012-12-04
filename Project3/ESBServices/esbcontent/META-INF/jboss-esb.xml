@@ -240,7 +240,7 @@
 					name="incrementUserEmailCount" />
 			</listeners>
 
-			<actions mep="OneWay">
+			<actions mep="RequestResponse">
 				<action name="request-mapper" class="eai.msejdf.esb.IncrementUserEmailCount">
 				</action>
 				<action name="soapui-client-action" class="org.jboss.soa.esb.actions.soap.SOAPClient">

@@ -81,28 +81,28 @@
 
 
 		<!-- TODO: Remove. This is temporary for debug -->
-		<service category="EAI.MSEJDF.Service" description="TODO: Remove. Temporary service for debug"
-			name="Count e-mail">
+<!-- 		<service category="EAI.MSEJDF.Service" description="TODO: Remove. Temporary service for debug" -->
+<!-- 			name="Count e-mail"> -->
 
-			<listeners>
-				<jms-listener busidref="mailCountGwChannel" is-gateway="true"
-					name="JMS-Gateway" />
-				<jms-listener busidref="mailCountEsbChannel" name="ESB-Listener" />
-			</listeners>
+<!-- 			<listeners> -->
+<!-- 				<jms-listener busidref="mailCountGwChannel" is-gateway="true" -->
+<!-- 					name="JMS-Gateway" /> -->
+<!-- 				<jms-listener busidref="mailCountEsbChannel" name="ESB-Listener" /> -->
+<!-- 			</listeners> -->
 
-			<actions mep="RequestResponse">
+<!-- 			<actions mep="RequestResponse"> -->
 
-				<action name="entryPrint" class="org.jboss.soa.esb.actions.SystemPrintln">
-					<property name="message" value="Count e-mail Service..."></property>
-				</action>
+<!-- 				<action name="entryPrint" class="org.jboss.soa.esb.actions.SystemPrintln"> -->
+<!-- 					<property name="message" value="Count e-mail Service..."></property> -->
+<!-- 				</action> -->
 
 
-				<action name="exitPrint" class="org.jboss.soa.esb.actions.SystemPrintln">
-					<property name="message" value="Count e-mail Service...Complete"></property>
-				</action>
+<!-- 				<action name="exitPrint" class="org.jboss.soa.esb.actions.SystemPrintln"> -->
+<!-- 					<property name="message" value="Count e-mail Service...Complete"></property> -->
+<!-- 				</action> -->
 
-			</actions>
-		</service>
+<!-- 			</actions> -->
+<!-- 		</service> -->
 		
 		<!-- TODO: Remove. This is temporary for debug -->
 <!-- 		<service category="EAI.MSEJDF.Service" description="TODO: Remove. Temporary service for debug" -->

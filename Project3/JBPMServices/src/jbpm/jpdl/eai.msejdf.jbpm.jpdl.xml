@@ -10,10 +10,10 @@
 			</action>
 		</event>
 		<transition to="TempInsertCompany" name="Check Stock Variation"></transition>
-	</start-state>
+	</start-state> 
 
 	<node name="TempInsertCompany">
-		<transition to="Check Stock Variation">
+		<transition to="IncCompaniesProcessed">
 			<action name="TempInsertCompany" class="eai.msejdf.jbpm.actions.TempInsertCompany"></action>
 		</transition>
 	</node>
@@ -28,7 +28,7 @@
 			</action>
 		</transition>
 
-		<transition to="Identify Company" name="Notify User">
+		<transition to="IncUsersWarnedAutomatically" name="Notify User">
 			<!-- TODO: Remove this action (used for debugging) -->
 			<action name="action" class="eai.msejdf.jbpm.actions.MessageActionHandler">
 				<message>Notify user</message>
@@ -57,7 +57,7 @@
 			</action>
 		</transition>
 
-		<transition to="Identify Company" name="Approve Notification">
+		<transition to="IncUsersWarnedByManager" name="Approve Notification">
 
 			<!-- TODO: Remove this action (used for debugging) -->
 			<action name="action3" class="eai.msejdf.jbpm.actions.MessageActionHandler">
@@ -95,15 +95,15 @@
 
 	<fork name="Notify User">
 		<transition to="Send e-Mail" name="Start e-mail sending">
-			<action name="esb Service Call - Prepare"
-				class="eai.msejdf.jbpm.actions.PrepareEsbMailCall">
+			<action name="esb Service Call - Prepare Mail Send"
+				class="eai.msejdf.jbpm.actions.PrepareEsbMailSendCall">
 			</action>		
 		</transition>
-		<transition to="Count e-Mail" name="Start e-mail counting"></transition>
+		<transition to="Count e-Mail" name="Start e-mail counting">
+		</transition>
 	</fork>
 
 	<node name="Send e-Mail">
-		
 		<action name="esb Service Call - Send e-mail"
 			class="org.jboss.soa.esb.services.jbpm.actionhandlers.EsbActionHandler">
 			<esbCategoryName>
@@ -116,10 +116,6 @@
 				<mapping bpm="mailMessage" esb="mailMessage" />				
 				<mapping bpm="msgBody" esb="BODY_CONTENT"/>
 			</bpmToEsbVars>
-			<esbToBpmVars>
- 				<mapping esb="BODY_CONTENT" bpm="msgBody" /> 
-				<!-- No need to map variables as they are unidirectional -->
-			</esbToBpmVars>
 		</action>
 
 		<transition to="Wait e-mail actions complete">
@@ -134,15 +130,12 @@
 		<action name="esb Service Call - Count e-mail"
 			class="org.jboss.soa.esb.services.jbpm.actionhandlers.EsbActionHandler"  async="true"> 
 			<esbCategoryName>
-				EAI.MSEJDF.Service
+				EAI_ESB
 			</esbCategoryName>
-			<esbServiceName>Count e-mail</esbServiceName>
+			<esbServiceName>IncrementUserEmailCount</esbServiceName>
 			<bpmToEsbVars>
-				<mapping bpm="msgBody" esb="BODY_CONTENT" />
+				<mapping bpm="userList" esb="userList" />
 			</bpmToEsbVars>
-			<esbToBpmVars>
-				<mapping esb="BODY_CONTENT" bpm="msgBody" />
-			</esbToBpmVars>
 		</action>
 
 		<transition to="Wait e-mail actions complete">
@@ -162,6 +155,24 @@
 			</action>
 		</transition>
 	</join>
+
+	<node name="IncCompaniesProcessed">
+		<transition to="Check Stock Variation">
+			<action name="IncCompaniesProcessed" class="eai.msejdf.jbpm.actions.IncCompaniesProcessed"></action>
+		</transition>
+	</node>
+
+	<node name="IncUsersWarnedAutomatically">
+		<transition to="Identify Company">
+			<action name="IncUsersWarnedAutomatically" class="eai.msejdf.jbpm.actions.IncUsersWarnedAutomatically"></action>
+		</transition>
+	</node>
+
+	<node name="IncUsersWarnedByManager">
+		<transition to="Identify Company">
+			<action name="IncUsersWarnedByManager" class="eai.msejdf.jbpm.actions.IncUsersWarnedByManager"></action>
+		</transition>
+	</node>
 
 
 	<end-state name="end-state2">
