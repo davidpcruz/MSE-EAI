@@ -27,6 +27,10 @@
 				<jms-message-filter dest-name="queue/EAIProj3_aggregator"
 					dest-type="QUEUE" />
 			</jms-bus>			
+			<jms-bus busid="EAIProj3_ReportQueue">
+				<jms-message-filter dest-name="queue/EAIProj3_aggregator"
+					dest-type="QUEUE" />
+			</jms-bus>			
 
 			<jms-bus busid="OrchestratorEsbChannel">
 				<jms-message-filter dest-name="queue/Orchestrator_esb"
@@ -187,6 +191,29 @@
 				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="printAfter-xml">
 					<property name="message" value=">>>> 4. XML Message on topic : " />
 				</action>
+				
+				<!-- Send to the report queue -->
+				
+				<action name="routeToReplyQueue" class="org.jboss.soa.esb.actions.routing.JMSRouter">
+					<property name="jndi-context-factory" value="org.jnp.interfaces.NamingContextFactory"/>
+					<property name="jndi-URL" value="127.0.0.1:1199"/>
+					<property name="jndi-pkg-prefix" value="org.jboss.naming:org.jnp.interfaces"/>
+					<property name="connection-factory" value="ConnectionFactory"/>
+					<property name="jndiName" value="queue/report_queue"/>
+					<property name="unwrap" value="true"/>
+					<!-- 
+					<property name="security-principal" value="guest"/>
+					<property name="security-credential" value="guest"/>
+				 	-->
+					<!-- Example of adding Extension properties -->
+					<!-- comma separated list of prefixes -->
+					<!-- 
+					<property name="jndi-prefixes" value="org.xyz."/>
+					<property name="org.xyz.propertyName" value="propertyValue"/>
+					 -->
+				
+				  </action>   
+				
 			</actions>
 		</service>
 
