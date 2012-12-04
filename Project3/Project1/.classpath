@@ -19,5 +19,6 @@
 	<classpathentry kind="lib" path="lib/javax.xml.bind_2.2.0.v201105210648.jar"/>
 	<classpathentry kind="con" path="org.jboss.esb.runtime.classpath/server.supplied/JBoss 4.2 Runtime"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jBossESB-client"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/EAICommon"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

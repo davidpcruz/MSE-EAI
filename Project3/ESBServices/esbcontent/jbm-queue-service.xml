@@ -89,7 +89,14 @@
            xmbean-dd="xmdesc/Queue-xmbean.xml">
         <depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer</depends>
 		<depends>jboss.messaging:service=PostOffice</depends>
-    </mbean>    
+    </mbean>
+    
+  <mbean code="org.jboss.jms.server.destination.QueueService"
+    name="jboss.esb.quickstart.destination:service=Queue,name=report_queue"
+    xmbean-dd="xmdesc/Queue-xmbean.xml">
+	<depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer</depends>
+	<depends>jboss.messaging:service=PostOffice</depends>
+  </mbean>        
 </server>
 
 
