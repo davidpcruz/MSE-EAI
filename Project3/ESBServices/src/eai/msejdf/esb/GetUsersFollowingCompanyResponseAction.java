@@ -20,18 +20,20 @@
  */
 package eai.msejdf.esb;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.jboss.soa.esb.actions.AbstractActionLifecycle;
 import org.jboss.soa.esb.helpers.ConfigTree;
 import org.jboss.soa.esb.message.Message;
+import eai.msejdf.esb.User;
 
 import eai.msejdf.utils.SOAMessageConstants;
 
-public class GetUserEmailCountResponseAction extends AbstractActionLifecycle {
+public class GetUsersFollowingCompanyResponseAction extends AbstractActionLifecycle {
 	protected ConfigTree _config;
 
-	public GetUserEmailCountResponseAction(ConfigTree config) {
+	public GetUsersFollowingCompanyResponseAction(ConfigTree config) {
 		_config = config;
 	}
 
@@ -43,7 +45,7 @@ public class GetUserEmailCountResponseAction extends AbstractActionLifecycle {
 	 * Retrieve and output the webservice response.
 	 */
 	public Message process(Message message) throws Exception {
-		StringBuffer results = new StringBuffer();
+		//StringBuffer results = new StringBuffer();
 
 		logHeader();
 		System.out
@@ -53,21 +55,30 @@ public class GetUserEmailCountResponseAction extends AbstractActionLifecycle {
 				.println("####################### original message response end ###################\n ");
 
 		@SuppressWarnings("unchecked")
-		List<eai.msejdf.esb.User> userList = (List<eai.msejdf.esb.User>) message
+		List<User> userList = (List<User>) message
 				.getBody().get();
 		System.out.println("Response Map is: " + userList.getClass());
-		for (eai.msejdf.esb.User user : userList) {
+		for (User user : userList) {
 			System.out.println("\t" + user + ": " + user.getName() + "\t: "
 					+ user.getMailAddress() + "\t: " + user.getUsername()
 					+ "\n");
 		}
 
 
-		message.getBody().add(results.toString());
+//		message.getBody().add(results.toString());
+//
+		message.getBody().add(SOAMessageConstants.ESB_USER_LIST, userList);
 
-		message.getBody().add(SOAMessageConstants.ESB_USER_LIST,
-				userList.toString());
-
+//		User user = new User();
+//		user.setName("Filipe");
+//		user.setMailAddress("fnorte@dei.uc.pt");
+//		user.setUsername("test");
+//		
+//		List<User> list = new ArrayList<User>();
+//		list.add(user);
+//		
+//		message.getBody().add(SOAMessageConstants.ESB_USER_LIST, list);
+		
 		logFooter();
 		return message;
 	}

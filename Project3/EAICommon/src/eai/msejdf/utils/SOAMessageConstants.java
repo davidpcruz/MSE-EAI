@@ -20,6 +20,8 @@ public final class SOAMessageConstants
 
 	public static final String ESB_USER_LIST = "userList";
 	
+	public static final String ESB_USER_ID_LIST = "userIdList";
+
 	// JBPM specific messages
 	
 	public static final String JBPM_MSG_BODY = "msgBody";
@@ -35,6 +37,8 @@ public final class SOAMessageConstants
 	public static final String JBPM_COMPANY_NAME = SOAMessageConstants.ESB_COMPANY_NAME;
 
 	public static final String JBPM_USER_LIST = SOAMessageConstants.ESB_USER_LIST;
+
+	public static final String JBPM_USER_ID_LIST = SOAMessageConstants.ESB_USER_ID_LIST;
 
 	// Status report variables
 	

@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="eai.msejdf.jbpm" width="1165" height="1434">
-  <node name="start" x="658" y="173" width="132" height="47">
-    <edge>
-      <label x="5" y="-10"/>
-    </edge>
-  </node>
+<root-container name="eai.msejdf.jbpm" width="1166" height="1435">
   <node name="TempInsertCompany" x="642" y="275" width="180" height="49">
     <edge>
       <label x="5" y="-10"/>
@@ -75,6 +70,11 @@
     </edge>
   </node>
   <node name="GenerateReport" x="832" y="1258" width="233" height="51">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="start" x="0" y="0" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>

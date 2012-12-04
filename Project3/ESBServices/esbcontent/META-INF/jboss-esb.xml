@@ -242,11 +242,12 @@
 <!-- 					<property name="message" value="eai.msejdf.esb.GetUsersFollowingCompany 3" /> -->
 <!-- 				</action> -->
 				
-				<action class="eai.msejdf.esb.GetUserEmailCountResponseAction" name="response-mapper" />
+				<action class="eai.msejdf.esb.GetUsersFollowingCompanyResponseAction" name="response-mapper" />
 				
-<!-- 				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="entryPrint4"> -->
-<!-- 					<property name="message" value="eai.msejdf.esb.GetUsersFollowingCompany 4" /> -->
-<!-- 				</action> -->
+				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="entryPrint4">
+					<property name="message" value="eai.msejdf.esb.GetUsersFollowingCompany 4" />
+				</action>
+				
 				
 			</actions>
 		</service>
