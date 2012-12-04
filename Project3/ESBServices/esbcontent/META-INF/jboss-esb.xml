@@ -217,7 +217,7 @@
 			<listeners>
 				<jms-listener busidref="SendMailEsbChannel" name="Send e-mail" />
 			</listeners>
-			<actions mep="RequestResponse">
+			<actions mep="OneWay">
 				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="entryPrint">
 					<property name="message" value="Start e-mail sending..." />
 				</action>

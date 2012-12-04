@@ -104,21 +104,35 @@
 	</fork>
 
 	<node name="Send e-Mail">
-		<action name="esb Service Call - Send e-mail"
-			class="org.jboss.soa.esb.services.jbpm.actionhandlers.EsbActionHandler">
-			<esbCategoryName>
-				EAI_ESB
-			</esbCategoryName>
-			<esbServiceName>Send e-mail</esbServiceName>
-			<bpmToEsbVars>
-				<mapping bpm="mailTo" esb="mailTo" />
-				<mapping bpm="mailSubject" esb="mailSubject" />				
-				<mapping bpm="mailMessage" esb="mailMessage" />				
-				<mapping bpm="msgBody" esb="BODY_CONTENT"/>
-			</bpmToEsbVars>
-		</action>
+<!-- 		<action name="esb Service Call - Send e-mail" -->
+<!-- 			class="org.jboss.soa.esb.services.jbpm.actionhandlers.EsbActionHandler"> -->
+<!-- 			<esbCategoryName> -->
+<!-- 				EAI_ESB -->
+<!-- 			</esbCategoryName> -->
+<!-- 			<esbServiceName>Send e-mail</esbServiceName> -->
+<!-- 			<bpmToEsbVars> -->
+<!-- 				<mapping bpm="mailTo" esb="mailTo" /> -->
+<!-- 				<mapping bpm="mailSubject" esb="mailSubject" />				 -->
+<!-- 				<mapping bpm="mailMessage" esb="mailMessage" />				 -->
+<!-- 				<mapping bpm="msgBody" esb="BODY_CONTENT"/> -->
+<!-- 			</bpmToEsbVars> -->
+<!-- 		</action> -->
 
 		<transition to="Wait e-mail actions complete">
+			<action name="esb Service Call - Send e-mail"
+				class="org.jboss.soa.esb.services.jbpm.actionhandlers.EsbNotifier">
+				<esbCategoryName>
+					EAI_ESB
+				</esbCategoryName>
+				<esbServiceName>Send e-mail</esbServiceName>
+				<bpmToEsbVars>
+					<mapping bpm="mailTo" esb="mailTo" />
+					<mapping bpm="mailSubject" esb="mailSubject" />				
+					<mapping bpm="mailMessage" esb="mailMessage" />				
+					<mapping bpm="msgBody" esb="BODY_CONTENT"/>
+				</bpmToEsbVars>
+			</action>
+		
 			<!-- TODO: Remove this action (used for debugging) -->
 			<action name="action4" class="eai.msejdf.jbpm.actions.MessageActionHandler">
 				<message>Send e-mail complete</message>
