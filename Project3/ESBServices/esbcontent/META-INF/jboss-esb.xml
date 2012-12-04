@@ -134,6 +134,8 @@
                   <!-- aggregate the attachments into 1 message -->
                   <action name="assemble" class="eai.msejdf.esb.AggregatedAssemblerAction" />
 
+                  <action name="reportAgregate" class="eai.msejdf.esb.ReportAggregateAction" />
+
 				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="printAfter-xml">
 					<property name="message" value=">>>> 4. XML Message on topic : " />
 				</action>
