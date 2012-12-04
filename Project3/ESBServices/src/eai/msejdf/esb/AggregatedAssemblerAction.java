@@ -22,18 +22,18 @@ public class AggregatedAssemblerAction extends AbstractActionPipelineProcessor {
     public Message process(Message message) throws ActionProcessingException {
         Attachment attachments = message.getAttachment();
         int attachmentCount = attachments.getUnnamedCount();
-        List<Company> listCompanies = new ArrayList<Company>();
+        List<Object> listObjects = new ArrayList<Object>();
 
         for (int i = 0; i < attachmentCount; i++) {
             try {
         		Message aggrMessage = Util.deserialize((Serializable) attachments.itemAt(i));
-            	listCompanies.add((Company) aggrMessage.getBody().get());
+            	listObjects.add(aggrMessage.getBody().get());
             } catch (Exception e) {
             	logger.warn("Not an aggregated message attachment at attachment " + i);
             }
         }
         
-        message.getBody().add(listCompanies);
+        message.getBody().add(listObjects);
 
         // remove the attachments (no more nead)
         for (int i = attachmentCount - 1; i >= 0; i--) {
