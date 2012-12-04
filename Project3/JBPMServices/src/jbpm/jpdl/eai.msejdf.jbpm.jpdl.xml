@@ -100,6 +100,9 @@
 			</action>		
 		</transition>
 		<transition to="Count e-Mail" name="Start e-mail counting">
+			<action name="esb Service Call - Prepare Mail Count"
+				class="eai.msejdf.jbpm.actions.PrepareEsbMailCountCall">
+			</action>		
 		</transition>
 	</fork>
 
@@ -148,7 +151,7 @@
 			</esbCategoryName>
 			<esbServiceName>IncrementUserEmailCount</esbServiceName>
 			<bpmToEsbVars>
-				<mapping bpm="userList" esb="userList" />
+				<mapping bpm="userIdList" esb="userIdList" />
 			</bpmToEsbVars>
 		</action>
 
