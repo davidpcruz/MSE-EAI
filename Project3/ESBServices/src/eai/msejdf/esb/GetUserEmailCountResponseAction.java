@@ -20,8 +20,7 @@
  */
 package eai.msejdf.esb;
 
-import java.util.Map;
-import java.util.Set;
+import java.util.List;
 
 import org.jboss.soa.esb.actions.AbstractActionLifecycle;
 import org.jboss.soa.esb.helpers.ConfigTree;
@@ -29,14 +28,10 @@ import org.jboss.soa.esb.message.Message;
 
 import eai.msejdf.utils.SOAMessageConstants;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
-public class MyResponseAction extends AbstractActionLifecycle {
+public class GetUserEmailCountResponseAction extends AbstractActionLifecycle {
 	protected ConfigTree _config;
 
-	public MyResponseAction(ConfigTree config) {
+	public GetUserEmailCountResponseAction(ConfigTree config) {
 		_config = config;
 	}
 
@@ -48,36 +43,31 @@ public class MyResponseAction extends AbstractActionLifecycle {
 	 * Retrieve and output the webservice response.
 	 */
 	public Message process(Message message) throws Exception {
+		StringBuffer results = new StringBuffer();
 
 		logHeader();
+		System.out
+				.println("####################### original message response start ###################\n ");
+		System.out.println("message Items: " + message.toString() + "\n");
+		System.out
+				.println("####################### original message response end ###################\n ");
 
-		// The "responseLocation" property was set in jboss-esb.xml to
-		// "helloworld-response"
-		// Map responseMsg = (Map) message.getBody().get(Body.DEFAULT_LOCATION);
-		@SuppressWarnings("rawtypes")
-		Map responseMsg = (Map) message.getBody().get();
-		// String[] responseMsg2 = message.getBody().getNames();
-		System.out.println("MyResponseAction");
 		@SuppressWarnings("unchecked")
-		Set<String> set = responseMsg.keySet();
-		for (String user : set) {
-			System.out.println("Response Map is: " + user + "\t"
-					+ responseMsg.get(user));
+		List<eai.msejdf.esb.User> userList = (List<eai.msejdf.esb.User>) message
+				.getBody().get();
+		System.out.println("Response Map is: " + userList.getClass());
+		for (eai.msejdf.esb.User user : userList) {
+			System.out.println("\t" + user + ": " + user.getName() + "\t: "
+					+ user.getMailAddress() + "\t: " + user.getUsername()
+					+ "\n");
 		}
-		// for (String user : responseMsg2) {
-		// System.out.println("MyResponseAction2: " + user);
-		// }
 
-		User user = new User();
-		List<User> list = new ArrayList<User>();
-		
-		user.setName("test");
-		user.setMailAddress("my@gmail.com");
-		user.setUsername("MyUserName");
-		list.add(user);
-		
-		message.getBody().add(SOAMessageConstants.ESB_USER_LIST, list.toString());
-		
+
+		message.getBody().add(results.toString());
+
+		message.getBody().add(SOAMessageConstants.ESB_USER_LIST,
+				userList.toString());
+
 		logFooter();
 		return message;
 	}
@@ -94,11 +84,12 @@ public class MyResponseAction extends AbstractActionLifecycle {
 	// This makes it easier to read on the console
 	private void logHeader() {
 		System.out
-				.println("&&&&&&&&&&&&&&&&&&&& MyResponseAction &&&&&&&&&&&&&&&&&&&&&&&&\n");
+				.println("&&&&&&&&&&&&&&&&&&&& MyResponseAction start &&&&&&&&&&&&&&&&&&&&&&&&\n");
 	}
 
 	private void logFooter() {
-		System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&\n");
+		System.out
+				.println("&&&&&&&&&&&&&&&&&&& MyResponseAction end &&&&&&&&&&&&&&&&&&&&&&&&&\n");
 	}
 
 }
