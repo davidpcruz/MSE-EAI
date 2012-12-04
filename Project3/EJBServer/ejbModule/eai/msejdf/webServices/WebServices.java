@@ -106,10 +106,11 @@ public class WebServices implements IWebServices {
 	 * @throws ConfigurationException
 	 */
 	@Override
-	public void incrementUserEmailCount(@WebParam(name = "userId") Long userId)
+	@WebMethod
+	public void incrementUserEmailCountFromId(@WebParam(name = "userId") Long userId)
 			throws ConfigurationException {
 		if (logger.isDebugEnabled()) {
-			logger.debug("setBankTeller(Long, Long) - start"); //$NON-NLS-1$
+			logger.debug("incrementUserEmailCountFromId(List<eai.msejdf.esb.User>) - start"); //$NON-NLS-1$
 		}
 
 		if ((null == userId)) {
@@ -124,10 +125,38 @@ public class WebServices implements IWebServices {
 		entityManager.persist(user);
 
 		if (logger.isDebugEnabled()) {
-			logger.debug("setBankTeller(Long, Long) - end"); //$NON-NLS-1$
+			logger.debug("incrementUserEmailCountFromId(List<eai.msejdf.esb.User>) - end"); //$NON-NLS-1$
 		}
 	}
 
+
+	@Override
+	@WebMethod
+	public void incrementUserEmailCountFromList(@WebParam(name = "userList") List<eai.msejdf.esb.User> userList)
+			throws ConfigurationException {
+		if (logger.isDebugEnabled()) {
+			logger.debug("incrementUserEmailCountFromList(List<eai.msejdf.esb.User>) - start"); //$NON-NLS-1$
+		}
+
+		if ((null == userList)) {
+			throw new InvalidParameterException();
+		}
+
+		for (eai.msejdf.esb.User user : userList)
+		{
+			User dbUser = getUser(user.getUsername());
+	
+			// increments user EmailCount by one
+			dbUser.setEmailCount(dbUser.getEmailCount() + 1);
+	
+			entityManager.persist(dbUser);
+		}
+		
+		if (logger.isDebugEnabled()) {
+			logger.debug("incrementUserEmailCountFromList(List<eai.msejdf.esb.User>) - end"); //$NON-NLS-1$
+		}
+	}
+	
 	// TODO decide if it should use Admin getUserList method instead of
 	// implementing it again
 	/**
@@ -137,11 +166,9 @@ public class WebServices implements IWebServices {
 	 * @return
 	 * @throws ConfigurationException
 	 */
-	@Override
-	@WebMethod(exclude = true)
-	public User getUser(Long userId) throws ConfigurationException {
+	private User getUser(Long userId) throws ConfigurationException {
 		if (logger.isDebugEnabled()) {
-			logger.debug("getUser(String) - start"); //$NON-NLS-1$
+			logger.debug("getUser(Long) - start"); //$NON-NLS-1$
 		}
 
 		if (null == userId) {
@@ -168,11 +195,54 @@ public class WebServices implements IWebServices {
 		}
 
 		if (logger.isDebugEnabled()) {
-			logger.debug("getUser(String) - end"); //$NON-NLS-1$
+			logger.debug("getUser(Long) - end"); //$NON-NLS-1$
 		}
 		return user;
 	}
 
+	// TODO decide if it should use Admin getUserList method instead of
+	// implementing it again
+	/**
+	 * Gets the user by user name
+	 * 
+	 * @param userName Name of user
+	 * @return User object 
+	 * @throws ConfigurationException
+	 */
+	private User getUser(String userName) throws ConfigurationException {
+		if (logger.isDebugEnabled()) {
+			logger.debug("getUser(String) - start"); //$NON-NLS-1$
+		}
+
+		if (null == userName) {
+			throw new InvalidParameterException();
+		}
+
+		Query query = entityManager
+				.createQuery("SELECT User FROM User user WHERE user.username=:username");
+		query.setParameter("username", userName);
+
+		@SuppressWarnings("unchecked")
+		List<User> userList = query.getResultList();
+		if (true == userList.isEmpty()) {
+			// The user doesn't seem to exist
+			throw new ConfigurationException(
+					WebServices.EXCEPTION_USER_NOT_FOUND);
+		}
+
+		User user = userList.get(0);
+		BankTeller bankTeller = user.getBankTeller();
+
+		if (null != bankTeller) {
+			bankTeller.getId(); // To overcome Lazzy parameter
+		}
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("getUser(String) - end"); //$NON-NLS-1$
+		}
+		return user;
+	}
+	
 	// TODO decide if it should use Admin getUserList method instead of
 	// implementing it again
 	/**
@@ -182,9 +252,7 @@ public class WebServices implements IWebServices {
 	 * @param sortType
 	 * @return
 	 */
-	@Override
-	@WebMethod(exclude = true)
-	public List<eai.msejdf.esb.User> getUserList(Integer ageThreshold,
+	private List<eai.msejdf.esb.User> getUserList(Integer ageThreshold,
 			UserSort sortType) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getUserList(Integer, UserSort) - start"); //$NON-NLS-1$
@@ -259,9 +327,7 @@ public class WebServices implements IWebServices {
 	 * @see eai.msejdf.admin.IAdmin#getUserFollowCompanyList(java.lang.Long,
 	 * eai.msejdf.sort.UserSort)
 	 */
-	@Override
-	@WebMethod(exclude = true)
-	public List<eai.msejdf.esb.User> getUsersFollowingCompany(String companyName,
+	private List<eai.msejdf.esb.User> getUsersFollowingCompany(String companyName,
 			UserSort sortType) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getUserFollowCompanyList(String, int, int) - start"); //$NON-NLS-1$
