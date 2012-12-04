@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="eai.msejdf.jbpm" width="1165" height="1486">
-  <node name="start" x="535" y="247" width="132" height="47">
+<root-container name="eai.msejdf.jbpm" width="1165" height="1434">
+  <node name="start" x="658" y="173" width="132" height="47">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="TempInsertCompany" x="519" y="349" width="180" height="49">
+  <node name="TempInsertCompany" x="642" y="275" width="180" height="49">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="Check Stock Variation" x="496" y="548" width="224" height="46">
+  <node name="Check Stock Variation" x="625" y="452" width="224" height="46">
     <edge>
-      <label x="4" y="0"/>
+      <label x="-11" y="34"/>
     </edge>
     <edge>
-      <label x="11" y="-26"/>
+      <label x="-79" y="-20"/>
     </edge>
     <edge>
-      <label x="-36" y="-84"/>
+      <label x="-36" y="-181"/>
     </edge>
   </node>
-  <node name="Approve Stock Variation Notification" x="558" y="714" width="200" height="51">
+  <node name="Approve Stock Variation Notification" x="460" y="711" width="235" height="54">
     <edge>
-      <label x="5" y="-10"/>
+      <label x="-143" y="-27"/>
     </edge>
     <edge>
-      <label x="5" y="-10"/>
+      <label x="-147" y="-14"/>
     </edge>
   </node>
   <node name="Identify Company" x="157" y="845" width="189" height="46">
@@ -63,19 +63,18 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="end-state2" x="538" y="1449" width="132" height="36"/>
-  <node name="end-state1" x="950" y="707" width="132" height="36"/>
-  <node name="IncCompaniesProcessed" x="502" y="456" width="217" height="49">
+  <node name="end-state2" x="889" y="1397" width="132" height="36"/>
+  <node name="SetUsersWarnedAutomatically" x="130" y="719" width="246" height="45">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="IncUsersWarnedAutomatically" x="130" y="719" width="246" height="45">
+  <node name="SetUsersWarnedByManager" x="408" y="846" width="225" height="45">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="IncUsersWarnedByManager" x="408" y="846" width="225" height="45">
+  <node name="GenerateReport" x="832" y="1258" width="233" height="51">
     <edge>
       <label x="5" y="-10"/>
     </edge>

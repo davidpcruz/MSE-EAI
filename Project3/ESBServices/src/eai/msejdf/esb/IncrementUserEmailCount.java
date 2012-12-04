@@ -26,16 +26,16 @@ public class IncrementUserEmailCount extends AbstractActionLifecycle {
 	@SuppressWarnings("unchecked")
 	public Message process(Message message) throws Exception {
 		logHeader();
-		String msgBody = (String) message.getBody().get();
+		String userList = (String) message.getBody().get(SOAMessageConstants.ESB_USER_LIST);
 		@SuppressWarnings("rawtypes")
 		HashMap requestMap = new HashMap();
 
 		// add parameters to the web service request map
 		System.out.println("################### IncrementUserEmailCount ######################\n");
-		System.out.println("IncrementUserEmailCount: " + "userId = " + msgBody);
+		System.out.println("IncrementUserEmailCount: " + "userList = " + userList);
 		
 		
-		requestMap.put("incrementUserEmailCount."+ SOAMessageConstants.ESB_USER_ID, msgBody);
+		requestMap.put("incrementUserEmailCountFromList."+ SOAMessageConstants.ESB_USER_LIST, userList);
 
 		message.getBody().add(requestMap);
 		System.out.println("Request map is: " + requestMap.toString());

@@ -29,33 +29,23 @@ public interface IWebServices {
 	Integer getUserEmailCount(Long userId) throws ConfigurationException;
 
 	/**
-	 * WebMethod increments the user numbers of sent emails by one
+	 * WebMethod Increments the number of e-mails sent by each user in the list by one
 	 * 
-	 * @param userId
-	 * @return
+	 * @param userId Id of user for which the e-mail count shall be incremented
 	 * @throws ConfigurationException
 	 */
-	void incrementUserEmailCount(Long userId)
+	void incrementUserEmailCountFromId(Long userId)
 			throws ConfigurationException;
-
+	
 	/**
-	 * Gets the user by user id
-	 * @param userId
-	 * @return
+	 * WebMethod Increments the number of e-mails sent by each user in the list by one
+	 * 
+	 * @param userList List of users for which the e-mail count shall be incremented
 	 * @throws ConfigurationException
 	 */
-	User getUser(Long userId) throws ConfigurationException;
-
-	/**
-	 * Gets the user list sorted by user sort type.
-	 * 
-	 * @param ageThreshold
-	 * @param sortType
-	 * @return
-	 */
-	List<eai.msejdf.esb.User> getUserList(Integer ageThreshold, UserSort sortType);
-
-	List<eai.msejdf.esb.User> getUsersFollowingCompany(String companyName, UserSort sortType);
+	void incrementUserEmailCountFromList(List<eai.msejdf.esb.User> userList)
+			throws ConfigurationException;	
+	
 	/**
 	 * WebMethod Gets the user list that follow company id=companyId sorted by user sort type.
 	 * 
