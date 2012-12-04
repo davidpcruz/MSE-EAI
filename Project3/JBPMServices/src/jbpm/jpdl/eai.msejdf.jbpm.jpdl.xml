@@ -15,7 +15,7 @@
 				<message>Starting BPM</message>
 			</action>
 		</event>
-		<transition to="TempInsertCompany" name="Check Stock Variation"></transition>
+		<transition to="Check Stock Variation" name="Check Stock Variation"></transition>
 	</start-state> 
 
 <!-- 

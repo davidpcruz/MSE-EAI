@@ -28,6 +28,11 @@
 					dest-type="QUEUE" />
 			</jms-bus>			
 
+			<jms-bus busid="OrchestratorEsbChannel">
+				<jms-message-filter dest-name="queue/Orchestrator_esb"
+					dest-type="QUEUE" />
+			</jms-bus>
+
 			<jms-bus busid="GetUserEmailCountEsbChannel">
 				<jms-message-filter dest-name="queue/GetUserEmailCount_esb"
 					dest-type="QUEUE" />
@@ -82,27 +87,70 @@
 				</action>
 				<!-- Do the Split -->
 				<action class="eai.msejdf.esb.SplitCompaniesAction" name="Split Companies">
-  					<property name="service-category" value="EAI_ESB" />
-  					<property name="service-name" value="ServiceSplit1" />  
+  					<property name="service-category" value="jBPM Orchestrator Service" />
+  					<property name="service-name" value="Start BPM Service" />  
 				</action>
 			</actions>
 		</service>
 		
-		<service category="EAI_ESB"
-			description="EAI_ESB: Service split 1"
-			name="ServiceSplit1">
+<!-- 		<service category="EAI_ESB" -->
+<!-- 			description="EAI_ESB: Service split 1" -->
+<!-- 			name="ServiceSplit1"> -->
+<!-- 			<listeners> -->
+<!-- 				<jms-listener busidref="EAIProj3_Spliter_ToCompany" -->
+<!-- 					name="Spliter_ToCompany" /> -->
+<!-- 			</listeners> -->
+<!-- 			<actions mep="OneWay"> -->
+
+
+<!-- 				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="printAfter-xml"> -->
+<!-- 					<property name="message" value=">>>> 3.1. XML Message on topic : " /> -->
+<!-- 				</action> -->
+
+<!-- 				<action class="eai.msejdf.esb.PrintAggregatorTagAction" name="PrintAggregatorTag" process="displayMessage"/> -->
+
+<!-- 				<action class="org.jboss.soa.esb.actions.StaticRouter" name="StaticRouter"> -->
+<!-- 					<property name="destinations"> -->
+<!-- 						<route-to destination-name="split1" service-category="EAI_ESB" -->
+<!-- 							service-name="CompaniesAggregator" /> -->
+<!-- 					</property> -->
+<!-- 				</action> -->
+				
+<!-- 			</actions> -->
+<!-- 		</service> -->
+
+<!-- 
+     ########################################################################################################## 
+		ESB Orchestration service to wrap BPM process invocation
+	 ########################################################################################################## 
+-->
+		<service category="jBPM Orchestrator Service"
+			description="BPM Orchestration Service: Process instance starter"
+			name="Start BPM Service">
+
 			<listeners>
-				<jms-listener busidref="EAIProj3_Spliter_ToCompany"
-					name="Spliter_ToCompany" />
+ 				<jms-listener busidref="OrchestratorEsbChannel" name="ESB-OrchestratorListener" />
 			</listeners>
+
 			<actions mep="OneWay">
 
-
-				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="printAfter-xml">
-					<property name="message" value=">>>> 3.1. XML Message on topic : " />
+				<action name="entryPrint" class="org.jboss.soa.esb.actions.SystemPrintln">
+					<property name="message" value="Starting jBPM Orchestration Process..."></property>
 				</action>
 
-				<action class="eai.msejdf.esb.PrintAggregatorTagAction" name="PrintAggregatorTag" process="displayMessage"/>
+				<action class="org.jboss.soa.esb.services.jbpm.actions.BpmProcessor"
+					name="BpmProcessor">
+					<property name="command" value="StartProcessInstanceCommand" />
+					<property name="process-definition-name" value="eai.msejdf.jbpm" />
+					<property name="esbToBpmVars">
+						<mapping esb="BODY_CONTENT" bpm="msgBody" />
+					</property>
+				</action>
+
+				<action name="exitPrint" class="org.jboss.soa.esb.actions.SystemPrintln">
+					<property name="message"
+						value="Starting jBPM Orchestration Process...Complete"></property>
+				</action>
 
 				<action class="org.jboss.soa.esb.actions.StaticRouter" name="StaticRouter">
 					<property name="destinations">
@@ -110,10 +158,10 @@
 							service-name="CompaniesAggregator" />
 					</property>
 				</action>
-				
+
 			</actions>
 		</service>
-
+		
 <!-- 
      ########################################################################################################## 
 		Companies Aggregator 
