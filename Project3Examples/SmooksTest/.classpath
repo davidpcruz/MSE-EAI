@@ -9,5 +9,6 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="con" path="org.jboss.esb.runtime.classpath/server.supplied/JBoss 4.2 Runtime - ESB 4.10"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

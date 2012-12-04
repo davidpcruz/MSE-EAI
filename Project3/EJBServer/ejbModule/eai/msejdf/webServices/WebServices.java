@@ -9,6 +9,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -52,7 +53,7 @@ public class WebServices implements IWebServices {
 	 */
 	@Override
 	@WebMethod
-	public List<eai.msejdf.esb.User> getUsersFollowingCompany(
+	public @WebResult(name = "user") List<eai.msejdf.esb.User> getUsersFollowingCompany(
 			@WebParam(name = "companyName") String companyName) {
 		return this.getUsersFollowingCompany(companyName, UserSort.NAME_ASC);
 		// return this.getUserList(null, UserSort.NAME_ASC);
