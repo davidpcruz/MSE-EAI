@@ -1,8 +1,12 @@
 package eai.msejdf.esb;
 
-public class User {
+import java.io.Serializable;
 
-    protected String username;
+public class User implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
+	protected String username;
     protected String name;
     protected String mailAddress;
     

@@ -25,7 +25,7 @@ public class GetUsersFollowingCompany extends AbstractActionLifecycle {
 	public Message process(Message message) throws Exception {
 		logHeader();
 
-		String msgBody = (String) message.getBody().get(SOAMessageConstants.ESB_COMPANY_NAME).toString();
+		String msgBody = (String) message.getBody().get(SOAMessageConstants.ESB_COMPANY_NAME);
 //		String msgBody = (String) message.getBody().get(); //to be used on tests
 
 		

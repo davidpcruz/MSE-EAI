@@ -18,33 +18,32 @@ public class PrepareEsbMailSendCall implements ActionHandler {
 	public void execute(ExecutionContext context) throws Exception {
 
 		//TODO: Remove ++ tmp for debug
-		String subject2 = String.format("%1$tH:%1$tM:%1$tS%n", new Date());
-		
-		if (new Date().getSeconds() < 30)
-		{
-			context.getContextInstance().createVariable(SOAMessageConstants.JBPM_MAIL_TO, "fnorte@dei.uc.pt");			
-		}
-		else
-		{
-			context.getContextInstance().createVariable(SOAMessageConstants.JBPM_MAIL_TO, "fjdnorte@gmail.com");			
-		}
-		context.getContextInstance().createVariable(SOAMessageConstants.JBPM_MAIL_SUBJECT, subject2);
-		
-		String message = buildMailMessage(context);
-		if (null == message)
-		{
-			message = new String("Default mail message");
-		}
-		context.getContextInstance().createVariable(SOAMessageConstants.JBPM_MAIL_MESSAGE, message);
-		return;
-		//TODO: Remove --
-		
-		
-//		String subject = String.format("Company stock values on %1$te/%1$tm/%1$tY at %1$tH:%1$tM:%1$tS%n", new Date());
+//		String subject2 = String.format("%1$tH:%1$tM:%1$tS%n", new Date());
 //		
-//		context.getContextInstance().createVariable(SOAMessageConstants.JBPM_MAIL_TO, buildMailAddressList(context));
-//		context.getContextInstance().createVariable(SOAMessageConstants.JBPM_MAIL_SUBJECT, subject);
-//		context.getContextInstance().createVariable(SOAMessageConstants.JBPM_MAIL_MESSAGE, buildMailMessage(context));
+//		if (new Date().getSeconds() < 30)
+//		{
+//			context.getContextInstance().createVariable(SOAMessageConstants.JBPM_MAIL_TO, "fnorte@dei.uc.pt");			
+//		}
+//		else
+//		{
+//			context.getContextInstance().createVariable(SOAMessageConstants.JBPM_MAIL_TO, "fjdnorte@gmail.com");			
+//		}
+//		context.getContextInstance().createVariable(SOAMessageConstants.JBPM_MAIL_SUBJECT, subject2);
+//		
+//		String message = buildMailMessage(context);
+//		if (null == message)
+//		{
+//			message = new String("Default mail message");
+//		}
+//		context.getContextInstance().createVariable(SOAMessageConstants.JBPM_MAIL_MESSAGE, message);
+//		return;
+		//TODO: Remove --
+	
+		String subject = String.format("Company stock values on %1$te/%1$tm/%1$tY at %1$tH:%1$tM:%1$tS%n", new Date());
+		
+		context.getContextInstance().createVariable(SOAMessageConstants.JBPM_MAIL_TO, buildMailAddressList(context));
+		context.getContextInstance().createVariable(SOAMessageConstants.JBPM_MAIL_SUBJECT, subject);
+		context.getContextInstance().createVariable(SOAMessageConstants.JBPM_MAIL_MESSAGE, buildMailMessage(context));
 		
 	}
 
@@ -56,11 +55,13 @@ public class PrepareEsbMailSendCall implements ActionHandler {
 	private String buildMailAddressList(ExecutionContext context)
 	{
 		StringBuffer buffer = new StringBuffer();
+		@SuppressWarnings("unchecked")
 		List<User> userList =  (List<User>)context.getContextInstance().getVariable(SOAMessageConstants.JBPM_USER_LIST);
 		
 		// Create a mail address list separated by the mail separator character
 		for(User user : userList)
 		{
+			System.out.println("Mail : " + user.getMailAddress());
 			buffer.append(user.getMailAddress());
 			buffer.append(SOAMessageConstants.MAIL_ADDRESS_SEPARATOR);
 		}
