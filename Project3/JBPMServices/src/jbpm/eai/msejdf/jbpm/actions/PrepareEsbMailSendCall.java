@@ -11,7 +11,7 @@ import eai.msejdf.esb.Company;
 import eai.msejdf.esb.User;
 import eai.msejdf.utils.SOAMessageConstants;
 
-public class PrepareEsbMailCall implements ActionHandler {
+public class PrepareEsbMailSendCall implements ActionHandler {
 
 	private static final long serialVersionUID = 1L;
 	

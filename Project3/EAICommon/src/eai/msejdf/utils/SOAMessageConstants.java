@@ -35,6 +35,14 @@ public final class SOAMessageConstants
 	public static final String JBPM_COMPANY_NAME = SOAMessageConstants.ESB_COMPANY_NAME;
 
 	public static final String JBPM_USER_LIST = SOAMessageConstants.ESB_USER_LIST;
+
+	// Status report variables
+	
+	public static final String STATUS_REPORT_USERS_WARNED_AUTOMATICALLY = "usersWarnedAutomatically";
+
+	public static final String STATUS_REPORT_USERS_WARNED_BY_MANAGER = "usersWarnedByManager";
+
+	public static final String STATUS_REPORT_COMPANIES_PROCESSED = "companiesProcessed";
 	
 	// General support messages
 	
