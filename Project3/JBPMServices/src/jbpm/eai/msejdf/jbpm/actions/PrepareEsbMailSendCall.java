@@ -66,9 +66,9 @@ public class PrepareEsbMailSendCall implements ActionHandler {
 			buffer.append(SOAMessageConstants.MAIL_ADDRESS_SEPARATOR);
 		}
 		// Remove trailing mail separator added by the loop (if the list is not empty)
-		if (userList.size() > 0)
+		if (buffer.length() > 0)
 		{
-			buffer.deleteCharAt(userList.size() - 1);
+			buffer.deleteCharAt(buffer.length() - 1);
 		}
 		return buffer.toString();
 	}
