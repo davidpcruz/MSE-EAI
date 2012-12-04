@@ -6,9 +6,25 @@ public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	protected Long id;
 	protected String username;
     protected String name;
     protected String mailAddress;
+    
+	/**
+	 * Gets the id of the user
+	 * @return id of the user
+	 */
+	public Long getId() {
+		return id;
+	}
+	
+	/**
+	 * Sets the id of the user
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
     
 	/**
 	 * Gets the username of the user

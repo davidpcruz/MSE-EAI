@@ -132,7 +132,7 @@ public class WebServices implements IWebServices {
 
 	@Override
 	@WebMethod
-	public void incrementUserEmailCountFromList(@WebParam(name = "userList") List<eai.msejdf.esb.User> userList)
+	public void incrementUserEmailCountFromList(@WebParam(name = "userList") List<Long> userList)
 			throws ConfigurationException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("incrementUserEmailCountFromList(List<eai.msejdf.esb.User>) - start"); //$NON-NLS-1$
@@ -142,10 +142,9 @@ public class WebServices implements IWebServices {
 			throw new InvalidParameterException();
 		}
 
-		for (eai.msejdf.esb.User user : userList)
+		for (Long userId : userList)
 		{
-			User dbUser = getUser(user.getUsername());
-	
+			User dbUser = getUser(userId);
 			// increments user EmailCount by one
 			dbUser.setEmailCount(dbUser.getEmailCount() + 1);
 	
@@ -352,6 +351,7 @@ public class WebServices implements IWebServices {
 		@SuppressWarnings("unchecked")
 		List<User> userList = query.getResultList();
 		for (User user : userList) {
+			responseUser.setId(user.getId());
 			responseUser.setUsername(user.getUsername());
 			responseUser.setName(user.getName());
 			responseUser.setMailAddress(user.getEmail());
