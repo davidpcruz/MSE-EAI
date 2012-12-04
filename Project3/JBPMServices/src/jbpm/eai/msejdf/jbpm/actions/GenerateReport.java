@@ -12,7 +12,7 @@ public class GenerateReport implements ActionHandler {
 	/**
 	 * Logger for this class
 	 */
-	private static final Logger logger = Logger.getLogger(CheckStockVariationDecisionHandler.class);
+	private static final Logger logger = Logger.getLogger(GenerateReport.class);
 
 	private static final long serialVersionUID = 1L;
 	
