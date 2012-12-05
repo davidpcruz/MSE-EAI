@@ -252,9 +252,29 @@
 	 ########################################################################################################## 
 -->
 	<node name="GenerateReport">
-		<transition to="end-state2">
+		<transition to="SubmitReport">
 			<action name="GenerateReport" class="eai.msejdf.jbpm.actions.GenerateReport"></action>
 		</transition>
+	</node>
+
+<!-- 
+     ########################################################################################################## 
+		Submit Report Node
+	 ########################################################################################################## 
+-->
+	<node name="SubmitReport">
+		<action name="esb Service Call - Submit Report"
+			class="org.jboss.soa.esb.services.jbpm.actionhandlers.EsbActionHandler"  async="true"> 
+			<esbCategoryName>
+				EAI_ESB
+			</esbCategoryName>
+			<esbServiceName>CompaniesAggregator</esbServiceName>
+			<bpmToEsbVars>
+				<mapping bpm="msgBody" esb="BODY_CONTENT" />
+			</bpmToEsbVars>
+		</action>
+	
+		<transition to="end-state2"></transition>
 	</node>
 
 <!-- 

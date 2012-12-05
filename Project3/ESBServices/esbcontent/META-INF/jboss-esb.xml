@@ -156,13 +156,6 @@
 						value="Starting jBPM Orchestration Process...Complete"></property>
 				</action>
 
-				<action class="org.jboss.soa.esb.actions.StaticRouter" name="StaticRouter">
-					<property name="destinations">
-						<route-to destination-name="split1" service-category="EAI_ESB"
-							service-name="CompaniesAggregator" />
-					</property>
-				</action>
-
 			</actions>
 		</service>
 		
