@@ -230,6 +230,7 @@
 				<jms-listener busidref="GetUserEmailCountEsbChannel"
 					name="getUserEmailCount" />
 			</listeners>
+			
 			<actions mep="RequestResponse">
 				<action class="eai.msejdf.esb.GetUserEmailCount" name="request-mapper" />
 				<action class="org.jboss.soa.esb.actions.soap.SOAPClient"
@@ -242,6 +243,7 @@
 					<property name="responseAsOgnlMap" value="true" />
 				</action>
 <!-- 				<action class="eai.msejdf.esb.MyResponseAction" name="response-mapper" /> -->
+			
 			</actions>
 		</service>
 <!-- 
@@ -264,6 +266,7 @@
 
 <!-- 				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="entryPrint2"> -->
 <!-- 					<property name="message" value="eai.msejdf.esb.GetUsersFollowingCompany 2" /> -->
+					
 <!-- 				</action> -->
 
 				<action class="org.jboss.soa.esb.actions.soap.SOAPClient"
@@ -278,6 +281,7 @@
 
 <!-- 				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="entryPrint2"> -->
 <!-- 					<property name="message" value="eai.msejdf.esb.GetUsersFollowingCompany 2" /> -->
+				
 <!-- 				</action> -->
 				
 				<action class="org.jboss.soa.esb.smooks.SmooksAction" name="transform">
@@ -290,19 +294,20 @@
 
 <!-- 				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="entryPrint3"> -->
 <!-- 					<property name="message" value="eai.msejdf.esb.GetUsersFollowingCompany 3" /> -->
+				
 <!-- 				</action> -->
 				
 				<action class="eai.msejdf.esb.GetUsersFollowingCompanyResponseAction" name="response-mapper" />
 				
 				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="entryPrint4">
 					<property name="message" value="eai.msejdf.esb.GetUsersFollowingCompany 4" />
+				
 				</action>
 				
 				
 			</actions>
 		</service>
-<!-- 
-     ########################################################################################################## 
+<!-- ########################################################################################################## 
 		e-mail dispatch service
 	 ########################################################################################################## 
 -->		
@@ -334,21 +339,23 @@
 					name="incrementUserEmailCount" />
 			</listeners>
 
+
+
 			<actions mep="RequestResponse">
 				<action name="request-mapper" class="eai.msejdf.esb.IncrementUserEmailCount">
 				</action>
+				
 				<action name="soapui-client-action" class="org.jboss.soa.esb.actions.soap.SOAPClient">
 					<property name="wsdl"
 						value="http://127.0.0.1:8080/EJBServer/ListUserInterface?wsdl" />
 					<property name="SOAPAction" value="incrementUserEmailCountFromList" />
-					<property name="EndPointName" value="{http://www.eai.org/msejdf}ListUserInterfacePort" />
 					<property name="responseAsOgnlMap" value="true" />
+					<property name="LoggingMessages" value="true" />
 				</action>
-<!-- 				<action name="response-mapper" class="eai.msejdf.esb.MyResponseAction"> -->
-<!-- 				</action> -->
 
+			
 			</actions>
 		</service>
-			
+
 	</services>
 </jbossesb>

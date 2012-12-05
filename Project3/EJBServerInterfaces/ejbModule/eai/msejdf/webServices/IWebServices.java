@@ -1,5 +1,6 @@
 package eai.msejdf.webServices;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Remote;
@@ -43,7 +44,7 @@ public interface IWebServices {
 	 * @param userList List of users for which the e-mail count shall be incremented
 	 * @throws ConfigurationException
 	 */
-	void incrementUserEmailCountFromList(List<eai.msejdf.esb.User> userList)
+	void incrementUserEmailCountFromList(List<Long> userList)
 			throws ConfigurationException;	
 	
 	/**

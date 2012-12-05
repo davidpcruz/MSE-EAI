@@ -22,6 +22,7 @@ import eai.msejdf.exception.ConfigurationException;
 import eai.msejdf.persistence.BankTeller;
 import eai.msejdf.persistence.User;
 import eai.msejdf.sort.UserSort;
+import eai.msejdf.utils.SOAMessageConstants;
 
 /**
  * Bean implementing interface for webServices calls related calls
@@ -68,7 +69,7 @@ public class WebServices implements IWebServices {
 	 */
 	@Override
 	@WebMethod
-	public Integer getUserEmailCount(@WebParam(name = "userId") Long userId)
+	public Integer getUserEmailCount(@WebParam(name = SOAMessageConstants.ESB_USER_ID) Long userId)
 			throws ConfigurationException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getUser(String) - start"); //$NON-NLS-1$
@@ -107,7 +108,7 @@ public class WebServices implements IWebServices {
 	 */
 	@Override
 	@WebMethod
-	public void incrementUserEmailCountFromId(@WebParam(name = "userId") Long userId)
+	public void incrementUserEmailCountFromId(@WebParam(name = SOAMessageConstants.ESB_USER_ID) Long userId)
 			throws ConfigurationException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("incrementUserEmailCountFromId(List<eai.msejdf.esb.User>) - start"); //$NON-NLS-1$
@@ -132,20 +133,22 @@ public class WebServices implements IWebServices {
 
 	@Override
 	@WebMethod
-	public void incrementUserEmailCountFromList(@WebParam(name = "userList") List<eai.msejdf.esb.User> userList)
+	public void incrementUserEmailCountFromList(@WebParam(name = SOAMessageConstants.ESB_USER_ID) List<Long> userList)
 			throws ConfigurationException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("incrementUserEmailCountFromList(List<eai.msejdf.esb.User>) - start"); //$NON-NLS-1$
 		}
-
+		System.out.println("###########################################################" );
+		System.out.println("UserList: " + userList );
+		System.out.println("###########################################################" );
+		
 		if ((null == userList)) {
 			throw new InvalidParameterException();
 		}
 
-		for (eai.msejdf.esb.User user : userList)
+		for (Long userId : userList)
 		{
-			User dbUser = getUser(user.getUsername());
-	
+			User dbUser = getUser(userId);
 			// increments user EmailCount by one
 			dbUser.setEmailCount(dbUser.getEmailCount() + 1);
 	
@@ -352,6 +355,7 @@ public class WebServices implements IWebServices {
 		@SuppressWarnings("unchecked")
 		List<User> userList = query.getResultList();
 		for (User user : userList) {
+			responseUser.setId(user.getId());
 			responseUser.setUsername(user.getUsername());
 			responseUser.setName(user.getName());
 			responseUser.setMailAddress(user.getEmail());
