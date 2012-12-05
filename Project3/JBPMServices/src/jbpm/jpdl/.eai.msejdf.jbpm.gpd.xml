@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="eai.msejdf.jbpm" width="1165" height="1434">
-  <node name="start" x="658" y="173" width="132" height="47">
+<root-container name="eai.msejdf.jbpm" width="1081" height="1510">
+  <node name="start" x="379" y="130" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="TempInsertCompany" x="642" y="275" width="180" height="49">
+  <node name="TempInsertCompany" x="782" y="175" width="180" height="49">
     <edge>
       <label x="5" y="-10"/>
     </edge>
@@ -48,7 +48,7 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="Send e-Mail" x="61" y="1188" width="177" height="47">
+  <node name="Send e-Mail" x="42" y="1188" width="177" height="47">
     <edge>
       <label x="5" y="-10"/>
     </edge>
@@ -63,7 +63,6 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="end-state2" x="889" y="1397" width="132" height="36"/>
   <node name="SetUsersWarnedAutomatically" x="130" y="719" width="246" height="45">
     <edge>
       <label x="5" y="-10"/>
@@ -79,12 +78,22 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
+  <node name="SubmitReport" x="832" y="1379" width="248" height="43">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="end-state2" x="894" y="1473" width="132" height="36"/>
   <deployment graphicalInfoFile="/JBPMServices/src/jbpm/jpdl/.eai.msejdf.jbpm.gpd.xml" imageFile="/JBPMServices/src/jbpm/jpdl/eai.msejdf.jbpm.jpg" serverName="localhost" serverPort="8180" serverDeployer="/gpd-deployer/upload">
     <classesAndResources>
       <element type="java" value="/JBPMServices/src/jbpm/eai/msejdf/jbpm/actions/CheckStockVariationDecisionHandler.java"/>
       <element type="java" value="/JBPMServices/src/jbpm/eai/msejdf/jbpm/actions/MessageActionHandler.java"/>
       <element type="java" value="/JBPMServices/src/jbpm/eai/msejdf/jbpm/actions/ExtractCompanyName.java"/>
-      <element type="java" value="/JBPMServices/src/jbpm/eai/msejdf/jbpm/actions/TempInsertCompany.java"/>
+      <element type="java" value="/JBPMServices/src/jbpm/eai/msejdf/jbpm/actions/GenerateReport.java"/>
+      <element type="java" value="/JBPMServices/src/jbpm/eai/msejdf/jbpm/actions/PrepareEsbMailCountCall.java"/>
+      <element type="java" value="/JBPMServices/src/jbpm/eai/msejdf/jbpm/actions/PrepareEsbMailSendCall.java"/>
+      <element type="java" value="/JBPMServices/src/jbpm/eai/msejdf/jbpm/actions/SetUsersWarnedAutomatically.java"/>
+      <element type="java" value="/JBPMServices/src/jbpm/eai/msejdf/jbpm/actions/SetUsersWarnedByManager.java"/>
     </classesAndResources>
   </deployment>
 </root-container>

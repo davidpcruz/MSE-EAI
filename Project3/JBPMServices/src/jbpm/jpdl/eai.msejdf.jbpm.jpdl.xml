@@ -2,6 +2,12 @@
 
 <process-definition xmlns="urn:jbpm.org:jpdl-3.2"
 	name="eai.msejdf.jbpm">
+	
+<!-- 
+     ########################################################################################################## 
+		Start Node
+	 ########################################################################################################## 
+-->	
 	<start-state name="start">
 		<event type="node-enter">
 			<!-- TODO: Remove this action (used for debugging) -->
@@ -9,15 +15,25 @@
 				<message>Starting BPM</message>
 			</action>
 		</event>
-		<transition to="TempInsertCompany" name="Check Stock Variation"></transition>
+		<transition to="Check Stock Variation" name="Check Stock Variation"></transition>
 	</start-state> 
 
+<!-- 
+     ########################################################################################################## 
+		TODO: Remove this TempInserCompany Node		
+	 ########################################################################################################## 
+-->
 	<node name="TempInsertCompany">
 		<transition to="Check Stock Variation">
 			<action name="TempInsertCompany" class="eai.msejdf.jbpm.actions.TempInsertCompany"></action>
 		</transition>
 	</node>
 
+<!-- 
+     ########################################################################################################## 
+		Check Stock Variation Node		
+	 ########################################################################################################## 
+-->
 	<decision name="Check Stock Variation">
 		<handler class="eai.msejdf.jbpm.actions.CheckStockVariationDecisionHandler"></handler>
 
@@ -43,6 +59,11 @@
 		</transition>
 	</decision>
 
+<!-- 
+     ########################################################################################################## 
+		Approve Stock Variation Notification Node
+	 ########################################################################################################## 
+-->
 	<task-node name="Approve Stock Variation Notification">
 
 		<task name="Approve stock variation e-mail notification">
@@ -66,6 +87,11 @@
 		</transition>
 	</task-node>
 
+<!-- 
+     ########################################################################################################## 
+		Identify Company Node
+	 ########################################################################################################## 
+-->
 	<node name="Identify Company">
 		<transition to="Get Subscribed Users">
 			<action name="Extract Company Name"
@@ -74,6 +100,11 @@
 		</transition>
 	</node>
 	
+<!-- 
+     ########################################################################################################## 
+		Get Subscribed Users Node
+	 ########################################################################################################## 
+-->
 	<node name="Get Subscribed Users">
 		<action name="GetUsersFollowingCompany"
 			class="org.jboss.soa.esb.services.jbpm.actionhandlers.EsbActionHandler">
@@ -93,6 +124,11 @@
 		</transition>
 	</node>
 
+<!-- 
+     ########################################################################################################## 
+		Notify User Node
+	 ########################################################################################################## 
+-->
 	<fork name="Notify User">
 		<transition to="Send e-Mail" name="Start e-mail sending">
 			<action name="esb Service Call - Prepare Mail Send"
@@ -100,24 +136,18 @@
 			</action>		
 		</transition>
 		<transition to="Count e-Mail" name="Start e-mail counting">
+			<action name="esb Service Call - Prepare Mail Count"
+				class="eai.msejdf.jbpm.actions.PrepareEsbMailCountCall">
+			</action>		
 		</transition>
 	</fork>
 
+<!-- 
+     ########################################################################################################## 
+		Send e-Mail Node
+	 ########################################################################################################## 
+-->
 	<node name="Send e-Mail">
-<!-- 		<action name="esb Service Call - Send e-mail" -->
-<!-- 			class="org.jboss.soa.esb.services.jbpm.actionhandlers.EsbActionHandler"> -->
-<!-- 			<esbCategoryName> -->
-<!-- 				EAI_ESB -->
-<!-- 			</esbCategoryName> -->
-<!-- 			<esbServiceName>Send e-mail</esbServiceName> -->
-<!-- 			<bpmToEsbVars> -->
-<!-- 				<mapping bpm="mailTo" esb="mailTo" /> -->
-<!-- 				<mapping bpm="mailSubject" esb="mailSubject" />				 -->
-<!-- 				<mapping bpm="mailMessage" esb="mailMessage" />				 -->
-<!-- 				<mapping bpm="msgBody" esb="BODY_CONTENT"/> -->
-<!-- 			</bpmToEsbVars> -->
-<!-- 		</action> -->
-
 		<transition to="Wait e-mail actions complete">
 			<action name="esb Service Call - Send e-mail"
 				class="org.jboss.soa.esb.services.jbpm.actionhandlers.EsbNotifier">
@@ -140,19 +170,24 @@
 		</transition>
 	</node>
 
+<!-- 
+     ########################################################################################################## 
+		Count e-Mail Node
+	 ########################################################################################################## 
+-->
 	<node name="Count e-Mail">
-		<action name="esb Service Call - Count e-mail"
-			class="org.jboss.soa.esb.services.jbpm.actionhandlers.EsbActionHandler"  async="true"> 
-			<esbCategoryName>
-				EAI_ESB
-			</esbCategoryName>
-			<esbServiceName>IncrementUserEmailCount</esbServiceName>
-			<bpmToEsbVars>
-				<mapping bpm="userList" esb="userList" />
-			</bpmToEsbVars>
-		</action>
-
 		<transition to="Wait e-mail actions complete">
+			<action name="esb Service Call - Count e-mail"
+				class="org.jboss.soa.esb.services.jbpm.actionhandlers.EsbNotifier"> 
+				<esbCategoryName>
+					EAI_ESB
+				</esbCategoryName>
+				<esbServiceName>IncrementUserEmailCount</esbServiceName>
+				<bpmToEsbVars>
+					<mapping bpm="userIdList" esb="userIdList" />
+				</bpmToEsbVars>
+			</action>
+
 			<!-- TODO: Remove this action (used for debugging) -->
 			<action name="action4" class="eai.msejdf.jbpm.actions.MessageActionHandler">
 				<message>Count e-mail complete</message>
@@ -160,6 +195,11 @@
 		</transition>
 	</node>
 
+<!-- 
+     ########################################################################################################## 
+		Wait e-mail actions complete Node
+	 ########################################################################################################## 
+-->
 	<join name="Wait e-mail actions complete">
 		<transition to="GenerateReport">
 
@@ -170,23 +210,65 @@
 		</transition>
 	</join>
 
+<!-- 
+     ########################################################################################################## 
+		SetUsersWarnedAutomatically Node
+	 ########################################################################################################## 
+-->
 	<node name="SetUsersWarnedAutomatically">
 		<transition to="Identify Company">
 			<action name="SetUsersWarnedAutomatically" class="eai.msejdf.jbpm.actions.SetUsersWarnedAutomatically"></action>
 		</transition>
 	</node>
 
+<!-- 
+     ########################################################################################################## 
+		SetUsersWarnedByManager Node
+	 ########################################################################################################## 
+-->
 	<node name="SetUsersWarnedByManager">
 		<transition to="Identify Company">
 			<action name="SetUsersWarnedByManager" class="eai.msejdf.jbpm.actions.SetUsersWarnedByManager"></action>
 		</transition>
 	</node>
 
+<!-- 
+     ########################################################################################################## 
+		Generate Report Node
+	 ########################################################################################################## 
+-->
 	<node name="GenerateReport">
-		<transition to="end-state2"></transition>
+		<transition to="SubmitReport">
+			<action name="GenerateReport" class="eai.msejdf.jbpm.actions.GenerateReport"></action>
+		</transition>
 	</node>
 
+<!-- 
+     ########################################################################################################## 
+		Submit Report Node
+	 ########################################################################################################## 
+-->
+	<node name="SubmitReport">
+		<transition to="end-state2">
+			<action name="esb Service Call - Submit Report"
+				class="org.jboss.soa.esb.services.jbpm.actionhandlers.EsbNotifier"> 
+				<esbCategoryName>
+					EAI_ESB
+				</esbCategoryName>
+				<esbServiceName>CompaniesAggregator</esbServiceName>
+				<bpmToEsbVars>
+					<mapping bpm="msgBody" esb="BODY_CONTENT" />
+					<mapping bpm="contextInfo" esb="contextInfo" />
+				</bpmToEsbVars>
+			</action>
+		</transition>
+	</node>
 
+<!-- 
+     ########################################################################################################## 
+		End State Node
+	 ########################################################################################################## 
+-->
 	<end-state name="end-state2">
 		<!-- TODO: Remove this action and event (used for debugging) -->
 		<event type="node-enter">

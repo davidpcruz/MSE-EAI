@@ -3,8 +3,11 @@
 	xmlns="http://anonsvn.labs.jboss.com/labs/jbossesb/trunk/product/etc/schemas/xml/jbossesb-1.0.1.xsd"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://anonsvn.labs.jboss.com/labs/jbossesb/trunk/product/etc/schemas/xml/jbossesb-1.0.1.xsd http://anonsvn.jboss.org/repos/labs/labs/jbossesb/trunk/product/etc/schemas/xml/jbossesb-1.0.1.xsd">
-	<!-- ########################################################################################################## 
-		DEFINE THE PROVIDERS ########################################################################################################## -->
+<!-- 
+     ########################################################################################################## 
+		DEFINE THE PROVIDERS 
+	 ########################################################################################################## 
+-->
 	<providers>
 		<jms-provider connection-factory="ConnectionFactory"
 			name="JBossMQ">
@@ -22,6 +25,15 @@
 			</jms-bus>
 			<jms-bus busid="EAIProj3_Aggregator">
 				<jms-message-filter dest-name="queue/EAIProj3_aggregator"
+					dest-type="QUEUE" />
+			</jms-bus>			
+			<jms-bus busid="EAIProj3_ReportQueue">
+				<jms-message-filter dest-name="queue/EAIProj3_aggregator"
+					dest-type="QUEUE" />
+			</jms-bus>			
+
+			<jms-bus busid="OrchestratorEsbChannel">
+				<jms-message-filter dest-name="queue/Orchestrator_esb"
 					dest-type="QUEUE" />
 			</jms-bus>
 
@@ -50,8 +62,11 @@
 		</jms-provider>
 	</providers>
 	<services>
-		<!-- ########################################################################################################## 
-			Initial listen of jms topic ########################################################################################################## -->
+<!-- 
+     ########################################################################################################## 
+		Initial listen of jms topic 
+	 ########################################################################################################## 
+-->	
 		<service category="EAI_ESB"
 			description="EAI_ESB: Takes XML in and splits it in different companies"
 			name="CompaniesSpliter">
@@ -76,40 +91,84 @@
 				</action>
 				<!-- Do the Split -->
 				<action class="eai.msejdf.esb.SplitCompaniesAction" name="Split Companies">
-					<property name="service-category" value="EAI_ESB" />
-					<property name="service-name" value="ServiceSplit1" />
+  					<property name="service-category" value="jBPM Orchestrator Service" />
+  					<property name="service-name" value="Start BPM Service" />  
 				</action>
 			</actions>
 		</service>
+		
+<!-- 		<service category="EAI_ESB" -->
+<!-- 			description="EAI_ESB: Service split 1" -->
+<!-- 			name="ServiceSplit1"> -->
+<!-- 			<listeners> -->
+<!-- 				<jms-listener busidref="EAIProj3_Spliter_ToCompany" -->
+<!-- 					name="Spliter_ToCompany" /> -->
+<!-- 			</listeners> -->
+<!-- 			<actions mep="OneWay"> -->
 
-		<service category="EAI_ESB" description="EAI_ESB: Service split 1"
-			name="ServiceSplit1">
+
+<!-- 				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="printAfter-xml"> -->
+<!-- 					<property name="message" value=">>>> 3.1. XML Message on topic : " /> -->
+<!-- 				</action> -->
+
+<!-- 				<action class="eai.msejdf.esb.PrintAggregatorTagAction" name="PrintAggregatorTag" process="displayMessage"/> -->
+
+<!-- 				<action class="org.jboss.soa.esb.actions.StaticRouter" name="StaticRouter"> -->
+<!-- 					<property name="destinations"> -->
+<!-- 						<route-to destination-name="split1" service-category="EAI_ESB" -->
+<!-- 							service-name="CompaniesAggregator" /> -->
+<!-- 					</property> -->
+<!-- 				</action> -->
+				
+<!-- 			</actions> -->
+<!-- 		</service> -->
+
+<!-- 
+     ########################################################################################################## 
+		ESB Orchestration service to wrap BPM process invocation
+	 ########################################################################################################## 
+-->
+		<service category="jBPM Orchestrator Service"
+			description="BPM Orchestration Service: Process instance starter"
+			name="Start BPM Service">
+
 			<listeners>
-				<jms-listener busidref="EAIProj3_Spliter_ToCompany"
-					name="Spliter_ToCompany" />
+ 				<jms-listener busidref="OrchestratorEsbChannel" name="ESB-OrchestratorListener" />
 			</listeners>
+
 			<actions mep="OneWay">
 
-
-				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="printAfter-xml">
-					<property name="message" value=">>>> 3.1. XML Message on topic : " />
+				<action name="entryPrint" class="org.jboss.soa.esb.actions.SystemPrintln">
+					<property name="message" value="Starting jBPM Orchestration Process..."></property>
 				</action>
 
-				<action class="eai.msejdf.esb.PrintAggregatorTagAction" name="PrintAggregatorTag"
-					process="displayMessage" />
+				<action name="mapContext" 
+					class="eai.msejdf.esb.MapBodyAndContextVar" 
+					process="MapContextToBodyVar"></action>
 
-				<action class="org.jboss.soa.esb.actions.StaticRouter" name="StaticRouter">
-					<property name="destinations">
-						<route-to destination-name="split1" service-category="EAI_ESB"
-							service-name="CompaniesAggregator" />
+				<action class="org.jboss.soa.esb.services.jbpm.actions.BpmProcessor"
+					name="BpmProcessor">
+					<property name="command" value="StartProcessInstanceCommand" />
+					<property name="process-definition-name" value="eai.msejdf.jbpm" />
+					<property name="esbToBpmVars">
+						<mapping esb="BODY_CONTENT" bpm="msgBody" />
+						<mapping esb="contextInfo" bpm="contextInfo" />
 					</property>
 				</action>
 
+				<action name="exitPrint" class="org.jboss.soa.esb.actions.SystemPrintln">
+					<property name="message"
+						value="Starting jBPM Orchestration Process...Complete"></property>
+				</action>
+
 			</actions>
 		</service>
-
-		<!-- ########################################################################################################## 
-			Companies Aggregator ########################################################################################################## -->
+		
+<!-- 
+     ########################################################################################################## 
+		Companies Aggregator 
+	 ########################################################################################################## 
+-->
 		<service category="EAI_ESB"
 			description="EAI_ESB: Takes XML in and splits it in different companies"
 			name="CompaniesAggregator">
@@ -118,23 +177,53 @@
 			</listeners>
 			<actions mep="OneWay">
 
+				<action name="mapContext" 
+					class="eai.msejdf.esb.MapBodyAndContextVar" 
+					process="MapBodyToContextVar"></action>
+
 				<action class="org.jboss.soa.esb.actions.Aggregator" name="Aggregator">
 					<property name="timeoutInMillis" value="60000" />
 				</action>
 
-				<!-- aggregate the attachments into 1 message -->
-				<action name="assemble" class="eai.msejdf.esb.AggregatedAssemblerAction" />
+                  <!-- aggregate the attachments into 1 message -->
+                  <action name="assemble" class="eai.msejdf.esb.AggregatedAssemblerAction" />
 
-				<action name="reportAgregate" class="eai.msejdf.esb.ReportAggregateAction" />
+                  <action name="reportAgregate" class="eai.msejdf.esb.ReportAggregateAction" />
 
 				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="printAfter-xml">
 					<property name="message" value=">>>> 4. XML Message on topic : " />
 				</action>
+				
+				<!-- Send to the report queue -->
+				
+				<action name="routeToReplyQueue" class="org.jboss.soa.esb.actions.routing.JMSRouter">
+					<property name="jndi-context-factory" value="org.jnp.interfaces.NamingContextFactory"/>
+					<property name="jndi-URL" value="127.0.0.1:1199"/>
+					<property name="jndi-pkg-prefix" value="org.jboss.naming:org.jnp.interfaces"/>
+					<property name="connection-factory" value="ConnectionFactory"/>
+					<property name="jndiName" value="queue/report_queue"/>
+					<property name="unwrap" value="true"/>
+					<!-- 
+					<property name="security-principal" value="guest"/>
+					<property name="security-credential" value="guest"/>
+				 	-->
+					<!-- Example of adding Extension properties -->
+					<!-- comma separated list of prefixes -->
+					<!-- 
+					<property name="jndi-prefixes" value="org.xyz."/>
+					<property name="org.xyz.propertyName" value="propertyValue"/>
+					 -->
+				
+				  </action>   
+				
 			</actions>
 		</service>
 
-		<!-- ########################################################################################################## 
-			GetNumberOfEmails ########################################################################################################## -->
+<!-- 
+     ########################################################################################################## 
+		GetNumberOfEmails 
+	 ########################################################################################################## 
+-->
 		<service category="EAI_ESB"
 			description="EAI_ESB: Gets the number of emails sent to a user" name="GetUserEmailCount">
 			<listeners>
@@ -152,12 +241,15 @@
 						/> -->
 					<property name="responseAsOgnlMap" value="true" />
 				</action>
-				<!-- <action class="eai.msejdf.esb.MyResponseAction" name="response-mapper" 
+<!-- 				<action class="eai.msejdf.esb.MyResponseAction" name="response-mapper" /> -->
 					/> -->
 			</actions>
 		</service>
-		<!-- ########################################################################################################## 
-			GetUsersFollowingCompany ########################################################################################################## -->
+<!-- 
+     ########################################################################################################## 
+		GetUsersFollowingCompany 
+	 ########################################################################################################## 
+-->
 		<service category="EAI_ESB"
 			description="EAI_ESB: Gets the number of emails sent to a user" name="GetUsersFollowingCompany">
 			<listeners>
@@ -165,61 +257,62 @@
 					name="getUsersFollowingCompany" />
 			</listeners>
 			<actions mep="RequestResponse">
-				<!-- <action class="org.jboss.soa.esb.actions.SystemPrintln" name="entryPrint1"> -->
-				<!-- <property name="message" value="eai.msejdf.esb.GetUsersFollowingCompany 
-					1" /> -->
-				<!-- </action> -->
-
+<!-- 				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="entryPrint1"> -->
+<!-- 					<property name="message" value="eai.msejdf.esb.GetUsersFollowingCompany 1" /> -->
+<!-- 				</action> -->
+			
 				<action class="eai.msejdf.esb.GetUsersFollowingCompany" name="request-mapper" />
 
-				<!-- <action class="org.jboss.soa.esb.actions.SystemPrintln" name="entryPrint2"> -->
-				<!-- <property name="message" value="eai.msejdf.esb.GetUsersFollowingCompany 
+<!-- 				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="entryPrint2"> -->
+<!-- 					<property name="message" value="eai.msejdf.esb.GetUsersFollowingCompany 2" /> -->
 					2" /> -->
-				<!-- </action> -->
+<!-- 				</action> -->
 
 				<action class="org.jboss.soa.esb.actions.soap.SOAPClient"
 					name="soapui-client-action">
 					<property name="wsdl"
 						value="http://127.0.0.1:8080/EJBServer/ListUserInterface?wsdl" />
 					<property name="SOAPAction" value="getUsersFollowingCompany" />
-					<!-- <property name="responseAsOgnlMap" value="true" /> -->
-					<!-- <property name="SmooksResponseMapper" value="/smooks-response-config_GetUserFollowingCompany.xml"/> -->
+<!-- 					<property name="responseAsOgnlMap" value="true" /> -->
+<!-- 					<property name="SmooksResponseMapper" value="/smooks-response-config_GetUserFollowingCompany.xml"/> -->
 					<property name="LoggingMessages" value="true" />
 				</action>
 
-				<!-- <action class="org.jboss.soa.esb.actions.SystemPrintln" name="entryPrint2"> -->
-				<!-- <property name="message" value="eai.msejdf.esb.GetUsersFollowingCompany 
+<!-- 				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="entryPrint2"> -->
+<!-- 					<property name="message" value="eai.msejdf.esb.GetUsersFollowingCompany 2" /> -->
 					2" /> -->
-				<!-- </action> -->
-
+<!-- 				</action> -->
+				
 				<action class="org.jboss.soa.esb.smooks.SmooksAction" name="transform">
 					<property name="smooksConfig"
-						value="/smooks-response-config_GetUserFollowingCompany.xml" />
+					<property name="smooksConfig" value="/smooks-response-config_GetUserFollowingCompany.xml" />
 					<property name="resultType" value="JAVA" />
 					<property name="javaResultBeanId" value="userList" />
 					<property name="reportPath"
-						value="/zap/smooks-report_GetUserFollowingCompany.html" />
+					<property name="reportPath" value="/zap/smooks-report_GetUserFollowingCompany.html" />
 				</action>
 
 
-				<!-- <action class="org.jboss.soa.esb.actions.SystemPrintln" name="entryPrint3"> -->
-				<!-- <property name="message" value="eai.msejdf.esb.GetUsersFollowingCompany 
+<!-- 				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="entryPrint3"> -->
+<!-- 					<property name="message" value="eai.msejdf.esb.GetUsersFollowingCompany 3" /> -->
 					3" /> -->
-				<!-- </action> -->
-
-				<action class="eai.msejdf.esb.GetUsersFollowingCompanyResponseAction"
-					name="response-mapper" />
-
-				<!-- <action class="org.jboss.soa.esb.actions.SystemPrintln" name="entryPrint4"> -->
-				<!-- <property name="message" value="eai.msejdf.esb.GetUsersFollowingCompany 
+<!-- 				</action> -->
+				
+				<action class="eai.msejdf.esb.GetUsersFollowingCompanyResponseAction" name="response-mapper" />
+				
+				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="entryPrint4">
+					<property name="message" value="eai.msejdf.esb.GetUsersFollowingCompany 4" />
 					4" /> -->
-				<!-- </action> -->
-
-
+				</action>
+				
+				
 			</actions>
 		</service>
+<!-- 
 		<!-- ########################################################################################################## 
-			e-mail dispatch service ########################################################################################################## -->
+		e-mail dispatch service
+	 ########################################################################################################## 
+-->		
 		<service category="EAI_ESB" description="EAI_ESB: e-mail dispatch service"
 			name="Send e-mail">
 			<listeners>
@@ -235,8 +328,11 @@
 				</action>
 			</actions>
 		</service>
-		<!-- ########################################################################################################## 
-			IncrementUserEmailCount ########################################################################################################## -->
+<!-- 
+     ########################################################################################################## 
+		IncrementUserEmailCount 
+	 ########################################################################################################## 
+-->	
 		<service category="EAI_ESB" name="IncrementUserEmailCount"
 			description="EAI_ESB: Increments the number of emails sent to a user">
 

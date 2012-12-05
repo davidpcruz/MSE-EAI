@@ -19,6 +19,12 @@ public final class Configuration
 	/** The Constant PROPSFILE. defining the name of the configuration file */
 	private static final String PROPSFILE = "config.properties";
 
+	/** The Constant JMSCONN_USER. defining the JMS server name for the connection. */
+	private static final String JMSCONN_SERVER = "app.jms.server.name";
+
+	/** The Constant JMSCONN_USER. defining the JMS port for the connection. */
+	private static final String JMSCONN_PORT = "app.jms.server.port";
+	
 	/** The Constant JMSCONN_USER. defining the JMS username for the connection. */
 	private static final String JMSCONN_USER = "app.jms.applicationuser";
 
@@ -46,6 +52,15 @@ public final class Configuration
 
 	/** The Constant containing the  connection timeout time */
 	private static final String CONNECTION_TIMEOUT = "app.web.connectiontimeout"; 
+
+	/** The Constant defining the ESB replicator provider location. */
+	private static final String ESBREPLICATOR_PROVIDER = "app.esbreplicator.jndi.provider";
+	
+	/** The Constant defining the ESB replicator topic location. */
+	private static final String ESBREPLICATOR_TOPIC = "app.esbreplicator.topic";
+
+	/** The Constant defining the ESB replicator topic location. */
+	private static final String ESBREPORT_QUEUE = "app.esbreporter.queue";
 
 	/** The Constant containing the SMTP mail host */
 	private static final String SMTP_HOST = "mail.smtp.host"; 	
@@ -75,7 +90,28 @@ public final class Configuration
 		}
 		return props;
 	}
-
+	
+	
+	/**
+	 * Gets the jms conn server.
+	 * 
+	 * @return the jmsconnServer
+	 */
+	public static String getJmsConnServer()
+	{
+		return getProperties().getProperty(JMSCONN_SERVER);
+	}
+	
+	/**
+	 * Gets the jms conn port.
+	 * 
+	 * @return the jmsconnPOrt
+	 */	
+	public static int getJmsConnPort()
+	{
+		return Integer.parseInt(getProperties().getProperty(JMSCONN_PORT));
+	}
+		
 	/**
 	 * Gets the jms conn user.
 	 * 
@@ -152,7 +188,6 @@ public final class Configuration
 		return  Integer.parseInt(getProperties().getProperty(CONNECTION_TIMEOUT));
 	}
 	
-
 	/**
 	 * Gets the directory for the RRD databases.
 	 *
@@ -162,8 +197,37 @@ public final class Configuration
 	{
 		return getProperties().getProperty(DIRECTORY_RRD_OUTPUT);
 	}
-		
-	
+
+	/**
+	 * Gets the JNDI provider location for the ESB Replicator.
+	 *
+	 * @return the ESBREPLICATOR_PROVIDER
+	 */
+	public static String getESBReplicatorProvider()
+	{
+		return getProperties().getProperty(ESBREPLICATOR_PROVIDER);
+	}
+
+	/**
+	 * Gets the topic name for the ESB Replicator.
+	 *
+	 * @return the ESBREPLICATOR_PROVIDER
+	 */
+	public static String getESBReplicatorTopic()
+	{
+		return getProperties().getProperty(ESBREPLICATOR_TOPIC);
+	}	
+
+	/**
+	 * Gets the topic name for the ESB Report Queue.
+	 *
+	 * @return the ESBREPORT_QUEUE
+	 */
+	public static String getESBReportQueue()
+	{
+		return getProperties().getProperty(ESBREPORT_QUEUE);
+	}	
+
 	/**
 	 * Gets the default output dir.
 	 *
