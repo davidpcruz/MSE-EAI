@@ -4,13 +4,13 @@
 	xmlns:jb="http://www.milyn.org/xsd/smooks/javabean-1.2.xsd" xmlns:frag="http://www.milyn.org/xsd/smooks/fragment-routing-1.2.xsd"
 	xmlns:esbr="http://www.jboss.org/xsd/jbossesb/smooks/routing-1.0.xsd">
 
-	<jb:bean beanId="userList" class="java.util.ArrayList"
-		createOnElement="incrementUserEmailCountFromList">
+	<jb:bean beanId="userList" createOnElement="userList"
+		class="incrementUserEmailCountFromList">
 		<jb:wiring beanIdRef="userItem" />
 	</jb:bean>
 
-	<jb:bean beanId="userItem" class="Integer" createOnElement="userId">
-		<jb:value property="userId" data="userId" />
+	<jb:bean beanId="userItem" class="userList" createOnElement="Long">
+		<jb:value property="userList" data="userList" />
 	</jb:bean>
 
 </smooks-resource-list>

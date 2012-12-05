@@ -22,6 +22,7 @@ import eai.msejdf.exception.ConfigurationException;
 import eai.msejdf.persistence.BankTeller;
 import eai.msejdf.persistence.User;
 import eai.msejdf.sort.UserSort;
+import eai.msejdf.utils.SOAMessageConstants;
 
 /**
  * Bean implementing interface for webServices calls related calls
@@ -132,7 +133,7 @@ public class WebServices implements IWebServices {
 
 	@Override
 	@WebMethod
-	public void incrementUserEmailCountFromList(@WebParam(name = "userList") List<Long> userList)
+	public void incrementUserEmailCountFromList(@WebParam(name = SOAMessageConstants.ESB_USER_ID) List<Long> userList)
 			throws ConfigurationException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("incrementUserEmailCountFromList(List<eai.msejdf.esb.User>) - start"); //$NON-NLS-1$
