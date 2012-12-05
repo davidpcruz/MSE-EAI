@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <root-container name="eai.msejdf.jbpm" width="1081" height="1510">
-  <node name="start" x="379" y="130" width="132" height="36">
-    <edge>
-      <label x="5" y="-10"/>
-    </edge>
-  </node>
-  <node name="TempInsertCompany" x="782" y="175" width="180" height="49">
+  <node name="start" x="642" y="131" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
