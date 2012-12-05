@@ -24,6 +24,8 @@ public final class SOAMessageConstants
 	
 	public static final String ESB_USER_ID_LIST = "userIdList";
 
+	public static final String ESB_COMPANY = "company";
+
 	// JBPM specific messages
 	
 	public static final String JBPM_MSG_BODY = "msgBody";
@@ -44,6 +46,8 @@ public final class SOAMessageConstants
 
 	public static final String JBPM_USER_ID_LIST = SOAMessageConstants.ESB_USER_ID_LIST;
 
+	public static final String JBPM_COMPANY = SOAMessageConstants.ESB_COMPANY;
+	
 	// Status report variables
 	
 	public static final String STATUS_REPORT_USERS_WARNED_AUTOMATICALLY = "usersWarnedAutomatically";

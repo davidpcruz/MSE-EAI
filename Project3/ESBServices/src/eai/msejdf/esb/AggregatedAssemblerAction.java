@@ -24,9 +24,16 @@ public class AggregatedAssemblerAction extends AbstractActionPipelineProcessor {
         int attachmentCount = attachments.getUnnamedCount();
         List<Object> listObjects = new ArrayList<Object>();
 
+        logger.debug("process - start");
+        logger.debug("attachment count (named) = " + attachments.getNamedCount());
+        logger.debug("attachment count (unnamed) = " + attachments.getUnnamedCount());
+        
         for (int i = 0; i < attachmentCount; i++) {
             try {
         		Message aggrMessage = Util.deserialize((Serializable) attachments.itemAt(i));
+        		
+        		logger.debug("aggregated content: " + aggrMessage.getBody().get());
+        		
             	listObjects.add(aggrMessage.getBody().get());
             } catch (Exception e) {
             	logger.warn("Not an aggregated message attachment at attachment " + i);
@@ -39,6 +46,8 @@ public class AggregatedAssemblerAction extends AbstractActionPipelineProcessor {
         for (int i = attachmentCount - 1; i >= 0; i--) {
             message.getAttachment().removeItemAt(i);
         }                
+
+        logger.debug("process - end");
 
         return message;
     }
