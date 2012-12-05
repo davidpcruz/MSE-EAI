@@ -1,15 +1,13 @@
 package eai.msejdf.esb;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.jboss.soa.esb.actions.AbstractActionLifecycle;
 import org.jboss.soa.esb.helpers.ConfigTree;
 import org.jboss.soa.esb.message.Message;
 
 import eai.msejdf.utils.SOAMessageConstants;
-
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 public class IncrementUserEmailCount extends AbstractActionLifecycle {
 

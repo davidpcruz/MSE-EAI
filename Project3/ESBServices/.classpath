@@ -9,5 +9,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry combineaccessrules="false" kind="src" path="/EAICommon"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jBossESB-client"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
