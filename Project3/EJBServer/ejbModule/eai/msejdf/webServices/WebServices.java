@@ -69,7 +69,7 @@ public class WebServices implements IWebServices {
 	 */
 	@Override
 	@WebMethod
-	public Integer getUserEmailCount(@WebParam(name = "userId") Long userId)
+	public Integer getUserEmailCount(@WebParam(name = SOAMessageConstants.ESB_USER_ID) Long userId)
 			throws ConfigurationException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getUser(String) - start"); //$NON-NLS-1$
@@ -108,7 +108,7 @@ public class WebServices implements IWebServices {
 	 */
 	@Override
 	@WebMethod
-	public void incrementUserEmailCountFromId(@WebParam(name = "userId") Long userId)
+	public void incrementUserEmailCountFromId(@WebParam(name = SOAMessageConstants.ESB_USER_ID) Long userId)
 			throws ConfigurationException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("incrementUserEmailCountFromId(List<eai.msejdf.esb.User>) - start"); //$NON-NLS-1$

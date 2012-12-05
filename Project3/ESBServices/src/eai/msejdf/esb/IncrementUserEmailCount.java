@@ -36,9 +36,10 @@ public class IncrementUserEmailCount extends AbstractActionLifecycle {
 		System.out.println("message Items: " + message.toString() + "\n");
 		System.out.println("####################### original message response end ###################\n ");
 
-		// message.getBody().get(SOAMessageConstants.ESB_USER_ID_LIST );
-		List<Long> userList = (List<Long>) message.getBody().get(); // to be used on tests
+		// Get the user Id list
+		List<Long> userList = (List<Long>) message.getBody().get(SOAMessageConstants.ESB_USER_ID_LIST); 
 		
+		// Convert the list of users to a Map
 		int i = 0;
 		for( Long userId : userList ) {
 			requestMap.put("incrementUserEmailCountFromList."+ SOAMessageConstants.ESB_USER_ID + "[" + i + "]", userId);
@@ -48,10 +49,9 @@ public class IncrementUserEmailCount extends AbstractActionLifecycle {
 		// add parameters to the web service request map
 		message.getBody().add(requestMap);
 
-//		System.out.println("###############  message response start ############");
+
 		System.out.println("Request map is: " + requestMap.toString());
-//		System.out.println("message Items: " + message.toString() + "\n");
-//		System.out.println("################### IncrementUserEmailCount ###########");
+
 		logFooter();
 		return message;
 	}
