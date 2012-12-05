@@ -23,7 +23,7 @@ public class PrepareEsbMailCountCall implements ActionHandler {
 		// Create a list of user ids
 		for(User user : userList)
 		{
-			//TODO: Uncomment this once user has the id userIdList.add(user.getId());
+			userIdList.add(user.getId());
 		}
 		
 		context.getContextInstance().setVariable(SOAMessageConstants.JBPM_USER_ID_LIST, userIdList);				
