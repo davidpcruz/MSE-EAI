@@ -1,0 +1,48 @@
+package eai.msejdf.esb;
+
+import java.util.ArrayList;
+
+import org.jboss.soa.esb.actions.AbstractActionLifecycle;
+import org.jboss.soa.esb.actions.ActionProcessingException;
+import org.jboss.soa.esb.actions.Aggregator;
+import org.jboss.soa.esb.helpers.ConfigTree;
+import org.jboss.soa.esb.message.Message;
+
+import eai.msejdf.utils.SOAMessageConstants;
+
+public class MapBodyAndContextVar extends AbstractActionLifecycle {
+
+	protected ConfigTree config;
+
+	/**
+	 * @param configTree
+	 */
+	public MapBodyAndContextVar(ConfigTree configTree) {
+		config = configTree;
+	}
+
+	public Message MapBodyToContextVar(Message message) throws ActionProcessingException {
+
+		// Save a copy of the context information in a field of the body, as there is no other
+		// way to pass that information
+		@SuppressWarnings("unchecked")
+		ArrayList<String> contextInfo = (ArrayList<String>) message.getBody().get(SOAMessageConstants.ESB_MSG_CONTEXT_INFO);
+		message.getBody().remove(SOAMessageConstants.ESB_MSG_CONTEXT_INFO); // Clean body		
+		message.getContext().setContext(Aggregator.AGGEGRATOR_TAG, contextInfo);
+		
+		
+		return message;
+	}
+	
+	public Message MapContextToBodyVar(Message message) throws ActionProcessingException {
+
+		// Save a copy of the context information in a field of the body, as there is no other
+		// way to pass that information
+		@SuppressWarnings("unchecked")
+		ArrayList<String> contextInfo = (ArrayList<String>)message.getContext().getContext(Aggregator.AGGEGRATOR_TAG);
+		message.getBody().add(SOAMessageConstants.ESB_MSG_CONTEXT_INFO, contextInfo);
+		
+		return message;
+	}
+	
+}

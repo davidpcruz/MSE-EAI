@@ -142,12 +142,17 @@
 					<property name="message" value="Starting jBPM Orchestration Process..."></property>
 				</action>
 
+				<action name="mapContext" 
+					class="eai.msejdf.esb.MapBodyAndContextVar" 
+					process="MapContextToBodyVar"></action>
+
 				<action class="org.jboss.soa.esb.services.jbpm.actions.BpmProcessor"
 					name="BpmProcessor">
 					<property name="command" value="StartProcessInstanceCommand" />
 					<property name="process-definition-name" value="eai.msejdf.jbpm" />
 					<property name="esbToBpmVars">
 						<mapping esb="BODY_CONTENT" bpm="msgBody" />
+						<mapping esb="contextInfo" bpm="contextInfo" />
 					</property>
 				</action>
 
@@ -171,6 +176,10 @@
 				<jms-listener busidref="EAIProj3_Aggregator" name="Aggregator" />
 			</listeners>
 			<actions mep="OneWay">
+
+				<action name="mapContext" 
+					class="eai.msejdf.esb.MapBodyAndContextVar" 
+					process="MapBodyToContextVar"></action>
 
 				<action class="org.jboss.soa.esb.actions.Aggregator" name="Aggregator">
 					<property name="timeoutInMillis" value="60000" />

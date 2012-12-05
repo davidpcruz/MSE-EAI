@@ -148,20 +148,6 @@
 	 ########################################################################################################## 
 -->
 	<node name="Send e-Mail">
-<!-- 		<action name="esb Service Call - Send e-mail" -->
-<!-- 			class="org.jboss.soa.esb.services.jbpm.actionhandlers.EsbActionHandler"> -->
-<!-- 			<esbCategoryName> -->
-<!-- 				EAI_ESB -->
-<!-- 			</esbCategoryName> -->
-<!-- 			<esbServiceName>Send e-mail</esbServiceName> -->
-<!-- 			<bpmToEsbVars> -->
-<!-- 				<mapping bpm="mailTo" esb="mailTo" /> -->
-<!-- 				<mapping bpm="mailSubject" esb="mailSubject" />				 -->
-<!-- 				<mapping bpm="mailMessage" esb="mailMessage" />				 -->
-<!-- 				<mapping bpm="msgBody" esb="BODY_CONTENT"/> -->
-<!-- 			</bpmToEsbVars> -->
-<!-- 		</action> -->
-
 		<transition to="Wait e-mail actions complete">
 			<action name="esb Service Call - Send e-mail"
 				class="org.jboss.soa.esb.services.jbpm.actionhandlers.EsbNotifier">
@@ -190,18 +176,18 @@
 	 ########################################################################################################## 
 -->
 	<node name="Count e-Mail">
-		<action name="esb Service Call - Count e-mail"
-			class="org.jboss.soa.esb.services.jbpm.actionhandlers.EsbActionHandler"  async="true"> 
-			<esbCategoryName>
-				EAI_ESB
-			</esbCategoryName>
-			<esbServiceName>IncrementUserEmailCount</esbServiceName>
-			<bpmToEsbVars>
-				<mapping bpm="userIdList" esb="userIdList" />
-			</bpmToEsbVars>
-		</action>
-
 		<transition to="Wait e-mail actions complete">
+			<action name="esb Service Call - Count e-mail"
+				class="org.jboss.soa.esb.services.jbpm.actionhandlers.EsbNotifier"> 
+				<esbCategoryName>
+					EAI_ESB
+				</esbCategoryName>
+				<esbServiceName>IncrementUserEmailCount</esbServiceName>
+				<bpmToEsbVars>
+					<mapping bpm="userIdList" esb="userIdList" />
+				</bpmToEsbVars>
+			</action>
+
 			<!-- TODO: Remove this action (used for debugging) -->
 			<action name="action4" class="eai.msejdf.jbpm.actions.MessageActionHandler">
 				<message>Count e-mail complete</message>
@@ -263,18 +249,19 @@
 	 ########################################################################################################## 
 -->
 	<node name="SubmitReport">
-		<action name="esb Service Call - Submit Report"
-			class="org.jboss.soa.esb.services.jbpm.actionhandlers.EsbActionHandler"  async="true"> 
-			<esbCategoryName>
-				EAI_ESB
-			</esbCategoryName>
-			<esbServiceName>CompaniesAggregator</esbServiceName>
-			<bpmToEsbVars>
-				<mapping bpm="msgBody" esb="BODY_CONTENT" />
-			</bpmToEsbVars>
-		</action>
-	
-		<transition to="end-state2"></transition>
+		<transition to="end-state2">
+			<action name="esb Service Call - Submit Report"
+				class="org.jboss.soa.esb.services.jbpm.actionhandlers.EsbNotifier"> 
+				<esbCategoryName>
+					EAI_ESB
+				</esbCategoryName>
+				<esbServiceName>CompaniesAggregator</esbServiceName>
+				<bpmToEsbVars>
+					<mapping bpm="msgBody" esb="BODY_CONTENT" />
+					<mapping bpm="contextInfo" esb="contextInfo" />
+				</bpmToEsbVars>
+			</action>
+		</transition>
 	</node>
 
 <!-- 
