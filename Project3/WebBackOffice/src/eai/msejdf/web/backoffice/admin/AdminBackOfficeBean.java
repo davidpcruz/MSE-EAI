@@ -16,6 +16,7 @@ import eai.msejdf.persistence.User;
 import eai.msejdf.sort.CompanySort;
 import eai.msejdf.sort.UserSort;
 import eai.msejdf.utils.EJBLookupConstants;
+import eai.msejdf.webServices.*;
 
 @ManagedBean(name="adminW")
 @ViewScoped
@@ -25,12 +26,19 @@ public class AdminBackOfficeBean
 
 	private List<Company> companyList;
 	private List<User> userList;
-	private List<User> subscribedUserList;
+
 	
-	// the selected company to search
-	private Long searchCompanySelect;
+	private List<User> subscribedUserList;
+
+	// the selected company Id to search
+	private Long searchCompanyIdSelect;
+	// the selected company Name to search
+	private String searchCompanyNameSelect;
 	// the age to search the users
 	private Integer searchAge;
+
+	WebServicesService serviceESB = new WebServicesService();
+	ListUserInterface portESB = serviceESB.getListUserInterfacePort();
 
 	/**
 	 * Creates a AdminW bean to handle the list queries 
@@ -43,17 +51,25 @@ public class AdminBackOfficeBean
 		this.adminBean = (IAdmin) ctx.lookup(EJBLookupConstants.EJB_I_ADMIN);
 	}
 
-	public Long getSearchCompanySelect()
+	public Long getSearchCompanyIdSelect()
 	{
-		return searchCompanySelect;
+		return searchCompanyIdSelect;
 	}
 
-	public void setSearchCompanySelect(Long searchCompanySelect)
+	public void setSearchCompanyIdSelect(Long searchCompanySelect)
 	{
-		this.searchCompanySelect = searchCompanySelect;
+		this.searchCompanyIdSelect = searchCompanySelect;
 	}
 
-	
+	public String getSearchCompanyNameSelect()
+	{
+		return searchCompanyNameSelect;
+	}
+
+	public void setSearchCompanyNameSelect(String searchCompanyNameSelect)
+	{
+		this.searchCompanyNameSelect = searchCompanyNameSelect;
+	}
 	/**
 	 * searches for a users associated to the companies
 	 * @return
@@ -62,16 +78,19 @@ public class AdminBackOfficeBean
 	public boolean searchUsersCompanies() 
 	{
 		// basic validations
-		if (this.getSearchCompanySelect() == null)
+		if (this.getSearchCompanyIdSelect() == null)
 		{
 			return false;
 		}
 		
-		this.subscribedUserList = this.adminBean.getUserFollowCompanyList(this.getSearchCompanySelect(), UserSort.NAME_ASC);
+		this.subscribedUserList = this.adminBean.getUserFollowCompanyList(this.getSearchCompanyIdSelect(), UserSort.NAME_ASC);
 		
 		return true;
 	}
 	
+
+	
+
 	/**
 	 * Search users greater than age.
 	 *
@@ -127,6 +146,8 @@ public class AdminBackOfficeBean
 		return subscribedUserList;
 	}
 
+
+	
 	/**
 	 * Gets the search age.
 	 *

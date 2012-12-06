@@ -2,7 +2,6 @@ package eai.msejdf.webServices;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -69,7 +68,7 @@ public class WebServices implements IWebServices {
 	 */
 	@Override
 	@WebMethod
-	public Integer getUserEmailCount(@WebParam(name = SOAMessageConstants.ESB_USER_ID) Long userId)
+	public @WebResult(name = "user") eai.msejdf.esb.User getUserEmailCount(@WebParam(name = SOAMessageConstants.ESB_USER_ID) Long userId)
 			throws ConfigurationException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getUser(String) - start"); //$NON-NLS-1$
@@ -80,23 +79,22 @@ public class WebServices implements IWebServices {
 		}
 
 		Query query = entityManager
-				.createQuery("SELECT User.emailCount FROM User user WHERE user.id=:id");
+				.createQuery("SELECT User FROM User user WHERE user.id=:id");
 		query.setParameter("id", userId);
 
 		@SuppressWarnings("unchecked")
-		List<Integer> userList = query.getResultList();
+		List<User> userList = query.getResultList();
 		if (true == userList.isEmpty()) {
 			// The user doesn't seem to exist
 			throw new ConfigurationException(
 					WebServices.EXCEPTION_USER_NOT_FOUND);
 		}
 
-		Integer userEmailCount = userList.get(0);
-
+		
 		if (logger.isDebugEnabled()) {
 			logger.debug("getUser(String) - end"); //$NON-NLS-1$
 		}
-		return userEmailCount;
+		return mapToEsbUser(userList.get(0));
 	}
 
 	/**
@@ -203,98 +201,6 @@ public class WebServices implements IWebServices {
 		return user;
 	}
 
-	// TODO decide if it should use Admin getUserList method instead of
-	// implementing it again
-	/**
-	 * Gets the user by user name
-	 * 
-	 * @param userName Name of user
-	 * @return User object 
-	 * @throws ConfigurationException
-	 */
-	private User getUser(String userName) throws ConfigurationException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("getUser(String) - start"); //$NON-NLS-1$
-		}
-
-		if (null == userName) {
-			throw new InvalidParameterException();
-		}
-
-		Query query = entityManager
-				.createQuery("SELECT User FROM User user WHERE user.username=:username");
-		query.setParameter("username", userName);
-
-		@SuppressWarnings("unchecked")
-		List<User> userList = query.getResultList();
-		if (true == userList.isEmpty()) {
-			// The user doesn't seem to exist
-			throw new ConfigurationException(
-					WebServices.EXCEPTION_USER_NOT_FOUND);
-		}
-
-		User user = userList.get(0);
-		BankTeller bankTeller = user.getBankTeller();
-
-		if (null != bankTeller) {
-			bankTeller.getId(); // To overcome Lazzy parameter
-		}
-
-		if (logger.isDebugEnabled()) {
-			logger.debug("getUser(String) - end"); //$NON-NLS-1$
-		}
-		return user;
-	}
-	
-	// TODO decide if it should use Admin getUserList method instead of
-	// implementing it again
-	/**
-	 * Gets the user list sorted by user sort type.
-	 * 
-	 * @param ageThreshold
-	 * @param sortType
-	 * @return
-	 */
-	private List<eai.msejdf.esb.User> getUserList(Integer ageThreshold,
-			UserSort sortType) {
-		if (logger.isDebugEnabled()) {
-			logger.debug("getUserList(Integer, UserSort) - start"); //$NON-NLS-1$
-		}
-
-		String sortBy = buildUserSortType(sortType);
-		eai.msejdf.esb.User responseUser = new eai.msejdf.esb.User();
-		ArrayList<eai.msejdf.esb.User> listOfUsers = new ArrayList<eai.msejdf.esb.User>();
-		Query query;
-
-		// Different query based on the age restriction
-		if (null == ageThreshold) {
-			query = entityManager.createQuery("SELECT user FROM  User AS user "
-					+ sortBy);
-		} else {
-
-			Calendar now = Calendar.getInstance();
-			now.add(Calendar.YEAR, (-1) * ageThreshold);
-
-			query = entityManager
-					.createQuery("SELECT user FROM  User AS user where user.birthDate <=:ageDate "
-							+ sortBy);
-			query.setParameter("ageDate", now.getTime());
-		}
-
-		@SuppressWarnings("unchecked")
-		List<User> userList = query.getResultList();
-		for (User user : userList) {
-			responseUser.setUsername(user.getUsername());
-			responseUser.setName(user.getName());
-			responseUser.setMailAddress(user.getEmail());
-			listOfUsers.add(responseUser);
-		}
-		if (logger.isDebugEnabled()) {
-			logger.debug("getUserList(Integer, UserSort) - end"); //$NON-NLS-1$
-		}
-		return listOfUsers;
-	}
-
 	/**
 	 * Builds the user sort type.
 	 * 
@@ -343,7 +249,6 @@ public class WebServices implements IWebServices {
 
 		String sortBy = buildUserSortType(sortType);
 
-		eai.msejdf.esb.User responseUser = new eai.msejdf.esb.User();
 		ArrayList<eai.msejdf.esb.User> listOfUsers = new ArrayList<eai.msejdf.esb.User>();
 
 		Query query = entityManager
@@ -355,16 +260,29 @@ public class WebServices implements IWebServices {
 		@SuppressWarnings("unchecked")
 		List<User> userList = query.getResultList();
 		for (User user : userList) {
-			responseUser.setId(user.getId());
-			responseUser.setUsername(user.getUsername());
-			responseUser.setName(user.getName());
-			responseUser.setMailAddress(user.getEmail());
-			listOfUsers.add(responseUser);
+			listOfUsers.add(mapToEsbUser(user));
 		}
 		if (logger.isDebugEnabled()) {
 			logger.debug("getUserFollowCompanyList(String, int, int) - end"); //$NON-NLS-1$
 		}
 		return listOfUsers;
+	}
+
+	/**
+	 * Maps a persistnet user to a esb one
+	 * @param user
+	 * @return
+	 */
+	private eai.msejdf.esb.User mapToEsbUser(User user) {
+		
+		eai.msejdf.esb.User responseUser = new eai.msejdf.esb.User();
+		responseUser.setId(user.getId());
+		responseUser.setUsername(user.getUsername());
+		responseUser.setName(user.getName());
+		responseUser.setMailAddress(user.getEmail());
+		responseUser.setEmailCount(user.getEmailCount());
+
+		return responseUser;
 	}
 
 }

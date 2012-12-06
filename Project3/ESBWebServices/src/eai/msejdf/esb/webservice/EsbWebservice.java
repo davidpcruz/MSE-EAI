@@ -21,13 +21,24 @@ import eai.msejdf.utils.SOAMessageConstants;
 public class EsbWebservice {
 
 	private static final int ESB_CALL_TIMEOUT = 5000;
-	private static final String SERVICE_GET_USERS_FOLLOWING_COMPANY = "GetUsersFollowingCompany";
 	private static final String ESB_SERVICE_CATEGORY = "EAI_ESB";
+	private static final String SERVICE_GET_USERS_FOLLOWING_COMPANY = "GetUsersFollowingCompany";
+	private static final String SERVICE_GET_USER_EMAIL_COUNT = "GetUserEmailCount";
 
+	/**
+	 * @param companyName
+	 * @return
+	 * @throws ESBWebserviceException
+	 */
 	@SuppressWarnings("unchecked")
 	@WebMethod
-    public List<User> getUsersCompany(@WebParam(name="companyName") String companyName) throws ESBWebserviceException {
+    public List<User> getUsersFollowingCompany(@WebParam(name=SOAMessageConstants.ESB_COMPANY_NAME) String companyName) throws ESBWebserviceException {
     	
+//		// Basic validations
+//		if (null == companyName || "" == companyName) {
+//			throw new ESBWebserviceException("Missing companyName parameter");
+//		}
+				
     	List<User> userList = new ArrayList<User>();
     	
     	Message esbMessage = MessageFactory.getInstance().getMessage();
@@ -48,4 +59,37 @@ public class EsbWebservice {
     			
     }
 
+	/**
+	 * @param userId
+	 * @return
+	 * @throws ESBWebserviceException
+	 */
+	@WebMethod
+	public User getUserEmailCount(@WebParam(name=SOAMessageConstants.ESB_USER_ID) Long userId) throws ESBWebserviceException {
+		
+//		// Basic validations
+//		if (null == userId) {
+//			throw new ESBWebserviceException("Missing userId parameter");
+//		}
+
+		User userObj;
+    	
+    	Message esbMessage = MessageFactory.getInstance().getMessage();
+
+    	esbMessage.getBody().add(userId);
+    	    	    	
+    	ServiceInvoker service;
+		try {
+			service = new ServiceInvoker(ESB_SERVICE_CATEGORY, SERVICE_GET_USER_EMAIL_COUNT);
+	    	Message response = service.deliverSync(esbMessage, ESB_CALL_TIMEOUT);
+	    		    	
+	        userObj = (User) response.getBody().get();
+		} catch (MessageDeliverException | FaultMessageException | RegistryException e) {
+			throw new ESBWebserviceException(e);
+		}
+    	    	
+    	return userObj;   			
+
+	}
+	
 }

@@ -31,64 +31,16 @@
 			<h:outputText value="#{user.name}" />
 		</h:column>
 
-		<h:column>
-			<f:facet name="header">
-				<h:outputText value="Phone" />
-			</f:facet>
-
-			<h:outputText value="#{user.phone}" />
-		</h:column>
 
 		<h:column>
 			<f:facet name="header">
 				<h:outputText value="Email" />
 			</f:facet>
 
-			<h:outputText value="#{user.email}" />
+			<h:outputText value="#{user.mailAddress}" />
 		</h:column>
 
-		<h:column>
-			<f:facet name="header">
-				<h:outputText value="BirthDate" />
-			</f:facet>
 
-			<h:outputText value="#{user.birthDate}" />
-		</h:column>
-
-		<h:column>
-			<f:facet name="header">
-				<h:outputText value="Address" />
-			</f:facet>
-
-			<h:outputText value="#{user.address.address}" />
-		</h:column>
-
-		<h:column>
-			<f:facet name="header">
-				<h:outputText value="City" />
-			</f:facet>
-
-			<h:outputText value="#{user.address.city}" />
-		</h:column>
-		
-		<h:column>
-			<f:facet name="header">
-				<h:outputText value="ZipCode" />
-			</f:facet>
-
-			<h:outputText value="#{user.address.zipCode}" />
-		</h:column>
-		<h:column>
-			<f:facet name="header">
-				<h:outputText value="" />
-			</f:facet>
-
- 			<h:form>
-				<h:commandButton
-					value="Details"
-					action="#{cc.attrs.bean.getUserDetails(user)}" />
-			</h:form>
-		</h:column>
 	</h:dataTable>
 </composite:implementation>
 </html>
