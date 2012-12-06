@@ -90,10 +90,10 @@
 				</action>
 				<!-- Split it -->
 				<action class="org.jboss.soa.esb.smooks.SmooksAction" name="transform">
-					<property name="smooksConfig" value="/smooks-res.xml" />
+					<property name="smooksConfig" value="/smooks-CompaniesSpliter.xml" />
 					<property name="resultType" value="JAVA" />
 					<property name="javaResultBeanId" value="companiesList" />
-					<property name="reportPath" value="/zap/smooks-report.html" />
+<!-- 					<property name="reportPath" value="/zap/smooks-report.html" /> -->
 				</action>
 				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="printAfter-xml">
 					<property name="message" value=">>>> 2. XML Message on topic : " />
@@ -249,10 +249,16 @@
 					<property name="SOAPAction" value="getUserEmailCount" />
 					<!-- <property name="SOAPService" value="{http://www.eai.org/msejdf}ListUserService" 
 						/> -->
-					<property name="responseAsOgnlMap" value="true" />
+					<property name="responseAsOgnlMap" value="false" />
 				</action>
-<!-- 				<action class="eai.msejdf.esb.MyResponseAction" name="response-mapper" /> -->
-			
+ 
+				<action class="org.jboss.soa.esb.smooks.SmooksAction" name="transform">
+					<property name="smooksConfig" value="/smooks-GetUserEmailCount.xml" />
+					<property name="resultType" value="JAVA" />
+					<property name="javaResultBeanId" value="userItem" />
+<!-- 					<property name="reportPath" value="/zap/smooks-report_GetUserEmailCount.html" />  --> 
+				</action>
+ 			
 			</actions>
 		</service>
 <!-- 
@@ -267,44 +273,23 @@
 					name="getUsersFollowingCompany" />
 			</listeners>
 			<actions mep="RequestResponse">
-<!-- 				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="entryPrint1"> -->
-<!-- 					<property name="message" value="eai.msejdf.esb.GetUsersFollowingCompany 1" /> -->
-<!-- 				</action> -->
 			
 				<action class="eai.msejdf.esb.GetUsersFollowingCompany" name="request-mapper" />
-
-<!-- 				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="entryPrint2"> -->
-<!-- 					<property name="message" value="eai.msejdf.esb.GetUsersFollowingCompany 2" /> -->
-					
-<!-- 				</action> -->
 
 				<action class="org.jboss.soa.esb.actions.soap.SOAPClient"
 					name="soapui-client-action">
 					<property name="wsdl"
 						value="http://127.0.0.1:8080/EJBServer/ListUserInterface?wsdl" />
 					<property name="SOAPAction" value="getUsersFollowingCompany" />
-<!-- 					<property name="responseAsOgnlMap" value="true" /> -->
-<!-- 					<property name="SmooksResponseMapper" value="/smooks-response-config_GetUserFollowingCompany.xml"/> -->
 					<property name="LoggingMessages" value="true" />
 				</action>
-
-<!-- 				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="entryPrint2"> -->
-<!-- 					<property name="message" value="eai.msejdf.esb.GetUsersFollowingCompany 2" /> -->
-				
-<!-- 				</action> -->
 				
 				<action class="org.jboss.soa.esb.smooks.SmooksAction" name="transform">
-					<property name="smooksConfig" value="/smooks-response-config_GetUserFollowingCompany.xml" />
+					<property name="smooksConfig" value="/smooks-GetUsersFollowingCompany.xml" />
 					<property name="resultType" value="JAVA" />
 					<property name="javaResultBeanId" value="userList" />
-					<property name="reportPath" value="/zap/smooks-report_GetUserFollowingCompany.html" />
+					<!-- <property name="reportPath" value="/zap/smooks-report_GetUserFollowingCompany.html" />  -->
 				</action>
-
-
-<!-- 				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="entryPrint3"> -->
-<!-- 					<property name="message" value="eai.msejdf.esb.GetUsersFollowingCompany 3" /> -->
-				
-<!-- 				</action> -->
 				
 				<action class="eai.msejdf.esb.GetUsersFollowingCompanyResponseAction" name="response-mapper" />
 				

@@ -12,14 +12,18 @@ public class ESBWebserviceException extends Exception {
 	
 	private ESBWebserviceFault faultBean;
 
+    public ESBWebserviceException() {
+        super();
+    }
+    
 	public ESBWebserviceException(Exception e) {
 		super(e);
 	}
 
-    public ESBWebserviceException() {
-        super();
-    }
-
+//	public ESBWebserviceException(String msg) {
+//		super(msg);
+//	}
+	
     public ESBWebserviceException(String message, ESBWebserviceFault faultBean, Throwable cause) {
         super(message, cause);
         this.faultBean = faultBean;

@@ -68,7 +68,7 @@ public class WebServices implements IWebServices {
 	 */
 	@Override
 	@WebMethod
-	public Integer getUserEmailCount(@WebParam(name = SOAMessageConstants.ESB_USER_ID) Long userId)
+	public @WebResult(name = "user") eai.msejdf.esb.User getUserEmailCount(@WebParam(name = SOAMessageConstants.ESB_USER_ID) Long userId)
 			throws ConfigurationException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getUser(String) - start"); //$NON-NLS-1$
@@ -79,23 +79,22 @@ public class WebServices implements IWebServices {
 		}
 
 		Query query = entityManager
-				.createQuery("SELECT User.emailCount FROM User user WHERE user.id=:id");
+				.createQuery("SELECT User FROM User user WHERE user.id=:id");
 		query.setParameter("id", userId);
 
 		@SuppressWarnings("unchecked")
-		List<Integer> userList = query.getResultList();
+		List<User> userList = query.getResultList();
 		if (true == userList.isEmpty()) {
 			// The user doesn't seem to exist
 			throw new ConfigurationException(
 					WebServices.EXCEPTION_USER_NOT_FOUND);
 		}
 
-		Integer userEmailCount = userList.get(0);
-
+		
 		if (logger.isDebugEnabled()) {
 			logger.debug("getUser(String) - end"); //$NON-NLS-1$
 		}
-		return userEmailCount;
+		return mapToEsbUser(userList.get(0));
 	}
 
 	/**
@@ -250,7 +249,6 @@ public class WebServices implements IWebServices {
 
 		String sortBy = buildUserSortType(sortType);
 
-		eai.msejdf.esb.User responseUser = new eai.msejdf.esb.User();
 		ArrayList<eai.msejdf.esb.User> listOfUsers = new ArrayList<eai.msejdf.esb.User>();
 
 		Query query = entityManager
@@ -262,16 +260,29 @@ public class WebServices implements IWebServices {
 		@SuppressWarnings("unchecked")
 		List<User> userList = query.getResultList();
 		for (User user : userList) {
-			responseUser.setId(user.getId());
-			responseUser.setUsername(user.getUsername());
-			responseUser.setName(user.getName());
-			responseUser.setMailAddress(user.getEmail());
-			listOfUsers.add(responseUser);
+			listOfUsers.add(mapToEsbUser(user));
 		}
 		if (logger.isDebugEnabled()) {
 			logger.debug("getUserFollowCompanyList(String, int, int) - end"); //$NON-NLS-1$
 		}
 		return listOfUsers;
+	}
+
+	/**
+	 * Maps a persistnet user to a esb one
+	 * @param user
+	 * @return
+	 */
+	private eai.msejdf.esb.User mapToEsbUser(User user) {
+		
+		eai.msejdf.esb.User responseUser = new eai.msejdf.esb.User();
+		responseUser.setId(user.getId());
+		responseUser.setUsername(user.getUsername());
+		responseUser.setName(user.getName());
+		responseUser.setMailAddress(user.getEmail());
+		responseUser.setEmailCount(user.getEmailCount());
+
+		return responseUser;
 	}
 
 }

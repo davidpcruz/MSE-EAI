@@ -26,7 +26,7 @@ public class GetUserEmailCount extends AbstractActionLifecycle {
 	@SuppressWarnings("unchecked")
 	public Message process(Message message) throws Exception {
 		logHeader();
-		String msgBody = (String) message.getBody().get();
+		Long msgBody = (Long) message.getBody().get();
 		@SuppressWarnings("rawtypes")
 		HashMap requestMap = new HashMap();
 
