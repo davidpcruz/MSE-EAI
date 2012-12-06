@@ -10,7 +10,6 @@
 -->	
 	<start-state name="start">
 		<event type="node-enter">
-			<!-- TODO: Remove this action (used for debugging) -->
 			<action name="action0" class="eai.msejdf.jbpm.actions.MessageActionHandler">
 				<message>Starting BPM</message>
 			</action>
@@ -19,11 +18,6 @@
 	</start-state> 
 
 <!-- 
-     ########################################################################################################## 
-		TODO: Remove this TempInserCompany Node		
-	 ########################################################################################################## 
--->
-	<!-- 
      ########################################################################################################## 
 		Check Stock Variation Node		
 	 ########################################################################################################## 
@@ -65,17 +59,13 @@
 		</task>
 
 		<transition to="GenerateReport" name="Reject notification">
-
-			<!-- TODO: Remove this action (used for debugging) -->
-			<action name="action2" class="eai.msejdf.jbpm.actions.MessageActionHandler">
+			<action name="action1" class="eai.msejdf.jbpm.actions.MessageActionHandler">
 				<message>Notification Rejected</message>
 			</action>
 		</transition>
 
 		<transition to="SetUsersWarnedByManager" name="Approve Notification">
-
-			<!-- TODO: Remove this action (used for debugging) -->
-			<action name="action3" class="eai.msejdf.jbpm.actions.MessageActionHandler">
+			<action name="action2" class="eai.msejdf.jbpm.actions.MessageActionHandler">
 				<message>Notification Approved</message>
 			</action>
 		</transition>
@@ -114,7 +104,7 @@
 				<mapping esb="userList" bpm="userList"/>
 			</esbToBpmVars>
 		</action>		
-		<transition to="Notify User">
+		<transition to="FilterUsersByValidMailAddress">
 		</transition>
 	</node>
 
@@ -157,8 +147,7 @@
 				</bpmToEsbVars>
 			</action>
 		
-			<!-- TODO: Remove this action (used for debugging) -->
-			<action name="action4" class="eai.msejdf.jbpm.actions.MessageActionHandler">
+			<action name="action1" class="eai.msejdf.jbpm.actions.MessageActionHandler">
 				<message>Send e-mail complete</message>
 			</action>
 		</transition>
@@ -182,8 +171,7 @@
 				</bpmToEsbVars>
 			</action>
 
-			<!-- TODO: Remove this action (used for debugging) -->
-			<action name="action4" class="eai.msejdf.jbpm.actions.MessageActionHandler">
+			<action name="action1" class="eai.msejdf.jbpm.actions.MessageActionHandler">
 				<message>Count e-mail complete</message>
 			</action>
 		</transition>
@@ -196,9 +184,7 @@
 -->
 	<join name="Wait e-mail actions complete">
 		<transition to="GenerateReport">
-
-			<!-- TODO: Remove this action (used for debugging) -->
-			<action name="action4" class="eai.msejdf.jbpm.actions.MessageActionHandler">
+			<action name="action1" class="eai.msejdf.jbpm.actions.MessageActionHandler">
 				<message>Waiting e-mail actions complete</message>
 			</action>
 		</transition>
@@ -243,7 +229,7 @@
 	 ########################################################################################################## 
 -->
 	<node name="SubmitReport">
-		<transition to="end-state2">
+		<transition to="end-state">
 			<action name="esb Service Call - Submit Report"
 				class="org.jboss.soa.esb.services.jbpm.actionhandlers.EsbNotifier"> 
 				<esbCategoryName>
@@ -260,13 +246,42 @@
 
 <!-- 
      ########################################################################################################## 
+		Filter Users By Valid Mail Address 		
+	 ########################################################################################################## 
+-->
+
+	<node name="FilterUsersByValidMailAddress">
+		<transition to="Has Users to Notify?"></transition>
+	</node>
+
+<!-- 
+     ########################################################################################################## 
+		has Users to Notify 		
+	 ########################################################################################################## 
+-->
+
+	<decision name="Has Users to Notify?">
+		<handler class="eai.msejdf.jbpm.actions.UserListEmptyDecisionHandler"></handler>
+		<transition to="Notify User" name="HasUsers">
+			<action name="action1" class="eai.msejdf.jbpm.actions.MessageActionHandler">
+				<message>Has NO Users to Notify</message>
+			</action>
+		</transition>
+		<transition to="GenerateReport" name="HasNoUsers">
+			<action name="action2" class="eai.msejdf.jbpm.actions.MessageActionHandler">
+				<message>Has Users to Notify</message>
+			</action>
+		</transition>
+	</decision>
+
+<!-- 
+     ########################################################################################################## 
 		End State Node
 	 ########################################################################################################## 
 -->
-	<end-state name="end-state2">
-		<!-- TODO: Remove this action and event (used for debugging) -->
+	<end-state name="end-state">
 		<event type="node-enter">
-			<action name="action" class="eai.msejdf.jbpm.actions.MessageActionHandler">
+			<action name="action1" class="eai.msejdf.jbpm.actions.MessageActionHandler">
 				<message>Ended jBPM Orchestration Process</message>
 			</action>
 		</event>
