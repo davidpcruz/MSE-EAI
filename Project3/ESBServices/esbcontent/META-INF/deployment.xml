@@ -3,9 +3,9 @@
   <depends>jboss.esb:deployment=soap.esb</depends>
   <depends>jboss.esb:service=SoapUIClientService</depends>
   <depends>jboss.esb:deployment=smooks.esb</depends>
+  <jmsTopic>EAIProj3_gateway</jmsTopic>
   <jmsQueue>EAIProj3_esb_reply</jmsQueue>
   <jmsQueue>EAIProj3_esb</jmsQueue>
-  <jmsTopic>EAIProj3_gateway</jmsTopic>
   <jmsQueue>EAIProj3_company</jmsQueue> 
   <jmsQueue>EAIProj3_aggregator</jmsQueue>   
   <jmsQueue>Orchestrator_esb_reply</jmsQueue>
@@ -18,7 +18,7 @@
   <jmsQueue>IncrementUserEmailCount_esb</jmsQueue>
   <jmsQueue>SendMail_esb_reply</jmsQueue>
   <jmsQueue>SendMail_esb</jmsQueue>
-<!-- 
-  <jmsTopic>quickstart_simple_transformation_Response</jmsTopic>
- -->    
+  <jmsQueue>EAIProj3_webservice_esb</jmsQueue>
+  <jmsQueue>EAIProj3_webservice_esb_reply</jmsQueue>  
+  <jmsQueue>report_queue</jmsQueue>
 </jbossesb-deployment>
