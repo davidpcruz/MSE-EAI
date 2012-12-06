@@ -13,7 +13,11 @@ import javax.xml.ws.WebFault;
 @WebFault(name = "ConfigurationException", targetNamespace = "http://www.eai.org/msejdf")
 public class ConfigurationException_Exception extends Exception {
     
-    private eai.msejdf.webServices.ConfigurationException configurationException;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private eai.msejdf.webServices.ConfigurationException configurationException;
 
     public ConfigurationException_Exception() {
         super();
