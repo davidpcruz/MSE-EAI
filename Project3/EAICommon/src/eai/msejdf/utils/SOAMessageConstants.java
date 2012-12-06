@@ -17,6 +17,8 @@ public final class SOAMessageConstants
 	public static final String ESB_MAIL_MESSAGE = "mailMessage";
 
 	public static final String ESB_COMPANY_NAME = "companyName";
+
+	public static final String ESB_COMPANY_STOCK_VARIATION = "companyVariation";
 	
 	public static final String ESB_USER_ID = "userId";
 
@@ -41,7 +43,9 @@ public final class SOAMessageConstants
 	public static final String JBPM_MAIL_MESSAGE = SOAMessageConstants.ESB_MAIL_MESSAGE;
 	
 	public static final String JBPM_COMPANY_NAME = SOAMessageConstants.ESB_COMPANY_NAME;
-
+	
+	public static final String JBPM_COMPANY_STOCK_VARIATION = SOAMessageConstants.ESB_COMPANY_STOCK_VARIATION;
+	
 	public static final String JBPM_USER_LIST = SOAMessageConstants.ESB_USER_LIST;
 
 	public static final String JBPM_USER_ID_LIST = SOAMessageConstants.ESB_USER_ID_LIST;

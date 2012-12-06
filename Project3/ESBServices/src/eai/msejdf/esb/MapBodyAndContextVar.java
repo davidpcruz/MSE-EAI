@@ -23,8 +23,6 @@ public class MapBodyAndContextVar extends AbstractActionLifecycle {
 
 	public Message MapBodyToContextVar(Message message) throws ActionProcessingException {
 		
-		System.out.println("MapBodyToContextVar");
-		
 		// Save a copy of the context information in a field of the body, as there is no other
 		// way to pass that information
 		@SuppressWarnings("unchecked")
@@ -37,8 +35,6 @@ public class MapBodyAndContextVar extends AbstractActionLifecycle {
 	}
 	
 	public Message MapContextToBodyVar(Message message) throws ActionProcessingException {
-
-		System.out.println("MapContextToBodyVar");
 
 		// Save a copy of the context information in a field of the body, as there is no other
 		// way to pass that information
