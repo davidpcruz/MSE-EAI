@@ -14,19 +14,19 @@
 			<h:panelGrid columns="3">
 
 				<h:outputText value="Company"></h:outputText>
-				<h:selectOneMenu id="SearchCompany" value="#{adminW.searchCompanyNameSelect}" 
+				<h:selectOneMenu id="SearchCompany" value="#{adminWS.searchCompanyNameSelect}" 
 				required="true" requiredMessage="Missing selected company" >
 					<f:selectItem itemLabel="Select one" itemValue="#{null}" />
-					<f:selectItems value="#{adminW.companyList}" var="comp" itemValue="#{comp.name}" itemLabel="#{comp.name}"/>
+					<f:selectItems value="#{adminWS.companyList}" var="comp" itemValue="#{comp.name}" itemLabel="#{comp.name}"/>
 				</h:selectOneMenu>
 				<h:message for="SearchCompany" styleClass="errorMessage" />
 			</h:panelGrid>
-			<h:commandButton value="Search" action="#{adminW.searchUsersCompaniesWS}" >
+			<h:commandButton value="Search" action="#{adminWS.searchUsersCompaniesWS}" >
 			</h:commandButton>
 		</h:form>
 	
-		<msejdf:UsersListWS rendered="#{adminW.subscribedUserListWS.size() > 0}" usersList="#{adminW.subscribedUserListWS}"></msejdf:UsersListWS>
-		<h:outputText rendered="#{adminW.subscribedUserListWS.size() == 0}" value="No Results"></h:outputText>
+		<msejdf:UsersListWS rendered="#{adminWS.subscribedUserListWS.size() > 0}" usersList="#{adminWS.subscribedUserListWS}"></msejdf:UsersListWS>
+		<h:outputText rendered="#{adminWS.subscribedUserListWS.size() == 0}" value="No Results"></h:outputText>
 	</ui:define>
 </ui:composition>
 </html>

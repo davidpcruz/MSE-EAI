@@ -26,8 +26,10 @@ public class AdminBackOfficeBean
 
 	private List<Company> companyList;
 	private List<User> userList;
+
+	
 	private List<User> subscribedUserList;
-	private List<eai.msejdf.webServices.User> subscribedUserListWS;
+
 	// the selected company Id to search
 	private Long searchCompanyIdSelect;
 	// the selected company Name to search
@@ -86,34 +88,8 @@ public class AdminBackOfficeBean
 		return true;
 	}
 	
+
 	
-	/**
-	 * searches for a users associated to the companies using a WS -> ESB -> WS 
-	 * @return
-	 * @throws SecurityException
-	 */
-	public boolean searchUsersCompaniesWS() 
-	{
-		// basic validations
-		if (this.getSearchCompanyNameSelect() == null)
-		{
-			return false;
-		}
-		
-		this.subscribedUserListWS = getUserFollowCompanyListUsingWS(this.getSearchCompanyNameSelect(), UserSort.NAME_ASC);
-		
-		return true;
-	}
-	
-	
-	private List<eai.msejdf.webServices.User> getUserFollowCompanyListUsingWS(String searchCompanyNameSelect, UserSort nameAsc) {
-		List<eai.msejdf.webServices.User> userList = portESB.getUsersFollowingCompany(searchCompanyNameSelect);
-		for (eai.msejdf.webServices.User user : userList) {
-			System.out.println("Server said: " + user.getName() + " " + user.getMailAddress());
-		}
-		
-		return userList;
-	}
 
 	/**
 	 * Search users greater than age.
@@ -170,15 +146,7 @@ public class AdminBackOfficeBean
 		return subscribedUserList;
 	}
 
-	/**
-	 * Gets the subscribed user list on the WebService.
-	 *
-	 * @return the subscribed user list
-	 */
-	public List<eai.msejdf.webServices.User> getSubscribedUserListWS()
-	{
-		return subscribedUserListWS;
-	}
+
 	
 	/**
 	 * Gets the search age.

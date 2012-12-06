@@ -78,7 +78,17 @@
 
 			<h:outputText value="#{user.address.zipCode}" />
 		</h:column>
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="" />
+			</f:facet>
 
+ 			<h:form>
+				<h:commandButton
+					value="Details"
+					action="#{cc.attrs.bean.getUserDetails(user)}" />
+			</h:form>
+		</h:column>
 	</h:dataTable>
 </composite:implementation>
 </html>
