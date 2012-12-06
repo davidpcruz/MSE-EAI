@@ -23,13 +23,7 @@
 		TODO: Remove this TempInserCompany Node		
 	 ########################################################################################################## 
 -->
-	<node name="TempInsertCompany">
-		<transition to="Check Stock Variation">
-			<action name="TempInsertCompany" class="eai.msejdf.jbpm.actions.TempInsertCompany"></action>
-		</transition>
-	</node>
-
-<!-- 
+	<!-- 
      ########################################################################################################## 
 		Check Stock Variation Node		
 	 ########################################################################################################## 

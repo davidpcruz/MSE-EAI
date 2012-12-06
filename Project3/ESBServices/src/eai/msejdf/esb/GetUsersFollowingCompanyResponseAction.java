@@ -61,20 +61,8 @@ public class GetUsersFollowingCompanyResponseAction extends AbstractActionLifecy
 					+ "\n");
 		}
 
-
-//		message.getBody().add(results.toString());
-//
 		message.getBody().add(SOAMessageConstants.ESB_USER_LIST, userList);
 
-//		User user = new User();
-//		user.setName("Filipe");
-//		user.setMailAddress("fnorte@dei.uc.pt");
-//		user.setUsername("test");
-//		
-//		List<User> list = new ArrayList<User>();
-//		list.add(user);
-//		
-//		message.getBody().add(SOAMessageConstants.ESB_USER_LIST, list);
 		
 		logFooter();
 		return message;

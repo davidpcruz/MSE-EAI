@@ -160,7 +160,7 @@
 					<property name="command" value="StartProcessInstanceCommand" />
 					<property name="process-definition-name" value="eai.msejdf.jbpm" />
 					<property name="esbToBpmVars">
-						<mapping esb="BODY_CONTENT" bpm="msgBody" />
+						<mapping esb="company" bpm="msgBody" />
 						<mapping esb="contextInfo" bpm="contextInfo" />
 					</property>
 				</action>

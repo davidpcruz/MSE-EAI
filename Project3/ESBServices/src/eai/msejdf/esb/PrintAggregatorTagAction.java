@@ -26,13 +26,13 @@ public class PrintAggregatorTagAction extends AbstractActionLifecycle {
 		logger.debug("\nMessage " + message.getBody().get());
 
 		// TEMP translate the message to reports (simulat the jbpm)
-		Report repTemp = new Report();
-		Random rand = new Random();
-		repTemp.setUsersWarnedAutomatically(rand.nextInt(10));
-		repTemp.setUsersWarnedByManager(rand.nextInt(10));
-
-		// Set the message report
-		message.getBody().add(repTemp);
+//		Report repTemp = new Report();
+//		Random rand = new Random();
+//		repTemp.setUsersWarnedAutomatically(rand.nextInt(10));
+//		repTemp.setUsersWarnedByManager(rand.nextInt(10));
+//
+//		// Set the message report
+//		message.getBody().add(repTemp);
 
 		return message;
 	}
