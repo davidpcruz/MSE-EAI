@@ -5,6 +5,7 @@
 	<projects>
 		<project>ESBServices</project>
 		<project>EAICommon</project>
+		<project>ESBWebServices</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

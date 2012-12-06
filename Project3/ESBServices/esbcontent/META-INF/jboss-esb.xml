@@ -59,7 +59,16 @@
 				<jms-message-filter dest-name="queue/SendMail_esb"
 					dest-type="QUEUE" />
 			</jms-bus>
+			<jms-bus busid="EAIProj3_WebService_esb">
+                <jms-message-filter dest-type="QUEUE" dest-name="queue/EAIProj3_webservice_esb"/>
+            </jms-bus>
+									
 		</jms-provider>
+		
+		<jbr-provider name="HttpWebService" protocol="http" host="localhost">
+			 <jbr-bus busid="Http-WebService" port="8765" />
+		</jbr-provider>
+		
 	</providers>
 	<services>
 <!-- 
@@ -356,6 +365,36 @@
 			
 			</actions>
 		</service>
+
+<!-- 
+     ########################################################################################################## 
+		WebService 
+	 ########################################################################################################## 
+-->	
+        <service category="EAI_ESB_Web" name="EsbWebservice" description="WS Frontend for the ESB channel">
+
+            <listeners>
+                <jbr-listener name="Http-Gateway" busidref="Http-WebService" is-gateway="true"/>
+                
+                <jms-listener name="ESBchannel" busidref="EAIProj3_WebService_esb" />
+            </listeners>
+            <actions mep="RequestResponse" >
+                <action name="print-before" class="org.jboss.soa.esb.actions.SystemPrintln">
+                    <property name="message"
+                              value="[Quickstart_webservice_producer] BEFORE invoking jbossws endpoint"/>
+                </action>
+                <action name="JBossWSAdapter" class="org.jboss.soa.esb.actions.soap.SOAPProcessor">
+                    <property name="jbossws-context" value="EAIProj3_webservice_esb"/>
+                    <property name="jbossws-endpoint" value="EsbWebservice"/>
+                    <property name="rewrite-endpoint-url" value="true" />
+                </action>
+                <action name="print-after" class="org.jboss.soa.esb.actions.SystemPrintln">
+                    <property name="message"
+                              value="[Quickstart_webservice_producer] AFTER invoking jbossws endpoint"/>
+                </action>
+				<action name="testStore" class="org.jboss.soa.esb.actions.TestMessageStore"/>	
+            </actions>
+        </service>
 
 	</services>
 </jbossesb>

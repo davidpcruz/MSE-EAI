@@ -9,5 +9,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry combineaccessrules="false" kind="src" path="/EAICommon"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ESBWebServices"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
