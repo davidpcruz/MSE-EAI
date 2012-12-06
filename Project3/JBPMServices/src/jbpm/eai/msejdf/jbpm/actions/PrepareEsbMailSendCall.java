@@ -22,8 +22,7 @@ public class PrepareEsbMailSendCall implements ActionHandler {
 		
 		context.getContextInstance().createVariable(SOAMessageConstants.JBPM_MAIL_TO, buildMailAddressList(context));
 		context.getContextInstance().createVariable(SOAMessageConstants.JBPM_MAIL_SUBJECT, subject);
-		context.getContextInstance().createVariable(SOAMessageConstants.JBPM_MAIL_MESSAGE, buildMailMessage(context));
-		
+		context.getContextInstance().createVariable(SOAMessageConstants.JBPM_MAIL_MESSAGE, buildMailMessage(context));		
 	}
 
 	/**
