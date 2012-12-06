@@ -15,14 +15,10 @@ public class ExtractCompanyName implements ActionHandler {
 
 		Company company = (Company)context.getContextInstance().getVariable(SOAMessageConstants.JBPM_MSG_BODY);
 		
-		//TODO: Remove++ tmp for debug
 		if (null == company)
 		{
-			company = new Company();
-			company.setName("BES");
+			return;
 		}
-		//TODO: Remove--
-		
 		context.getContextInstance().createVariable(SOAMessageConstants.JBPM_COMPANY_NAME, company.getName());
 	}
 

@@ -10,6 +10,7 @@ public class User implements Serializable {
 	protected String username;
     protected String name;
     protected String mailAddress;
+    private Integer emailCount;
     
 	/**
 	 * Gets the id of the user
@@ -69,6 +70,20 @@ public class User implements Serializable {
 	 */
 	public void setMailAddress(String mailAddress) {
 		this.mailAddress = mailAddress;
+	}
+
+	/**
+	 * @return
+	 */
+	public Integer getEmailCount() {
+		return emailCount;
+	}
+
+	/**
+	 * @param emailCount
+	 */
+	public void setEmailCount(Integer emailCount) {
+		this.emailCount = emailCount;
 	}
 
 }

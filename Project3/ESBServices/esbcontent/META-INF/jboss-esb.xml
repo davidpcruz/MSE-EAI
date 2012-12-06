@@ -59,7 +59,16 @@
 				<jms-message-filter dest-name="queue/SendMail_esb"
 					dest-type="QUEUE" />
 			</jms-bus>
+			<jms-bus busid="EAIProj3_WebService_esb">
+                <jms-message-filter dest-type="QUEUE" dest-name="queue/EAIProj3_webservice_esb"/>
+            </jms-bus>
+									
 		</jms-provider>
+		
+		<jbr-provider name="HttpWebService" protocol="http" host="localhost">
+			 <jbr-bus busid="Http-WebService" port="8765" />
+		</jbr-provider>
+		
 	</providers>
 	<services>
 <!-- 
@@ -81,10 +90,10 @@
 				</action>
 				<!-- Split it -->
 				<action class="org.jboss.soa.esb.smooks.SmooksAction" name="transform">
-					<property name="smooksConfig" value="/smooks-res.xml" />
+					<property name="smooksConfig" value="/smooks-CompaniesSpliter.xml" />
 					<property name="resultType" value="JAVA" />
 					<property name="javaResultBeanId" value="companiesList" />
-					<property name="reportPath" value="/zap/smooks-report.html" />
+<!-- 					<property name="reportPath" value="/zap/smooks-report.html" /> -->
 				</action>
 				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="printAfter-xml">
 					<property name="message" value=">>>> 2. XML Message on topic : " />
@@ -154,6 +163,7 @@
 						<mapping esb="company" bpm="msgBody" />
 						<mapping esb="contextInfo" bpm="contextInfo" />
 					</property>
+					<property name="reply-to-originator" value="true" />
 				</action>
 
 				<action name="exitPrint" class="org.jboss.soa.esb.actions.SystemPrintln">
@@ -240,10 +250,16 @@
 					<property name="SOAPAction" value="getUserEmailCount" />
 					<!-- <property name="SOAPService" value="{http://www.eai.org/msejdf}ListUserService" 
 						/> -->
-					<property name="responseAsOgnlMap" value="true" />
+					<property name="responseAsOgnlMap" value="false" />
 				</action>
-<!-- 				<action class="eai.msejdf.esb.MyResponseAction" name="response-mapper" /> -->
-			
+ 
+				<action class="org.jboss.soa.esb.smooks.SmooksAction" name="transform">
+					<property name="smooksConfig" value="/smooks-GetUserEmailCount.xml" />
+					<property name="resultType" value="JAVA" />
+					<property name="javaResultBeanId" value="userItem" />
+<!-- 					<property name="reportPath" value="/zap/smooks-report_GetUserEmailCount.html" />  --> 
+				</action>
+ 			
 			</actions>
 		</service>
 <!-- 
@@ -258,44 +274,23 @@
 					name="getUsersFollowingCompany" />
 			</listeners>
 			<actions mep="RequestResponse">
-<!-- 				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="entryPrint1"> -->
-<!-- 					<property name="message" value="eai.msejdf.esb.GetUsersFollowingCompany 1" /> -->
-<!-- 				</action> -->
 			
 				<action class="eai.msejdf.esb.GetUsersFollowingCompany" name="request-mapper" />
-
-<!-- 				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="entryPrint2"> -->
-<!-- 					<property name="message" value="eai.msejdf.esb.GetUsersFollowingCompany 2" /> -->
-					
-<!-- 				</action> -->
 
 				<action class="org.jboss.soa.esb.actions.soap.SOAPClient"
 					name="soapui-client-action">
 					<property name="wsdl"
 						value="http://127.0.0.1:8080/EJBServer/ListUserInterface?wsdl" />
 					<property name="SOAPAction" value="getUsersFollowingCompany" />
-<!-- 					<property name="responseAsOgnlMap" value="true" /> -->
-<!-- 					<property name="SmooksResponseMapper" value="/smooks-response-config_GetUserFollowingCompany.xml"/> -->
 					<property name="LoggingMessages" value="true" />
 				</action>
-
-<!-- 				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="entryPrint2"> -->
-<!-- 					<property name="message" value="eai.msejdf.esb.GetUsersFollowingCompany 2" /> -->
-				
-<!-- 				</action> -->
 				
 				<action class="org.jboss.soa.esb.smooks.SmooksAction" name="transform">
-					<property name="smooksConfig" value="/smooks-response-config_GetUserFollowingCompany.xml" />
+					<property name="smooksConfig" value="/smooks-GetUsersFollowingCompany.xml" />
 					<property name="resultType" value="JAVA" />
 					<property name="javaResultBeanId" value="userList" />
-					<property name="reportPath" value="/zap/smooks-report_GetUserFollowingCompany.html" />
+					<!-- <property name="reportPath" value="/zap/smooks-report_GetUserFollowingCompany.html" />  -->
 				</action>
-
-
-<!-- 				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="entryPrint3"> -->
-<!-- 					<property name="message" value="eai.msejdf.esb.GetUsersFollowingCompany 3" /> -->
-				
-<!-- 				</action> -->
 				
 				<action class="eai.msejdf.esb.GetUsersFollowingCompanyResponseAction" name="response-mapper" />
 				
@@ -356,6 +351,36 @@
 			
 			</actions>
 		</service>
+
+<!-- 
+     ########################################################################################################## 
+		WebService 
+	 ########################################################################################################## 
+-->	
+        <service category="EAI_ESB_Web" name="EsbWebservice" description="WS Frontend for the ESB channel">
+
+            <listeners>
+                <jbr-listener name="Http-Gateway" busidref="Http-WebService" is-gateway="true"/>
+                
+                <jms-listener name="ESBchannel" busidref="EAIProj3_WebService_esb" />
+            </listeners>
+            <actions mep="RequestResponse" >
+                <action name="print-before" class="org.jboss.soa.esb.actions.SystemPrintln">
+                    <property name="message"
+                              value="[Quickstart_webservice_producer] BEFORE invoking jbossws endpoint"/>
+                </action>
+                <action name="JBossWSAdapter" class="org.jboss.soa.esb.actions.soap.SOAPProcessor">
+                    <property name="jbossws-context" value="EAIProj3_webservice_esb"/>
+                    <property name="jbossws-endpoint" value="EsbWebservice"/>
+                    <property name="rewrite-endpoint-url" value="true" />
+                </action>
+                <action name="print-after" class="org.jboss.soa.esb.actions.SystemPrintln">
+                    <property name="message"
+                              value="[Quickstart_webservice_producer] AFTER invoking jbossws endpoint"/>
+                </action>
+				<action name="testStore" class="org.jboss.soa.esb.actions.TestMessageStore"/>	
+            </actions>
+        </service>
 
 	</services>
 </jbossesb>
