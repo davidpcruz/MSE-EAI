@@ -163,6 +163,7 @@
 						<mapping esb="company" bpm="msgBody" />
 						<mapping esb="contextInfo" bpm="contextInfo" />
 					</property>
+					<property name="reply-to-originator" value="true" />
 				</action>
 
 				<action name="exitPrint" class="org.jboss.soa.esb.actions.SystemPrintln">
