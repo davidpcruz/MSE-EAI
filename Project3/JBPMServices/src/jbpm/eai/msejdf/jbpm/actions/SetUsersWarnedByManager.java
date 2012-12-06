@@ -16,6 +16,6 @@ public class SetUsersWarnedByManager implements ActionHandler {
 
 		context.getContextInstance().createVariable(
 				SOAMessageConstants.STATUS_REPORT_USERS_WARNED_BY_MANAGER, 
-				SetUsersWarnedByManager.USERS_WARNED_COUNT);
+				true);
 	}
 }
