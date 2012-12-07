@@ -102,36 +102,10 @@
 				<action class="eai.msejdf.esb.SplitCompaniesAction" name="Split Companies">
   					<property name="service-category" value="jBPM Orchestrator Service" />
   					<property name="service-name" value="Start BPM Service" />  
+  					<property name="exceptionMethod" value="exceptionHandler" />
 				</action>
 			</actions>
 		</service>
-		
-<!-- 		<service category="EAI_ESB" -->
-<!-- 			description="EAI_ESB: Service split 1" -->
-<!-- 			name="ServiceSplit1"> -->
-<!-- 			<listeners> -->
-<!-- 				<jms-listener busidref="EAIProj3_Spliter_ToCompany" -->
-<!-- 					name="Spliter_ToCompany" /> -->
-<!-- 			</listeners> -->
-<!-- 			<actions mep="OneWay"> -->
-
-
-<!-- 				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="printAfter-xml"> -->
-<!-- 					<property name="message" value=">>>> 3.1. XML Message on topic : " /> -->
-<!-- 				</action> -->
-
-<!-- 				<action class="eai.msejdf.esb.PrintAggregatorTagAction" name="PrintAggregatorTag" process="displayMessage"/> -->
-
-<!-- 				<action class="org.jboss.soa.esb.actions.StaticRouter" name="StaticRouter"> -->
-<!-- 					<property name="destinations"> -->
-<!-- 						<route-to destination-name="split1" service-category="EAI_ESB" -->
-<!-- 							service-name="CompaniesAggregator" /> -->
-<!-- 					</property> -->
-<!-- 				</action> -->
-				
-<!-- 			</actions> -->
-<!-- 		</service> -->
-
 <!-- 
      ########################################################################################################## 
 		ESB Orchestration service to wrap BPM process invocation
@@ -334,9 +308,7 @@
 					name="incrementUserEmailCount" />
 			</listeners>
 
-
-
-			<actions mep="RequestResponse">
+			<actions mep="OneWay">
 				<action name="request-mapper" class="eai.msejdf.esb.IncrementUserEmailCount">
 				</action>
 				

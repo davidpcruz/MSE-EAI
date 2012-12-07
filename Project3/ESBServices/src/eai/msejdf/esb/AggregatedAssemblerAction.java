@@ -42,7 +42,7 @@ public class AggregatedAssemblerAction extends AbstractActionPipelineProcessor {
         
         message.getBody().add(listObjects);
 
-        // remove the attachments (no more nead)
+        // remove the attachments (no more need for them)
         for (int i = attachmentCount - 1; i >= 0; i--) {
             message.getAttachment().removeItemAt(i);
         }                
