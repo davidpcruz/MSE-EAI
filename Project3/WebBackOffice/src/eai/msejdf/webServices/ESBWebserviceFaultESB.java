@@ -13,7 +13,11 @@ import javax.xml.ws.WebFault;
 @WebFault(name = "ESBWebserviceFault", targetNamespace = "http://msejdf/EsbWebservice")
 public class ESBWebserviceFaultESB extends Exception {
     
-    private String esbWebserviceFault;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String esbWebserviceFault;
 
     public ESBWebserviceFaultESB() {
         super();
