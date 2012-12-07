@@ -25,18 +25,18 @@ public class GetUsersFollowingCompany extends AbstractActionLifecycle {
 	@SuppressWarnings("unchecked")
 	public Message process(Message message) throws Exception {
 		logHeader();
-
+		@SuppressWarnings("rawtypes")
+		HashMap requestMap = new HashMap();
+		
 		String msgBody = (String) message.getBody().get(SOAMessageConstants.ESB_COMPANY_NAME);
 		// String msgBody = (String) message.getBody().get(); //to be used on
 		// tests
 		logger.debug("####################### original message response start ###################\n ");
 		logger.debug("message Items: " + message.toString() + "\n");
 		logger.debug("####################### original message response end ###################\n ");
-		@SuppressWarnings("rawtypes")
-		HashMap requestMap = new HashMap();
+
 
 		// add parameters to the web service request map
-
 		requestMap.put("getUsersFollowingCompany." + SOAMessageConstants.ESB_COMPANY_NAME, msgBody);
 		message.getBody().add(requestMap);
 
