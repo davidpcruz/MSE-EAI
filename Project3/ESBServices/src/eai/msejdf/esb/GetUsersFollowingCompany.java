@@ -1,5 +1,6 @@
 package eai.msejdf.esb;
 
+import org.apache.log4j.Logger;
 import org.jboss.soa.esb.actions.AbstractActionLifecycle;
 import org.jboss.soa.esb.helpers.ConfigTree;
 import org.jboss.soa.esb.message.Message;
@@ -7,7 +8,7 @@ import java.util.HashMap;
 import eai.msejdf.utils.SOAMessageConstants;
 
 public class GetUsersFollowingCompany extends AbstractActionLifecycle {
-
+	protected static final Logger logger = Logger.getLogger(GetUsersFollowingCompany.class);
 	protected ConfigTree _config;
 
 	public GetUsersFollowingCompany(ConfigTree config) {
@@ -24,48 +25,43 @@ public class GetUsersFollowingCompany extends AbstractActionLifecycle {
 	@SuppressWarnings("unchecked")
 	public Message process(Message message) throws Exception {
 		logHeader();
-
-		String msgBody = (String) message.getBody().get(SOAMessageConstants.ESB_COMPANY_NAME);
-//		String msgBody = (String) message.getBody().get(); //to be used on tests
-
-		
-		
 		@SuppressWarnings("rawtypes")
 		HashMap requestMap = new HashMap();
+		
+		String msgBody = (String) message.getBody().get(SOAMessageConstants.ESB_COMPANY_NAME);
+		// String msgBody = (String) message.getBody().get(); //to be used on
+		// tests
+		logger.debug("####################### original message response start ###################\n ");
+		logger.debug("message Items: " + message.toString() + "\n");
+		logger.debug("####################### original message response end ###################\n ");
+
 
 		// add parameters to the web service request map
-		System.out.println("################### GetUsersFollowingCompany ######################\n");
-		System.out.println("GetUsersFollowingCompany: " + "companyName = " + msgBody);
-		
-		
-		requestMap.put("getUsersFollowingCompany." + SOAMessageConstants.ESB_COMPANY_NAME , msgBody);
+		requestMap.put("getUsersFollowingCompany." + SOAMessageConstants.ESB_COMPANY_NAME, msgBody);
 		message.getBody().add(requestMap);
+
 		
-		System.out.println("Request map is: " + requestMap.toString());
-		System.out.println("################### GetUsersFollowingCompany ######################\n");
 		logFooter();
 		return message;
 	}
 
 	public void exceptionHandler(Message message, Throwable exception) {
 		logHeader();
-		System.out.println("GetUsersFollowingCompany: " + "!ERROR!");
-		System.out.println("GetUsersFollowingCompany: " + exception.getMessage());
-		System.out.println("GetUsersFollowingCompany: " + exception.getMessage());
-		System.out.println("GetUsersFollowingCompany: " + "For Message: ");
-		System.out.println("GetUsersFollowingCompany: " + message.getBody().get());
+		logger.debug("GetUsersFollowingCompany: " + "!ERROR!");
+		logger.debug("GetUsersFollowingCompany: " + exception.getMessage());
+		logger.debug("GetUsersFollowingCompany: " + exception.getMessage());
+		logger.debug("GetUsersFollowingCompany: " + "For Message: ");
+		logger.debug("GetUsersFollowingCompany: " + message.getBody().get());
 		logFooter();
 	}
 
 	// This makes it easier to read on the console
 	private void logHeader() {
-		System.out
-				.println("&&&&&&&&&&&&&&&&&&&&&& GetUsersFollowingCompany &&&&&&&&&&&&&&&&&&&&&&\n");
+		logger.debug("&&&&&&&&&&&&&&&&&&&&&& GetUsersFollowingCompany &&&&&&&&&&&&&&&&&&&&&&\n");
 	}
 
 	private void logFooter() {
-		System.out
-				.println("&&&&&&&&&&&&&&&&&&&&&& GetUsersFollowingCompany &&&&&&&&&&&&&&&&&&&&&&\n");
+		logger.debug("&&&&&&&&&&&&&&&&&&&&&& GetUsersFollowingCompany &&&&&&&&&&&&&&&&&&&&&&\n");
 	}
 
 }

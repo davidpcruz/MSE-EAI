@@ -75,7 +75,7 @@ public class PrepareEsbMailSendCall implements ActionHandler {
 	
 		buffer.append(String.format("Last: %s \n", (company.getLastQuotation() == null ? "" : company.getLastQuotation())));
 		buffer.append(String.format("Time: %s \n", (company.getTime() == null ? "" : company.getTime())));
-		buffer.append(String.format("Variation: %s \n", (company.getVariation() == null ? "" : company.getVariation())));
+		buffer.append(String.format("Variation: %s%% \n", (company.getVariation() == null ? "" : company.getVariation())));
 		buffer.append(String.format("Quantity: %s \n", (company.getQuantity() == null ? "" : company.getQuantity())));
 		buffer.append(String.format("Maximum: %s \n", (company.getMaximum() == null ? "" : company.getMaximum())));
 		buffer.append(String.format("Minimum: %s \n", (company.getMinimum() == null ? "" : company.getMinimum())));

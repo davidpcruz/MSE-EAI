@@ -26,9 +26,6 @@ import eai.msejdf.utils.SOAMessageConstants;
 /**
  * Bean implementing interface for webServices calls related calls
  */
-// @WebService(name = "ListUserInterface", targetNamespace =
-// "http://www.eai.org/mssjdf", serviceName = "ListUserService")
-// @Remote(IAdmin.class)
 @WebService(name = "ListUserInterface", targetNamespace = "http://www.eai.org/msejdf")
 @Stateless(name = "WebServices")
 @LocalBean
@@ -129,6 +126,11 @@ public class WebServices implements IWebServices {
 	}
 
 
+	/** (non-Javadoc)
+	 * Increments the user number of email count
+	 * @see eai.msejdf.webServices.IWebServices#incrementUserEmailCountFromList(java.util.List)
+	 */
+
 	@Override
 	@WebMethod
 	public void incrementUserEmailCountFromList(@WebParam(name = SOAMessageConstants.ESB_USER_ID) List<Long> userList)
@@ -158,8 +160,7 @@ public class WebServices implements IWebServices {
 		}
 	}
 	
-	// TODO decide if it should use Admin getUserList method instead of
-	// implementing it again
+
 	/**
 	 * Gets the user by user id
 	 * 
@@ -230,8 +231,9 @@ public class WebServices implements IWebServices {
 		return sortBy;
 	}
 
-	/*
+	/**
 	 * (non-Javadoc)
+	 * get the users that have subscribed a company with name = companyName
 	 * 
 	 * @see eai.msejdf.admin.IAdmin#getUserFollowCompanyList(java.lang.Long,
 	 * eai.msejdf.sort.UserSort)
