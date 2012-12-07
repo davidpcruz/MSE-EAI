@@ -3,4 +3,9 @@ build
 /Project2Deploy/src
 /Project2Deploy/ear
 /Project2Deploy/sql
+/Project3Deploy/src
+/Project3Deploy/ear
+/Project3Deploy/esb
+/Project3Deploy/jbpm
+/Project3Deploy/sql
 *.log
