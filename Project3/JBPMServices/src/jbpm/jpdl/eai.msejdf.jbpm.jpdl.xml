@@ -14,7 +14,11 @@
 				<message>Starting BPM</message>
 			</action>
 		</event>
-		<transition to="Extract Company Info" ></transition>
+		<transition name="Extract Company Info" to="Check Stock Variation" >
+			<action name="Extract Company Info"
+				class="eai.msejdf.jbpm.actions.ExtractCompanyInfo">
+			</action>	
+		</transition>
 	</start-state> 
 
 <!-- 
@@ -26,21 +30,18 @@
 		<handler class="eai.msejdf.jbpm.actions.CheckStockVariationDecisionHandler"></handler>
 
 		<transition to="Approve Stock Variation Notification" name="Request Approval">
-			<!-- TODO: Remove this action (used for debugging) -->
 			<action name="action" class="eai.msejdf.jbpm.actions.MessageActionHandler">
 				<message>Request Approval</message>
 			</action>
 		</transition>
 
 		<transition to="SetUsersWarnedAutomatically" name="Notify User">
-			<!-- TODO: Remove this action (used for debugging) -->
 			<action name="action" class="eai.msejdf.jbpm.actions.MessageActionHandler">
 				<message>Notify user</message>
 			</action>
 		</transition>
 
 		<transition to="GenerateReport" name="No Action Required">
-			<!-- TODO: Remove this action (used for debugging) -->
 			<action name="action" class="eai.msejdf.jbpm.actions.MessageActionHandler">
 				<message>No Action required</message>
 			</action>
@@ -75,20 +76,7 @@
 		</transition>
 	</task-node>
 
-<!-- 
-     ########################################################################################################## 
-		Extract Company Info Node
-	 ########################################################################################################## 
--->
-	<node name="Extract Company Info">
-		<transition to="Check Stock Variation">
-			<action name="Extract Company Info"
-				class="eai.msejdf.jbpm.actions.ExtractCompanyInfo">
-			</action>	
-		</transition>
-	</node>
-	
-<!-- 
+	<!-- 
      ########################################################################################################## 
 		Get Subscribed Users Node
 	 ########################################################################################################## 
@@ -107,8 +95,13 @@
 			<esbToBpmVars>
 				<mapping esb="userList" bpm="userList"/>
 			</esbToBpmVars>
+			<exceptionTransition>Exception</exceptionTransition>
 		</action>		
+		
 		<transition to="FilterUsersByValidMailAddress">
+		</transition>
+		
+		<transition to="Exception Handling" name="Exception">
 		</transition>
 	</node>
 
@@ -277,6 +270,19 @@
 			</action>
 		</transition>
 	</decision>
+
+<!-- 
+     ########################################################################################################## 
+		Exception Handling
+	 ########################################################################################################## 
+-->
+	<node name="Exception Handling">
+		<transition to="GenerateReport">
+			<action name="action1" class="eai.msejdf.jbpm.actions.MessageActionHandler">
+				<message>EXCEPTION: An exception has occured in the process!!!</message>
+			</action>
+		</transition>
+	</node>
 
 <!-- 
      ########################################################################################################## 
