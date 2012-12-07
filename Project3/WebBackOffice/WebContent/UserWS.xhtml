@@ -9,7 +9,7 @@
 
 <ui:composition template="templates/DefaultTemplate.xhtml">
     <ui:define name="content">
-    	<h:outputText value="Here you can see all the users" />
+    	<h:outputText value="Here you can see the user details" />
 	 	<msejdf:UsersListWS usersList="#{adminWS.getUserWS(param.userId)}"></msejdf:UsersListWS>    	
     </ui:define>
 </ui:composition>
