@@ -15,7 +15,7 @@ import javax.xml.ws.Service;
  * 
  */
 @WebServiceClient(name = "EsbWebserviceService", 
-                  wsdlLocation = "file:/C:/Users/joaofcr/Desktop/MSE-EAI/Project3/WebBackOffice/src/EsbWebservice.wsdl",
+                  wsdlLocation = "http://localhost:8180/contract/contract.jsp?serviceCat=EAI_ESB_Web&serviceName=EsbWebservice&protocol=http",
                   targetNamespace = "http://msejdf/EsbWebservice") 
 public class EsbWebserviceService extends Service {
 
@@ -26,11 +26,11 @@ public class EsbWebserviceService extends Service {
     static {
         URL url = null;
         try {
-            url = new URL("file:/C:/Users/joaofcr/Desktop/MSE-EAI/Project3/WebBackOffice/src/EsbWebservice.wsdl");
+            url = new URL("http://localhost:8180/contract/contract.jsp?serviceCat=EAI_ESB_Web&serviceName=EsbWebservice&protocol=http");
         } catch (MalformedURLException e) {
             java.util.logging.Logger.getLogger(EsbWebserviceService.class.getName())
                 .log(java.util.logging.Level.INFO, 
-                     "Can not initialize the default wsdl from {0}", "file:/C:/Users/joaofcr/Desktop/MSE-EAI/Project3/WebBackOffice/src/EsbWebservice.wsdl");
+                     "Can not initialize the default wsdl from {0}", "http://localhost:8180/contract/contract.jsp?serviceCat=EAI_ESB_Web&serviceName=EsbWebservice&protocol=http");
         }
         WSDL_LOCATION = url;
     }
