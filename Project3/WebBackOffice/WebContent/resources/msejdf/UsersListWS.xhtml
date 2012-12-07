@@ -40,6 +40,13 @@
 			<h:outputText value="#{user.mailAddress}" />
 		</h:column>
 
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="Nr emails sent" />
+			</f:facet>
+
+			<h:outputText value="#{user.emailCount}" />
+		</h:column>
 
 	</h:dataTable>
 </composite:implementation>

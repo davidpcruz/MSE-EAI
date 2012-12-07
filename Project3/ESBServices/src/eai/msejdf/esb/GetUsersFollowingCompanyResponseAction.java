@@ -22,6 +22,7 @@ package eai.msejdf.esb;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.jboss.soa.esb.actions.AbstractActionLifecycle;
 import org.jboss.soa.esb.helpers.ConfigTree;
 import org.jboss.soa.esb.message.Message;
@@ -29,6 +30,8 @@ import org.jboss.soa.esb.message.Message;
 import eai.msejdf.utils.SOAMessageConstants;
 
 public class GetUsersFollowingCompanyResponseAction extends AbstractActionLifecycle {
+	protected static final Logger logger = Logger.getLogger(GetUsersFollowingCompanyResponseAction.class);
+
 	protected ConfigTree _config;
 
 	public GetUsersFollowingCompanyResponseAction(ConfigTree config) {
@@ -43,49 +46,42 @@ public class GetUsersFollowingCompanyResponseAction extends AbstractActionLifecy
 	 * Retrieve and output the webservice response.
 	 */
 	public Message process(Message message) throws Exception {
-		//StringBuffer results = new StringBuffer();
+		// StringBuffer results = new StringBuffer();
 
 		logHeader();
-		System.out
-				.println("####################### original message response start ###################\n ");
-		System.out.println("message Items: " + message.toString() + "\n");
-		System.out
-				.println("####################### original message response end ###################\n ");
+		logger.debug("####################### original message response start ###################\n ");
+		logger.debug("message Items: " + message.toString() + "\n");
+		logger.debug("####################### original message response end ###################\n ");
 
 		@SuppressWarnings("unchecked")
 		List<User> userList = (List<User>) message.getBody().get();
-		System.out.println("Response Map is: " + userList.getClass());
+		logger.debug("Response Map is: " + userList.getClass());
 		for (User user : userList) {
-			System.out.println("\t" + user + ": " + user.getName() + "\t: "
-					+ user.getMailAddress() + "\t: " + user.getUsername()
-					+ "\n");
+			logger.debug("\t" + user + ": " + user.getName() + "\t: " + user.getMailAddress() + "\t: " + user.getUsername() + "\n");
 		}
 
 		message.getBody().add(SOAMessageConstants.ESB_USER_LIST, userList);
 
-		
 		logFooter();
 		return message;
 	}
 
 	public void exceptionHandler(Message message, Throwable exception) {
 		logHeader();
-		System.out.println("MyResponseAction: " + "!ERROR!");
-		System.out.println("MyResponseAction: " + exception.getMessage());
-		System.out.println("MyResponseAction: " + "For Message: ");
-		System.out.println("MyResponseAction: " + message.getBody().get());
+		logger.debug("MyResponseAction: " + "!ERROR!");
+		logger.debug("MyResponseAction: " + exception.getMessage());
+		logger.debug("MyResponseAction: " + "For Message: ");
+		logger.debug("MyResponseAction: " + message.getBody().get());
 		logFooter();
 	}
 
 	// This makes it easier to read on the console
 	private void logHeader() {
-		System.out
-				.println("&&&&&&&&&&&&&&&&&&&& MyResponseAction start &&&&&&&&&&&&&&&&&&&&&&&&\n");
+		logger.debug("&&&&&&&&&&&&&&&&&&&& MyResponseAction start &&&&&&&&&&&&&&&&&&&&&&&&\n");
 	}
 
 	private void logFooter() {
-		System.out
-				.println("&&&&&&&&&&&&&&&&&&& MyResponseAction end &&&&&&&&&&&&&&&&&&&&&&&&&\n");
+		logger.debug("&&&&&&&&&&&&&&&&&&& MyResponseAction end &&&&&&&&&&&&&&&&&&&&&&&&&\n");
 	}
 
 }

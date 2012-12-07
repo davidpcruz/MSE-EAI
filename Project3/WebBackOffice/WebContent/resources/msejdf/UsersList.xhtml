@@ -13,7 +13,8 @@
 
 <composite:implementation>
 	<h:dataTable var="user" value="#{cc.attrs.usersList}"
-		rowClasses="oddRow, evenRow" headerClass="tableHeader" styleClass="tableList">
+		rowClasses="oddRow, evenRow" headerClass="tableHeader"
+		styleClass="tableList">
 
 		<h:column>
 			<f:facet name="header">
@@ -70,7 +71,7 @@
 
 			<h:outputText value="#{user.address.city}" />
 		</h:column>
-		
+
 		<h:column>
 			<f:facet name="header">
 				<h:outputText value="ZipCode" />
@@ -78,17 +79,18 @@
 
 			<h:outputText value="#{user.address.zipCode}" />
 		</h:column>
-		<h:column>
+
+		<h:column >
 			<f:facet name="header">
-				<h:outputText value="" />
+				<h:outputText value="Details" />
 			</f:facet>
 
- 			<h:form>
-				<h:commandButton
-					value="Details"
-					action="#{cc.attrs.bean.getUserDetails(user)}" />
-			</h:form>
+			<h:link outcome="UserDetails" value="Details">
+				<f:param name="userId" value="#{user.id}" />
+			</h:link>
 		</h:column>
+
+
 	</h:dataTable>
 </composite:implementation>
 </html>

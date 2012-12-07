@@ -16,7 +16,6 @@ import eai.msejdf.persistence.User;
 import eai.msejdf.sort.CompanySort;
 import eai.msejdf.sort.UserSort;
 import eai.msejdf.utils.EJBLookupConstants;
-import eai.msejdf.webServices.*;
 
 @ManagedBean(name="adminW")
 @ViewScoped
@@ -37,8 +36,6 @@ public class AdminBackOfficeBean
 	// the age to search the users
 	private Integer searchAge;
 
-	WebServicesService serviceESB = new WebServicesService();
-	ListUserInterface portESB = serviceESB.getListUserInterfacePort();
 
 	/**
 	 * Creates a AdminW bean to handle the list queries 

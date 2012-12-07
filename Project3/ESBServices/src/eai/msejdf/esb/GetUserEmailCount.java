@@ -1,5 +1,6 @@
 package eai.msejdf.esb;
 
+import org.apache.log4j.Logger;
 import org.jboss.soa.esb.actions.AbstractActionLifecycle;
 import org.jboss.soa.esb.helpers.ConfigTree;
 import org.jboss.soa.esb.message.Message;
@@ -10,6 +11,7 @@ import java.util.HashMap;
 
 public class GetUserEmailCount extends AbstractActionLifecycle {
 
+	protected static final Logger logger = Logger.getLogger(GetUserEmailCount.class);
 	protected ConfigTree _config;
 
 	public GetUserEmailCount(ConfigTree config) {
@@ -31,38 +33,31 @@ public class GetUserEmailCount extends AbstractActionLifecycle {
 		HashMap requestMap = new HashMap();
 
 		// add parameters to the web service request map
-		System.out.println("################### GetNumberOfEmails ######################\n");
-		System.out.println("GetNumberOfEmails: " + "userId = " + msgBody);
-		
-		
-		requestMap.put("getUserEmailCount."+ SOAMessageConstants.ESB_USER_ID, msgBody);
+		requestMap.put("getUserEmailCount." + SOAMessageConstants.ESB_USER_ID, msgBody);
 
 		message.getBody().add(requestMap);
-		System.out.println("Request map is: " + requestMap.toString());
-		System.out.println("################### GetNumberOfEmails ######################\n");
+
 		logFooter();
 		return message;
 	}
 
 	public void exceptionHandler(Message message, Throwable exception) {
 		logHeader();
-		System.out.println("GetNumberOfEmails: " + "!ERROR!");
-		System.out.println("GetNumberOfEmails: " + exception.getMessage());
-		System.out.println("GetNumberOfEmails: " + exception.getMessage());
-		System.out.println("GetNumberOfEmails: " + "For Message: ");
-		System.out.println("GetNumberOfEmails: " + message.getBody().get());
+		logger.debug("GetNumberOfEmails: " + "!ERROR!");
+		logger.debug("GetNumberOfEmails: " + exception.getMessage());
+		logger.debug("GetNumberOfEmails: " + exception.getMessage());
+		logger.debug("GetNumberOfEmails: " + "For Message: ");
+		logger.debug("GetNumberOfEmails: " + message.getBody().get());
 		logFooter();
 	}
 
 	// This makes it easier to read on the console
 	private void logHeader() {
-		System.out
-				.println("&&&&&&&&&&&&&&&&&&&&&& GetNumberOfEmails &&&&&&&&&&&&&&&&&&&&&&\n");
+		logger.debug("&&&&&&&&&&&&&&&&&&&&&& GetNumberOfEmails &&&&&&&&&&&&&&&&&&&&&&\n");
 	}
 
 	private void logFooter() {
-		System.out
-				.println("&&&&&&&&&&&&&&&&&&&&&& GetNumberOfEmails &&&&&&&&&&&&&&&&&&&&&&\n");
+		logger.debug("&&&&&&&&&&&&&&&&&&&&&& GetNumberOfEmails &&&&&&&&&&&&&&&&&&&&&&\n");
 	}
 
 }

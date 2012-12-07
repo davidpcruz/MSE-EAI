@@ -24,15 +24,12 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _IncrementUserEmailCountFromIdResponse_QNAME = new QName("http://www.eai.org/msejdf", "incrementUserEmailCountFromIdResponse");
-    private final static QName _GetUserEmailCount_QNAME = new QName("http://www.eai.org/msejdf", "getUserEmailCount");
-    private final static QName _GetUsersFollowingCompanyResponse_QNAME = new QName("http://www.eai.org/msejdf", "getUsersFollowingCompanyResponse");
-    private final static QName _GetUsersFollowingCompany_QNAME = new QName("http://www.eai.org/msejdf", "getUsersFollowingCompany");
-    private final static QName _IncrementUserEmailCountFromId_QNAME = new QName("http://www.eai.org/msejdf", "incrementUserEmailCountFromId");
-    private final static QName _GetUserEmailCountResponse_QNAME = new QName("http://www.eai.org/msejdf", "getUserEmailCountResponse");
-    private final static QName _IncrementUserEmailCountFromList_QNAME = new QName("http://www.eai.org/msejdf", "incrementUserEmailCountFromList");
-    private final static QName _IncrementUserEmailCountFromListResponse_QNAME = new QName("http://www.eai.org/msejdf", "incrementUserEmailCountFromListResponse");
-    private final static QName _ConfigurationException_QNAME = new QName("http://www.eai.org/msejdf", "ConfigurationException");
+    private final static QName _ESBWebserviceFault_QNAME = new QName("http://msejdf/EsbWebservice", "ESBWebserviceFault");
+    private final static QName _GetUserEmailCountResponse_QNAME = new QName("http://msejdf/EsbWebservice", "getUserEmailCountResponse");
+    private final static QName _ESBWebServiceException_QNAME = new QName("http://msejdf/EsbWebservice", "ESBWebServiceException");
+    private final static QName _GetUsersFollowingCompany_QNAME = new QName("http://msejdf/EsbWebservice", "getUsersFollowingCompany");
+    private final static QName _GetUserEmailCount_QNAME = new QName("http://msejdf/EsbWebservice", "getUserEmailCount");
+    private final static QName _GetUsersFollowingCompanyResponse_QNAME = new QName("http://msejdf/EsbWebservice", "getUsersFollowingCompanyResponse");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: eai.msejdf.webServices
@@ -58,22 +55,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link IncrementUserEmailCountFromIdResponse }
-     * 
-     */
-    public IncrementUserEmailCountFromIdResponse createIncrementUserEmailCountFromIdResponse() {
-        return new IncrementUserEmailCountFromIdResponse();
-    }
-
-    /**
-     * Create an instance of {@link IncrementUserEmailCountFromId }
-     * 
-     */
-    public IncrementUserEmailCountFromId createIncrementUserEmailCountFromId() {
-        return new IncrementUserEmailCountFromId();
-    }
-
-    /**
      * Create an instance of {@link GetUsersFollowingCompany }
      * 
      */
@@ -82,11 +63,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link IncrementUserEmailCountFromList }
+     * Create an instance of {@link EsbWebserviceFault }
      * 
      */
-    public IncrementUserEmailCountFromList createIncrementUserEmailCountFromList() {
-        return new IncrementUserEmailCountFromList();
+    public EsbWebserviceFault createEsbWebserviceFault() {
+        return new EsbWebserviceFault();
     }
 
     /**
@@ -98,22 +79,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ConfigurationException }
-     * 
-     */
-    public ConfigurationException createConfigurationException() {
-        return new ConfigurationException();
-    }
-
-    /**
-     * Create an instance of {@link IncrementUserEmailCountFromListResponse }
-     * 
-     */
-    public IncrementUserEmailCountFromListResponse createIncrementUserEmailCountFromListResponse() {
-        return new IncrementUserEmailCountFromListResponse();
-    }
-
-    /**
      * Create an instance of {@link User }
      * 
      */
@@ -122,19 +87,46 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link IncrementUserEmailCountFromIdResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link EsbWebserviceFault }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://www.eai.org/msejdf", name = "incrementUserEmailCountFromIdResponse")
-    public JAXBElement<IncrementUserEmailCountFromIdResponse> createIncrementUserEmailCountFromIdResponse(IncrementUserEmailCountFromIdResponse value) {
-        return new JAXBElement<IncrementUserEmailCountFromIdResponse>(_IncrementUserEmailCountFromIdResponse_QNAME, IncrementUserEmailCountFromIdResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://msejdf/EsbWebservice", name = "ESBWebserviceFault")
+    public JAXBElement<EsbWebserviceFault> createESBWebserviceFault(EsbWebserviceFault value) {
+        return new JAXBElement<EsbWebserviceFault>(_ESBWebserviceFault_QNAME, EsbWebserviceFault.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetUserEmailCountResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://msejdf/EsbWebservice", name = "getUserEmailCountResponse")
+    public JAXBElement<GetUserEmailCountResponse> createGetUserEmailCountResponse(GetUserEmailCountResponse value) {
+        return new JAXBElement<GetUserEmailCountResponse>(_GetUserEmailCountResponse_QNAME, GetUserEmailCountResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link EsbWebserviceFault }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://msejdf/EsbWebservice", name = "ESBWebServiceException")
+    public JAXBElement<EsbWebserviceFault> createESBWebServiceException(EsbWebserviceFault value) {
+        return new JAXBElement<EsbWebserviceFault>(_ESBWebServiceException_QNAME, EsbWebserviceFault.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetUsersFollowingCompany }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://msejdf/EsbWebservice", name = "getUsersFollowingCompany")
+    public JAXBElement<GetUsersFollowingCompany> createGetUsersFollowingCompany(GetUsersFollowingCompany value) {
+        return new JAXBElement<GetUsersFollowingCompany>(_GetUsersFollowingCompany_QNAME, GetUsersFollowingCompany.class, null, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GetUserEmailCount }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://www.eai.org/msejdf", name = "getUserEmailCount")
+    @XmlElementDecl(namespace = "http://msejdf/EsbWebservice", name = "getUserEmailCount")
     public JAXBElement<GetUserEmailCount> createGetUserEmailCount(GetUserEmailCount value) {
         return new JAXBElement<GetUserEmailCount>(_GetUserEmailCount_QNAME, GetUserEmailCount.class, null, value);
     }
@@ -143,63 +135,9 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link GetUsersFollowingCompanyResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://www.eai.org/msejdf", name = "getUsersFollowingCompanyResponse")
+    @XmlElementDecl(namespace = "http://msejdf/EsbWebservice", name = "getUsersFollowingCompanyResponse")
     public JAXBElement<GetUsersFollowingCompanyResponse> createGetUsersFollowingCompanyResponse(GetUsersFollowingCompanyResponse value) {
         return new JAXBElement<GetUsersFollowingCompanyResponse>(_GetUsersFollowingCompanyResponse_QNAME, GetUsersFollowingCompanyResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetUsersFollowingCompany }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://www.eai.org/msejdf", name = "getUsersFollowingCompany")
-    public JAXBElement<GetUsersFollowingCompany> createGetUsersFollowingCompany(GetUsersFollowingCompany value) {
-        return new JAXBElement<GetUsersFollowingCompany>(_GetUsersFollowingCompany_QNAME, GetUsersFollowingCompany.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link IncrementUserEmailCountFromId }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://www.eai.org/msejdf", name = "incrementUserEmailCountFromId")
-    public JAXBElement<IncrementUserEmailCountFromId> createIncrementUserEmailCountFromId(IncrementUserEmailCountFromId value) {
-        return new JAXBElement<IncrementUserEmailCountFromId>(_IncrementUserEmailCountFromId_QNAME, IncrementUserEmailCountFromId.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetUserEmailCountResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://www.eai.org/msejdf", name = "getUserEmailCountResponse")
-    public JAXBElement<GetUserEmailCountResponse> createGetUserEmailCountResponse(GetUserEmailCountResponse value) {
-        return new JAXBElement<GetUserEmailCountResponse>(_GetUserEmailCountResponse_QNAME, GetUserEmailCountResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link IncrementUserEmailCountFromList }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://www.eai.org/msejdf", name = "incrementUserEmailCountFromList")
-    public JAXBElement<IncrementUserEmailCountFromList> createIncrementUserEmailCountFromList(IncrementUserEmailCountFromList value) {
-        return new JAXBElement<IncrementUserEmailCountFromList>(_IncrementUserEmailCountFromList_QNAME, IncrementUserEmailCountFromList.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link IncrementUserEmailCountFromListResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://www.eai.org/msejdf", name = "incrementUserEmailCountFromListResponse")
-    public JAXBElement<IncrementUserEmailCountFromListResponse> createIncrementUserEmailCountFromListResponse(IncrementUserEmailCountFromListResponse value) {
-        return new JAXBElement<IncrementUserEmailCountFromListResponse>(_IncrementUserEmailCountFromListResponse_QNAME, IncrementUserEmailCountFromListResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ConfigurationException }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://www.eai.org/msejdf", name = "ConfigurationException")
-    public JAXBElement<ConfigurationException> createConfigurationException(ConfigurationException value) {
-        return new JAXBElement<ConfigurationException>(_ConfigurationException_QNAME, ConfigurationException.class, null, value);
     }
 
 }
