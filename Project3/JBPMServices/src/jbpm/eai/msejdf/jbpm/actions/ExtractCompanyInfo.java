@@ -7,7 +7,7 @@ import org.jbpm.graph.exe.ExecutionContext;
 import eai.msejdf.esb.Company;
 import eai.msejdf.utils.SOAMessageConstants;
 
-public class ExtractCompanyName implements ActionHandler {
+public class ExtractCompanyInfo implements ActionHandler {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -20,6 +20,7 @@ public class ExtractCompanyName implements ActionHandler {
 			return;
 		}
 		context.getContextInstance().createVariable(SOAMessageConstants.JBPM_COMPANY_NAME, company.getName());
+		context.getContextInstance().createVariable(SOAMessageConstants.JBPM_COMPANY_STOCK_VARIATION, company.getVariation());
 	}
 
 }

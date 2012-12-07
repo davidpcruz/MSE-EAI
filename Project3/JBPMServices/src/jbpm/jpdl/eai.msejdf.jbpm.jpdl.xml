@@ -14,7 +14,7 @@
 				<message>Starting BPM</message>
 			</action>
 		</event>
-		<transition to="Check Stock Variation" name="Check Stock Variation"></transition>
+		<transition to="Extract Company Info" ></transition>
 	</start-state> 
 
 <!-- 
@@ -56,9 +56,13 @@
 
 		<task name="Approve stock variation e-mail notification">
 			<assignment actor-id="Manager"></assignment>
+			<controller>
+            	<variable name="companyName" access="read"/>
+			</controller>
+			
 		</task>
 
-		<transition to="GenerateReport" name="Reject notification">
+		<transition to="GenerateReport" name="Reject Notification">
 			<action name="action1" class="eai.msejdf.jbpm.actions.MessageActionHandler">
 				<message>Notification Rejected</message>
 			</action>
@@ -73,13 +77,13 @@
 
 <!-- 
      ########################################################################################################## 
-		Identify Company Node
+		Extract Company Info Node
 	 ########################################################################################################## 
 -->
-	<node name="Identify Company">
-		<transition to="Get Subscribed Users">
-			<action name="Extract Company Name"
-				class="eai.msejdf.jbpm.actions.ExtractCompanyName">
+	<node name="Extract Company Info">
+		<transition to="Check Stock Variation">
+			<action name="Extract Company Info"
+				class="eai.msejdf.jbpm.actions.ExtractCompanyInfo">
 			</action>	
 		</transition>
 	</node>
@@ -196,7 +200,7 @@
 	 ########################################################################################################## 
 -->
 	<node name="SetUsersWarnedAutomatically">
-		<transition to="Identify Company">
+		<transition to="Get Subscribed Users">
 			<action name="SetUsersWarnedAutomatically" class="eai.msejdf.jbpm.actions.SetUsersWarnedAutomatically"></action>
 		</transition>
 	</node>
@@ -207,7 +211,7 @@
 	 ########################################################################################################## 
 -->
 	<node name="SetUsersWarnedByManager">
-		<transition to="Identify Company">
+		<transition to="Get Subscribed Users">
 			<action name="SetUsersWarnedByManager" class="eai.msejdf.jbpm.actions.SetUsersWarnedByManager"></action>
 		</transition>
 	</node>

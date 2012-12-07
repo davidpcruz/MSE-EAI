@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="eai.msejdf.jbpm" width="1096" height="1732">
+<root-container name="eai.msejdf.jbpm" width="1111" height="1732">
   <node name="start" x="804" y="210" width="149" height="44">
     <edge>
       <label x="5" y="-10"/>
@@ -25,7 +25,7 @@
       <label x="-147" y="-14"/>
     </edge>
   </node>
-  <node name="Identify Company" x="137" y="845" width="196" height="46">
+  <node name="Extract Company Info" x="780" y="329" width="196" height="46">
     <edge>
       <label x="5" y="-10"/>
     </edge>
@@ -63,7 +63,7 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="SetUsersWarnedByManager" x="429" y="844" width="225" height="45">
+  <node name="SetUsersWarnedByManager" x="336" y="829" width="225" height="45">
     <edge>
       <label x="5" y="-10"/>
     </edge>
@@ -88,7 +88,7 @@
       <label x="5" y="-10"/>
     </edge>
     <edge>
-      <label x="5" y="-10"/>
+      <label x="-190" y="-118"/>
     </edge>
   </node>
   <node name="end-state" x="909" y="1695" width="132" height="36"/>
@@ -96,7 +96,6 @@
     <classesAndResources>
       <element type="java" value="/JBPMServices/src/jbpm/eai/msejdf/jbpm/actions/CheckStockVariationDecisionHandler.java"/>
       <element type="java" value="/JBPMServices/src/jbpm/eai/msejdf/jbpm/actions/MessageActionHandler.java"/>
-      <element type="java" value="/JBPMServices/src/jbpm/eai/msejdf/jbpm/actions/ExtractCompanyName.java"/>
       <element type="java" value="/JBPMServices/src/jbpm/eai/msejdf/jbpm/actions/PrepareEsbMailCountCall.java"/>
       <element type="java" value="/JBPMServices/src/jbpm/eai/msejdf/jbpm/actions/PrepareEsbMailSendCall.java"/>
       <element type="java" value="/JBPMServices/src/jbpm/eai/msejdf/jbpm/actions/SetUsersWarnedAutomatically.java"/>
@@ -104,6 +103,11 @@
       <element type="java" value="/JBPMServices/src/jbpm/eai/msejdf/jbpm/actions/GenerateReport.java"/>
       <element type="java" value="/JBPMServices/src/jbpm/eai/msejdf/jbpm/actions/FilterUsersByValidMailAddress.java"/>
       <element type="java" value="/JBPMServices/src/jbpm/eai/msejdf/jbpm/actions/UserListEmptyDecisionHandler.java"/>
+      <element type="java" value="/JBPMServices/src/jbpm/eai/msejdf/jbpm/actions/ExtractCompanyInfo.java"/>
     </classesAndResources>
+    <additionalFiles>
+      <element value="/JBPMServices/src/jbpm/jpdl/forms.xml"/>
+      <element value="/JBPMServices/src/jbpm/jpdl/ApproveMail.xhtml"/>
+    </additionalFiles>
   </deployment>
 </root-container>
