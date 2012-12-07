@@ -261,12 +261,12 @@
 		<handler class="eai.msejdf.jbpm.actions.UserListEmptyDecisionHandler"></handler>
 		<transition to="Notify User" name="HasUsers">
 			<action name="action1" class="eai.msejdf.jbpm.actions.MessageActionHandler">
-				<message>Has NO Users to Notify</message>
+				<message>Has Users to Notify</message>
 			</action>
 		</transition>
 		<transition to="GenerateReport" name="HasNoUsers">
 			<action name="action2" class="eai.msejdf.jbpm.actions.MessageActionHandler">
-				<message>Has Users to Notify</message>
+				<message>Has NO Users to Notify</message>
 			</action>
 		</transition>
 	</decision>
