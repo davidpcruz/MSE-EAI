@@ -50,10 +50,16 @@ public class AdminBackOfficeBeanWS {
 		this.adminBean = (IAdmin) ctx.lookup(EJBLookupConstants.EJB_I_ADMIN);
 	}
 
+	/**
+	 * @return
+	 */
 	public String getSearchCompanyNameSelect() {
 		return searchCompanyNameSelect;
 	}
 
+	/**
+	 * @param searchCompanyNameSelect
+	 */
 	public void setSearchCompanyNameSelect(String searchCompanyNameSelect) {
 		this.searchCompanyNameSelect = searchCompanyNameSelect;
 	}
@@ -76,6 +82,13 @@ public class AdminBackOfficeBeanWS {
 		return true;
 	}
 
+	/**
+	 * Get the lis of users following a company using the ESB webServices
+	 * @param searchCompanyNameSelect
+	 * @param nameAsc
+	 * @return
+	 * @throws ESBWebserviceFaultESB
+	 */
 	private List<eai.msejdf.webServices.User> getUserFollowCompanyListUsingWS(String searchCompanyNameSelect, UserSort nameAsc) throws ESBWebserviceFaultESB {
 		List<eai.msejdf.webServices.User> userListWS = portESB.getUsersFollowingCompany(searchCompanyNameSelect);
 		for (eai.msejdf.webServices.User user : userListWS) {
@@ -114,13 +127,17 @@ public class AdminBackOfficeBeanWS {
 	 * @throws ESBWebserviceFaultESB
 	 */
 	public eai.msejdf.webServices.User getUserWS(Long userId) throws ESBWebserviceFaultESB {
-		
+
 		eai.msejdf.webServices.User userWS = portESB.getUserEmailCount(userId);
 
 		return userWS;
 
 	}
 
+	/**
+	 * Gets the list of companies in the system
+	 * @return List<Company>
+	 */
 	public List<Company> getCompanyList() {
 		if (FacesContext.getCurrentInstance().getRenderResponse()) {
 			// Reload to get most recent data.
