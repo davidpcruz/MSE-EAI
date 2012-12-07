@@ -43,6 +43,10 @@
 			<to-view-id>/Login.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
+		<navigation-case>
+			<from-outcome>UserDetails</from-outcome>
+			<to-view-id>/UserWS.xhtml</to-view-id>
+		</navigation-case>
 	</navigation-rule>
 
 </faces-config>

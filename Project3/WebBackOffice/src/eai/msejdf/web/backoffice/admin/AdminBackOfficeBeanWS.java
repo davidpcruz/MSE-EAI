@@ -114,13 +114,12 @@ public class AdminBackOfficeBeanWS {
 	 * @throws ESBWebserviceFaultESB
 	 */
 	public eai.msejdf.webServices.User getUserWS(Long userId) throws ESBWebserviceFaultESB {
-		// TODO Replace methode
+		
 		eai.msejdf.webServices.User userWS = portESB.getUserEmailCount(userId);
 
 		return userWS;
 
 	}
-
 
 	public List<Company> getCompanyList() {
 		if (FacesContext.getCurrentInstance().getRenderResponse()) {
@@ -134,27 +133,5 @@ public class AdminBackOfficeBeanWS {
 	public void setCompanyList(List<Company> companyList) {
 		this.companyList = companyList;
 	}
-
-	// /**
-	// * Gets user details using WebService and ESB
-	// * operation succeeds
-	// *
-	// * @param bankTeller
-	// * @return boolean
-	// */
-	// public User getUserDetails(User user) {
-	// boolean result = false;
-	//
-	// List<eai.msejdf.webServices.User> userListWS =
-	// portESB.getUsersFollowingCompany("BES");
-	// for (eai.msejdf.webServices.User user : userListWS) {
-	// System.out.println("Server said: " + user.getName() + " " +
-	// user.getMailAddress());
-	// // }
-	//
-	//
-	//
-	// return result;
-	// }
 
 }
