@@ -1,2 +1,2 @@
-@javax.xml.bind.annotation.XmlSchema(namespace = "http://www.eai.org/msejdf")
+@javax.xml.bind.annotation.XmlSchema(namespace = "http://msejdf/EsbWebservice")
 package eai.msejdf.webServices;

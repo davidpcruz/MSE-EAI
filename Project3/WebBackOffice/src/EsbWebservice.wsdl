@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions name='EsbWebserviceService' targetNamespace='http://msejdf/EsbWebservice'
+	xmlns='http://schemas.xmlsoap.org/wsdl/' xmlns:soap='http://schemas.xmlsoap.org/wsdl/soap/'
+	xmlns:tns='http://msejdf/EsbWebservice' xmlns:xsd='http://www.w3.org/2001/XMLSchema'>
+	<types>
+		<xs:schema targetNamespace='http://msejdf/EsbWebservice'
+			version='1.0' xmlns:tns='http://msejdf/EsbWebservice' xmlns:xs='http://www.w3.org/2001/XMLSchema'>
+			<xs:element name='ESBWebServiceException' type='tns:esbWebserviceFault' />
+			<xs:element name='ESBWebserviceFault' nillable='true'
+				type='tns:esbWebserviceFault' />
+			<xs:element name='getUserEmailCount' type='tns:getUserEmailCount' />
+			<xs:element name='getUserEmailCountResponse' type='tns:getUserEmailCountResponse' />
+			<xs:element name='getUsersFollowingCompany' type='tns:getUsersFollowingCompany' />
+			<xs:element name='getUsersFollowingCompanyResponse' type='tns:getUsersFollowingCompanyResponse' />
+			<xs:complexType name='getUsersFollowingCompany'>
+				<xs:sequence>
+					<xs:element minOccurs='0' name='companyName' type='xs:string' />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name='getUsersFollowingCompanyResponse'>
+				<xs:sequence>
+					<xs:element maxOccurs='unbounded' minOccurs='0' name='return'
+						type='tns:user' />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name='user'>
+				<xs:sequence>
+					<xs:element minOccurs='0' name='emailCount' type='xs:int' />
+					<xs:element minOccurs='0' name='id' type='xs:long' />
+					<xs:element minOccurs='0' name='mailAddress' type='xs:string' />
+					<xs:element minOccurs='0' name='name' type='xs:string' />
+					<xs:element minOccurs='0' name='username' type='xs:string' />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name='esbWebserviceFault'>
+				<xs:sequence>
+					<xs:element minOccurs='0' name='message' type='xs:string' />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name='getUserEmailCount'>
+				<xs:sequence>
+					<xs:element minOccurs='0' name='userId' type='xs:long' />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name='getUserEmailCountResponse'>
+				<xs:sequence>
+					<xs:element minOccurs='0' name='return' type='tns:user' />
+				</xs:sequence>
+			</xs:complexType>
+		</xs:schema>
+	</types>
+	<message name='EsbWebservice_getUserEmailCount'>
+		<part element='tns:getUserEmailCount' name='getUserEmailCount'></part>
+	</message>
+	<message name='ESBWebserviceFault'>
+		<part element='tns:ESBWebserviceFault' name='ESBWebserviceFault'></part>
+	</message>
+	<message name='EsbWebservice_getUsersFollowingCompanyResponse'>
+		<part element='tns:getUsersFollowingCompanyResponse' name='getUsersFollowingCompanyResponse'></part>
+	</message>
+	<message name='EsbWebservice_getUsersFollowingCompany'>
+		<part element='tns:getUsersFollowingCompany' name='getUsersFollowingCompany'></part>
+	</message>
+	<message name='EsbWebservice_getUserEmailCountResponse'>
+		<part element='tns:getUserEmailCountResponse' name='getUserEmailCountResponse'></part>
+	</message>
+	<portType name='EsbWebservice'>
+		<operation name='getUserEmailCount' parameterOrder='getUserEmailCount'>
+			<input message='tns:EsbWebservice_getUserEmailCount'></input>
+			<output message='tns:EsbWebservice_getUserEmailCountResponse'></output>
+			<fault message='tns:ESBWebserviceFault' name='ESBWebserviceFault'></fault>
+		</operation>
+		<operation name='getUsersFollowingCompany' parameterOrder='getUsersFollowingCompany'>
+			<input message='tns:EsbWebservice_getUsersFollowingCompany'></input>
+			<output message='tns:EsbWebservice_getUsersFollowingCompanyResponse'></output>
+			<fault message='tns:ESBWebserviceFault' name='ESBWebserviceFault'></fault>
+		</operation>
+	</portType>
+	<binding name='EsbWebserviceBinding' type='tns:EsbWebservice'>
+		<soap:binding style='document'
+			transport='http://schemas.xmlsoap.org/soap/http' />
+		<operation name='getUserEmailCount'>
+			<soap:operation soapAction='' />
+			<input>
+				<soap:body use='literal' />
+			</input>
+			<output>
+				<soap:body use='literal' />
+			</output>
+			<fault name='ESBWebserviceFault'>
+				<soap:fault name='ESBWebserviceFault' use='literal' />
+			</fault>
+		</operation>
+		<operation name='getUsersFollowingCompany'>
+			<soap:operation soapAction='' />
+			<input>
+				<soap:body use='literal' />
+			</input>
+			<output>
+				<soap:body use='literal' />
+			</output>
+			<fault name='ESBWebserviceFault'>
+				<soap:fault name='ESBWebserviceFault' use='literal' />
+			</fault>
+		</operation>
+	</binding>
+	<service name='EsbWebserviceService'>
+		<port binding='tns:EsbWebserviceBinding' name='EsbWebservicePort'>
+			<soap:address
+				location='http://localhost:8765/' />
+		</port>
+	</service>
+</definitions>

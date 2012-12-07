@@ -16,26 +16,27 @@ import eai.msejdf.persistence.User;
 import eai.msejdf.sort.CompanySort;
 import eai.msejdf.sort.UserSort;
 import eai.msejdf.utils.EJBLookupConstants;
-import eai.msejdf.webServices.ListUserInterface;
-import eai.msejdf.webServices.WebServicesService;
+import eai.msejdf.webServices.ESBWebserviceFaultESB;
+import eai.msejdf.webServices.EsbWebservice;
+import eai.msejdf.webServices.EsbWebserviceService;
 
 @ManagedBean(name = "adminWS")
 @ViewScoped
 public class AdminBackOfficeBeanWS {
-	private final static String SET_ACTION_NAME = "Details";
+
 	private IAdmin adminBean;
 	private List<Company> companyList;
 
 	private List<User> userList;
-	private List<eai.msejdf.webServices.User> userListWS;
 
 	private List<eai.msejdf.webServices.User> subscribedUserListWS;
 
 	// the selected company Name to search
 	private String searchCompanyNameSelect;
 
-	WebServicesService serviceESB = new WebServicesService();
-	ListUserInterface portESB = serviceESB.getListUserInterfacePort();
+	EsbWebserviceService serviceESB = new EsbWebserviceService();
+
+	EsbWebservice portESB = serviceESB.getEsbWebservicePort();
 
 	/**
 	 * Creates a AdminWS bean to handle the list queries
@@ -61,9 +62,10 @@ public class AdminBackOfficeBeanWS {
 	 * searches for a users associated to the companies using a WS -> ESB -> WS
 	 * 
 	 * @return
+	 * @throws ESBWebserviceFaultESB
 	 * @throws SecurityException
 	 */
-	public boolean searchUsersCompaniesWS() {
+	public boolean searchUsersCompaniesWS() throws ESBWebserviceFaultESB {
 		// basic validations
 		if (this.getSearchCompanyNameSelect() == null) {
 			return false;
@@ -74,7 +76,7 @@ public class AdminBackOfficeBeanWS {
 		return true;
 	}
 
-	private List<eai.msejdf.webServices.User> getUserFollowCompanyListUsingWS(String searchCompanyNameSelect, UserSort nameAsc) {
+	private List<eai.msejdf.webServices.User> getUserFollowCompanyListUsingWS(String searchCompanyNameSelect, UserSort nameAsc) throws ESBWebserviceFaultESB {
 		List<eai.msejdf.webServices.User> userListWS = portESB.getUsersFollowingCompany(searchCompanyNameSelect);
 		for (eai.msejdf.webServices.User user : userListWS) {
 			System.out.println("Server said: " + user.getName() + " " + user.getMailAddress());
@@ -92,40 +94,33 @@ public class AdminBackOfficeBeanWS {
 		return subscribedUserListWS;
 	}
 
-	
 	/**
-	 * Returns all the users order by age 
-	 *
+	 * Returns all the users order by age
+	 * 
 	 * @return the user list
 	 */
-	public List<User> getUserList()
-	{
+	public List<User> getUserList() {
 		if (FacesContext.getCurrentInstance().getRenderResponse()) {
 			// Reload to get most recent data.
 			this.userList = this.adminBean.getUserList(UserSort.BIRTHDAY_ASC);
-		}		
+		}
 		return userList;
 	}
 
-	
 	/**
 	 * Gets a List of user using the ESB WebService
+	 * 
 	 * @return userListWS
+	 * @throws ESBWebserviceFaultESB
 	 */
-	public List<eai.msejdf.webServices.User> getUserListWS() {
-		// TODO Replace methode 
-		List<eai.msejdf.webServices.User> userListWS = portESB.getUsersFollowingCompany("BES");
-		for (eai.msejdf.webServices.User user : userListWS) {
-			System.out.println("Server said: " + user.getName() + " " + user.getMailAddress());
-		}
+	public eai.msejdf.webServices.User getUserWS(Long userId) throws ESBWebserviceFaultESB {
+		// TODO Replace methode
+		eai.msejdf.webServices.User userWS = portESB.getUserEmailCount(userId);
 
-		return userListWS;
-	
+		return userWS;
+
 	}
 
-	public void setUserListWS(List<eai.msejdf.webServices.User> userListWS) {
-		this.userListWS = userListWS;
-	}
 
 	public List<Company> getCompanyList() {
 		if (FacesContext.getCurrentInstance().getRenderResponse()) {
@@ -139,27 +134,27 @@ public class AdminBackOfficeBeanWS {
 	public void setCompanyList(List<Company> companyList) {
 		this.companyList = companyList;
 	}
-	
-	
 
-//	/**
-//	 * Gets user details using WebService and ESB
-//	 * operation succeeds
-//	 * 
-//	 * @param bankTeller
-//	 * @return boolean
-//	 */
-//	public User getUserDetails(User user) {
-//		boolean result = false;
-//
-//		List<eai.msejdf.webServices.User> userListWS = portESB.getUsersFollowingCompany("BES");
-//		for (eai.msejdf.webServices.User user : userListWS) {
-//			System.out.println("Server said: " + user.getName() + " " + user.getMailAddress());
-////		}
-//
-//		
-//
-//		return result;
-//	}
+	// /**
+	// * Gets user details using WebService and ESB
+	// * operation succeeds
+	// *
+	// * @param bankTeller
+	// * @return boolean
+	// */
+	// public User getUserDetails(User user) {
+	// boolean result = false;
+	//
+	// List<eai.msejdf.webServices.User> userListWS =
+	// portESB.getUsersFollowingCompany("BES");
+	// for (eai.msejdf.webServices.User user : userListWS) {
+	// System.out.println("Server said: " + user.getName() + " " +
+	// user.getMailAddress());
+	// // }
+	//
+	//
+	//
+	// return result;
+	// }
 
 }

@@ -372,7 +372,7 @@
                 <action name="JBossWSAdapter" class="org.jboss.soa.esb.actions.soap.SOAPProcessor">
                     <property name="jbossws-context" value="EAIProj3_webservice_esb"/>
                     <property name="jbossws-endpoint" value="EsbWebservice"/>
-                    <property name="rewrite-endpoint-url" value="true" />
+<!--                     <property name="rewrite-endpoint-url" value="true" /> -->
                 </action>
                 <action name="print-after" class="org.jboss.soa.esb.actions.SystemPrintln">
                     <property name="message"
