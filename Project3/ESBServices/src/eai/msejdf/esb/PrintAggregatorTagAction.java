@@ -7,11 +7,13 @@ import org.jboss.soa.esb.message.Message;
 
 public class PrintAggregatorTagAction extends AbstractActionLifecycle {
 
+	protected ConfigTree config;
+
 	protected static final Logger logger = Logger
 			.getLogger(PrintAggregatorTagAction.class);
 
 	public PrintAggregatorTagAction(ConfigTree configTree) {
-
+		config = configTree;
 	}
 
 	public Message noOperation(Message message) {
@@ -19,9 +21,15 @@ public class PrintAggregatorTagAction extends AbstractActionLifecycle {
 	}
 
 	public Message displayMessage(Message message) throws Exception {
+		String msg = config.getAttribute("message");
+
+		if (msg != null && msg != "")
+		{
+			logger.debug(msg);			
+		}
 		logger.debug("\nAgregatorTag ("
 				+ message.getContext().getContext("aggregatorTag") + ")");
-		logger.debug("\nMessage " + message.getBody().get());
+//		logger.debug("\nMessage " + message.getBody().get());
 
 		return message;
 	}
