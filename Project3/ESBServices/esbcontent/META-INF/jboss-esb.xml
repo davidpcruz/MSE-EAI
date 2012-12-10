@@ -166,7 +166,7 @@
 					process="MapBodyToContextVar"></action>
 
 				<action class="org.jboss.soa.esb.actions.Aggregator" name="Aggregator">
-					<property name="timeoutInMillis" value="60000" />
+					<property name="timeoutInMillis" value="300000" />
 				</action>
 
                   <!-- aggregate the attachments into 1 message -->
