@@ -56,24 +56,35 @@ xcopy /E /I %JavaSrc%\ESBServices %JavaDest%\ESBServices
 xcopy /E /I %JavaSrc%\ESBWebServices %JavaDest%\ESBWebServices
 xcopy /E /I %JavaSrc%\JBPMServices %JavaDest%\JBPMServices
 
-:: copy ear files
+:: copy EAR files
 echo copying EAR
 if exist %EARDest% rmdir /s /q %EARDest%
 xcopy /I /Y %EARSrc%*.ear %EARDest%
+if %errorlevel% NEQ 0 GOTO :ERROR
 
 :: copy ESB files
 echo copying ESB
 if exist %ESBDest% rmdir /s /q %ESBDest%
 xcopy /I /Y %ESBsrc%*.esb %ESBDest%
+if %errorlevel% NEQ 0 GOTO :ERROR
 
 :: copy JBPM files
 echo copying JBPM
 if exist %JBPMDest% rmdir /s /q %JBPMDest%
 xcopy /I /Y %JBPMsrc%*.par %JBPMDest%
+if %errorlevel% NEQ 0 GOTO :ERROR
 
 :: Zipping it
 echo Zipping it
 if exist %zipFile% del zipFile
 7z.exe a %zipFile% %EARDest% %JavaDest% %ESBDest% %ReportDest% %JBPMDest%
+
+GOTO FINNISH
+
+:ERROR
+ECHO Error ocurred
+
+:FINNISH
+
 
 pause
