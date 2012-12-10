@@ -102,7 +102,7 @@
 				<action class="eai.msejdf.esb.SplitCompaniesAction" name="Split Companies">
   					<property name="service-category" value="jBPM Orchestrator Service" />
   					<property name="service-name" value="Start BPM Service" />  
-  					<property name="exceptionMethod" value="exceptionHandler" />
+<!--   					<property name="exceptionMethod" value="exceptionHandler" /> -->
 				</action>
 			</actions>
 		</service>
