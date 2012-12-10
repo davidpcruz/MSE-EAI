@@ -1,100 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="eai.msejdf.jbpm" width="1300" height="1732">
-  <node name="start" x="801" y="273" width="153" height="50">
+<root-container name="eai.msejdf.jbpm" width="1168" height="1115">
+  <node name="start" x="874" y="41" width="153" height="50">
     <edge>
-      <label x="5" y="-10"/>
+      <label x="-152" y="-10"/>
     </edge>
   </node>
-  <node name="Check Stock Variation" x="766" y="450" width="224" height="46">
+  <node name="Check Stock Variation" x="839" y="202" width="224" height="46">
     <edge>
-      <label x="-151" y="19"/>
+      <label x="-107" y="-26"/>
     </edge>
     <edge>
-      <label x="-79" y="-20"/>
+      <label x="136" y="-26"/>
     </edge>
     <edge>
-      <label x="-9" y="-365"/>
-    </edge>
-  </node>
-  <node name="Approve Stock Variation Notification" x="537" y="699" width="299" height="47">
-    <edge>
-      <label x="-105" y="-324"/>
-    </edge>
-    <edge>
-      <label x="-147" y="-14"/>
+      <label x="4" y="-349"/>
     </edge>
   </node>
-  <node name="Get Subscribed Users" x="138" y="947" width="194" height="47">
+  <node name="Approve Stock Variation Notification" x="591" y="331" width="299" height="47">
     <edge>
-      <label x="5" y="-10"/>
+      <label x="-74" y="-266"/>
     </edge>
     <edge>
-      <label x="-14" y="-26"/>
-    </edge>
-  </node>
-  <node name="Notify User" x="112" y="1239" width="252" height="24">
-    <edge>
-      <label x="-136" y="-14"/>
-    </edge>
-    <edge>
-      <label x="5" y="-10"/>
+      <label x="-143" y="-17"/>
     </edge>
   </node>
-  <node name="Send e-Mail" x="49" y="1370" width="177" height="47">
-    <edge>
-      <label x="5" y="-10"/>
-    </edge>
-  </node>
-  <node name="Count e-Mail" x="297" y="1371" width="164" height="50">
-    <edge>
-      <label x="5" y="-10"/>
-    </edge>
-  </node>
-  <node name="Wait e-mail actions complete" x="127" y="1489" width="252" height="24">
-    <edge>
-      <label x="5" y="-10"/>
-    </edge>
-  </node>
-  <node name="SetUsersWarnedAutomatically" x="113" y="699" width="246" height="45">
-    <edge>
-      <label x="5" y="-10"/>
-    </edge>
-  </node>
-  <node name="SetUsersWarnedByManager" x="336" y="829" width="225" height="45">
-    <edge>
-      <label x="5" y="-10"/>
-    </edge>
-  </node>
-  <node name="GenerateReport" x="847" y="1480" width="248" height="51">
-    <edge>
-      <label x="5" y="-10"/>
-    </edge>
-  </node>
-  <node name="SubmitReport" x="847" y="1601" width="248" height="43">
-    <edge>
-      <label x="5" y="-10"/>
-    </edge>
-  </node>
-  <node name="FilterUsersByValidMailAddress" x="104" y="1045" width="265" height="51">
-    <edge>
-      <label x="5" y="-10"/>
-    </edge>
-  </node>
-  <node name="Has Users to Notify?" x="138" y="1144" width="199" height="48">
+  <node name="Get Subscribed Users" x="134" y="451" width="194" height="47">
     <edge>
       <label x="5" y="-10"/>
     </edge>
     <edge>
-      <label x="-190" y="-118"/>
+      <label x="0" y="-25"/>
     </edge>
   </node>
-  <node name="Exception Handling" x="534" y="1038" width="204" height="51">
+  <node name="Notify User" x="103" y="746" width="252" height="24">
+    <edge>
+      <label x="-138" y="-20"/>
+    </edge>
+    <edge>
+      <label x="6" y="-18"/>
+    </edge>
+  </node>
+  <node name="Send e-Mail" x="18" y="861" width="177" height="47">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="end-state" x="909" y="1695" width="132" height="36"/>
+  <node name="Count e-Mail" x="298" y="862" width="164" height="44">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="Wait e-mail actions complete" x="111" y="965" width="252" height="24">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="SetUsersWarnedAutomatically" x="109" y="202" width="246" height="45">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="SetUsersWarnedByManager" x="417" y="452" width="234" height="45">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="GenerateReport" x="828" y="951" width="248" height="51">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="SubmitReport" x="828" y="1071" width="248" height="43">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="FilterUsersByValidMailAddress" x="98" y="552" width="265" height="51">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="Has Users to Notify?" x="129" y="651" width="199" height="48">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+    <edge>
+      <label x="-194" y="-108"/>
+    </edge>
+  </node>
+  <node name="Exception Handling" x="493" y="609" width="204" height="51">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="end-state" x="567" y="1076" width="132" height="36"/>
   <deployment graphicalInfoFile="/JBPMServices/src/jbpm/jpdl/.eai.msejdf.jbpm.gpd.xml" imageFile="/JBPMServices/src/jbpm/jpdl/eai.msejdf.jbpm.jpg" serverName="localhost" serverPort="8180" serverDeployer="/gpd-deployer/upload">
     <classesAndResources>
       <element type="java" value="/JBPMServices/src/jbpm/eai/msejdf/jbpm/actions/CheckStockVariationDecisionHandler.java"/>
